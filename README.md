@@ -7,6 +7,15 @@ Fun little project to create a fantasy football newsletter for me and my friend'
 for the league (default league ID `1316152885909676032`) and generates a weekly
 recap newsletter as both Markdown and HTML.
 
+The title adapts to the season phase (auto-detected from Sleeper, or override
+with `--season-type off|pre|regular|post`):
+
+- **Offseason** (now): just the date — e.g. "Floridian Dynasty Football
+  Association LLC — July 22, 2026"
+- **Preseason**: "Preseason Week 2 — August 12, 2026"
+- **Regular season** (and playoffs): "Week 5 — October 7, 2026" (no
+  "Regular Season" prefix — just the week number, like before)
+
 It covers:
 
 - Trades from the past week, **ranked by estimated value** (most lopsided

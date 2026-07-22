@@ -536,6 +536,7 @@ class NewsletterData:
     league_name: str
     season: str
     week: int
+    season_type: str
     matchups: list[MatchupResult]
     closest_games: list[MatchupResult]
     top_scorers: list[dict]
@@ -543,6 +544,17 @@ class NewsletterData:
     waivers: list[dict]
     standings: list[Team]
     rivals: dict
+
+    @property
+    def title(self) -> str:
+        date_str = datetime.now(timezone.utc).strftime("%B %d, %Y")
+        if self.season_type == "off":
+            period = date_str
+        elif self.season_type == "pre":
+            period = f"Preseason Week {self.week} — {date_str}"
+        else:
+            period = f"Week {self.week} — {date_str}"
+        return f"{self.league_name} — {period}"
 
 
 def build_newsletter_data(
@@ -557,6 +569,7 @@ def build_newsletter_data(
     raw_transactions: Optional[list[dict]] = None,
     lookback_days: Optional[int] = None,
     rivalry_week: int = DEFAULT_RIVALRY_WEEK,
+    season_type: Optional[str] = None,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -566,6 +579,7 @@ def build_newsletter_data(
         raw_transactions if raw_transactions is not None else get_transactions(league_id, week)
     )
     players = players if players is not None else get_players()
+    season_type = season_type if season_type is not None else (get_nfl_state().get("season_type") or "regular")
 
     try:
         current_season = int(league.get("season"))
@@ -587,6 +601,7 @@ def build_newsletter_data(
         league_name=league.get("name", "Fantasy League"),
         season=str(league.get("season", "")),
         week=week,
+        season_type=season_type,
         matchups=matchups,
         closest_games=closest_games,
         top_scorers=top_scorers,
@@ -599,7 +614,7 @@ def build_newsletter_data(
 
 def render_markdown(data: NewsletterData) -> str:
     lines = []
-    lines.append(f"# {data.league_name} — Week {data.week} Newsletter")
+    lines.append(f"# {data.title} Newsletter")
     lines.append(f"_{data.season} Season_\n")
 
     lines.append("## Trades This Week (ranked by estimated value)\n")
@@ -717,7 +732,7 @@ def render_html(data: NewsletterData) -> str:
     parts = []
     parts.append("<!doctype html>")
     parts.append("<html lang='en'><head><meta charset='utf-8'>")
-    parts.append(f"<title>{e(data.league_name)} — Week {data.week} Newsletter</title>")
+    parts.append(f"<title>{e(data.title)} Newsletter</title>")
     parts.append(
         """<style>
 body { font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; max-width: 800px;
@@ -733,7 +748,7 @@ ul, ol { padding-left: 1.4rem; }
 </style>"""
     )
     parts.append("</head><body>")
-    parts.append(f"<h1>{e(data.league_name)} — Week {data.week} Newsletter</h1>")
+    parts.append(f"<h1>{e(data.title)} Newsletter</h1>")
     parts.append(f"<p class='subtitle'>{e(data.season)} Season</p>")
 
     parts.append("<h2>Trades This Week (ranked by estimated value)</h2>")
@@ -851,7 +866,7 @@ ul, ol { padding-left: 1.4rem; }
 
 def render_sms_summary(data: NewsletterData) -> str:
     """A short plain-text digest, since SMS should be a teaser, not the full newsletter."""
-    lines = [f"{data.league_name} - Week {data.week}"]
+    lines = [data.title]
 
     if data.trades:
         top_trade = data.trades[0]
@@ -901,7 +916,7 @@ def send_email_newsletter(
         raise ValueError("No recipient email addresses configured (NEWSLETTER_EMAILS)")
 
     msg = EmailMessage()
-    msg["Subject"] = f"{data.league_name} — Week {data.week} Newsletter"
+    msg["Subject"] = f"{data.title} Newsletter"
     msg["From"] = from_addr
     msg["To"] = ", ".join(to_addrs)
     msg.set_content(render_markdown(data))
@@ -978,6 +993,12 @@ def main(argv: Optional[list[str]] = None) -> int:
         help=f"Week the commissioner manually scheduled rivalry matchups for (default: {DEFAULT_RIVALRY_WEEK})",
     )
     parser.add_argument(
+        "--season-type",
+        choices=["off", "pre", "regular", "post"],
+        default=None,
+        help="Override the season phase used for the title (default: auto-detected from Sleeper)",
+    )
+    parser.add_argument(
         "--send-email", action="store_true", help="Email the newsletter (see README for required env vars)"
     )
     parser.add_argument(
@@ -995,6 +1016,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             players=players,
             lookback_days=args.lookback_days,
             rivalry_week=args.rivalry_week,
+            season_type=args.season_type,
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
