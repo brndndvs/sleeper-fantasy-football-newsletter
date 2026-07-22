@@ -3,27 +3,21 @@ _2026 Season_
 
 ## Matchup Recap
 
-- **Roger Goodell** 0.00 def. **Roger Goodell** 0.00 (margin: 0.00)
-- **Better Call Hall** 0.00 def. **Better Call Hall** 0.00 (margin: 0.00)
-- **Cam Show** 0.00 def. **Cam Show** 0.00 (margin: 0.00)
-- **Simply Touchdowns** 0.00 def. **Simply Touchdowns** 0.00 (margin: 0.00)
-- **JordanFFantasy** 0.00 def. **JordanFFantasy** 0.00 (margin: 0.00)
-- **MaxiVidret** 0.00 def. **MaxiVidret** 0.00 (margin: 0.00)
-- **LaPorta Potty** 0.00 def. **LaPorta Potty** 0.00 (margin: 0.00)
+- Roger Goodell vs awesomevan — not yet played
+- Better Call Hall vs Talking Tua Teenager — not yet played
+- Cam Show vs Tpotts42 — not yet played
+- Simply Touchdowns vs Larkinsjacob — not yet played
+- JordanFFantasy vs andrewburkhardt1 — not yet played
+- MaxiVidret vs CeDeez big ones — not yet played
+- LaPorta Potty vs benmachi — not yet played
 
 ## Closest Games
 
-1. **Roger Goodell** 0.00 - 0.00 **Roger Goodell** (margin: 0.00)
-2. **Better Call Hall** 0.00 - 0.00 **Better Call Hall** (margin: 0.00)
-3. **Cam Show** 0.00 - 0.00 **Cam Show** (margin: 0.00)
+_No games played this week._
 
 ## Top Scorers
 
-1. **Joe Burrow (QB - CIN)** — 0.00 pts (Roger Goodell)
-2. **James Cook (RB - BUF)** — 0.00 pts (Roger Goodell)
-3. **Ashton Jeanty (RB - LV)** — 0.00 pts (Roger Goodell)
-4. **Malik Nabers (WR - NYG)** — 0.00 pts (Roger Goodell)
-5. **Nico Collins (WR - HOU)** — 0.00 pts (Roger Goodell)
+_No player data available._
 
 ## Trades
 
