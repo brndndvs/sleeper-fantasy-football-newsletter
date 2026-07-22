@@ -142,13 +142,32 @@ def filter_transactions_to_window(raw_transactions: list[dict], *, days: int = 7
     """Sleeper's transactions/{week} endpoint can lump an entire offseason's activity
     into "week 1" before the season starts. Filter to only transactions actually
     completed in the trailing window so "this week's" trades/waivers are accurate."""
-    cutoff_ms = (datetime.now(timezone.utc) - timedelta(days=days)).timestamp() * 1000
-    filtered = []
+    now = datetime.now(timezone.utc)
+    cutoff_ms = (now - timedelta(days=days)).timestamp() * 1000
+    included, excluded = [], 0
+    newest_ts, oldest_ts = None, None
     for tx in raw_transactions:
         ts = tx.get("status_updated") or tx.get("created")
         if ts is None or ts >= cutoff_ms:
-            filtered.append(tx)
-    return filtered
+            included.append(tx)
+            if ts is not None:
+                newest_ts = ts if newest_ts is None else max(newest_ts, ts)
+                oldest_ts = ts if oldest_ts is None else min(oldest_ts, ts)
+        else:
+            excluded += 1
+
+    def fmt(ts_ms):
+        return datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+
+    if oldest_ts is not None:
+        print(
+            f"Transactions: {len(included)} in the last {days} days "
+            f"({fmt(oldest_ts)} to {fmt(newest_ts)}), {excluded} older ones excluded.",
+            file=sys.stderr,
+        )
+    else:
+        print(f"Transactions: {len(included)} in the last {days} days.", file=sys.stderr)
+    return included
 
 
 @dataclass
