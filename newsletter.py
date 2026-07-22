@@ -623,6 +623,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         "--output-dir", default="output", help="Directory to write the newsletter files to"
     )
     parser.add_argument(
+        "--latest-dir",
+        default="latest",
+        help="Directory for an always-current latest.md/latest.html copy (tracked in git, unlike --output-dir)",
+    )
+    parser.add_argument(
         "--refresh-players", action="store_true", help="Force re-download of the player directory"
     )
     parser.add_argument(
@@ -654,6 +659,12 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     print(f"Wrote {md_path}")
     print(f"Wrote {html_path}")
+
+    latest_dir = Path(args.latest_dir)
+    latest_dir.mkdir(parents=True, exist_ok=True)
+    (latest_dir / "latest.md").write_text(render_markdown(data), encoding="utf-8")
+    (latest_dir / "latest.html").write_text(html_body, encoding="utf-8")
+    print(f"Wrote {latest_dir / 'latest.md'} (always-current copy)")
 
     if args.send_email:
         required = ["SMTP_HOST", "SMTP_USERNAME", "SMTP_PASSWORD", "FROM_EMAIL", "NEWSLETTER_EMAILS"]
