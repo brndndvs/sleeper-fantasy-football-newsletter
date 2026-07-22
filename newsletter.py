@@ -162,6 +162,20 @@ class MatchupResult:
         return len(self.teams) < 2
 
     @property
+    def has_scores(self) -> bool:
+        """False before games are actually played (e.g. preseason/offseason), when
+        Sleeper reports every roster at 0 points — not a real result to report on."""
+        return not self.is_bye and sum(t["points"] for t in self.teams) > 0
+
+    @property
+    def team_names(self) -> list[str]:
+        seen = []
+        for t in self.teams:
+            if t["team"] not in seen:
+                seen.append(t["team"])
+        return seen
+
+    @property
     def margin(self) -> float:
         if self.is_bye:
             return float("inf")
@@ -211,6 +225,8 @@ def compute_top_scorers(
                 if player_id in (None, "0"):
                     continue
                 pts = t["players_points"].get(player_id, 0) or 0
+                if pts <= 0:
+                    continue
                 scorers.append(
                     {
                         "player": player_display_name(player_id, players),
@@ -328,7 +344,7 @@ def build_newsletter_data(
 
     teams = build_teams(rosters, users)
     matchups = build_matchup_results(raw_matchups, teams)
-    playable = [m for m in matchups if not m.is_bye]
+    playable = [m for m in matchups if m.has_scores]
     closest_games = sorted(playable, key=lambda m: m.margin)[:3]
     top_scorers = compute_top_scorers(matchups, players, teams, limit=5)
     tx_summary = summarize_transactions(raw_transactions, teams, players)
@@ -357,6 +373,9 @@ def render_markdown(data: NewsletterData) -> str:
         if m.is_bye:
             t = m.teams[0]
             lines.append(f"- **{t['team']}** had a bye — {t['points']:.2f} pts")
+            continue
+        if not m.has_scores:
+            lines.append(f"- {' vs '.join(m.team_names)} — not yet played")
             continue
         winner, loser = m.winner, m.loser
         lines.append(
@@ -457,6 +476,9 @@ ul, ol { padding-left: 1.4rem; }
         if m.is_bye:
             t = m.teams[0]
             parts.append(f"<li><strong>{e(t['team'])}</strong> had a bye — {t['points']:.2f} pts</li>")
+            continue
+        if not m.has_scores:
+            parts.append(f"<li>{e(' vs '.join(m.team_names))} — not yet played</li>")
             continue
         winner, loser = m.winner, m.loser
         parts.append(
