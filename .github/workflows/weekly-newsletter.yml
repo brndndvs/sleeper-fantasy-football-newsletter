@@ -1,0 +1,49 @@
+name: Weekly Newsletter
+
+on:
+  schedule:
+    # Tuesdays at 12:00 UTC, after Monday Night Football scores finalize.
+    - cron: "0 12 * * 2"
+  workflow_dispatch:
+    inputs:
+      week:
+        description: "Week to recap (leave blank for most recently completed week)"
+        required: false
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate and send newsletter
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          NEWSLETTER_EMAILS: ${{ secrets.NEWSLETTER_EMAILS }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          NEWSLETTER_PHONES: ${{ secrets.NEWSLETTER_PHONES }}
+        run: |
+          WEEK_ARG=""
+          if [ -n "${{ github.event.inputs.week }}" ]; then
+            WEEK_ARG="--week ${{ github.event.inputs.week }}"
+          fi
+          python newsletter.py $WEEK_ARG --send-email --send-sms
+
+      - name: Upload newsletter artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsletter
+          path: output/
