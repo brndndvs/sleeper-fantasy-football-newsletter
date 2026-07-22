@@ -1,0 +1,575 @@
+#!/usr/bin/env python3
+"""
+Sleeper dynasty league weekly newsletter generator.
+
+Fetches rosters, users, matchups, and transactions from the public Sleeper API
+for a given league/week and renders a recap newsletter as Markdown and HTML.
+
+Usage:
+    python newsletter.py --week 5
+    python newsletter.py --league-id 1316152885909676032 --week 5 --output-dir output
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import time
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Optional
+
+import requests
+
+API_BASE = "https://api.sleeper.app/v1"
+DEFAULT_LEAGUE_ID = "1316152885909676032"
+DEFAULT_CACHE_DIR = Path(__file__).parent / ".cache"
+PLAYERS_CACHE_PATH = DEFAULT_CACHE_DIR / "players.json"
+PLAYERS_CACHE_MAX_AGE_SECONDS = 24 * 60 * 60  # players change rarely; refresh daily
+
+TRANSACTION_TYPE_LABELS = {
+    "trade": "Trade",
+    "waiver": "Waiver Claim",
+    "free_agent": "Free Agent Move",
+}
+
+
+class SleeperAPIError(RuntimeError):
+    pass
+
+
+def fetch_json(url: str, *, timeout: int = 20) -> Any:
+    try:
+        resp = requests.get(url, timeout=timeout)
+        resp.raise_for_status()
+    except requests.RequestException as exc:
+        raise SleeperAPIError(f"Request to {url} failed: {exc}") from exc
+    if not resp.content:
+        return None
+    return resp.json()
+
+
+def get_league(league_id: str) -> dict:
+    return fetch_json(f"{API_BASE}/league/{league_id}")
+
+
+def get_rosters(league_id: str) -> list[dict]:
+    return fetch_json(f"{API_BASE}/league/{league_id}/rosters") or []
+
+
+def get_users(league_id: str) -> list[dict]:
+    return fetch_json(f"{API_BASE}/league/{league_id}/users") or []
+
+
+def get_matchups(league_id: str, week: int) -> list[dict]:
+    return fetch_json(f"{API_BASE}/league/{league_id}/matchups/{week}") or []
+
+
+def get_transactions(league_id: str, week: int) -> list[dict]:
+    return fetch_json(f"{API_BASE}/league/{league_id}/transactions/{week}") or []
+
+
+def get_nfl_state() -> dict:
+    return fetch_json(f"{API_BASE}/state/nfl") or {}
+
+
+def get_players(*, cache_path: Path = PLAYERS_CACHE_PATH, force_refresh: bool = False) -> dict:
+    """Fetch the full NFL player directory, cached locally since it's large (~5MB)
+    and changes infrequently."""
+    if not force_refresh and cache_path.exists():
+        age = time.time() - cache_path.stat().st_mtime
+        if age < PLAYERS_CACHE_MAX_AGE_SECONDS:
+            with cache_path.open("r", encoding="utf-8") as f:
+                return json.load(f)
+
+    players = fetch_json(f"{API_BASE}/players/nfl") or {}
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    with cache_path.open("w", encoding="utf-8") as f:
+        json.dump(players, f)
+    return players
+
+
+def player_display_name(player_id: str, players: dict) -> str:
+    if player_id is None:
+        return "Empty Slot"
+    p = players.get(player_id)
+    if not p:
+        return f"Unknown Player ({player_id})"
+    name = p.get("full_name") or f"{p.get('first_name', '')} {p.get('last_name', '')}".strip()
+    pos = p.get("position") or "?"
+    team = p.get("team") or "FA"
+    return f"{name} ({pos} - {team})"
+
+
+@dataclass
+class Team:
+    roster_id: int
+    owner_id: Optional[str]
+    team_name: str
+    wins: int = 0
+    losses: int = 0
+    ties: int = 0
+    fpts: float = 0.0
+    fpts_against: float = 0.0
+
+    @property
+    def record(self) -> str:
+        if self.ties:
+            return f"{self.wins}-{self.losses}-{self.ties}"
+        return f"{self.wins}-{self.losses}"
+
+
+def build_teams(rosters: list[dict], users: list[dict]) -> dict[int, Team]:
+    users_by_id = {u["user_id"]: u for u in users}
+    teams: dict[int, Team] = {}
+    for roster in rosters:
+        owner_id = roster.get("owner_id")
+        user = users_by_id.get(owner_id, {})
+        team_name = (
+            (user.get("metadata") or {}).get("team_name")
+            or user.get("display_name")
+            or f"Team {roster['roster_id']}"
+        )
+        settings = roster.get("settings") or {}
+        fpts = float(settings.get("fpts", 0)) + float(settings.get("fpts_decimal", 0)) / 100
+        fpts_against = float(settings.get("fpts_against", 0)) + float(
+            settings.get("fpts_against_decimal", 0)
+        ) / 100
+        teams[roster["roster_id"]] = Team(
+            roster_id=roster["roster_id"],
+            owner_id=owner_id,
+            team_name=team_name,
+            wins=int(settings.get("wins", 0)),
+            losses=int(settings.get("losses", 0)),
+            ties=int(settings.get("ties", 0)),
+            fpts=fpts,
+            fpts_against=fpts_against,
+        )
+    return teams
+
+
+@dataclass
+class MatchupResult:
+    matchup_id: Optional[int]
+    teams: list[dict] = field(default_factory=list)  # [{roster_id, points, team}]
+
+    @property
+    def is_bye(self) -> bool:
+        return len(self.teams) < 2
+
+    @property
+    def margin(self) -> float:
+        if self.is_bye:
+            return float("inf")
+        pts = sorted((t["points"] for t in self.teams), reverse=True)
+        return round(pts[0] - pts[1], 2)
+
+    @property
+    def winner(self) -> Optional[dict]:
+        if self.is_bye:
+            return None
+        return max(self.teams, key=lambda t: t["points"])
+
+    @property
+    def loser(self) -> Optional[dict]:
+        if self.is_bye:
+            return None
+        return min(self.teams, key=lambda t: t["points"])
+
+
+def build_matchup_results(raw_matchups: list[dict], teams: dict[int, Team]) -> list[MatchupResult]:
+    grouped: dict[Any, MatchupResult] = {}
+    for m in raw_matchups:
+        matchup_id = m.get("matchup_id")
+        key = matchup_id if matchup_id is not None else f"bye-{m['roster_id']}"
+        result = grouped.setdefault(key, MatchupResult(matchup_id=matchup_id))
+        team = teams.get(m["roster_id"])
+        team_name = team.team_name if team else f"Team {m['roster_id']}"
+        result.teams.append(
+            {
+                "roster_id": m["roster_id"],
+                "points": round(float(m.get("points") or 0), 2),
+                "team": team_name,
+                "players_points": m.get("players_points") or {},
+                "starters": m.get("starters") or [],
+            }
+        )
+    return list(grouped.values())
+
+
+def compute_top_scorers(
+    matchups: list[MatchupResult], players: dict, teams: dict[int, Team], limit: int = 5
+) -> list[dict]:
+    scorers = []
+    for m in matchups:
+        for t in m.teams:
+            for player_id in t["starters"]:
+                if player_id in (None, "0"):
+                    continue
+                pts = t["players_points"].get(player_id, 0) or 0
+                scorers.append(
+                    {
+                        "player": player_display_name(player_id, players),
+                        "points": round(float(pts), 2),
+                        "team": t["team"],
+                    }
+                )
+    scorers.sort(key=lambda s: s["points"], reverse=True)
+    return scorers[:limit]
+
+
+def summarize_transactions(raw_transactions: list[dict], teams: dict[int, Team], players: dict) -> dict:
+    trades = []
+    waivers = []
+
+    for tx in raw_transactions:
+        if tx.get("status") != "complete":
+            continue
+        tx_type = tx.get("type")
+        roster_ids = tx.get("roster_ids") or []
+        adds = tx.get("adds") or {}
+        drops = tx.get("drops") or {}
+        draft_picks = tx.get("draft_picks") or []
+        waiver_budget = tx.get("waiver_budget") or []
+
+        def team_name_for(rid: int) -> str:
+            team = teams.get(rid)
+            return team.team_name if team else f"Team {rid}"
+
+        if tx_type == "trade":
+            per_team: dict[int, dict] = {rid: {"received": [], "sent": []} for rid in roster_ids}
+            for player_id, rid in adds.items():
+                per_team.setdefault(rid, {"received": [], "sent": []})
+                per_team[rid]["received"].append(player_display_name(player_id, players))
+            for player_id, rid in drops.items():
+                per_team.setdefault(rid, {"received": [], "sent": []})
+                per_team[rid]["sent"].append(player_display_name(player_id, players))
+            for pick in draft_picks:
+                owner_rid = pick.get("owner_id")
+                prev_owner_rid = pick.get("previous_owner_id")
+                pick_desc = f"{pick.get('season')} Round {pick.get('round')} pick"
+                if owner_rid in per_team:
+                    per_team[owner_rid]["received"].append(pick_desc)
+                if prev_owner_rid in per_team:
+                    per_team[prev_owner_rid]["sent"].append(pick_desc)
+            for wb in waiver_budget:
+                sender = wb.get("sender")
+                receiver = wb.get("receiver")
+                amount = wb.get("amount")
+                desc = f"${amount} FAAB"
+                if receiver in per_team:
+                    per_team[receiver]["received"].append(desc)
+                if sender in per_team:
+                    per_team[sender]["sent"].append(desc)
+
+            trades.append(
+                {
+                    "teams": {team_name_for(rid): info for rid, info in per_team.items()},
+                }
+            )
+        elif tx_type in ("waiver", "free_agent"):
+            rid = roster_ids[0] if roster_ids else None
+            added = [player_display_name(pid, players) for pid in adds]
+            dropped = [player_display_name(pid, players) for pid in drops]
+            faab = tx.get("settings", {}).get("waiver_bid") if tx.get("settings") else None
+            waivers.append(
+                {
+                    "team": team_name_for(rid) if rid is not None else "Unknown",
+                    "type": TRANSACTION_TYPE_LABELS.get(tx_type, tx_type),
+                    "added": added,
+                    "dropped": dropped,
+                    "faab": faab,
+                }
+            )
+
+    return {"trades": trades, "waivers": waivers}
+
+
+def build_standings(teams: dict[int, Team]) -> list[Team]:
+    return sorted(teams.values(), key=lambda t: (-t.wins, t.losses, -t.fpts))
+
+
+@dataclass
+class NewsletterData:
+    league_name: str
+    season: str
+    week: int
+    matchups: list[MatchupResult]
+    closest_games: list[MatchupResult]
+    top_scorers: list[dict]
+    trades: list[dict]
+    waivers: list[dict]
+    standings: list[Team]
+
+
+def build_newsletter_data(
+    league_id: str,
+    week: int,
+    *,
+    players: Optional[dict] = None,
+    league: Optional[dict] = None,
+    rosters: Optional[list[dict]] = None,
+    users: Optional[list[dict]] = None,
+    raw_matchups: Optional[list[dict]] = None,
+    raw_transactions: Optional[list[dict]] = None,
+) -> NewsletterData:
+    league = league if league is not None else get_league(league_id)
+    rosters = rosters if rosters is not None else get_rosters(league_id)
+    users = users if users is not None else get_users(league_id)
+    raw_matchups = raw_matchups if raw_matchups is not None else get_matchups(league_id, week)
+    raw_transactions = (
+        raw_transactions if raw_transactions is not None else get_transactions(league_id, week)
+    )
+    players = players if players is not None else get_players()
+
+    teams = build_teams(rosters, users)
+    matchups = build_matchup_results(raw_matchups, teams)
+    playable = [m for m in matchups if not m.is_bye]
+    closest_games = sorted(playable, key=lambda m: m.margin)[:3]
+    top_scorers = compute_top_scorers(matchups, players, teams, limit=5)
+    tx_summary = summarize_transactions(raw_transactions, teams, players)
+    standings = build_standings(teams)
+
+    return NewsletterData(
+        league_name=league.get("name", "Fantasy League"),
+        season=str(league.get("season", "")),
+        week=week,
+        matchups=matchups,
+        closest_games=closest_games,
+        top_scorers=top_scorers,
+        trades=tx_summary["trades"],
+        waivers=tx_summary["waivers"],
+        standings=standings,
+    )
+
+
+def render_markdown(data: NewsletterData) -> str:
+    lines = []
+    lines.append(f"# {data.league_name} — Week {data.week} Newsletter")
+    lines.append(f"_{data.season} Season_\n")
+
+    lines.append("## Matchup Recap\n")
+    for m in data.matchups:
+        if m.is_bye:
+            t = m.teams[0]
+            lines.append(f"- **{t['team']}** had a bye — {t['points']:.2f} pts")
+            continue
+        winner, loser = m.winner, m.loser
+        lines.append(
+            f"- **{winner['team']}** {winner['points']:.2f} def. "
+            f"**{loser['team']}** {loser['points']:.2f} (margin: {m.margin:.2f})"
+        )
+    lines.append("")
+
+    lines.append("## Closest Games\n")
+    if data.closest_games:
+        for i, m in enumerate(data.closest_games, start=1):
+            winner, loser = m.winner, m.loser
+            lines.append(
+                f"{i}. **{winner['team']}** {winner['points']:.2f} - "
+                f"{loser['points']:.2f} **{loser['team']}** (margin: {m.margin:.2f})"
+            )
+    else:
+        lines.append("_No games played this week._")
+    lines.append("")
+
+    lines.append("## Top Scorers\n")
+    if data.top_scorers:
+        for i, s in enumerate(data.top_scorers, start=1):
+            lines.append(f"{i}. **{s['player']}** — {s['points']:.2f} pts ({s['team']})")
+    else:
+        lines.append("_No player data available._")
+    lines.append("")
+
+    lines.append("## Trades\n")
+    if data.trades:
+        for i, trade in enumerate(data.trades, start=1):
+            lines.append(f"**Trade {i}:**")
+            for team_name, info in trade["teams"].items():
+                received = ", ".join(info["received"]) or "—"
+                lines.append(f"- {team_name} receives: {received}")
+            lines.append("")
+    else:
+        lines.append("_No trades this week._\n")
+
+    lines.append("## Waiver Wire / Free Agency\n")
+    if data.waivers:
+        for w in data.waivers:
+            added = ", ".join(w["added"]) or "—"
+            dropped = ", ".join(w["dropped"]) or "—"
+            faab_str = f" (${w['faab']} FAAB)" if w.get("faab") else ""
+            lines.append(f"- **{w['team']}** ({w['type']}{faab_str}): added {added}; dropped {dropped}")
+    else:
+        lines.append("_No waiver or free agent moves this week._")
+    lines.append("")
+
+    lines.append("## Standings\n")
+    lines.append("| Rank | Team | Record | PF | PA |")
+    lines.append("|------|------|--------|----|----|")
+    for i, team in enumerate(data.standings, start=1):
+        lines.append(
+            f"| {i} | {team.team_name} | {team.record} | {team.fpts:.2f} | {team.fpts_against:.2f} |"
+        )
+    lines.append("")
+
+    return "\n".join(lines)
+
+
+def _html_escape(text: str) -> str:
+    return (
+        str(text)
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+    )
+
+
+def render_html(data: NewsletterData) -> str:
+    e = _html_escape
+    parts = []
+    parts.append("<!doctype html>")
+    parts.append("<html lang='en'><head><meta charset='utf-8'>")
+    parts.append(f"<title>{e(data.league_name)} — Week {data.week} Newsletter</title>")
+    parts.append(
+        """<style>
+body { font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; max-width: 800px;
+       margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; line-height: 1.5; }
+h1 { border-bottom: 3px solid #2c5f2d; padding-bottom: .3rem; }
+h2 { color: #2c5f2d; margin-top: 2rem; }
+table { border-collapse: collapse; width: 100%; margin-top: .5rem; }
+th, td { border: 1px solid #ddd; padding: .4rem .6rem; text-align: left; }
+th { background: #2c5f2d; color: white; }
+tr:nth-child(even) { background: #f6f6f6; }
+ul, ol { padding-left: 1.4rem; }
+.subtitle { color: #666; margin-top: -0.5rem; }
+</style>"""
+    )
+    parts.append("</head><body>")
+    parts.append(f"<h1>{e(data.league_name)} — Week {data.week} Newsletter</h1>")
+    parts.append(f"<p class='subtitle'>{e(data.season)} Season</p>")
+
+    parts.append("<h2>Matchup Recap</h2><ul>")
+    for m in data.matchups:
+        if m.is_bye:
+            t = m.teams[0]
+            parts.append(f"<li><strong>{e(t['team'])}</strong> had a bye — {t['points']:.2f} pts</li>")
+            continue
+        winner, loser = m.winner, m.loser
+        parts.append(
+            f"<li><strong>{e(winner['team'])}</strong> {winner['points']:.2f} def. "
+            f"<strong>{e(loser['team'])}</strong> {loser['points']:.2f} "
+            f"(margin: {m.margin:.2f})</li>"
+        )
+    parts.append("</ul>")
+
+    parts.append("<h2>Closest Games</h2>")
+    if data.closest_games:
+        parts.append("<ol>")
+        for m in data.closest_games:
+            winner, loser = m.winner, m.loser
+            parts.append(
+                f"<li><strong>{e(winner['team'])}</strong> {winner['points']:.2f} - "
+                f"{loser['points']:.2f} <strong>{e(loser['team'])}</strong> "
+                f"(margin: {m.margin:.2f})</li>"
+            )
+        parts.append("</ol>")
+    else:
+        parts.append("<p><em>No games played this week.</em></p>")
+
+    parts.append("<h2>Top Scorers</h2>")
+    if data.top_scorers:
+        parts.append("<ol>")
+        for s in data.top_scorers:
+            parts.append(f"<li><strong>{e(s['player'])}</strong> — {s['points']:.2f} pts ({e(s['team'])})</li>")
+        parts.append("</ol>")
+    else:
+        parts.append("<p><em>No player data available.</em></p>")
+
+    parts.append("<h2>Trades</h2>")
+    if data.trades:
+        for i, trade in enumerate(data.trades, start=1):
+            parts.append(f"<p><strong>Trade {i}:</strong></p><ul>")
+            for team_name, info in trade["teams"].items():
+                received = ", ".join(info["received"]) or "—"
+                parts.append(f"<li>{e(team_name)} receives: {e(received)}</li>")
+            parts.append("</ul>")
+    else:
+        parts.append("<p><em>No trades this week.</em></p>")
+
+    parts.append("<h2>Waiver Wire / Free Agency</h2>")
+    if data.waivers:
+        parts.append("<ul>")
+        for w in data.waivers:
+            added = ", ".join(w["added"]) or "—"
+            dropped = ", ".join(w["dropped"]) or "—"
+            faab_str = f" (${w['faab']} FAAB)" if w.get("faab") else ""
+            parts.append(
+                f"<li><strong>{e(w['team'])}</strong> ({e(w['type'])}{faab_str}): "
+                f"added {e(added)}; dropped {e(dropped)}</li>"
+            )
+        parts.append("</ul>")
+    else:
+        parts.append("<p><em>No waiver or free agent moves this week.</em></p>")
+
+    parts.append("<h2>Standings</h2>")
+    parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>PF</th><th>PA</th></tr>")
+    for i, team in enumerate(data.standings, start=1):
+        parts.append(
+            f"<tr><td>{i}</td><td>{e(team.team_name)}</td><td>{team.record}</td>"
+            f"<td>{team.fpts:.2f}</td><td>{team.fpts_against:.2f}</td></tr>"
+        )
+    parts.append("</table>")
+
+    parts.append("</body></html>")
+    return "\n".join(parts)
+
+
+def determine_week(league_id: str, explicit_week: Optional[int]) -> int:
+    if explicit_week is not None:
+        return explicit_week
+    state = get_nfl_state()
+    current_week = int(state.get("week") or 1)
+    # Recap the most recently completed week, not the upcoming/in-progress one.
+    return max(current_week - 1, 1)
+
+
+def main(argv: Optional[list[str]] = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--league-id", default=DEFAULT_LEAGUE_ID, help="Sleeper league ID")
+    parser.add_argument(
+        "--week", type=int, default=None, help="Week to recap (default: most recently completed week)"
+    )
+    parser.add_argument(
+        "--output-dir", default="output", help="Directory to write the newsletter files to"
+    )
+    parser.add_argument(
+        "--refresh-players", action="store_true", help="Force re-download of the player directory"
+    )
+    args = parser.parse_args(argv)
+
+    try:
+        week = determine_week(args.league_id, args.week)
+        print(f"Generating newsletter for league {args.league_id}, week {week}...", file=sys.stderr)
+        players = get_players(force_refresh=args.refresh_players)
+        data = build_newsletter_data(args.league_id, week, players=players)
+    except SleeperAPIError as exc:
+        print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
+        return 1
+
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    md_path = output_dir / f"newsletter_week{week}.md"
+    html_path = output_dir / f"newsletter_week{week}.html"
+
+    md_path.write_text(render_markdown(data), encoding="utf-8")
+    html_path.write_text(render_html(data), encoding="utf-8")
+
+    print(f"Wrote {md_path}")
+    print(f"Wrote {html_path}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
