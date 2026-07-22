@@ -16,6 +16,8 @@ It covers:
 - Matchup recap (final scores, who beat whom) — before the season starts,
   Sleeper reports every game at 0-0, so these show as "not yet played" instead
   of a fake result
+- **Rivals**: final scores for any rival matchup already played this season,
+  plus a preview of any rival matchup scheduled for next week
 - Closest games of the week
 - Top individual scorers
 - Current standings (record, points for/against)
@@ -46,6 +48,16 @@ means:
 Pass `--lookback-days N` to override this with a flat rolling window instead.
 Every run prints the exact date range of included/excluded transactions to
 the console/Action log, so you can verify the scoping on any given week.
+
+#### How rivals are identified
+
+Sleeper's API has no concept of "rivals" — this league's commissioner
+manually schedules an entire rivalry week (every team paired against its
+rival), so the rival pairs are derived directly from that week's matchups
+(`--rivalry-week`, default 12) rather than hardcoded. Since rivals meet twice
+a season — once in the rivalry week, once wherever the normal round-robin
+schedule happens to pair them up — completed weeks are scanned for either
+meeting, and next week is checked for an upcoming one.
 
 ### Setup
 
