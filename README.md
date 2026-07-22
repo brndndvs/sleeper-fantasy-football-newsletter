@@ -9,11 +9,29 @@ recap newsletter as both Markdown and HTML.
 
 It covers:
 
-- Matchup recap (final scores, who beat whom)
+- Trades and waiver/free-agent moves from the past week, **ranked by estimated
+  value** (see below) — most lopsided trades and biggest pickups first
+- Matchup recap (final scores, who beat whom) — before the season starts,
+  Sleeper reports every game at 0-0, so these show as "not yet played" instead
+  of a fake result
 - Closest games of the week
 - Top individual scorers
-- Trades and waiver/free-agent moves
 - Current standings (record, points for/against)
+
+#### About the trade/pickup value ranking
+
+Sleeper's public API doesn't expose real ADP or season projections, so trades
+and waiver pickups are ranked using a rough stand-in: Sleeper's own internal
+`search_rank` field for players (lower rank = more valuable), plus a simple
+round/year-based table for future draft picks and a flat per-dollar value for
+FAAB. This is a heuristic for *ranking* moves relative to each other, not an
+authoritative valuation — the constants (`PLAYER_VALUE_MAX`,
+`PICK_ROUND_BASE_VALUE`, etc.) are at the top of `newsletter.py` if you want
+to tune them.
+
+Trades/waiver moves are also filtered to only those actually completed in the
+trailing `--lookback-days` (default 7), since Sleeper's `transactions/{week}`
+endpoint can otherwise lump an entire offseason's activity into "week 1."
 
 ### Setup
 
@@ -32,6 +50,9 @@ python newsletter.py --week 5
 
 # Use a different league, or output directory
 python newsletter.py --league-id <LEAGUE_ID> --week 5 --output-dir output
+
+# Only count trades/waivers from the last 14 days instead of the default 7
+python newsletter.py --lookback-days 14
 ```
 
 This writes `newsletter_week{N}.md` and `newsletter_week{N}.html` to the output
