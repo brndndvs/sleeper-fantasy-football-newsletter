@@ -57,6 +57,11 @@ FAAB_VALUE_PER_DOLLAR = 10
 NEWSLETTER_ANCHOR_WEEKDAY = 1  # Monday=0 ... Tuesday=1
 NEWSLETTER_ANCHOR_HOUR_UTC = 12  # matches the "0 12 * * 2" cron
 
+# The commissioner manually schedules a rivalry week where every team plays its
+# rival; rivals also meet once more wherever the normal round-robin schedule
+# happens to pair them up.
+DEFAULT_RIVALRY_WEEK = 12
+
 
 class SleeperAPIError(RuntimeError):
     pass
@@ -309,6 +314,81 @@ def build_matchup_results(raw_matchups: list[dict], teams: dict[int, Team]) -> l
     return list(grouped.values())
 
 
+def build_rival_pairs(league_id: str, rivalry_week: int) -> list[tuple[int, int]]:
+    """Rivals are whichever two rosters the commissioner paired up in the manually
+    scheduled rivalry week — derived straight from that week's matchups, not
+    hardcoded, so it stays correct if the pairings ever change."""
+    raw = get_matchups(league_id, rivalry_week)
+    grouped: dict[Any, list[int]] = {}
+    for m in raw:
+        matchup_id = m.get("matchup_id")
+        if matchup_id is None:
+            continue
+        grouped.setdefault(matchup_id, []).append(m["roster_id"])
+    return [tuple(sorted(roster_ids)) for roster_ids in grouped.values() if len(roster_ids) == 2]
+
+
+def build_rivals_section(
+    league_id: str,
+    week: int,
+    teams: dict[int, Team],
+    rival_pairs: list[tuple[int, int]],
+    *,
+    current_week_matchups: Optional[list[dict]] = None,
+) -> dict:
+    """Rival results already played this season, plus a preview of any rival
+    matchup scheduled for next week. Rivals meet twice a season (their normal
+    round-robin meeting, plus the manually scheduled rivalry week), and either
+    could land on any week, so completed weeks are scanned for both."""
+    results = []
+    for w in range(1, week + 1):
+        raw = current_week_matchups if (w == week and current_week_matchups is not None) else get_matchups(
+            league_id, w
+        )
+        by_roster = {m["roster_id"]: m for m in raw}
+        for a, b in rival_pairs:
+            if a not in by_roster or b not in by_roster:
+                continue
+            ma, mb = by_roster[a], by_roster[b]
+            if ma.get("matchup_id") is None or ma.get("matchup_id") != mb.get("matchup_id"):
+                continue
+            pts_a = round(float(ma.get("points") or 0), 2)
+            pts_b = round(float(mb.get("points") or 0), 2)
+            if pts_a <= 0 and pts_b <= 0:
+                continue
+            team_a = teams.get(a)
+            team_b = teams.get(b)
+            if not team_a or not team_b:
+                continue
+            results.append(
+                {
+                    "week": w,
+                    "team_a": team_a.team_name,
+                    "score_a": pts_a,
+                    "team_b": team_b.team_name,
+                    "score_b": pts_b,
+                }
+            )
+
+    upcoming = []
+    next_week = week + 1
+    raw_next = get_matchups(league_id, next_week)
+    by_roster_next = {m["roster_id"]: m for m in raw_next}
+    for a, b in rival_pairs:
+        if a not in by_roster_next or b not in by_roster_next:
+            continue
+        ma, mb = by_roster_next[a], by_roster_next[b]
+        if ma.get("matchup_id") is None or ma.get("matchup_id") != mb.get("matchup_id"):
+            continue
+        team_a = teams.get(a)
+        team_b = teams.get(b)
+        if not team_a or not team_b:
+            continue
+        upcoming.append({"week": next_week, "team_a": team_a.team_name, "team_b": team_b.team_name})
+
+    return {"results": results, "upcoming": upcoming}
+
+
 def compute_top_scorers(
     matchups: list[MatchupResult], players: dict, teams: dict[int, Team], limit: int = 5
 ) -> list[dict]:
@@ -462,6 +542,7 @@ class NewsletterData:
     trades: list[dict]
     waivers: list[dict]
     standings: list[Team]
+    rivals: dict
 
 
 def build_newsletter_data(
@@ -475,6 +556,7 @@ def build_newsletter_data(
     raw_matchups: Optional[list[dict]] = None,
     raw_transactions: Optional[list[dict]] = None,
     lookback_days: Optional[int] = None,
+    rivalry_week: int = DEFAULT_RIVALRY_WEEK,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -498,6 +580,8 @@ def build_newsletter_data(
     recent_transactions = filter_transactions_to_window(raw_transactions, days=lookback_days)
     tx_summary = summarize_transactions(recent_transactions, teams, players, current_season=current_season)
     standings = build_standings(teams)
+    rival_pairs = build_rival_pairs(league_id, rivalry_week)
+    rivals = build_rivals_section(league_id, week, teams, rival_pairs, current_week_matchups=raw_matchups)
 
     return NewsletterData(
         league_name=league.get("name", "Fantasy League"),
@@ -509,6 +593,7 @@ def build_newsletter_data(
         trades=tx_summary["trades"],
         waivers=tx_summary["waivers"],
         standings=standings,
+        rivals=rivals,
     )
 
 
@@ -566,6 +651,24 @@ def render_markdown(data: NewsletterData) -> str:
             f"- **{winner['team']}** {winner['points']:.2f} def. "
             f"**{loser['team']}** {loser['points']:.2f} (margin: {m.margin:.2f})"
         )
+    lines.append("")
+
+    lines.append("## Rivals\n")
+    if data.rivals["results"]:
+        for r in data.rivals["results"]:
+            lines.append(
+                f"- Week {r['week']}: **{r['team_a']}** {r['score_a']:.2f} - "
+                f"{r['score_b']:.2f} **{r['team_b']}**"
+            )
+    else:
+        lines.append("_No rival matchups completed yet this season._")
+    if data.rivals["upcoming"]:
+        lines.append("")
+        for u in data.rivals["upcoming"]:
+            lines.append(f"- **Next week (Week {u['week']}):** {u['team_a']} vs {u['team_b']}")
+    else:
+        lines.append("")
+        lines.append("_No rival matchup scheduled for next week._")
     lines.append("")
 
     lines.append("## Closest Games\n")
@@ -688,6 +791,27 @@ ul, ol { padding-left: 1.4rem; }
             f"(margin: {m.margin:.2f})</li>"
         )
     parts.append("</ul>")
+
+    parts.append("<h2>Rivals</h2>")
+    if data.rivals["results"]:
+        parts.append("<ul>")
+        for r in data.rivals["results"]:
+            parts.append(
+                f"<li>Week {r['week']}: <strong>{e(r['team_a'])}</strong> {r['score_a']:.2f} - "
+                f"{r['score_b']:.2f} <strong>{e(r['team_b'])}</strong></li>"
+            )
+        parts.append("</ul>")
+    else:
+        parts.append("<p><em>No rival matchups completed yet this season.</em></p>")
+    if data.rivals["upcoming"]:
+        parts.append("<ul>")
+        for u in data.rivals["upcoming"]:
+            parts.append(
+                f"<li><strong>Next week (Week {u['week']}):</strong> {e(u['team_a'])} vs {e(u['team_b'])}</li>"
+            )
+        parts.append("</ul>")
+    else:
+        parts.append("<p><em>No rival matchup scheduled for next week.</em></p>")
 
     parts.append("<h2>Closest Games</h2>")
     if data.closest_games:
@@ -848,6 +972,12 @@ def main(argv: Optional[list[str]] = None) -> int:
         ),
     )
     parser.add_argument(
+        "--rivalry-week",
+        type=int,
+        default=DEFAULT_RIVALRY_WEEK,
+        help=f"Week the commissioner manually scheduled rivalry matchups for (default: {DEFAULT_RIVALRY_WEEK})",
+    )
+    parser.add_argument(
         "--send-email", action="store_true", help="Email the newsletter (see README for required env vars)"
     )
     parser.add_argument(
@@ -860,7 +990,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         print(f"Generating newsletter for league {args.league_id}, week {week}...", file=sys.stderr)
         players = get_players(force_refresh=args.refresh_players)
         data = build_newsletter_data(
-            args.league_id, week, players=players, lookback_days=args.lookback_days
+            args.league_id,
+            week,
+            players=players,
+            lookback_days=args.lookback_days,
+            rivalry_week=args.rivalry_week,
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
