@@ -14,9 +14,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import smtplib
 import sys
 import time
 from dataclasses import dataclass, field
+from email.message import EmailMessage
 from pathlib import Path
 from typing import Any, Optional
 
@@ -525,6 +528,82 @@ ul, ol { padding-left: 1.4rem; }
     return "\n".join(parts)
 
 
+def render_sms_summary(data: NewsletterData) -> str:
+    """A short plain-text digest, since SMS should be a teaser, not the full newsletter."""
+    lines = [f"{data.league_name} - Week {data.week}"]
+
+    if data.closest_games:
+        m = data.closest_games[0]
+        winner, loser = m.winner, m.loser
+        lines.append(
+            f"Nail-biter: {winner['team']} {winner['points']:.1f}-{loser['points']:.1f} {loser['team']}"
+        )
+
+    if data.top_scorers:
+        s = data.top_scorers[0]
+        lines.append(f"Top scorer: {s['player']} ({s['points']:.1f} pts, {s['team']})")
+
+    if data.standings:
+        leader = data.standings[0]
+        lines.append(f"First place: {leader.team_name} ({leader.record})")
+
+    return "\n".join(lines)
+
+
+def _env_list(name: str) -> list[str]:
+    raw = os.environ.get(name, "")
+    return [item.strip() for item in raw.split(",") if item.strip()]
+
+
+def send_email_newsletter(
+    data: NewsletterData,
+    html_body: str,
+    *,
+    smtp_host: str,
+    smtp_port: int,
+    username: str,
+    password: str,
+    from_addr: str,
+    to_addrs: list[str],
+) -> None:
+    if not to_addrs:
+        raise ValueError("No recipient email addresses configured (NEWSLETTER_EMAILS)")
+
+    msg = EmailMessage()
+    msg["Subject"] = f"{data.league_name} — Week {data.week} Newsletter"
+    msg["From"] = from_addr
+    msg["To"] = ", ".join(to_addrs)
+    msg.set_content(render_markdown(data))
+    msg.add_alternative(html_body, subtype="html")
+
+    with smtplib.SMTP(smtp_host, smtp_port) as smtp:
+        smtp.starttls()
+        smtp.login(username, password)
+        smtp.send_message(msg)
+
+
+def send_sms_summary(
+    text: str,
+    *,
+    account_sid: str,
+    auth_token: str,
+    from_number: str,
+    to_numbers: list[str],
+) -> None:
+    if not to_numbers:
+        raise ValueError("No recipient phone numbers configured (NEWSLETTER_PHONES)")
+
+    url = f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Messages.json"
+    for to_number in to_numbers:
+        resp = requests.post(
+            url,
+            data={"From": from_number, "To": to_number, "Body": text},
+            auth=(account_sid, auth_token),
+            timeout=20,
+        )
+        resp.raise_for_status()
+
+
 def determine_week(league_id: str, explicit_week: Optional[int]) -> int:
     if explicit_week is not None:
         return explicit_week
@@ -546,6 +625,12 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument(
         "--refresh-players", action="store_true", help="Force re-download of the player directory"
     )
+    parser.add_argument(
+        "--send-email", action="store_true", help="Email the newsletter (see README for required env vars)"
+    )
+    parser.add_argument(
+        "--send-sms", action="store_true", help="Text a short summary via Twilio (see README for required env vars)"
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -562,12 +647,55 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     md_path = output_dir / f"newsletter_week{week}.md"
     html_path = output_dir / f"newsletter_week{week}.html"
+    html_body = render_html(data)
 
     md_path.write_text(render_markdown(data), encoding="utf-8")
-    html_path.write_text(render_html(data), encoding="utf-8")
+    html_path.write_text(html_body, encoding="utf-8")
 
     print(f"Wrote {md_path}")
     print(f"Wrote {html_path}")
+
+    if args.send_email:
+        required = ["SMTP_HOST", "SMTP_USERNAME", "SMTP_PASSWORD", "FROM_EMAIL", "NEWSLETTER_EMAILS"]
+        missing = [key for key in required if not os.environ.get(key)]
+        if missing:
+            print(f"Skipping email: not configured yet (missing {', '.join(missing)})", file=sys.stderr)
+        else:
+            try:
+                send_email_newsletter(
+                    data,
+                    html_body,
+                    smtp_host=os.environ["SMTP_HOST"],
+                    smtp_port=int(os.environ.get("SMTP_PORT", "587")),
+                    username=os.environ["SMTP_USERNAME"],
+                    password=os.environ["SMTP_PASSWORD"],
+                    from_addr=os.environ["FROM_EMAIL"],
+                    to_addrs=_env_list("NEWSLETTER_EMAILS"),
+                )
+                print(f"Emailed newsletter to {', '.join(_env_list('NEWSLETTER_EMAILS'))}")
+            except (ValueError, smtplib.SMTPException) as exc:
+                print(f"Failed to send email: {exc}", file=sys.stderr)
+                return 1
+
+    if args.send_sms:
+        required = ["TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN", "TWILIO_FROM_NUMBER", "NEWSLETTER_PHONES"]
+        missing = [key for key in required if not os.environ.get(key)]
+        if missing:
+            print(f"Skipping SMS: not configured yet (missing {', '.join(missing)})", file=sys.stderr)
+        else:
+            try:
+                send_sms_summary(
+                    render_sms_summary(data),
+                    account_sid=os.environ["TWILIO_ACCOUNT_SID"],
+                    auth_token=os.environ["TWILIO_AUTH_TOKEN"],
+                    from_number=os.environ["TWILIO_FROM_NUMBER"],
+                    to_numbers=_env_list("NEWSLETTER_PHONES"),
+                )
+                print(f"Texted summary to {', '.join(_env_list('NEWSLETTER_PHONES'))}")
+            except (ValueError, requests.RequestException) as exc:
+                print(f"Failed to send SMS: {exc}", file=sys.stderr)
+                return 1
+
     return 0
 
 
