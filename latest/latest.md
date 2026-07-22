@@ -1,4 +1,4 @@
-# Floridian Dynasty Football Association LLC — Week 1 Newsletter
+# Floridian Dynasty Football Association LLC — July 22, 2026 Newsletter
 _2026 Season_
 
 ## Trades This Week (ranked by estimated value)
