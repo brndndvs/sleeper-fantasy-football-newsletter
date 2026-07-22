@@ -9,8 +9,8 @@ recap newsletter as both Markdown and HTML.
 
 It covers:
 
-- Trades from the past week, in chronological order, grouped by the date they
-  were made
+- Trades from the past week, **ranked by estimated value** (most lopsided
+  first), each with the date it was made
 - Waiver/free-agent moves from the past week, in chronological order, grouped
   under the day they happened
 - Matchup recap (final scores, who beat whom) — before the season starts,
@@ -20,15 +20,32 @@ It covers:
 - Top individual scorers
 - Current standings (record, points for/against)
 
+#### About the trade value ranking
+
+Sleeper's public API doesn't expose real ADP or season projections, so trades
+are ranked using a rough stand-in: Sleeper's own internal `search_rank` field
+for players (lower rank = more valuable), plus a simple round/year-based table
+for future draft picks and a flat per-dollar value for FAAB. This is a
+heuristic for *ranking* trades relative to each other, not an authoritative
+valuation — the constants (`PLAYER_VALUE_MAX`, `PICK_ROUND_BASE_VALUE`, etc.)
+are at the top of `newsletter.py` if you want to tune them.
+
 #### Why trades/waivers are scoped to "this week" only
 
 Sleeper's `transactions/{week}` endpoint can otherwise lump an entire
-offseason's activity into "week 1" before the season starts. Transactions are
-filtered to only those actually completed in the trailing `--lookback-days`
-(default 7) — which lines up with the every-Tuesday schedule below, so each
-week's newsletter only covers what happened since the previous one. Every run
-also prints the exact date range of included/excluded transactions to the
-console/Action log, so you can verify the scoping on any given week.
+offseason's activity into "week 1" before the season starts. By default,
+trades/waivers are scoped to **since the most recent Tuesday** (matching the
+every-Tuesday send schedule below) — not a flat "last 7 days," since that
+would only be correct if the script always ran exactly a week apart. This
+means:
+
+- Run on the scheduled Tuesday: covers the full week since the previous send
+- Run mid-week (e.g. manually testing on a Wednesday): only covers since that
+  same Tuesday, not a rolling 7 days
+
+Pass `--lookback-days N` to override this with a flat rolling window instead.
+Every run prints the exact date range of included/excluded transactions to
+the console/Action log, so you can verify the scoping on any given week.
 
 ### Setup
 

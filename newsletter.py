@@ -38,6 +38,25 @@ TRANSACTION_TYPE_LABELS = {
     "free_agent": "Free Agent Move",
 }
 
+# Sleeper's public API doesn't expose real ADP or season projections. As a stand-in,
+# we use its own `search_rank` field (lower = more valuable/relevant) as a rough
+# value proxy, and a simple round/year-based table for future draft picks. These are
+# heuristic estimates for ranking trades by "value," not sourced from any official
+# ADP or projections feed — tune the constants below if they feel off.
+PLAYER_VALUE_MAX = 6000
+PLAYER_VALUE_SLOPE = 6  # value drops by this much per rank position
+PICK_ROUND_BASE_VALUE = {1: 4000, 2: 1400, 3: 500, 4: 200}
+PICK_YEAR_DISCOUNT = 0.85  # multiplier applied per year further out than next draft
+FAAB_VALUE_PER_DOLLAR = 10
+
+# The newsletter is meant to go out every Tuesday. Rather than a flat "last 7 days"
+# lookback (which would misbehave on any day except exactly a week later), trades
+# and waivers are scoped to "since the most recent Tuesday" — so a Tuesday run
+# covers a full week since the last send, and a mid-week run (e.g. for testing)
+# only covers since that same Tuesday.
+NEWSLETTER_ANCHOR_WEEKDAY = 1  # Monday=0 ... Tuesday=1
+NEWSLETTER_ANCHOR_HOUR_UTC = 12  # matches the "0 12 * * 2" cron
+
 
 class SleeperAPIError(RuntimeError):
     pass
@@ -106,12 +125,54 @@ def player_display_name(player_id: str, players: dict) -> str:
     return f"{name} ({pos} - {team})"
 
 
-def filter_transactions_to_window(raw_transactions: list[dict], *, days: int = 7) -> list[dict]:
+def player_value(player_id: Optional[str], players: dict) -> float:
+    """Rough dynasty value from Sleeper's own search_rank (lower rank = more valuable)."""
+    if player_id is None:
+        return 0.0
+    rank = (players.get(player_id) or {}).get("search_rank")
+    if not isinstance(rank, (int, float)) or rank <= 0:
+        return 0.0
+    return max(0.0, PLAYER_VALUE_MAX - rank * PLAYER_VALUE_SLOPE)
+
+
+def pick_value(pick_season: Any, pick_round: Any, current_season: int) -> float:
+    """Rough value for a future draft pick: higher round, sooner years are worth more."""
+    try:
+        round_num = int(pick_round)
+        years_out = max(0, int(pick_season) - current_season)
+    except (TypeError, ValueError):
+        return 0.0
+    base = PICK_ROUND_BASE_VALUE.get(round_num, 100)
+    return base * (PICK_YEAR_DISCOUNT**years_out)
+
+
+def most_recent_newsletter_anchor(now: datetime) -> datetime:
+    """Start of "this newsletter week": the most recent past Tuesday 12:00 UTC (the
+    cron time). A Tuesday run covers a full 7 days since the previous send; a
+    mid-week run only covers since that same Tuesday."""
+    days_back = (now.weekday() - NEWSLETTER_ANCHOR_WEEKDAY) % 7
+    if days_back == 0:
+        days_back = 7
+    anchor_date = (now - timedelta(days=days_back)).date()
+    return datetime(
+        anchor_date.year, anchor_date.month, anchor_date.day, NEWSLETTER_ANCHOR_HOUR_UTC, tzinfo=timezone.utc
+    )
+
+
+def filter_transactions_to_window(raw_transactions: list[dict], *, days: Optional[int] = None) -> list[dict]:
     """Sleeper's transactions/{week} endpoint can lump an entire offseason's activity
     into "week 1" before the season starts. Filter to only transactions actually
-    completed in the trailing window so "this week's" trades/waivers are accurate."""
+    completed since the newsletter's weekly anchor (or an explicit --lookback-days
+    override) so "this week's" trades/waivers are accurate."""
     now = datetime.now(timezone.utc)
-    cutoff_ms = (now - timedelta(days=days)).timestamp() * 1000
+    if days is not None:
+        cutoff = now - timedelta(days=days)
+        window_desc = f"the last {days} days"
+    else:
+        cutoff = most_recent_newsletter_anchor(now)
+        window_desc = f"since {cutoff.strftime('%A, %B %d %Y %H:%M UTC')}"
+    cutoff_ms = cutoff.timestamp() * 1000
+
     included, excluded = [], 0
     newest_ts, oldest_ts = None, None
     for tx in raw_transactions:
@@ -129,12 +190,12 @@ def filter_transactions_to_window(raw_transactions: list[dict], *, days: int = 7
 
     if oldest_ts is not None:
         print(
-            f"Transactions: {len(included)} in the last {days} days "
+            f"Transactions: {len(included)} {window_desc} "
             f"({fmt(oldest_ts)} to {fmt(newest_ts)}), {excluded} older ones excluded.",
             file=sys.stderr,
         )
     else:
-        print(f"Transactions: {len(included)} in the last {days} days.", file=sys.stderr)
+        print(f"Transactions: {len(included)} {window_desc}.", file=sys.stderr)
     return included
 
 
@@ -278,7 +339,9 @@ def transaction_datetime(tx: dict) -> Optional[datetime]:
     return datetime.fromtimestamp(ts / 1000, tz=timezone.utc)
 
 
-def summarize_transactions(raw_transactions: list[dict], teams: dict[int, Team], players: dict) -> dict:
+def summarize_transactions(
+    raw_transactions: list[dict], teams: dict[int, Team], players: dict, *, current_season: int
+) -> dict:
     trades = []
     waivers = []
 
@@ -298,19 +361,24 @@ def summarize_transactions(raw_transactions: list[dict], teams: dict[int, Team],
             return team.team_name if team else f"Team {rid}"
 
         if tx_type == "trade":
-            per_team: dict[int, dict] = {rid: {"received": [], "sent": []} for rid in roster_ids}
+            per_team: dict[int, dict] = {
+                rid: {"received": [], "sent": [], "received_value": 0.0} for rid in roster_ids
+            }
             for player_id, rid in adds.items():
-                per_team.setdefault(rid, {"received": [], "sent": []})
+                per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
                 per_team[rid]["received"].append(player_display_name(player_id, players))
+                per_team[rid]["received_value"] += player_value(player_id, players)
             for player_id, rid in drops.items():
-                per_team.setdefault(rid, {"received": [], "sent": []})
+                per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
                 per_team[rid]["sent"].append(player_display_name(player_id, players))
             for pick in draft_picks:
                 owner_rid = pick.get("owner_id")
                 prev_owner_rid = pick.get("previous_owner_id")
                 pick_desc = f"{pick.get('season')} Round {pick.get('round')} pick"
+                value = pick_value(pick.get("season"), pick.get("round"), current_season)
                 if owner_rid in per_team:
                     per_team[owner_rid]["received"].append(pick_desc)
+                    per_team[owner_rid]["received_value"] += value
                 if prev_owner_rid in per_team:
                     per_team[prev_owner_rid]["sent"].append(pick_desc)
             for wb in waiver_budget:
@@ -320,13 +388,24 @@ def summarize_transactions(raw_transactions: list[dict], teams: dict[int, Team],
                 desc = f"${amount} FAAB"
                 if receiver in per_team:
                     per_team[receiver]["received"].append(desc)
+                    per_team[receiver]["received_value"] += amount * FAAB_VALUE_PER_DOLLAR
                 if sender in per_team:
                     per_team[sender]["sent"].append(desc)
 
+            team_info = {team_name_for(rid): info for rid, info in per_team.items()}
+            ranked = sorted(team_info.items(), key=lambda kv: kv[1]["received_value"], reverse=True)
+            if len(ranked) >= 2:
+                winner_name, winner_info = ranked[0]
+                value_diff = winner_info["received_value"] - ranked[1][1]["received_value"]
+            else:
+                winner_name, value_diff = None, 0.0
+
             trades.append(
                 {
-                    "teams": {team_name_for(rid): info for rid, info in per_team.items()},
+                    "teams": team_info,
                     "when": when,
+                    "winner": winner_name if value_diff > 50 else None,
+                    "value_diff": round(value_diff),
                 }
             )
         elif tx_type in ("waiver", "free_agent"):
@@ -345,7 +424,7 @@ def summarize_transactions(raw_transactions: list[dict], teams: dict[int, Team],
                 }
             )
 
-    trades.sort(key=lambda t: t["when"] or datetime.min.replace(tzinfo=timezone.utc))
+    trades.sort(key=lambda t: t["value_diff"], reverse=True)
     waivers.sort(key=lambda w: w["when"] or datetime.min.replace(tzinfo=timezone.utc))
     return {"trades": trades, "waivers": waivers}
 
@@ -395,7 +474,7 @@ def build_newsletter_data(
     users: Optional[list[dict]] = None,
     raw_matchups: Optional[list[dict]] = None,
     raw_transactions: Optional[list[dict]] = None,
-    lookback_days: int = 7,
+    lookback_days: Optional[int] = None,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -406,13 +485,18 @@ def build_newsletter_data(
     )
     players = players if players is not None else get_players()
 
+    try:
+        current_season = int(league.get("season"))
+    except (TypeError, ValueError):
+        current_season = datetime.now(timezone.utc).year
+
     teams = build_teams(rosters, users)
     matchups = build_matchup_results(raw_matchups, teams)
     playable = [m for m in matchups if m.has_scores]
     closest_games = sorted(playable, key=lambda m: m.margin)[:3]
     top_scorers = compute_top_scorers(matchups, players, teams, limit=5)
     recent_transactions = filter_transactions_to_window(raw_transactions, days=lookback_days)
-    tx_summary = summarize_transactions(recent_transactions, teams, players)
+    tx_summary = summarize_transactions(recent_transactions, teams, players, current_season=current_season)
     standings = build_standings(teams)
 
     return NewsletterData(
@@ -433,14 +517,23 @@ def render_markdown(data: NewsletterData) -> str:
     lines.append(f"# {data.league_name} — Week {data.week} Newsletter")
     lines.append(f"_{data.season} Season_\n")
 
-    lines.append("## Trades This Week\n")
+    lines.append("## Trades This Week (ranked by estimated value)\n")
     if data.trades:
-        for trade in data.trades:
+        lines.append(
+            "_Value is a rough estimate from Sleeper's own player rankings and a simple "
+            "pick-value table — not official ADP or projections. Ranked most lopsided first._\n"
+        )
+        for i, trade in enumerate(data.trades, start=1):
             date_str = format_day(trade["when"])
-            lines.append(f"**{date_str}:**")
+            headline = f"**Trade {i} ({date_str})"
+            if trade["winner"]:
+                headline += f" — {trade['winner']} wins it (+{trade['value_diff']} est. value)**"
+            else:
+                headline += " — looks even**"
+            lines.append(headline)
             for team_name, info in trade["teams"].items():
                 received = ", ".join(info["received"]) or "—"
-                lines.append(f"- {team_name} receives: {received}")
+                lines.append(f"- {team_name} receives: {received} (~{round(info['received_value'])} value)")
             lines.append("")
     else:
         lines.append("_No trades this week._\n")
@@ -540,14 +633,25 @@ ul, ol { padding-left: 1.4rem; }
     parts.append(f"<h1>{e(data.league_name)} — Week {data.week} Newsletter</h1>")
     parts.append(f"<p class='subtitle'>{e(data.season)} Season</p>")
 
-    parts.append("<h2>Trades This Week</h2>")
+    parts.append("<h2>Trades This Week (ranked by estimated value)</h2>")
     if data.trades:
-        for trade in data.trades:
+        parts.append(
+            "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
+            "pick-value table — not official ADP or projections. Ranked most lopsided first.</em></p>"
+        )
+        for i, trade in enumerate(data.trades, start=1):
             date_str = e(format_day(trade["when"]))
-            parts.append(f"<p><strong>{date_str}:</strong></p><ul>")
+            if trade["winner"]:
+                headline = f"Trade {i} ({date_str}) — {e(trade['winner'])} wins it (+{trade['value_diff']} est. value)"
+            else:
+                headline = f"Trade {i} ({date_str}) — looks even"
+            parts.append(f"<p><strong>{headline}</strong></p><ul>")
             for team_name, info in trade["teams"].items():
                 received = ", ".join(info["received"]) or "—"
-                parts.append(f"<li>{e(team_name)} receives: {e(received)}</li>")
+                parts.append(
+                    f"<li>{e(team_name)} receives: {e(received)} "
+                    f"(~{round(info['received_value'])} value)</li>"
+                )
             parts.append("</ul>")
     else:
         parts.append("<p><em>No trades this week.</em></p>")
@@ -626,7 +730,9 @@ def render_sms_summary(data: NewsletterData) -> str:
     lines = [f"{data.league_name} - Week {data.week}"]
 
     if data.trades:
-        lines.append(f"{len(data.trades)} trade(s) this week")
+        top_trade = data.trades[0]
+        if top_trade["winner"]:
+            lines.append(f"Best trade: {top_trade['winner']} wins it (+{top_trade['value_diff']} value)")
 
     pickups = [w for w in data.waivers if w["added"]]
     if pickups:
@@ -734,8 +840,12 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument(
         "--lookback-days",
         type=int,
-        default=7,
-        help="Only count trades/waiver moves completed in this many trailing days (default: 7)",
+        default=None,
+        help=(
+            "Override: only count trades/waiver moves completed in this many trailing days. "
+            "Default (omit this flag) scopes to since the most recent Tuesday, matching the "
+            "weekly send schedule."
+        ),
     )
     parser.add_argument(
         "--send-email", action="store_true", help="Email the newsletter (see README for required env vars)"
