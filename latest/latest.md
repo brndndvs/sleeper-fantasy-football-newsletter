@@ -41,6 +41,13 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 - MaxiVidret vs CeDeez big ones — not yet played (0.00-0.00)
 - LaPorta Potty vs benmachi — not yet played (0.00-0.00)
 
+## Rivals
+
+_No rival matchups completed yet this season._
+
+- **Next week (Week 2):** Cam Show vs awesomevan
+- **Next week (Week 2):** Simply Touchdowns vs benmachi
+
 ## Closest Games
 
 _No games played this week._
