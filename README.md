@@ -31,6 +31,9 @@ It covers:
   of a fake result
 - **Rivals**: final scores for any rival matchup already played this season,
   plus a preview of any rival matchup scheduled for next week
+- **Big Game of the Week**: up to 2 upcoming matchups where both teams are in
+  the top 7 of the league, picked for being the closest projected games (most
+  applicable once real games are underway — see below)
 - **Rookie Draft Value Tracker**: two top-10 lists from this season's rookie
   draft — highest current value, and best value picks (biggest gap between a
   player's current value and what their draft slot predicted) — both
@@ -134,6 +137,25 @@ one table per division, named from whatever the commissioner named them in
 Sleeper. If the league has fewer than two divisions configured, it falls back
 to a single combined standings table like before — no configuration needed on
 this script's side either way.
+
+#### About Big Game of the Week
+
+Sleeper's public v1 API has no real weekly point projections, so this section
+uses an **undocumented** endpoint that Sleeper's own app uses internally
+(`api.sleeper.app/projections/nfl/...`). It's not officially supported and
+could change or disappear without notice — every part of this feature is
+built to degrade gracefully (print a diagnostic and show a "not enough data"
+message) rather than error out if that ever happens.
+
+Candidates are: next week's matchups where **both** teams are in the top 7 by
+current standings. Among those, the two picks are whichever have the
+**closest projected margin** (so they're always genuinely close), with
+**highest combined projected points** as the tiebreaker. `BIG_GAME_TOP_N` /
+`BIG_GAME_COUNT` at the top of `newsletter.py` control the 7 and the 2.
+
+Since real per-player projections generally aren't published until close to
+the regular season, this section mostly just reports "not enough data yet"
+throughout the preseason and offseason — exactly as expected.
 
 #### How rivals are identified
 
