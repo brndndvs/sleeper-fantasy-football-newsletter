@@ -125,6 +125,13 @@ _No rival matchups completed yet this season._
 - **Next week (Week 2):** Cam Show vs awesomevan
 - **Next week (Week 2):** Simply Touchdowns vs benmachi
 
+## Big Game of the Week
+
+_Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
+
+- **Better Call Hall** (proj 102.8) vs **JordanFFantasy** (proj 113.7) — combined 216.5, projected margin 10.9
+- **Cam Show** (proj 109.5) vs **awesomevan** (proj 132.1) — combined 241.6, projected margin 22.7
+
 ## Closest Games
 
 _No games played this week._
