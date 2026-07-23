@@ -147,11 +147,15 @@ could change or disappear without notice — every part of this feature is
 built to degrade gracefully (print a diagnostic and show a "not enough data"
 message) rather than error out if that ever happens.
 
-Candidates are: next week's matchups where **both** teams are in the top 7 by
-current standings. Among those, the two picks are whichever have the
-**closest projected margin** (so they're always genuinely close), with
-**highest combined projected points** as the tiebreaker. `BIG_GAME_TOP_N` /
-`BIG_GAME_COUNT` at the top of `newsletter.py` control the 7 and the 2.
+Candidates are: the next upcoming week's matchups where **both** teams are in
+the top 7 by current standings. "Next upcoming" is usually `week + 1`, but if
+`week` itself hasn't been played yet (still preseason/offseason, all 0-0
+scores), it's `week` itself — otherwise this would skip straight past the
+first real games looking for projections on a week after that. Among
+qualifying matchups, the two picks are whichever have the **closest projected
+margin** (so they're always genuinely close), with **highest combined
+projected points** as the tiebreaker. `BIG_GAME_TOP_N` / `BIG_GAME_COUNT` at
+the top of `newsletter.py` control the 7 and the 2.
 
 Since real per-player projections generally aren't published until close to
 the regular season, this section mostly just reports "not enough data yet"
@@ -165,7 +169,8 @@ rival), so the rival pairs are derived directly from that week's matchups
 (`--rivalry-week`, default 12) rather than hardcoded. Since rivals meet twice
 a season — once in the rivalry week, once wherever the normal round-robin
 schedule happens to pair them up — completed weeks are scanned for either
-meeting, and next week is checked for an upcoming one.
+meeting, and the next upcoming week (see `next_preview_week` above) is checked
+for one scheduled.
 
 ### Setup
 

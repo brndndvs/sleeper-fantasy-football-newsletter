@@ -546,6 +546,15 @@ def build_rival_pairs(league_id: str, rivalry_week: int) -> list[tuple[int, int]
     return [tuple(sorted(roster_ids)) for roster_ids in grouped.values() if len(roster_ids) == 2]
 
 
+def next_preview_week(week: int, matchups: list[MatchupResult]) -> int:
+    """The next real "upcoming" week to preview. Normally that's week + 1, but if
+    `week` itself hasn't been played yet (still preseason/offseason, before any real
+    scores exist), the true upcoming games are that same week, not the one after."""
+    if matchups and not any(m.has_scores for m in matchups):
+        return week
+    return week + 1
+
+
 def build_rivals_section(
     league_id: str,
     week: int,
@@ -553,11 +562,13 @@ def build_rivals_section(
     rival_pairs: list[tuple[int, int]],
     *,
     current_week_matchups: Optional[list[dict]] = None,
+    preview_week: Optional[int] = None,
 ) -> dict:
     """Rival results already played this season, plus a preview of any rival
-    matchup scheduled for next week. Rivals meet twice a season (their normal
-    round-robin meeting, plus the manually scheduled rivalry week), and either
-    could land on any week, so completed weeks are scanned for both."""
+    matchup scheduled for the next upcoming week (see next_preview_week). Rivals meet
+    twice a season (their normal round-robin meeting, plus the manually scheduled
+    rivalry week), and either could land on any week, so completed weeks are scanned
+    for both."""
     results = []
     for w in range(1, week + 1):
         raw = current_week_matchups if (w == week and current_week_matchups is not None) else get_matchups(
@@ -589,8 +600,12 @@ def build_rivals_section(
             )
 
     upcoming = []
-    next_week = week + 1
-    raw_next = get_matchups(league_id, next_week)
+    next_week = preview_week if preview_week is not None else week + 1
+    raw_next = (
+        current_week_matchups if (next_week == week and current_week_matchups is not None) else get_matchups(
+            league_id, next_week
+        )
+    )
     by_roster_next = {m["roster_id"]: m for m in raw_next}
     for a, b in rival_pairs:
         if a not in by_roster_next or b not in by_roster_next:
@@ -616,14 +631,21 @@ def build_big_games(
     *,
     top_n: int = BIG_GAME_TOP_N,
     limit: int = BIG_GAME_COUNT,
+    preview_week: Optional[int] = None,
+    current_week_matchups: Optional[list[dict]] = None,
 ) -> dict:
-    """Picks up to `limit` marquee matchups for next week: both teams must be in the
-    top `top_n` by standings, ranked by closest projected margin first (so picks are
-    always genuinely close), with highest combined projected points as the tiebreaker.
-    Requires Sleeper's undocumented projections endpoint -- returns "not available"
-    rather than guessing if that data isn't there (e.g. during the preseason)."""
-    next_week = week + 1
-    raw_next = get_matchups(league_id, next_week)
+    """Picks up to `limit` marquee matchups for the next upcoming week (see
+    next_preview_week): both teams must be in the top `top_n` by standings, ranked by
+    closest projected margin first (so picks are always genuinely close), with highest
+    combined projected points as the tiebreaker. Requires Sleeper's undocumented
+    projections endpoint -- returns "not available" rather than guessing if that data
+    isn't there (e.g. during the preseason)."""
+    next_week = preview_week if preview_week is not None else week + 1
+    raw_next = (
+        current_week_matchups if (next_week == week and current_week_matchups is not None) else get_matchups(
+            league_id, next_week
+        )
+    )
     if not raw_next:
         return {"available": False, "games": []}
 
@@ -931,9 +953,25 @@ def build_newsletter_data(
         print(f"Divisional standings: {names}", file=sys.stderr)
     else:
         print("Divisional standings: league has no divisions configured, using overall standings", file=sys.stderr)
+    preview_week = next_preview_week(week, matchups)
     rival_pairs = build_rival_pairs(league_id, rivalry_week)
-    rivals = build_rivals_section(league_id, week, teams, rival_pairs, current_week_matchups=raw_matchups)
-    big_games = build_big_games(league_id, week, teams, standings, league)
+    rivals = build_rivals_section(
+        league_id,
+        week,
+        teams,
+        rival_pairs,
+        current_week_matchups=raw_matchups,
+        preview_week=preview_week,
+    )
+    big_games = build_big_games(
+        league_id,
+        week,
+        teams,
+        standings,
+        league,
+        preview_week=preview_week,
+        current_week_matchups=raw_matchups,
+    )
     draft_rankings = build_draft_value_rankings(league, teams, players)
 
     now = datetime.now(timezone.utc)
@@ -1073,10 +1111,10 @@ def render_markdown(data: NewsletterData) -> str:
     if data.rivals["upcoming"]:
         lines.append("")
         for u in data.rivals["upcoming"]:
-            lines.append(f"- **Next week (Week {u['week']}):** {u['team_a']} vs {u['team_b']}")
+            lines.append(f"- **Upcoming (Week {u['week']}):** {u['team_a']} vs {u['team_b']}")
     else:
         lines.append("")
-        lines.append("_No rival matchup scheduled for next week._")
+        lines.append("_No rival matchup scheduled for the upcoming week._")
     lines.append("")
 
     lines.append("## Big Game of the Week\n")
@@ -1285,11 +1323,11 @@ ul, ol { padding-left: 1.4rem; }
         parts.append("<ul>")
         for u in data.rivals["upcoming"]:
             parts.append(
-                f"<li><strong>Next week (Week {u['week']}):</strong> {e(u['team_a'])} vs {e(u['team_b'])}</li>"
+                f"<li><strong>Upcoming (Week {u['week']}):</strong> {e(u['team_a'])} vs {e(u['team_b'])}</li>"
             )
         parts.append("</ul>")
     else:
-        parts.append("<p><em>No rival matchup scheduled for next week.</em></p>")
+        parts.append("<p><em>No rival matchup scheduled for the upcoming week.</em></p>")
 
     parts.append("<h2>Big Game of the Week</h2>")
     if data.big_games["available"]:
