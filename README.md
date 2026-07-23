@@ -18,6 +18,10 @@ with `--season-type off|pre|regular|post`):
 
 It covers:
 
+- **Commissioner's Notes**: whatever the commissioner submitted most recently via
+  a Google Form, pulled in automatically -- no manual copy/paste needed. Omitted
+  entirely if he hasn't submitted anything since the current newsletter week
+  started.
 - Trades from the past week, **ranked by estimated value** (most lopsided
   first), each with the date it was made
 - Waiver/free-agent moves from the past week, in chronological order, grouped
@@ -92,6 +96,35 @@ no separate refresh step needed. If this league doesn't have a Sleeper-native
 draft on record for the current season, this section reports that instead of
 guessing.
 
+#### About Commissioner's Notes
+
+The commissioner fills out a short Google Form each week; responses land in a
+Google Sheet, which is published to the web as a CSV (File → Share → Publish
+to web → the response tab → CSV). `newsletter.py` fetches that CSV on every
+run and picks out the most recent submission — but only if it was submitted
+since the current newsletter week's Tuesday anchor, so an old note from a week
+he skipped doesn't keep reappearing. If he hasn't submitted anything yet this
+week, the section is left out entirely.
+
+The form link and published CSV link are hardcoded near the top of
+`newsletter.py` (`COMMISSIONER_FORM_URL` / `COMMISSIONER_NOTES_CSV_URL`) —
+neither is sensitive since a "published to web" sheet is already just an
+unlisted public link. Timestamps in the CSV are assumed to be in US Eastern
+time (the sheet owner's account timezone) to match the rest of the league's
+scheduling; update `COMMISSIONER_NOTES_TIMEZONE` if that's ever wrong.
+
+A separate scheduled workflow, `.github/workflows/commissioner-reminder.yml`,
+emails the commissioner a reminder with the form link every Monday night at
+8:00 PM ET (via `python newsletter.py --remind-commissioner`), so he has all
+of Monday evening to fill it out before Tuesday's send. This needs one more
+repo secret:
+
+| Variable | Purpose |
+|---|---|
+| `COMMISSIONER_EMAIL` | The commissioner's email address, for the Monday-night reminder |
+
+It reuses the same `SMTP_*`/`FROM_EMAIL` secrets as the main newsletter email.
+
 #### How rivals are identified
 
 Sleeper's API has no concept of "rivals" — this league's commissioner
@@ -159,9 +192,10 @@ rather than the full newsletter, since SMS isn't meant for long-form content.
 
 ### Running it automatically every week
 
-`.github/workflows/weekly-newsletter.yml` runs the newsletter every Tuesday
-at 12:00 UTC (after Monday Night Football wraps up) via GitHub Actions, and
-can also be triggered manually from the Actions tab. To enable it:
+`.github/workflows/weekly-newsletter.yml` runs the newsletter every Tuesday at
+8:45 AM ET via GitHub Actions (two `cron` entries handle the EDT/EST switch,
+since Actions cron has no timezone/DST awareness), and can also be triggered
+manually from the Actions tab. To enable it:
 
 1. In the repo's **Settings → Secrets and variables → Actions**, add the
    same variables listed in `.env.example` as repository secrets.
@@ -171,4 +205,9 @@ can also be triggered manually from the Actions tab. To enable it:
 
 You can enable just email, just SMS, or both — whichever secrets are set
 determine what actually gets sent.
+
+`.github/workflows/commissioner-reminder.yml` runs separately, every Monday at
+8:00 PM ET, and just emails the commissioner a reminder with the Commissioner's
+Notes form link (see above) — it needs the `COMMISSIONER_EMAIL` secret in
+addition to the `SMTP_*`/`FROM_EMAIL` ones already set up above.
 

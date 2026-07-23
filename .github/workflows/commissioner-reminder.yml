@@ -1,0 +1,37 @@
+name: Commissioner Notes Reminder
+
+on:
+  schedule:
+    # 8:00 PM ET on Mondays, so there's time to fill it out before the Tuesday
+    # newsletter. GitHub Actions cron always runs in UTC and has no DST awareness,
+    # so two schedules cover the two ET offsets across the year -- accurate except
+    # for the handful of days right at the DST switchover itself.
+    - cron: "0 0 * 3-10 2" # EDT (UTC-4): Mar-Oct, 8:00 PM ET Monday = 00:00 UTC Tuesday
+    - cron: "0 1 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, 8:00 PM ET Monday = 01:00 UTC Tuesday
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  send-reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Email commissioner reminder
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          COMMISSIONER_EMAIL: ${{ secrets.COMMISSIONER_EMAIL }}
+        run: python newsletter.py --remind-commissioner
