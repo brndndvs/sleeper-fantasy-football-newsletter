@@ -27,6 +27,10 @@ It covers:
   of a fake result
 - **Rivals**: final scores for any rival matchup already played this season,
   plus a preview of any rival matchup scheduled for next week
+- **Rookie Draft Value Tracker**: two top-10 lists from this season's rookie
+  draft — highest current value, and best value picks (biggest gap between a
+  player's current value and what their draft slot predicted) — both
+  recalculated fresh every run
 - Closest games of the week
 - Top individual scorers
 - Current standings (record, points for/against)
@@ -69,6 +73,24 @@ are unaffected and always stay week-to-week. This is controlled by
 normal weekly Tuesday-anchored scoping above with no further changes needed.
 Update those two dates if a similar preseason
 window is wanted in a future season.
+
+#### About the Rookie Draft Value Tracker
+
+Pulled from the league's current `draft_id` (Sleeper's own rookie draft for
+this season), each pick's player gets the same `search_rank`-based value used
+for trades. Two rankings come out of that:
+
+- **Highest current value**: whichever 10 drafted players are worth the most
+  right now, full stop
+- **Best value picks**: whichever 10 have the biggest gap between their
+  current value and what a player picked at that exact slot would be
+  "expected" to be worth (using the same value curve applied to pick number
+  instead of player rank) — i.e. the biggest steals relative to draft cost
+
+Both update automatically week to week as Sleeper's player rankings shift —
+no separate refresh step needed. If this league doesn't have a Sleeper-native
+draft on record for the current season, this section reports that instead of
+guessing.
 
 #### How rivals are identified
 
