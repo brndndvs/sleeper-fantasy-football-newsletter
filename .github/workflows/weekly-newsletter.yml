@@ -2,8 +2,12 @@ name: Weekly Newsletter
 
 on:
   schedule:
-    # Tuesdays at 12:00 UTC, after Monday Night Football scores finalize.
-    - cron: "0 12 * * 2"
+    # 8:45 AM ET on Tuesdays. GitHub Actions cron always runs in UTC and has no
+    # DST awareness, so two schedules cover the two ET offsets across the year
+    # -- accurate except for the handful of days right at the DST switchover
+    # itself (second Sunday of March / first Sunday of November).
+    - cron: "45 12 * 3-10 2" # EDT (UTC-4): Mar-Oct, 8:45 AM ET = 12:45 UTC
+    - cron: "45 13 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, 8:45 AM ET = 13:45 UTC
   workflow_dispatch:
     inputs:
       week:
