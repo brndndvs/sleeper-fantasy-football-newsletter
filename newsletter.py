@@ -30,6 +30,11 @@ from zoneinfo import ZoneInfo
 import requests
 
 API_BASE = "https://api.sleeper.app/v1"
+# Sleeper's own app pulls weekly per-player point projections from this endpoint, but
+# it's undocumented (not part of the public v1 API above) and could change or
+# disappear without notice -- every caller here must degrade gracefully, never error,
+# if it stops behaving as expected.
+PROJECTIONS_API_BASE = "https://api.sleeper.app"
 DEFAULT_LEAGUE_ID = "1316152885909676032"
 DEFAULT_CACHE_DIR = Path(__file__).parent / ".cache"
 PLAYERS_CACHE_PATH = DEFAULT_CACHE_DIR / "players.json"
@@ -74,6 +79,14 @@ TOP_TRADES_LIMIT = 10  # during the preseason window, show only the top N, but m
 # rival; rivals also meet once more wherever the normal round-robin schedule
 # happens to pair them up.
 DEFAULT_RIVALRY_WEEK = 12
+
+# "Big Game of the Week": up to this many upcoming matchups get called out where both
+# teams are in the top BIG_GAME_TOP_N by standings. Candidates are ranked by closest
+# projected margin first (so the picks are always genuinely close), with highest
+# combined projected points as the tiebreaker. Needs real per-player projections
+# (see PROJECTIONS_API_BASE above), so this is mostly dormant in the preseason.
+BIG_GAME_TOP_N = 7
+BIG_GAME_COUNT = 2
 
 # Commissioner's Notes: a Google Form (feeding a Google Sheet, published to the web
 # as CSV) the commissioner fills out each week. A separate scheduled workflow emails
@@ -126,6 +139,54 @@ def get_transactions(league_id: str, week: int) -> list[dict]:
 
 def get_nfl_state() -> dict:
     return fetch_json(f"{API_BASE}/state/nfl") or {}
+
+
+def get_week_projections(season: str, week: int, season_type: str = "regular") -> dict[str, dict]:
+    """Fetches Sleeper's own per-player weekly projections (undocumented endpoint --
+    see PROJECTIONS_API_BASE). Always returns a dict keyed by player_id, normalizing
+    away whether the raw response is itself a dict or a list; returns {} (never
+    raises) if the request fails or comes back in an unrecognized shape, so callers
+    can treat "no projections" as a normal, expected state."""
+    try:
+        data = fetch_json(
+            f"{PROJECTIONS_API_BASE}/projections/nfl/{season}/{week}?season_type={season_type}"
+        )
+    except SleeperAPIError as exc:
+        print(f"Skipping Big Game projections: fetch failed ({exc})", file=sys.stderr)
+        return {}
+
+    if isinstance(data, dict):
+        result = data
+    elif isinstance(data, list):
+        result = {str(p.get("player_id")): p for p in data if p.get("player_id") is not None}
+    else:
+        print(f"Skipping Big Game projections: unexpected response shape ({type(data).__name__})", file=sys.stderr)
+        return {}
+
+    print(f"Projections: fetched {len(result)} player projections for {season} week {week}", file=sys.stderr)
+    return result
+
+
+def scoring_key_for_league(league: dict) -> str:
+    """Sleeper's projection payloads carry all three scoring variants per player
+    (pts_ppr/pts_half_ppr/pts_std); pick whichever matches this league's own scoring."""
+    rec = (league.get("scoring_settings") or {}).get("rec", 0)
+    if rec >= 1:
+        return "pts_ppr"
+    if rec >= 0.5:
+        return "pts_half_ppr"
+    return "pts_std"
+
+
+def projected_points_for_player(player_id: Optional[str], projections: dict, scoring_key: str) -> float:
+    if player_id in (None, "0"):
+        return 0.0
+    entry = projections.get(str(player_id))
+    if not entry:
+        return 0.0
+    stats = entry.get("stats") or {}
+    pts = stats.get(scoring_key)
+    return float(pts) if isinstance(pts, (int, float)) else 0.0
 
 
 def get_draft_picks(draft_id: str) -> list[dict]:
@@ -546,6 +607,79 @@ def build_rivals_section(
     return {"results": results, "upcoming": upcoming}
 
 
+def build_big_games(
+    league_id: str,
+    week: int,
+    teams: dict[int, Team],
+    standings: list[Team],
+    league: dict,
+    *,
+    top_n: int = BIG_GAME_TOP_N,
+    limit: int = BIG_GAME_COUNT,
+) -> dict:
+    """Picks up to `limit` marquee matchups for next week: both teams must be in the
+    top `top_n` by standings, ranked by closest projected margin first (so picks are
+    always genuinely close), with highest combined projected points as the tiebreaker.
+    Requires Sleeper's undocumented projections endpoint -- returns "not available"
+    rather than guessing if that data isn't there (e.g. during the preseason)."""
+    next_week = week + 1
+    raw_next = get_matchups(league_id, next_week)
+    if not raw_next:
+        return {"available": False, "games": []}
+
+    season = str(league.get("season", ""))
+    season_type = league.get("season_type") or "regular"
+    projections = get_week_projections(season, next_week, season_type)
+    if not projections:
+        return {"available": False, "games": []}
+
+    scoring_key = scoring_key_for_league(league)
+    top_roster_ids = {t.roster_id for t in standings[:top_n]}
+
+    by_matchup: dict[Any, list[dict]] = {}
+    for m in raw_next:
+        matchup_id = m.get("matchup_id")
+        if matchup_id is None:
+            continue
+        by_matchup.setdefault(matchup_id, []).append(m)
+
+    candidates = []
+    for entries in by_matchup.values():
+        if len(entries) != 2:
+            continue
+        a, b = entries
+        if a["roster_id"] not in top_roster_ids or b["roster_id"] not in top_roster_ids:
+            continue
+        team_a = teams.get(a["roster_id"])
+        team_b = teams.get(b["roster_id"])
+        if not team_a or not team_b:
+            continue
+        proj_a = sum(
+            projected_points_for_player(pid, projections, scoring_key) for pid in (a.get("starters") or [])
+        )
+        proj_b = sum(
+            projected_points_for_player(pid, projections, scoring_key) for pid in (b.get("starters") or [])
+        )
+        if proj_a <= 0 and proj_b <= 0:
+            continue
+        candidates.append(
+            {
+                "team_a": team_a.team_name,
+                "proj_a": round(proj_a, 1),
+                "team_b": team_b.team_name,
+                "proj_b": round(proj_b, 1),
+                "margin": round(abs(proj_a - proj_b), 1),
+                "combined": round(proj_a + proj_b, 1),
+            }
+        )
+
+    if not candidates:
+        return {"available": False, "games": []}
+
+    candidates.sort(key=lambda c: (c["margin"], -c["combined"]))
+    return {"available": True, "games": candidates[:limit]}
+
+
 def compute_top_scorers(
     matchups: list[MatchupResult], players: dict, teams: dict[int, Team], limit: int = 5
 ) -> list[dict]:
@@ -728,6 +862,7 @@ class NewsletterData:
     standings: list[Team]
     divisional_standings: Optional[list[dict]]
     rivals: dict
+    big_games: dict
     draft_rankings: dict
     commissioner_notes: Optional[dict]
 
@@ -798,6 +933,7 @@ def build_newsletter_data(
         print("Divisional standings: league has no divisions configured, using overall standings", file=sys.stderr)
     rival_pairs = build_rival_pairs(league_id, rivalry_week)
     rivals = build_rivals_section(league_id, week, teams, rival_pairs, current_week_matchups=raw_matchups)
+    big_games = build_big_games(league_id, week, teams, standings, league)
     draft_rankings = build_draft_value_rankings(league, teams, players)
 
     now = datetime.now(timezone.utc)
@@ -826,6 +962,7 @@ def build_newsletter_data(
         standings=standings,
         divisional_standings=divisional_standings,
         rivals=rivals,
+        big_games=big_games,
         draft_rankings=draft_rankings,
         commissioner_notes=commissioner_notes,
     )
@@ -940,6 +1077,25 @@ def render_markdown(data: NewsletterData) -> str:
     else:
         lines.append("")
         lines.append("_No rival matchup scheduled for next week._")
+    lines.append("")
+
+    lines.append("## Big Game of the Week\n")
+    if data.big_games["available"]:
+        lines.append(
+            f"_Both teams top {BIG_GAME_TOP_N} in the league; picked for being the closest "
+            "projected matchups, highest combined projection as the tiebreaker._\n"
+        )
+        for g in data.big_games["games"]:
+            lines.append(
+                f"- **{g['team_a']}** (proj {g['proj_a']}) vs **{g['team_b']}** (proj {g['proj_b']}) "
+                f"— combined {g['combined']}, projected margin {g['margin']}"
+            )
+    else:
+        lines.append(
+            "_Not enough projection data available yet to pick marquee matchups "
+            "(needs real per-player point projections, which typically aren't published "
+            "until closer to the regular season)._"
+        )
     lines.append("")
 
     lines.append("## Closest Games\n")
@@ -1134,6 +1290,27 @@ ul, ol { padding-left: 1.4rem; }
         parts.append("</ul>")
     else:
         parts.append("<p><em>No rival matchup scheduled for next week.</em></p>")
+
+    parts.append("<h2>Big Game of the Week</h2>")
+    if data.big_games["available"]:
+        parts.append(
+            f"<p><em>Both teams top {BIG_GAME_TOP_N} in the league; picked for being the "
+            "closest projected matchups, highest combined projection as the tiebreaker.</em></p>"
+        )
+        parts.append("<ul>")
+        for g in data.big_games["games"]:
+            parts.append(
+                f"<li><strong>{e(g['team_a'])}</strong> (proj {g['proj_a']}) vs "
+                f"<strong>{e(g['team_b'])}</strong> (proj {g['proj_b']}) — combined {g['combined']}, "
+                f"projected margin {g['margin']}</li>"
+            )
+        parts.append("</ul>")
+    else:
+        parts.append(
+            "<p><em>Not enough projection data available yet to pick marquee matchups "
+            "(needs real per-player point projections, which typically aren't published "
+            "until closer to the regular season).</em></p>"
+        )
 
     parts.append("<h2>Closest Games</h2>")
     if data.closest_games:
