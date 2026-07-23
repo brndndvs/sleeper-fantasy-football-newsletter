@@ -9,6 +9,11 @@ on:
       week:
         description: "Week to recap (leave blank for most recently completed week)"
         required: false
+      send:
+        description: "Actually send email/SMS (default: false -- just generates and commits latest/ for preview)"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -43,7 +48,11 @@ jobs:
           if [ -n "${{ github.event.inputs.week }}" ]; then
             WEEK_ARG="--week ${{ github.event.inputs.week }}"
           fi
-          python newsletter.py $WEEK_ARG --send-email --send-sms
+          SEND_ARGS=""
+          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.send }}" == "true" ]; then
+            SEND_ARGS="--send-email --send-sms"
+          fi
+          python newsletter.py $WEEK_ARG $SEND_ARGS
 
       - name: Upload newsletter artifacts
         uses: actions/upload-artifact@v4
