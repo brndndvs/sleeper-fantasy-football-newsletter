@@ -46,6 +46,36 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 - Better Call Hall receives: Darnell Mooney (WR - NYG), Zay Flowers (WR - BAL) (~10572 value)
 - Larkinsjacob receives: Tank Bigsby (RB - PHI), 2027 Round 3 pick, 2028 Round 1 pick (~8433 value)
 
+## Rookie Draft Value Tracker
+
+_Recalculated fresh from Sleeper's own player rankings each run, so this shifts week to week as rookies rise and fall._
+
+**Top 10 Highest Current Value**
+
+1. Jeremiyah Love (RB - ARI) — LaPorta Potty (Round 1, Pick 1) — ~5910 value
+2. Fernando Mendoza (QB - LV) — JordanFFantasy (Round 1, Pick 9) — ~5766 value
+3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — ~5634 value
+4. Jadarian Price (RB - SEA) — Cam Show (Round 1, Pick 4) — ~5622 value
+5. Jordyn Tyson (WR - NO) — Cam Show (Round 1, Pick 3) — ~5586 value
+6. Makai Lemon (WR - PHI) — MaxiVidret (Round 1, Pick 5) — ~5538 value
+7. Kenyon Sadiq (TE - NYJ) — Better Call Hall (Round 1, Pick 10) — ~5346 value
+8. Emmett Johnson (RB - KC) — LaPorta Potty (Round 2, Pick 19) — ~5322 value
+9. KC Concepcion (WR - CLE) — Larkinsjacob (Round 1, Pick 6) — ~5304 value
+10. Jonah Coleman (RB - DEN) — Better Call Hall (Round 2, Pick 18) — ~5292 value
+
+**Top 10 Best Value Picks** _(current value vs. where they were drafted)_
+
+1. Jeremiyah Love (RB - ARI) — LaPorta Potty (Round 1, Pick 1) — -84 value vs. draft slot
+2. Fernando Mendoza (QB - LV) — JordanFFantasy (Round 1, Pick 9) — -180 value vs. draft slot
+3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — -354 value vs. draft slot
+4. Jadarian Price (RB - SEA) — Cam Show (Round 1, Pick 4) — -354 value vs. draft slot
+5. Jordyn Tyson (WR - NO) — Cam Show (Round 1, Pick 3) — -396 value vs. draft slot
+6. Makai Lemon (WR - PHI) — MaxiVidret (Round 1, Pick 5) — -432 value vs. draft slot
+7. Emmett Johnson (RB - KC) — LaPorta Potty (Round 2, Pick 19) — -564 value vs. draft slot
+8. Kenyon Sadiq (TE - NYJ) — Better Call Hall (Round 1, Pick 10) — -594 value vs. draft slot
+9. Jonah Coleman (RB - DEN) — Better Call Hall (Round 2, Pick 18) — -600 value vs. draft slot
+10. KC Concepcion (WR - CLE) — Larkinsjacob (Round 1, Pick 6) — -660 value vs. draft slot
+
 ## Waiver Wire / Free Agency This Week
 
 **Tuesday, July 21:**
