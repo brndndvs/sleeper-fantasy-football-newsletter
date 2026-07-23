@@ -221,14 +221,17 @@ def filter_transactions_to_window(
 
 def filter_trades_to_window(raw_transactions: list[dict], *, days: Optional[int] = None) -> list[dict]:
     """Trades get an extended lookback during this season's preseason trade window
-    (June 23 - Sept 8, 2026), so the whole preseason's trades show up together,
+    (Feb 9 - Sept 8, 2026), so the whole preseason's trades show up together,
     ranked. Outside that window, falls back to the normal weekly Tuesday-anchored
-    scoping, same as waivers."""
+    scoping, same as waivers. Only actual trades are counted/logged here -- waiver
+    and free-agent moves in the same date range are excluded before counting, so
+    the printed total matches what's actually shown in the Trades section."""
+    trade_txs = [tx for tx in raw_transactions if tx.get("type") == "trade"]
     now = datetime.now(timezone.utc)
     if PRESEASON_TRADE_WINDOW_START <= now < PRESEASON_TRADE_WINDOW_END:
         window_desc = f"since {PRESEASON_TRADE_WINDOW_START.strftime('%B %d, %Y')} (preseason trade window)"
-        return _filter_transactions(raw_transactions, PRESEASON_TRADE_WINDOW_START, window_desc, "Trades")
-    return filter_transactions_to_window(raw_transactions, days=days, label="Trades")
+        return _filter_transactions(trade_txs, PRESEASON_TRADE_WINDOW_START, window_desc, "Trades")
+    return filter_transactions_to_window(trade_txs, days=days, label="Trades")
 
 
 @dataclass
@@ -625,8 +628,9 @@ def build_newsletter_data(
     playable = [m for m in matchups if m.has_scores]
     closest_games = sorted(playable, key=lambda m: m.margin)[:3]
     top_scorers = compute_top_scorers(matchups, players, teams, limit=5)
+    waiver_txs = [tx for tx in raw_transactions if tx.get("type") in ("waiver", "free_agent")]
     recent_trades_raw = filter_trades_to_window(raw_transactions, days=lookback_days)
-    recent_waivers_raw = filter_transactions_to_window(raw_transactions, days=lookback_days, label="Waivers")
+    recent_waivers_raw = filter_transactions_to_window(waiver_txs, days=lookback_days, label="Waivers")
     trades = summarize_transactions(recent_trades_raw, teams, players, current_season=current_season)["trades"]
     waivers = summarize_transactions(recent_waivers_raw, teams, players, current_season=current_season)["waivers"]
     standings = build_standings(teams)
