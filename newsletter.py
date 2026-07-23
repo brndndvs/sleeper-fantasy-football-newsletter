@@ -112,6 +112,10 @@ def get_nfl_state() -> dict:
     return fetch_json(f"{API_BASE}/state/nfl") or {}
 
 
+def get_draft_picks(draft_id: str) -> list[dict]:
+    return fetch_json(f"{API_BASE}/draft/{draft_id}/picks") or []
+
+
 def get_players(*, cache_path: Path = PLAYERS_CACHE_PATH, force_refresh: bool = False) -> dict:
     """Fetch the full NFL player directory, cached locally since it's large (~5MB)
     and changes infrequently."""
@@ -159,6 +163,49 @@ def pick_value(pick_season: Any, pick_round: Any, current_season: int) -> float:
         return 0.0
     base = PICK_ROUND_BASE_VALUE.get(round_num, 100)
     return base * (PICK_YEAR_DISCOUNT**years_out)
+
+
+def build_draft_value_rankings(league: dict, teams: dict, players: dict, *, limit: int = 10) -> dict:
+    """Ranks this season's rookie draft picks two ways: raw current value, and
+    "best value" (current value vs. what a player picked at that slot would be
+    expected to be worth, using the same rank-based value curve). Recomputed
+    fresh every run from Sleeper's own player rankings, so it updates automatically
+    week to week as those rankings shift."""
+    draft_id = league.get("draft_id")
+    if not draft_id:
+        return {"top_value": [], "best_picks": [], "available": False}
+
+    picks = get_draft_picks(draft_id)
+    entries = []
+    for pick in picks:
+        player_id = pick.get("player_id")
+        if player_id is None:
+            continue
+        roster_id = pick.get("roster_id")
+        team = teams.get(roster_id)
+        team_name = team.team_name if team else f"Team {roster_id}"
+        pick_no = pick.get("pick_no")
+        current_value = player_value(player_id, players)
+        expected_value = 0.0
+        if isinstance(pick_no, (int, float)) and pick_no > 0:
+            expected_value = max(0.0, PLAYER_VALUE_MAX - pick_no * PLAYER_VALUE_SLOPE)
+        entries.append(
+            {
+                "player": player_display_name(player_id, players),
+                "team": team_name,
+                "round": pick.get("round"),
+                "pick_no": pick_no,
+                "current_value": round(current_value),
+                "value_gap": round(current_value - expected_value),
+            }
+        )
+
+    if not entries:
+        return {"top_value": [], "best_picks": [], "available": False}
+
+    top_value = sorted(entries, key=lambda e: e["current_value"], reverse=True)[:limit]
+    best_picks = sorted(entries, key=lambda e: e["value_gap"], reverse=True)[:limit]
+    return {"top_value": top_value, "best_picks": best_picks, "available": True}
 
 
 def most_recent_newsletter_anchor(now: datetime) -> datetime:
@@ -575,6 +622,7 @@ class NewsletterData:
     waivers: list[dict]
     standings: list[Team]
     rivals: dict
+    draft_rankings: dict
 
     @property
     def title(self) -> str:
@@ -636,6 +684,7 @@ def build_newsletter_data(
     standings = build_standings(teams)
     rival_pairs = build_rival_pairs(league_id, rivalry_week)
     rivals = build_rivals_section(league_id, week, teams, rival_pairs, current_week_matchups=raw_matchups)
+    draft_rankings = build_draft_value_rankings(league, teams, players)
 
     now = datetime.now(timezone.utc)
     trades_period_label = (
@@ -657,6 +706,7 @@ def build_newsletter_data(
         waivers=waivers,
         standings=standings,
         rivals=rivals,
+        draft_rankings=draft_rankings,
     )
 
 
@@ -694,6 +744,29 @@ def render_markdown(data: NewsletterData) -> str:
             lines.append("")
     else:
         lines.append(f"_{data.no_trades_message}_\n")
+
+    lines.append("## Rookie Draft Value Tracker\n")
+    if data.draft_rankings["available"]:
+        lines.append(
+            "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
+            "week to week as rookies rise and fall._\n"
+        )
+        lines.append("**Top 10 Highest Current Value**\n")
+        for i, e in enumerate(data.draft_rankings["top_value"], start=1):
+            lines.append(
+                f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
+                f"— ~{e['current_value']} value"
+            )
+        lines.append("")
+        lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
+        for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
+            lines.append(
+                f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
+                f"— {e['value_gap']:+d} value vs. draft slot"
+            )
+    else:
+        lines.append("_No draft data available for this season's rookie draft yet._")
+    lines.append("")
 
     lines.append("## Waiver Wire / Free Agency This Week\n")
     if data.waivers:
@@ -839,6 +912,32 @@ ul, ol { padding-left: 1.4rem; }
             parts.append("</ul>")
     else:
         parts.append(f"<p><em>{e(data.no_trades_message)}</em></p>")
+
+    parts.append("<h2>Rookie Draft Value Tracker</h2>")
+    if data.draft_rankings["available"]:
+        parts.append(
+            "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
+            "shifts week to week as rookies rise and fall.</em></p>"
+        )
+        parts.append("<p><strong>Top 10 Highest Current Value</strong></p><ol>")
+        for entry in data.draft_rankings["top_value"]:
+            parts.append(
+                f"<li>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                f"Pick {entry['pick_no']}) — ~{entry['current_value']} value</li>"
+            )
+        parts.append("</ol>")
+        parts.append(
+            "<p><strong>Top 10 Best Value Picks</strong> "
+            "<em>(current value vs. where they were drafted)</em></p><ol>"
+        )
+        for entry in data.draft_rankings["best_picks"]:
+            parts.append(
+                f"<li>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                f"Pick {entry['pick_no']}) — {entry['value_gap']:+d} value vs. draft slot</li>"
+            )
+        parts.append("</ol>")
+    else:
+        parts.append("<p><em>No draft data available for this season's rookie draft yet.</em></p>")
 
     parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
     if data.waivers:
