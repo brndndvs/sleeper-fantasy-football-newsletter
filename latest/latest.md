@@ -10,8 +10,8 @@ If necessary we will take action on owners not doing right. Including myself.
 If anyone has any problem with anything take it up with me or the rules committee. 
 If you want something changed speak up.
 MAJOR ANNOUNCEMENT:
-We will now be doing trophy’s and the price will be taken out of the winners pot for future winners. As commissioner, I will pay for the first 2 trophy winners as I feel it is wrong to make them buy their own now. 
-The trophy is $40 so it doesn’t take much away from you if you win. 
+We will now be doing trophyâs and the price will be taken out of the winners pot for future winners. As commissioner, I will pay for the first 2 trophy winners as I feel it is wrong to make them buy their own now. 
+The trophy is $40 so it doesnât take much away from you if you win. 
 If you win it will have the year league and your name on it. You will be proud with this trophy. Something to show your kids one day.
 I am available 24/7 if need be. You have my number.
 
