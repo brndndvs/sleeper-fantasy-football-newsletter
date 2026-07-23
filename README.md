@@ -58,14 +58,16 @@ Pass `--lookback-days N` to override this with a flat rolling window instead.
 Every run prints the exact date range of included/excluded transactions to
 the console/Action log, so you can verify the scoping on any given week.
 
-**One-time exception for this season:** trades made anywhere from June 23
+**One-time exception for this season:** trades made anywhere from February 9
 through September 8, 2026 (the day before the first regular season game) all
-show up together, ranked — not just the current week — so the whole
-preseason's trading activity gets covered. Waivers are unaffected and always
-stay week-to-week. This is controlled by `PRESEASON_TRADE_WINDOW_START` /
-`_END` at the top of `newsletter.py`; once that window passes, trades
-automatically revert to the normal weekly Tuesday-anchored scoping above with
-no further changes needed. Update those two dates if a similar preseason
+count toward one ranked list — not just the current week — so the whole
+preseason's trading activity gets covered. Only the top 10 (most lopsided)
+are shown, but the total count of preseason trades is mentioned too. Waivers
+are unaffected and always stay week-to-week. This is controlled by
+`PRESEASON_TRADE_WINDOW_START` / `_END` / `TOP_TRADES_LIMIT` at the top of
+`newsletter.py`; once the window passes, trades automatically revert to the
+normal weekly Tuesday-anchored scoping above with no further changes needed.
+Update those two dates if a similar preseason
 window is wanted in a future season.
 
 #### How rivals are identified
