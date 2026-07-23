@@ -58,6 +58,16 @@ Pass `--lookback-days N` to override this with a flat rolling window instead.
 Every run prints the exact date range of included/excluded transactions to
 the console/Action log, so you can verify the scoping on any given week.
 
+**One-time exception for this season:** trades made anywhere from June 23
+through September 8, 2026 (the day before the first regular season game) all
+show up together, ranked — not just the current week — so the whole
+preseason's trading activity gets covered. Waivers are unaffected and always
+stay week-to-week. This is controlled by `PRESEASON_TRADE_WINDOW_START` /
+`_END` at the top of `newsletter.py`; once that window passes, trades
+automatically revert to the normal weekly Tuesday-anchored scoping above with
+no further changes needed. Update those two dates if a similar preseason
+window is wanted in a future season.
+
 #### How rivals are identified
 
 Sleeper's API has no concept of "rivals" — this league's commissioner

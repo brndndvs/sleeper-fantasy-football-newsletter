@@ -57,6 +57,15 @@ FAAB_VALUE_PER_DOLLAR = 10
 NEWSLETTER_ANCHOR_WEEKDAY = 1  # Monday=0 ... Tuesday=1
 NEWSLETTER_ANCHOR_HOUR_UTC = 12  # matches the "0 12 * * 2" cron
 
+# One-time exception for this season: trades made throughout the whole preseason
+# trading window should all show up together, ranked, instead of only the current
+# week. Waivers are unaffected and always stay week-to-week. Once this window
+# passes (day before the first regular season game), trades automatically revert
+# to the normal weekly Tuesday-anchored scoping above -- no further changes needed.
+# Update these two dates if a similar preseason window is wanted in a future season.
+PRESEASON_TRADE_WINDOW_START = datetime(2026, 6, 23, tzinfo=timezone.utc)
+PRESEASON_TRADE_WINDOW_END = datetime(2026, 9, 9, tzinfo=timezone.utc)  # exclusive; covers through Sept 8
+
 # The commissioner manually schedules a rivalry week where every team plays its
 # rival; rivals also meet once more wherever the normal round-robin schedule
 # happens to pair them up.
@@ -164,20 +173,8 @@ def most_recent_newsletter_anchor(now: datetime) -> datetime:
     )
 
 
-def filter_transactions_to_window(raw_transactions: list[dict], *, days: Optional[int] = None) -> list[dict]:
-    """Sleeper's transactions/{week} endpoint can lump an entire offseason's activity
-    into "week 1" before the season starts. Filter to only transactions actually
-    completed since the newsletter's weekly anchor (or an explicit --lookback-days
-    override) so "this week's" trades/waivers are accurate."""
-    now = datetime.now(timezone.utc)
-    if days is not None:
-        cutoff = now - timedelta(days=days)
-        window_desc = f"the last {days} days"
-    else:
-        cutoff = most_recent_newsletter_anchor(now)
-        window_desc = f"since {cutoff.strftime('%A, %B %d %Y %H:%M UTC')}"
+def _filter_transactions(raw_transactions: list[dict], cutoff: datetime, window_desc: str, label: str) -> list[dict]:
     cutoff_ms = cutoff.timestamp() * 1000
-
     included, excluded = [], 0
     newest_ts, oldest_ts = None, None
     for tx in raw_transactions:
@@ -195,13 +192,42 @@ def filter_transactions_to_window(raw_transactions: list[dict], *, days: Optiona
 
     if oldest_ts is not None:
         print(
-            f"Transactions: {len(included)} {window_desc} "
+            f"{label}: {len(included)} {window_desc} "
             f"({fmt(oldest_ts)} to {fmt(newest_ts)}), {excluded} older ones excluded.",
             file=sys.stderr,
         )
     else:
-        print(f"Transactions: {len(included)} {window_desc}.", file=sys.stderr)
+        print(f"{label}: {len(included)} {window_desc}.", file=sys.stderr)
     return included
+
+
+def filter_transactions_to_window(
+    raw_transactions: list[dict], *, days: Optional[int] = None, label: str = "Transactions"
+) -> list[dict]:
+    """Sleeper's transactions/{week} endpoint can lump an entire offseason's activity
+    into "week 1" before the season starts. Filter to only transactions actually
+    completed since the newsletter's weekly anchor (or an explicit --lookback-days
+    override) so "this week's" trades/waivers are accurate."""
+    now = datetime.now(timezone.utc)
+    if days is not None:
+        cutoff = now - timedelta(days=days)
+        window_desc = f"the last {days} days"
+    else:
+        cutoff = most_recent_newsletter_anchor(now)
+        window_desc = f"since {cutoff.strftime('%A, %B %d %Y %H:%M UTC')}"
+    return _filter_transactions(raw_transactions, cutoff, window_desc, label)
+
+
+def filter_trades_to_window(raw_transactions: list[dict], *, days: Optional[int] = None) -> list[dict]:
+    """Trades get an extended lookback during this season's preseason trade window
+    (June 23 - Sept 8, 2026), so the whole preseason's trades show up together,
+    ranked. Outside that window, falls back to the normal weekly Tuesday-anchored
+    scoping, same as waivers."""
+    now = datetime.now(timezone.utc)
+    if PRESEASON_TRADE_WINDOW_START <= now < PRESEASON_TRADE_WINDOW_END:
+        window_desc = f"since {PRESEASON_TRADE_WINDOW_START.strftime('%B %d, %Y')} (preseason trade window)"
+        return _filter_transactions(raw_transactions, PRESEASON_TRADE_WINDOW_START, window_desc, "Trades")
+    return filter_transactions_to_window(raw_transactions, days=days, label="Trades")
 
 
 @dataclass
@@ -541,6 +567,7 @@ class NewsletterData:
     closest_games: list[MatchupResult]
     top_scorers: list[dict]
     trades: list[dict]
+    trades_period_label: str
     waivers: list[dict]
     standings: list[Team]
     rivals: dict
@@ -555,6 +582,12 @@ class NewsletterData:
         else:
             period = f"Week {self.week} — {date_str}"
         return f"{self.league_name} — {period}"
+
+    @property
+    def no_trades_message(self) -> str:
+        if self.trades_period_label == "This Week":
+            return "No trades this week."
+        return "No trades during the preseason trade window."
 
 
 def build_newsletter_data(
@@ -591,11 +624,20 @@ def build_newsletter_data(
     playable = [m for m in matchups if m.has_scores]
     closest_games = sorted(playable, key=lambda m: m.margin)[:3]
     top_scorers = compute_top_scorers(matchups, players, teams, limit=5)
-    recent_transactions = filter_transactions_to_window(raw_transactions, days=lookback_days)
-    tx_summary = summarize_transactions(recent_transactions, teams, players, current_season=current_season)
+    recent_trades_raw = filter_trades_to_window(raw_transactions, days=lookback_days)
+    recent_waivers_raw = filter_transactions_to_window(raw_transactions, days=lookback_days, label="Waivers")
+    trades = summarize_transactions(recent_trades_raw, teams, players, current_season=current_season)["trades"]
+    waivers = summarize_transactions(recent_waivers_raw, teams, players, current_season=current_season)["waivers"]
     standings = build_standings(teams)
     rival_pairs = build_rival_pairs(league_id, rivalry_week)
     rivals = build_rivals_section(league_id, week, teams, rival_pairs, current_week_matchups=raw_matchups)
+
+    now = datetime.now(timezone.utc)
+    trades_period_label = (
+        "Preseason Trade Window"
+        if PRESEASON_TRADE_WINDOW_START <= now < PRESEASON_TRADE_WINDOW_END
+        else "This Week"
+    )
 
     return NewsletterData(
         league_name=league.get("name", "Fantasy League"),
@@ -605,8 +647,9 @@ def build_newsletter_data(
         matchups=matchups,
         closest_games=closest_games,
         top_scorers=top_scorers,
-        trades=tx_summary["trades"],
-        waivers=tx_summary["waivers"],
+        trades=trades,
+        trades_period_label=trades_period_label,
+        waivers=waivers,
         standings=standings,
         rivals=rivals,
     )
@@ -617,7 +660,7 @@ def render_markdown(data: NewsletterData) -> str:
     lines.append(f"# {data.title} Newsletter")
     lines.append(f"_{data.season} Season_\n")
 
-    lines.append("## Trades This Week (ranked by estimated value)\n")
+    lines.append(f"## Trades — {data.trades_period_label} (ranked by estimated value)\n")
     if data.trades:
         lines.append(
             "_Value is a rough estimate from Sleeper's own player rankings and a simple "
@@ -636,7 +679,7 @@ def render_markdown(data: NewsletterData) -> str:
                 lines.append(f"- {team_name} receives: {received} (~{round(info['received_value'])} value)")
             lines.append("")
     else:
-        lines.append("_No trades this week._\n")
+        lines.append(f"_{data.no_trades_message}_\n")
 
     lines.append("## Waiver Wire / Free Agency This Week\n")
     if data.waivers:
@@ -751,7 +794,7 @@ ul, ol { padding-left: 1.4rem; }
     parts.append(f"<h1>{e(data.title)} Newsletter</h1>")
     parts.append(f"<p class='subtitle'>{e(data.season)} Season</p>")
 
-    parts.append("<h2>Trades This Week (ranked by estimated value)</h2>")
+    parts.append(f"<h2>Trades — {e(data.trades_period_label)} (ranked by estimated value)</h2>")
     if data.trades:
         parts.append(
             "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
@@ -772,7 +815,7 @@ ul, ol { padding-left: 1.4rem; }
                 )
             parts.append("</ul>")
     else:
-        parts.append("<p><em>No trades this week.</em></p>")
+        parts.append(f"<p><em>{e(data.no_trades_message)}</em></p>")
 
     parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
     if data.waivers:
