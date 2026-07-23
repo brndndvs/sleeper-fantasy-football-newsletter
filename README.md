@@ -37,7 +37,8 @@ It covers:
   recalculated fresh every run
 - Closest games of the week
 - Top individual scorers
-- Current standings (record, points for/against)
+- Current standings (record, points for/against) — split out by division if the
+  league has real Sleeper divisions configured, otherwise one combined table
 
 #### About the trade value ranking
 
@@ -124,6 +125,15 @@ repo secret:
 | `COMMISSIONER_EMAIL` | The commissioner's email address, for the Monday-night reminder |
 
 It reuses the same `SMTP_*`/`FROM_EMAIL` secrets as the main newsletter email.
+
+#### About divisional standings
+
+If the league has Sleeper divisions configured (**League Settings → League →
+Divisions**, with teams assigned to them), the Standings section splits into
+one table per division, named from whatever the commissioner named them in
+Sleeper. If the league has fewer than two divisions configured, it falls back
+to a single combined standings table like before — no configuration needed on
+this script's side either way.
 
 #### How rivals are identified
 

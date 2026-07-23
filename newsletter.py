@@ -366,6 +366,7 @@ class Team:
     ties: int = 0
     fpts: float = 0.0
     fpts_against: float = 0.0
+    division: Optional[int] = None
 
     @property
     def record(self) -> str:
@@ -390,6 +391,7 @@ def build_teams(rosters: list[dict], users: list[dict]) -> dict[int, Team]:
         fpts_against = float(settings.get("fpts_against", 0)) + float(
             settings.get("fpts_against_decimal", 0)
         ) / 100
+        division = settings.get("division")
         teams[roster["roster_id"]] = Team(
             roster_id=roster["roster_id"],
             owner_id=owner_id,
@@ -399,6 +401,7 @@ def build_teams(rosters: list[dict], users: list[dict]) -> dict[int, Team]:
             ties=int(settings.get("ties", 0)),
             fpts=fpts,
             fpts_against=fpts_against,
+            division=int(division) if division else None,
         )
     return teams
 
@@ -683,6 +686,31 @@ def build_standings(teams: dict[int, Team]) -> list[Team]:
     return sorted(teams.values(), key=lambda t: (-t.wins, t.losses, -t.fpts))
 
 
+def build_divisional_standings(teams: dict[int, Team], league: dict) -> Optional[list[dict]]:
+    """Groups standings by Sleeper division, named from the league's own division_N
+    metadata. Returns None if the league doesn't have real divisions configured (fewer
+    than 2), so callers can fall back to one combined standings table."""
+    num_divisions = int((league.get("settings") or {}).get("divisions") or 0)
+    if num_divisions < 2:
+        return None
+
+    groups: dict[int, list[Team]] = {}
+    for team in teams.values():
+        if team.division is None:
+            continue
+        groups.setdefault(team.division, []).append(team)
+    if len(groups) < 2:
+        return None
+
+    metadata = league.get("metadata") or {}
+    divisions = []
+    for div_num in sorted(groups):
+        name = metadata.get(f"division_{div_num}") or f"Division {div_num}"
+        ranked = sorted(groups[div_num], key=lambda t: (-t.wins, t.losses, -t.fpts))
+        divisions.append({"name": name, "standings": ranked})
+    return divisions
+
+
 @dataclass
 class NewsletterData:
     league_name: str
@@ -696,6 +724,7 @@ class NewsletterData:
     trades_period_label: str
     waivers: list[dict]
     standings: list[Team]
+    divisional_standings: Optional[list[dict]]
     rivals: dict
     draft_rankings: dict
     commissioner_notes: Optional[dict]
@@ -759,6 +788,12 @@ def build_newsletter_data(
     trades = summarize_transactions(recent_trades_raw, teams, players, current_season=current_season)["trades"]
     waivers = summarize_transactions(recent_waivers_raw, teams, players, current_season=current_season)["waivers"]
     standings = build_standings(teams)
+    divisional_standings = build_divisional_standings(teams, league)
+    if divisional_standings:
+        names = ", ".join(f"{d['name']} ({len(d['standings'])})" for d in divisional_standings)
+        print(f"Divisional standings: {names}", file=sys.stderr)
+    else:
+        print("Divisional standings: league has no divisions configured, using overall standings", file=sys.stderr)
     rival_pairs = build_rival_pairs(league_id, rivalry_week)
     rivals = build_rivals_section(league_id, week, teams, rival_pairs, current_week_matchups=raw_matchups)
     draft_rankings = build_draft_value_rankings(league, teams, players)
@@ -787,6 +822,7 @@ def build_newsletter_data(
         trades_period_label=trades_period_label,
         waivers=waivers,
         standings=standings,
+        divisional_standings=divisional_standings,
         rivals=rivals,
         draft_rankings=draft_rankings,
         commissioner_notes=commissioner_notes,
@@ -925,13 +961,24 @@ def render_markdown(data: NewsletterData) -> str:
     lines.append("")
 
     lines.append("## Standings\n")
-    lines.append("| Rank | Team | Record | PF | PA |")
-    lines.append("|------|------|--------|----|----|")
-    for i, team in enumerate(data.standings, start=1):
-        lines.append(
-            f"| {i} | {team.team_name} | {team.record} | {team.fpts:.2f} | {team.fpts_against:.2f} |"
-        )
-    lines.append("")
+    if data.divisional_standings:
+        for division in data.divisional_standings:
+            lines.append(f"**{division['name']}**\n")
+            lines.append("| Rank | Team | Record | PF | PA |")
+            lines.append("|------|------|--------|----|----|")
+            for i, team in enumerate(division["standings"], start=1):
+                lines.append(
+                    f"| {i} | {team.team_name} | {team.record} | {team.fpts:.2f} | {team.fpts_against:.2f} |"
+                )
+            lines.append("")
+    else:
+        lines.append("| Rank | Team | Record | PF | PA |")
+        lines.append("|------|------|--------|----|----|")
+        for i, team in enumerate(data.standings, start=1):
+            lines.append(
+                f"| {i} | {team.team_name} | {team.record} | {team.fpts:.2f} | {team.fpts_against:.2f} |"
+            )
+        lines.append("")
 
     return "\n".join(lines)
 
@@ -1110,13 +1157,24 @@ ul, ol { padding-left: 1.4rem; }
         parts.append("<p><em>No player data available.</em></p>")
 
     parts.append("<h2>Standings</h2>")
-    parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>PF</th><th>PA</th></tr>")
-    for i, team in enumerate(data.standings, start=1):
-        parts.append(
-            f"<tr><td>{i}</td><td>{e(team.team_name)}</td><td>{team.record}</td>"
-            f"<td>{team.fpts:.2f}</td><td>{team.fpts_against:.2f}</td></tr>"
-        )
-    parts.append("</table>")
+    if data.divisional_standings:
+        for division in data.divisional_standings:
+            parts.append(f"<h3>{e(division['name'])}</h3>")
+            parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>PF</th><th>PA</th></tr>")
+            for i, team in enumerate(division["standings"], start=1):
+                parts.append(
+                    f"<tr><td>{i}</td><td>{e(team.team_name)}</td><td>{team.record}</td>"
+                    f"<td>{team.fpts:.2f}</td><td>{team.fpts_against:.2f}</td></tr>"
+                )
+            parts.append("</table>")
+    else:
+        parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>PF</th><th>PA</th></tr>")
+        for i, team in enumerate(data.standings, start=1):
+            parts.append(
+                f"<tr><td>{i}</td><td>{e(team.team_name)}</td><td>{team.record}</td>"
+                f"<td>{team.fpts:.2f}</td><td>{team.fpts_against:.2f}</td></tr>"
+            )
+        parts.append("</table>")
 
     parts.append("</body></html>")
     return "\n".join(parts)
