@@ -135,19 +135,26 @@ _No player data available._
 
 ## Standings
 
+**Nona**
+
+| Rank | Team | Record | PF | PA |
+|------|------|--------|----|----|
+| 1 | Cam Show | 0-0 | 0.00 | 0.00 |
+| 2 | JordanFFantasy | 0-0 | 0.00 | 0.00 |
+| 3 | awesomevan | 0-0 | 0.00 | 0.00 |
+| 4 | LaPorta Potty | 0-0 | 0.00 | 0.00 |
+| 5 | benmachi | 0-0 | 0.00 | 0.00 |
+| 6 | CeDeez big ones | 0-0 | 0.00 | 0.00 |
+| 7 | Tpotts42 | 0-0 | 0.00 | 0.00 |
+
+**STC**
+
 | Rank | Team | Record | PF | PA |
 |------|------|--------|----|----|
 | 1 | Roger Goodell | 0-0 | 0.00 | 0.00 |
 | 2 | Better Call Hall | 0-0 | 0.00 | 0.00 |
-| 3 | Cam Show | 0-0 | 0.00 | 0.00 |
-| 4 | Simply Touchdowns | 0-0 | 0.00 | 0.00 |
-| 5 | JordanFFantasy | 0-0 | 0.00 | 0.00 |
-| 6 | MaxiVidret | 0-0 | 0.00 | 0.00 |
-| 7 | awesomevan | 0-0 | 0.00 | 0.00 |
-| 8 | LaPorta Potty | 0-0 | 0.00 | 0.00 |
-| 9 | benmachi | 0-0 | 0.00 | 0.00 |
-| 10 | Larkinsjacob | 0-0 | 0.00 | 0.00 |
-| 11 | CeDeez big ones | 0-0 | 0.00 | 0.00 |
-| 12 | Tpotts42 | 0-0 | 0.00 | 0.00 |
-| 13 | andrewburkhardt1 | 0-0 | 0.00 | 0.00 |
-| 14 | Talking Tua Teenager | 0-0 | 0.00 | 0.00 |
+| 3 | Simply Touchdowns | 0-0 | 0.00 | 0.00 |
+| 4 | MaxiVidret | 0-0 | 0.00 | 0.00 |
+| 5 | Larkinsjacob | 0-0 | 0.00 | 0.00 |
+| 6 | andrewburkhardt1 | 0-0 | 0.00 | 0.00 |
+| 7 | Talking Tua Teenager | 0-0 | 0.00 | 0.00 |
