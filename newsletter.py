@@ -13,6 +13,8 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import csv
+import io
 import json
 import os
 import smtplib
@@ -23,6 +25,7 @@ from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
 from pathlib import Path
 from typing import Any, Optional
+from zoneinfo import ZoneInfo
 
 import requests
 
@@ -71,6 +74,19 @@ TOP_TRADES_LIMIT = 10  # during the preseason window, show only the top N, but m
 # rival; rivals also meet once more wherever the normal round-robin schedule
 # happens to pair them up.
 DEFAULT_RIVALRY_WEEK = 12
+
+# Commissioner's Notes: a Google Form (feeding a Google Sheet, published to the web
+# as CSV) the commissioner fills out each week. A separate scheduled workflow emails
+# him a reminder with the form link Monday night; this script reads back whatever he
+# submitted most recently. Google Sheets timestamps are recorded in the sheet owner's
+# account timezone -- assumed to be US Eastern here, matching the rest of the league.
+COMMISSIONER_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeKsb3NOAeQ09DqwEIAPMRb0ngUdPt6o0aKrCP053TxFTthQQ/viewform"
+COMMISSIONER_NOTES_CSV_URL = (
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQDj03tYxSmCGULO15FcdGKc1kqL-riIBPKAlPMsfFc0CLx8Jy8u9Xo9aiawLyFCXoyiOCS1AiEBKAi/pub"
+    "?gid=1000028566&single=true&output=csv"
+)
+COMMISSIONER_NOTES_COLUMN = "Commissioner's Notes"
+COMMISSIONER_NOTES_TIMEZONE = ZoneInfo("America/New_York")
 
 
 class SleeperAPIError(RuntimeError):
@@ -279,6 +295,65 @@ def filter_trades_to_window(raw_transactions: list[dict], *, days: Optional[int]
         window_desc = f"since {PRESEASON_TRADE_WINDOW_START.strftime('%B %d, %Y')} (preseason trade window)"
         return _filter_transactions(trade_txs, PRESEASON_TRADE_WINDOW_START, window_desc, "Trades")
     return filter_transactions_to_window(trade_txs, days=days, label="Trades")
+
+
+def _parse_form_timestamp(raw: str) -> Optional[datetime]:
+    """Google Forms writes Timestamp as e.g. "7/23/2026 14:32:01" (24-hour) in the
+    sheet owner's local timezone."""
+    for fmt in ("%m/%d/%Y %H:%M:%S", "%m/%d/%Y %I:%M:%S %p"):
+        try:
+            naive = datetime.strptime(raw.strip(), fmt)
+        except ValueError:
+            continue
+        return naive.replace(tzinfo=COMMISSIONER_NOTES_TIMEZONE).astimezone(timezone.utc)
+    return None
+
+
+def get_commissioner_notes(csv_url: str, anchor: datetime) -> Optional[dict]:
+    """Fetch the commissioner's latest note from the published Google Sheet CSV. Only
+    returns it if submitted since this newsletter week's anchor -- otherwise a stale
+    note from a week he skipped would keep reappearing."""
+    try:
+        resp = requests.get(csv_url, timeout=20)
+        resp.raise_for_status()
+    except requests.RequestException as exc:
+        print(f"Skipping commissioner notes: fetch failed ({exc})", file=sys.stderr)
+        return None
+
+    rows = list(csv.DictReader(io.StringIO(resp.text)))
+    if not rows:
+        return None
+
+    fieldnames = rows[0].keys()
+    timestamp_col = next((c for c in fieldnames if c.strip().lower() == "timestamp"), None)
+    notes_col = next((c for c in fieldnames if c.strip() == COMMISSIONER_NOTES_COLUMN), None)
+    if timestamp_col is None or notes_col is None:
+        print("Skipping commissioner notes: expected columns not found in CSV", file=sys.stderr)
+        return None
+
+    latest_row, latest_dt = None, None
+    for row in rows:
+        dt = _parse_form_timestamp(row.get(timestamp_col) or "")
+        if dt is None:
+            continue
+        if latest_dt is None or dt > latest_dt:
+            latest_dt, latest_row = dt, row
+
+    if latest_row is None:
+        return None
+
+    note = (latest_row.get(notes_col) or "").strip()
+    if not note:
+        return None
+
+    if latest_dt < anchor:
+        print(
+            f"Skipping commissioner notes: latest submission ({latest_dt}) predates this week's anchor ({anchor})",
+            file=sys.stderr,
+        )
+        return None
+
+    return {"note": note, "when": latest_dt}
 
 
 @dataclass
@@ -623,6 +698,7 @@ class NewsletterData:
     standings: list[Team]
     rivals: dict
     draft_rankings: dict
+    commissioner_notes: Optional[dict]
 
     @property
     def title(self) -> str:
@@ -655,6 +731,7 @@ def build_newsletter_data(
     lookback_days: Optional[int] = None,
     rivalry_week: int = DEFAULT_RIVALRY_WEEK,
     season_type: Optional[str] = None,
+    commissioner_notes_csv_url: Optional[str] = COMMISSIONER_NOTES_CSV_URL,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -687,6 +764,11 @@ def build_newsletter_data(
     draft_rankings = build_draft_value_rankings(league, teams, players)
 
     now = datetime.now(timezone.utc)
+    commissioner_notes = (
+        get_commissioner_notes(commissioner_notes_csv_url, most_recent_newsletter_anchor(now))
+        if commissioner_notes_csv_url
+        else None
+    )
     trades_period_label = (
         "Preseason Trade Window"
         if PRESEASON_TRADE_WINDOW_START <= now < PRESEASON_TRADE_WINDOW_END
@@ -707,6 +789,7 @@ def build_newsletter_data(
         standings=standings,
         rivals=rivals,
         draft_rankings=draft_rankings,
+        commissioner_notes=commissioner_notes,
     )
 
 
@@ -714,6 +797,11 @@ def render_markdown(data: NewsletterData) -> str:
     lines = []
     lines.append(f"# {data.title} Newsletter")
     lines.append(f"_{data.season} Season_\n")
+
+    if data.commissioner_notes:
+        lines.append("## Commissioner's Notes\n")
+        lines.append(data.commissioner_notes["note"])
+        lines.append("")
 
     is_preseason_window = data.trades_period_label == "Preseason Trade Window"
     shown_trades = data.trades[:TOP_TRADES_LIMIT] if is_preseason_window else data.trades
@@ -880,6 +968,11 @@ ul, ol { padding-left: 1.4rem; }
     parts.append("</head><body>")
     parts.append(f"<h1>{e(data.title)} Newsletter</h1>")
     parts.append(f"<p class='subtitle'>{e(data.season)} Season</p>")
+
+    if data.commissioner_notes:
+        parts.append("<h2>Commissioner's Notes</h2>")
+        note_html = e(data.commissioner_notes["note"]).replace("\n", "<br>")
+        parts.append(f"<p>{note_html}</p>")
 
     is_preseason_window = data.trades_period_label == "Preseason Trade Window"
     shown_trades = data.trades[:TOP_TRADES_LIMIT] if is_preseason_window else data.trades
@@ -1093,6 +1186,31 @@ def send_email_newsletter(
         smtp.send_message(msg)
 
 
+def send_commissioner_reminder(
+    *,
+    smtp_host: str,
+    smtp_port: int,
+    username: str,
+    password: str,
+    from_addr: str,
+    to_addr: str,
+    form_url: str,
+) -> None:
+    msg = EmailMessage()
+    msg["Subject"] = "Commissioner's Notes - this week's newsletter"
+    msg["From"] = from_addr
+    msg["To"] = to_addr
+    msg.set_content(
+        "Hey commish,\n\n"
+        "Got anything you want to tell the league this week? Fill this out before "
+        f"Tuesday morning and it'll go straight into the newsletter:\n\n{form_url}\n"
+    )
+    with smtplib.SMTP(smtp_host, smtp_port) as smtp:
+        smtp.starttls()
+        smtp.login(username, password)
+        smtp.send_message(msg)
+
+
 def send_sms_summary(
     text: str,
     *,
@@ -1169,7 +1287,37 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument(
         "--send-sms", action="store_true", help="Text a short summary via Twilio (see README for required env vars)"
     )
+    parser.add_argument(
+        "--remind-commissioner",
+        action="store_true",
+        help=(
+            "Just email the commissioner a reminder with the Commissioner's Notes form link, "
+            "then exit (used by the Monday-night reminder workflow; skips newsletter generation)"
+        ),
+    )
     args = parser.parse_args(argv)
+
+    if args.remind_commissioner:
+        required = ["SMTP_HOST", "SMTP_USERNAME", "SMTP_PASSWORD", "FROM_EMAIL", "COMMISSIONER_EMAIL"]
+        missing = [key for key in required if not os.environ.get(key)]
+        if missing:
+            print(f"Skipping commissioner reminder: not configured yet (missing {', '.join(missing)})", file=sys.stderr)
+            return 1
+        try:
+            send_commissioner_reminder(
+                smtp_host=os.environ["SMTP_HOST"],
+                smtp_port=int(os.environ.get("SMTP_PORT", "587")),
+                username=os.environ["SMTP_USERNAME"],
+                password=os.environ["SMTP_PASSWORD"],
+                from_addr=os.environ["FROM_EMAIL"],
+                to_addr=os.environ["COMMISSIONER_EMAIL"],
+                form_url=COMMISSIONER_FORM_URL,
+            )
+            print(f"Emailed commissioner reminder to {os.environ['COMMISSIONER_EMAIL']}")
+        except smtplib.SMTPException as exc:
+            print(f"Failed to send commissioner reminder: {exc}", file=sys.stderr)
+            return 1
+        return 0
 
     try:
         week = determine_week(args.league_id, args.week)
