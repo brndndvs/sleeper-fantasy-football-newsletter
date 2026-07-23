@@ -316,6 +316,8 @@ def get_commissioner_notes(csv_url: str, anchor: datetime) -> Optional[dict]:
     try:
         resp = requests.get(csv_url, timeout=20)
         resp.raise_for_status()
+        resp.encoding = "utf-8"  # Google's published CSV omits a charset header, so requests
+        # otherwise guesses latin-1 and mangles curly quotes/apostrophes
     except requests.RequestException as exc:
         print(f"Skipping commissioner notes: fetch failed ({exc})", file=sys.stderr)
         return None
