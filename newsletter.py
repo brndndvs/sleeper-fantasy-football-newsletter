@@ -63,8 +63,9 @@ NEWSLETTER_ANCHOR_HOUR_UTC = 12  # matches the "0 12 * * 2" cron
 # passes (day before the first regular season game), trades automatically revert
 # to the normal weekly Tuesday-anchored scoping above -- no further changes needed.
 # Update these two dates if a similar preseason window is wanted in a future season.
-PRESEASON_TRADE_WINDOW_START = datetime(2026, 6, 23, tzinfo=timezone.utc)
+PRESEASON_TRADE_WINDOW_START = datetime(2026, 2, 9, tzinfo=timezone.utc)
 PRESEASON_TRADE_WINDOW_END = datetime(2026, 9, 9, tzinfo=timezone.utc)  # exclusive; covers through Sept 8
+TOP_TRADES_LIMIT = 10  # during the preseason window, show only the top N, but mention the total count
 
 # The commissioner manually schedules a rivalry week where every team plays its
 # rival; rivals also meet once more wherever the normal round-robin schedule
@@ -660,13 +661,22 @@ def render_markdown(data: NewsletterData) -> str:
     lines.append(f"# {data.title} Newsletter")
     lines.append(f"_{data.season} Season_\n")
 
+    is_preseason_window = data.trades_period_label == "Preseason Trade Window"
+    shown_trades = data.trades[:TOP_TRADES_LIMIT] if is_preseason_window else data.trades
+
     lines.append(f"## Trades — {data.trades_period_label} (ranked by estimated value)\n")
     if data.trades:
+        if is_preseason_window:
+            lines.append(
+                f"_{len(data.trades)} total preseason trades since "
+                f"{PRESEASON_TRADE_WINDOW_START.strftime('%B %d, %Y')} — showing the top "
+                f"{len(shown_trades)}, most lopsided first._"
+            )
         lines.append(
             "_Value is a rough estimate from Sleeper's own player rankings and a simple "
             "pick-value table — not official ADP or projections. Ranked most lopsided first._\n"
         )
-        for i, trade in enumerate(data.trades, start=1):
+        for i, trade in enumerate(shown_trades, start=1):
             date_str = format_day(trade["when"])
             headline = f"**Trade {i} ({date_str})"
             if trade["winner"]:
@@ -794,13 +804,22 @@ ul, ol { padding-left: 1.4rem; }
     parts.append(f"<h1>{e(data.title)} Newsletter</h1>")
     parts.append(f"<p class='subtitle'>{e(data.season)} Season</p>")
 
+    is_preseason_window = data.trades_period_label == "Preseason Trade Window"
+    shown_trades = data.trades[:TOP_TRADES_LIMIT] if is_preseason_window else data.trades
+
     parts.append(f"<h2>Trades — {e(data.trades_period_label)} (ranked by estimated value)</h2>")
     if data.trades:
+        if is_preseason_window:
+            parts.append(
+                f"<p><em>{len(data.trades)} total preseason trades since "
+                f"{e(PRESEASON_TRADE_WINDOW_START.strftime('%B %d, %Y'))} — showing the top "
+                f"{len(shown_trades)}, most lopsided first.</em></p>"
+            )
         parts.append(
             "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
             "pick-value table — not official ADP or projections. Ranked most lopsided first.</em></p>"
         )
-        for i, trade in enumerate(data.trades, start=1):
+        for i, trade in enumerate(shown_trades, start=1):
             date_str = e(format_day(trade["when"]))
             if trade["winner"]:
                 headline = f"Trade {i} ({date_str}) — {e(trade['winner'])} wins it (+{trade['value_diff']} est. value)"
