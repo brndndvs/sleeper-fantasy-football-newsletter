@@ -1211,6 +1211,19 @@ def _html_escape(text: str) -> str:
     )
 
 
+def _bar_html(fraction: float, color: str, *, width_px: int = 160, height_px: int = 12) -> str:
+    """A minimal CSS bar, built with a fixed-width outer div and a percentage-width
+    inner div -- fully inline-styled (no <style> classes) so it survives email clients
+    that strip <style> blocks from the HTML they render."""
+    pct = max(0.0, min(1.0, fraction)) * 100
+    return (
+        f'<div style="background:#e2e2e2;width:{width_px}px;height:{height_px}px;'
+        f'border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;">'
+        f'<div style="background:{color};width:{pct:.0f}%;height:{height_px}px;"></div>'
+        f"</div>"
+    )
+
+
 def render_html(data: NewsletterData) -> str:
     e = _html_escape
     parts = []
@@ -1283,23 +1296,37 @@ ul, ol { padding-left: 1.4rem; }
             "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
             "shifts week to week as rookies rise and fall.</em></p>"
         )
-        parts.append("<p><strong>Top 10 Highest Current Value</strong></p><ol>")
-        for entry in data.draft_rankings["top_value"]:
+        parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
+        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
+        top_value = data.draft_rankings["top_value"]
+        max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
+        for i, entry in enumerate(top_value, start=1):
+            bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
             parts.append(
-                f"<li>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
-                f"Pick {entry['pick_no']}) — ~{entry['current_value']} value</li>"
+                f"<tr><td>{i}</td>"
+                f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                f"Pick {entry['pick_no']})</td>"
+                f"<td>{bar} ~{entry['current_value']}</td></tr>"
             )
-        parts.append("</ol>")
+        parts.append("</table>")
+
         parts.append(
             "<p><strong>Top 10 Best Value Picks</strong> "
-            "<em>(current value vs. where they were drafted)</em></p><ol>"
+            "<em>(current value vs. where they were drafted)</em></p>"
         )
-        for entry in data.draft_rankings["best_picks"]:
+        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
+        best_picks = data.draft_rankings["best_picks"]
+        max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
+        for i, entry in enumerate(best_picks, start=1):
+            color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
+            bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
             parts.append(
-                f"<li>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
-                f"Pick {entry['pick_no']}) — {entry['value_gap']:+d} value vs. draft slot</li>"
+                f"<tr><td>{i}</td>"
+                f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                f"Pick {entry['pick_no']})</td>"
+                f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
             )
-        parts.append("</ol>")
+        parts.append("</table>")
     else:
         parts.append("<p><em>No draft data available for this season's rookie draft yet.</em></p>")
 
