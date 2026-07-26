@@ -1,4 +1,4 @@
-# Floridian Dynasty Football Association LLC — July 23, 2026 Newsletter
+# Floridian Dynasty Football Association LLC — July 26, 2026 Newsletter
 _2026 Season_
 
 ## Commissioner's Notes
@@ -21,44 +21,74 @@ _13 total preseason trades since February 09, 2026 — showing the top 10, most 
 _Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked most lopsided first._
 
 **Trade 1 (Sunday, July 19) — Roger Goodell wins it (+11809 est. value)**
-- Roger Goodell receives: Dalton Kincaid (TE - BUF), Nico Collins (WR - HOU), Romeo Doubs (WR - NE) (~16722 value)
-- Larkinsjacob receives: 2028 Round 1 pick, 2028 Round 2 pick, 2028 Round 2 pick (~4913 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Roger Goodell | Dalton Kincaid (TE - BUF), Nico Collins (WR - HOU), Romeo Doubs (WR - NE) | 16722 | +11809 |
+| Larkinsjacob | 2028 Round 1 pick, 2028 Round 2 pick, 2028 Round 2 pick | 4913 | -11809 |
 
 **Trade 2 (Sunday, July 19) — CeDeez big ones wins it (+10120 est. value)**
-- Better Call Hall receives: $30 FAAB (~300 value)
-- CeDeez big ones receives: Theo Johnson (TE - NYG), Colby Parkinson (TE - LAR), $10 FAAB (~10420 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Better Call Hall | $30 FAAB | 300 | -10120 |
+| CeDeez big ones | Theo Johnson (TE - NYG), Colby Parkinson (TE - LAR), $10 FAAB | 10420 | +10120 |
 
 **Trade 3 (Tuesday, July 21) — MaxiVidret wins it (+6551 est. value)**
-- Cam Show receives: TreVeyon Henderson (RB - NE), 2028 Round 2 pick, 2029 Round 2 pick (~7649 value)
-- MaxiVidret receives: Woody Marks (RB - HOU), Jacory Croskey-Merritt (RB - WAS), 2027 Round 1 pick (~14200 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Cam Show | TreVeyon Henderson (RB - NE), 2028 Round 2 pick, 2029 Round 2 pick | 7649 | -6551 |
+| MaxiVidret | Woody Marks (RB - HOU), Jacory Croskey-Merritt (RB - WAS), 2027 Round 1 pick | 14200 | +6551 |
 
 **Trade 4 (Friday, June 5) — Simply Touchdowns wins it (+5574 est. value)**
-- Roger Goodell receives: $1 FAAB (~10 value)
-- Simply Touchdowns receives: Kyle Pitts (TE - ATL), $1 FAAB (~5584 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Roger Goodell | $1 FAAB | 10 | -5574 |
+| Simply Touchdowns | Kyle Pitts (TE - ATL), $1 FAAB | 5584 | +5574 |
 
 **Trade 5 (Wednesday, July 22) — Better Call Hall wins it (+4444 est. value)**
-- Better Call Hall receives: Tucker Kraft (TE - GB), Quentin Johnston (WR - LAC) (~10980 value)
-- MaxiVidret receives: Kenyon Sadiq (TE - NYJ), 2027 Round 2 pick (~6536 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Better Call Hall | Tucker Kraft (TE - GB), Quentin Johnston (WR - LAC) | 10980 | +4444 |
+| MaxiVidret | Kenyon Sadiq (TE - NYJ), 2027 Round 2 pick | 6536 | -4444 |
 
 **Trade 6 (Tuesday, July 21) — Roger Goodell wins it (+4393 est. value)**
-- Roger Goodell receives: David Montgomery (RB - HOU), Los Angeles Rams (DEF - LAR) (~5712 value)
-- benmachi receives: Buffalo Bills (DEF - BUF), 2029 Round 3 pick, 2028 Round 2 pick (~1319 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Roger Goodell | David Montgomery (RB - HOU), Los Angeles Rams (DEF - LAR) | 5712 | +4393 |
+| benmachi | Buffalo Bills (DEF - BUF), 2029 Round 3 pick, 2028 Round 2 pick | 1319 | -4393 |
 
 **Trade 7 (Sunday, July 19) — Tpotts42 wins it (+4378 est. value)**
-- Roger Goodell receives: 2028 Round 3 pick, 2029 Round 3 pick, $30 FAAB (~968 value)
-- Tpotts42 receives: Malik Willis (QB - MIA) (~5346 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Roger Goodell | 2028 Round 3 pick, 2029 Round 3 pick, $30 FAAB | 968 | -4378 |
+| Tpotts42 | Malik Willis (QB - MIA) | 5346 | +4378 |
 
 **Trade 8 (Friday, July 17) — Cam Show wins it (+4360 est. value)**
-- Cam Show receives: DeVonta Smith (WR - PHI) (~5766 value)
-- benmachi receives: Tez Johnson (WR - TB), 2026 Round 2 pick (~1406 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Cam Show | DeVonta Smith (WR - PHI) | 5766 | +4360 |
+| benmachi | Tez Johnson (WR - TB), 2026 Round 2 pick | 1406 | -4360 |
 
 **Trade 9 (Sunday, July 19) — Larkinsjacob wins it (+2364 est. value)**
-- Cam Show receives: Quinshon Judkins (RB - CLE) (~5730 value)
-- Larkinsjacob receives: Carson Beck (QB - ARI), 2027 Round 2 pick, 2027 Round 1 pick (~8094 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Cam Show | Quinshon Judkins (RB - CLE) | 5730 | -2364 |
+| Larkinsjacob | Carson Beck (QB - ARI), 2027 Round 2 pick, 2027 Round 1 pick | 8094 | +2364 |
 
 **Trade 10 (Sunday, July 19) — Better Call Hall wins it (+2139 est. value)**
-- Better Call Hall receives: Darnell Mooney (WR - NYG), Zay Flowers (WR - BAL) (~10572 value)
-- Larkinsjacob receives: Tank Bigsby (RB - PHI), 2027 Round 3 pick, 2028 Round 1 pick (~8433 value)
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Better Call Hall | Darnell Mooney (WR - NYG), Zay Flowers (WR - BAL) | 10572 | +2139 |
+| Larkinsjacob | Tank Bigsby (RB - PHI), 2027 Round 3 pick, 2028 Round 1 pick | 8433 | -2139 |
 
 ## Rookie Draft Value Tracker
 
@@ -106,6 +136,13 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 **Thursday, July 23:**
 - **MaxiVidret** (Waiver Claim ($1 FAAB)): added Ryan Flournoy (WR - DAL); dropped —
 - **andrewburkhardt1** (Waiver Claim ($2 FAAB)): added Malik Benson (WR - LV); dropped —
+
+**Friday, July 24:**
+- **awesomevan** (Waiver Claim ($1 FAAB)): added Taylen Green (QB - CLE); dropped —
+
+**Sunday, July 26:**
+- **awesomevan** (Waiver Claim ($1 FAAB)): added Will Kacmarek (TE - MIA); dropped —
+- **awesomevan** (Waiver Claim ($1 FAAB)): added Bryce Lance (WR - NO); dropped —
 
 
 ## Matchup Recap
