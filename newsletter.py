@@ -1006,6 +1006,24 @@ def build_newsletter_data(
     )
 
 
+def trade_net_swings(trade: dict) -> list[tuple[str, int]]:
+    """Per-team net value swing within a trade: how much more (or less) estimated
+    value a team received relative to the average of what everyone else in the same
+    trade got. For the common 2-team case this is just the symmetric +/- of the value
+    gap; generalizes cleanly if a trade ever involves 3+ teams."""
+    items = list(trade["teams"].items())
+    n = len(items)
+    swings = []
+    for team_name, info in items:
+        if n > 1:
+            others_avg = sum(i["received_value"] for tn, i in items if tn != team_name) / (n - 1)
+            swing = round(info["received_value"] - others_avg)
+        else:
+            swing = 0
+        swings.append((team_name, swing))
+    return swings
+
+
 def render_markdown(data: NewsletterData) -> str:
     lines = []
     lines.append(f"# {data.title} Newsletter")
@@ -1039,9 +1057,14 @@ def render_markdown(data: NewsletterData) -> str:
             else:
                 headline += " — looks even**"
             lines.append(headline)
-            for team_name, info in trade["teams"].items():
+            lines.append("")
+            lines.append("| Manager | Received | Value | Net Swing |")
+            lines.append("|---|---|---|---|")
+            for team_name, swing in trade_net_swings(trade):
+                info = trade["teams"][team_name]
                 received = ", ".join(info["received"]) or "—"
-                lines.append(f"- {team_name} receives: {received} (~{round(info['received_value'])} value)")
+                value = round(info["received_value"])
+                lines.append(f"| {team_name} | {received} | {value} | {swing:+d} |")
             lines.append("")
     else:
         lines.append(f"_{data.no_trades_message}_\n")
@@ -1238,14 +1261,19 @@ ul, ol { padding-left: 1.4rem; }
                 headline = f"Trade {i} ({date_str}) — {e(trade['winner'])} wins it (+{trade['value_diff']} est. value)"
             else:
                 headline = f"Trade {i} ({date_str}) — looks even"
-            parts.append(f"<p><strong>{headline}</strong></p><ul>")
-            for team_name, info in trade["teams"].items():
+            parts.append(f"<p><strong>{headline}</strong></p>")
+            parts.append(
+                "<table><tr><th>Manager</th><th>Received</th><th>Value</th><th>Net Swing</th></tr>"
+            )
+            for team_name, swing in trade_net_swings(trade):
+                info = trade["teams"][team_name]
                 received = ", ".join(info["received"]) or "—"
+                value = round(info["received_value"])
                 parts.append(
-                    f"<li>{e(team_name)} receives: {e(received)} "
-                    f"(~{round(info['received_value'])} value)</li>"
+                    f"<tr><td>{e(team_name)}</td><td>{e(received)}</td>"
+                    f"<td>{value}</td><td>{swing:+d}</td></tr>"
                 )
-            parts.append("</ul>")
+            parts.append("</table>")
     else:
         parts.append(f"<p><em>{e(data.no_trades_message)}</em></p>")
 
