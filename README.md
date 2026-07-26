@@ -26,14 +26,11 @@ It covers:
   first), each with the date it was made
 - Waiver/free-agent moves from the past week, in chronological order, grouped
   under the day they happened
-- Matchup recap (final scores, who beat whom) — before the season starts,
-  Sleeper reports every game at 0-0, so these show as "not yet played" instead
-  of a fake result
+- Matchup recap (final scores, who beat whom)
 - **Rivals**: final scores for any rival matchup already played this season,
   plus a preview of any rival matchup scheduled for next week
 - **Big Game of the Week**: up to 2 upcoming matchups where both teams are in
-  the top 7 of the league, picked for being the closest projected games (most
-  applicable once real games are underway — see below)
+  the top 7 of the league, picked for being the closest projected games
 - **Rookie Draft Value Tracker**: two top-10 lists from this season's rookie
   draft — highest current value, and best value picks (biggest gap between a
   player's current value and what their draft slot predicted) — both
@@ -42,6 +39,15 @@ It covers:
 - Top individual scorers
 - Current standings (record, points for/against) — split out by division if the
   league has real Sleeper divisions configured, otherwise one combined table
+
+Matchup Recap, Rivals, Big Game of the Week, Closest Games, Top Scorers, and
+the Best Value Picks sub-list are all **hidden entirely** during the
+offseason/preseason (`season_type` `off`/`pre`) — no placeholder text, just
+omitted — since there's no real game data to show yet and Best Value Picks in
+particular is structurally skewed before the season starts (see below). They
+reappear automatically the moment the regular season begins. Highest Current
+Value stays visible throughout, since it's just current dynasty trade value
+and isn't tied to games being played.
 
 #### About the trade value ranking
 
@@ -100,6 +106,14 @@ no separate refresh step needed. If this league doesn't have a Sleeper-native
 draft on record for the current season, this section reports that instead of
 guessing.
 
+Best Value Picks is hidden during the offseason/preseason (see "Which
+sections hide before the season starts" below) — early on, rookies' Sleeper
+`search_rank` hasn't caught up to established veterans yet, so every pick
+tends to show a negative gap regardless of actual talent. That's not a bug,
+just a heuristic that needs real-season signal to mean anything, so the
+section stays hidden until it does. Highest Current Value doesn't have this
+problem and stays visible throughout.
+
 #### About Commissioner's Notes
 
 The commissioner fills out a short Google Form each week; responses land in a
@@ -144,8 +158,8 @@ Sleeper's public v1 API has no real weekly point projections, so this section
 uses an **undocumented** endpoint that Sleeper's own app uses internally
 (`api.sleeper.app/projections/nfl/...`). It's not officially supported and
 could change or disappear without notice — every part of this feature is
-built to degrade gracefully (print a diagnostic and show a "not enough data"
-message) rather than error out if that ever happens.
+built to degrade gracefully (print a diagnostic and treat it as unavailable)
+rather than error out if that ever happens.
 
 Candidates are: the next upcoming week's matchups where **both** teams are in
 the top 7 by current standings. "Next upcoming" is usually `week + 1`, but if
@@ -158,8 +172,21 @@ projected points** as the tiebreaker. `BIG_GAME_TOP_N` / `BIG_GAME_COUNT` at
 the top of `newsletter.py` control the 7 and the 2.
 
 Since real per-player projections generally aren't published until close to
-the regular season, this section mostly just reports "not enough data yet"
-throughout the preseason and offseason — exactly as expected.
+the regular season, and the section is hidden entirely during the
+offseason/preseason anyway (see below), this one is mostly dormant until the
+regular season starts.
+
+#### Which sections hide before the season starts
+
+Matchup Recap, Rivals, Big Game of the Week, Closest Games, Top Scorers, and
+the Rookie Draft Value Tracker's Best Value Picks sub-list are all hidden
+entirely (no heading, no placeholder text) while `season_type` is `off` or
+`pre` — there's simply no real game data to show yet, and Best Value Picks in
+particular is structurally misleading before the season starts (see above).
+This is controlled by `NewsletterData.in_season`; every other section
+(Commissioner's Notes, Trades, Highest Current Value, Waivers, Standings)
+stays visible throughout, since none of them depend on real games having been
+played.
 
 #### How rivals are identified
 

@@ -905,6 +905,14 @@ class NewsletterData:
             return "No trades this week."
         return "No trades during the preseason trade window."
 
+    @property
+    def in_season(self) -> bool:
+        """False during the offseason/preseason, when real games haven't been played
+        yet -- gates sections that are meaningless without actual game data (Matchup
+        Recap, Closest Games, Top Scorers, Rivals, Big Game of the Week) and the
+        structurally preseason-skewed Best Value Picks sub-list."""
+        return self.season_type not in ("off", "pre")
+
 
 def build_newsletter_data(
     league_id: str,
@@ -1082,12 +1090,13 @@ def render_markdown(data: NewsletterData) -> str:
                 f"— ~{e['current_value']} value"
             )
         lines.append("")
-        lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
-        for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
-            lines.append(
-                f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                f"— {e['value_gap']:+d} value vs. draft slot"
-            )
+        if data.in_season:
+            lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
+            for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
+                lines.append(
+                    f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
+                    f"— {e['value_gap']:+d} value vs. draft slot"
+                )
     else:
         lines.append("_No draft data available for this season's rookie draft yet._")
     lines.append("")
@@ -1106,78 +1115,79 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append("_No waiver or free agent moves this week._")
     lines.append("")
 
-    lines.append("## Matchup Recap\n")
-    for m in data.matchups:
-        if m.is_bye:
-            t = m.teams[0]
-            lines.append(f"- **{t['team']}** had a bye — {t['points']:.2f} pts")
-            continue
-        if not m.has_scores:
-            lines.append(f"- {' vs '.join(m.team_names)} — not yet played (0.00-0.00)")
-            continue
-        winner, loser = m.winner, m.loser
-        lines.append(
-            f"- **{winner['team']}** {winner['points']:.2f} def. "
-            f"**{loser['team']}** {loser['points']:.2f} (margin: {m.margin:.2f})"
-        )
-    lines.append("")
-
-    lines.append("## Rivals\n")
-    if data.rivals["results"]:
-        for r in data.rivals["results"]:
-            lines.append(
-                f"- Week {r['week']}: **{r['team_a']}** {r['score_a']:.2f} - "
-                f"{r['score_b']:.2f} **{r['team_b']}**"
-            )
-    else:
-        lines.append("_No rival matchups completed yet this season._")
-    if data.rivals["upcoming"]:
-        lines.append("")
-        for u in data.rivals["upcoming"]:
-            lines.append(f"- **Upcoming (Week {u['week']}):** {u['team_a']} vs {u['team_b']}")
-    else:
-        lines.append("")
-        lines.append("_No rival matchup scheduled for the upcoming week._")
-    lines.append("")
-
-    lines.append("## Big Game of the Week\n")
-    if data.big_games["available"]:
-        lines.append(
-            f"_Both teams top {BIG_GAME_TOP_N} in the league; picked for being the closest "
-            "projected matchups, highest combined projection as the tiebreaker._\n"
-        )
-        for g in data.big_games["games"]:
-            lines.append(
-                f"- **{g['team_a']}** (proj {g['proj_a']}) vs **{g['team_b']}** (proj {g['proj_b']}) "
-                f"— combined {g['combined']}, projected margin {g['margin']}"
-            )
-    else:
-        lines.append(
-            "_Not enough projection data available yet to pick marquee matchups "
-            "(needs real per-player point projections, which typically aren't published "
-            "until closer to the regular season)._"
-        )
-    lines.append("")
-
-    lines.append("## Closest Games\n")
-    if data.closest_games:
-        for i, m in enumerate(data.closest_games, start=1):
+    if data.in_season:
+        lines.append("## Matchup Recap\n")
+        for m in data.matchups:
+            if m.is_bye:
+                t = m.teams[0]
+                lines.append(f"- **{t['team']}** had a bye — {t['points']:.2f} pts")
+                continue
+            if not m.has_scores:
+                lines.append(f"- {' vs '.join(m.team_names)} — not yet played (0.00-0.00)")
+                continue
             winner, loser = m.winner, m.loser
             lines.append(
-                f"{i}. **{winner['team']}** {winner['points']:.2f} - "
-                f"{loser['points']:.2f} **{loser['team']}** (margin: {m.margin:.2f})"
+                f"- **{winner['team']}** {winner['points']:.2f} def. "
+                f"**{loser['team']}** {loser['points']:.2f} (margin: {m.margin:.2f})"
             )
-    else:
-        lines.append("_No games played this week._")
-    lines.append("")
+        lines.append("")
 
-    lines.append("## Top Scorers\n")
-    if data.top_scorers:
-        for i, s in enumerate(data.top_scorers, start=1):
-            lines.append(f"{i}. **{s['player']}** — {s['points']:.2f} pts ({s['team']})")
-    else:
-        lines.append("_No player data available._")
-    lines.append("")
+        lines.append("## Rivals\n")
+        if data.rivals["results"]:
+            for r in data.rivals["results"]:
+                lines.append(
+                    f"- Week {r['week']}: **{r['team_a']}** {r['score_a']:.2f} - "
+                    f"{r['score_b']:.2f} **{r['team_b']}**"
+                )
+        else:
+            lines.append("_No rival matchups completed yet this season._")
+        if data.rivals["upcoming"]:
+            lines.append("")
+            for u in data.rivals["upcoming"]:
+                lines.append(f"- **Upcoming (Week {u['week']}):** {u['team_a']} vs {u['team_b']}")
+        else:
+            lines.append("")
+            lines.append("_No rival matchup scheduled for the upcoming week._")
+        lines.append("")
+
+        lines.append("## Big Game of the Week\n")
+        if data.big_games["available"]:
+            lines.append(
+                f"_Both teams top {BIG_GAME_TOP_N} in the league; picked for being the closest "
+                "projected matchups, highest combined projection as the tiebreaker._\n"
+            )
+            for g in data.big_games["games"]:
+                lines.append(
+                    f"- **{g['team_a']}** (proj {g['proj_a']}) vs **{g['team_b']}** (proj {g['proj_b']}) "
+                    f"— combined {g['combined']}, projected margin {g['margin']}"
+                )
+        else:
+            lines.append(
+                "_Not enough projection data available yet to pick marquee matchups "
+                "(needs real per-player point projections, which typically aren't published "
+                "until closer to the regular season)._"
+            )
+        lines.append("")
+
+        lines.append("## Closest Games\n")
+        if data.closest_games:
+            for i, m in enumerate(data.closest_games, start=1):
+                winner, loser = m.winner, m.loser
+                lines.append(
+                    f"{i}. **{winner['team']}** {winner['points']:.2f} - "
+                    f"{loser['points']:.2f} **{loser['team']}** (margin: {m.margin:.2f})"
+                )
+        else:
+            lines.append("_No games played this week._")
+        lines.append("")
+
+        lines.append("## Top Scorers\n")
+        if data.top_scorers:
+            for i, s in enumerate(data.top_scorers, start=1):
+                lines.append(f"{i}. **{s['player']}** — {s['points']:.2f} pts ({s['team']})")
+        else:
+            lines.append("_No player data available._")
+        lines.append("")
 
     lines.append("## Standings\n")
     if data.divisional_standings:
@@ -1310,23 +1320,24 @@ ul, ol { padding-left: 1.4rem; }
             )
         parts.append("</table>")
 
-        parts.append(
-            "<p><strong>Top 10 Best Value Picks</strong> "
-            "<em>(current value vs. where they were drafted)</em></p>"
-        )
-        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
-        best_picks = data.draft_rankings["best_picks"]
-        max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
-        for i, entry in enumerate(best_picks, start=1):
-            color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
-            bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
+        if data.in_season:
             parts.append(
-                f"<tr><td>{i}</td>"
-                f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
-                f"Pick {entry['pick_no']})</td>"
-                f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
+                "<p><strong>Top 10 Best Value Picks</strong> "
+                "<em>(current value vs. where they were drafted)</em></p>"
             )
-        parts.append("</table>")
+            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
+            best_picks = data.draft_rankings["best_picks"]
+            max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
+            for i, entry in enumerate(best_picks, start=1):
+                color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
+                bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
+                parts.append(
+                    f"<tr><td>{i}</td>"
+                    f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                    f"Pick {entry['pick_no']})</td>"
+                    f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
+                )
+            parts.append("</table>")
     else:
         parts.append("<p><em>No draft data available for this season's rookie draft yet.</em></p>")
 
@@ -1346,87 +1357,88 @@ ul, ol { padding-left: 1.4rem; }
     else:
         parts.append("<p><em>No waiver or free agent moves this week.</em></p>")
 
-    parts.append("<h2>Matchup Recap</h2><ul>")
-    for m in data.matchups:
-        if m.is_bye:
-            t = m.teams[0]
-            parts.append(f"<li><strong>{e(t['team'])}</strong> had a bye — {t['points']:.2f} pts</li>")
-            continue
-        if not m.has_scores:
-            parts.append(f"<li>{e(' vs '.join(m.team_names))} — not yet played (0.00-0.00)</li>")
-            continue
-        winner, loser = m.winner, m.loser
-        parts.append(
-            f"<li><strong>{e(winner['team'])}</strong> {winner['points']:.2f} def. "
-            f"<strong>{e(loser['team'])}</strong> {loser['points']:.2f} "
-            f"(margin: {m.margin:.2f})</li>"
-        )
-    parts.append("</ul>")
-
-    parts.append("<h2>Rivals</h2>")
-    if data.rivals["results"]:
-        parts.append("<ul>")
-        for r in data.rivals["results"]:
-            parts.append(
-                f"<li>Week {r['week']}: <strong>{e(r['team_a'])}</strong> {r['score_a']:.2f} - "
-                f"{r['score_b']:.2f} <strong>{e(r['team_b'])}</strong></li>"
-            )
-        parts.append("</ul>")
-    else:
-        parts.append("<p><em>No rival matchups completed yet this season.</em></p>")
-    if data.rivals["upcoming"]:
-        parts.append("<ul>")
-        for u in data.rivals["upcoming"]:
-            parts.append(
-                f"<li><strong>Upcoming (Week {u['week']}):</strong> {e(u['team_a'])} vs {e(u['team_b'])}</li>"
-            )
-        parts.append("</ul>")
-    else:
-        parts.append("<p><em>No rival matchup scheduled for the upcoming week.</em></p>")
-
-    parts.append("<h2>Big Game of the Week</h2>")
-    if data.big_games["available"]:
-        parts.append(
-            f"<p><em>Both teams top {BIG_GAME_TOP_N} in the league; picked for being the "
-            "closest projected matchups, highest combined projection as the tiebreaker.</em></p>"
-        )
-        parts.append("<ul>")
-        for g in data.big_games["games"]:
-            parts.append(
-                f"<li><strong>{e(g['team_a'])}</strong> (proj {g['proj_a']}) vs "
-                f"<strong>{e(g['team_b'])}</strong> (proj {g['proj_b']}) — combined {g['combined']}, "
-                f"projected margin {g['margin']}</li>"
-            )
-        parts.append("</ul>")
-    else:
-        parts.append(
-            "<p><em>Not enough projection data available yet to pick marquee matchups "
-            "(needs real per-player point projections, which typically aren't published "
-            "until closer to the regular season).</em></p>"
-        )
-
-    parts.append("<h2>Closest Games</h2>")
-    if data.closest_games:
-        parts.append("<ol>")
-        for m in data.closest_games:
+    if data.in_season:
+        parts.append("<h2>Matchup Recap</h2><ul>")
+        for m in data.matchups:
+            if m.is_bye:
+                t = m.teams[0]
+                parts.append(f"<li><strong>{e(t['team'])}</strong> had a bye — {t['points']:.2f} pts</li>")
+                continue
+            if not m.has_scores:
+                parts.append(f"<li>{e(' vs '.join(m.team_names))} — not yet played (0.00-0.00)</li>")
+                continue
             winner, loser = m.winner, m.loser
             parts.append(
-                f"<li><strong>{e(winner['team'])}</strong> {winner['points']:.2f} - "
-                f"{loser['points']:.2f} <strong>{e(loser['team'])}</strong> "
+                f"<li><strong>{e(winner['team'])}</strong> {winner['points']:.2f} def. "
+                f"<strong>{e(loser['team'])}</strong> {loser['points']:.2f} "
                 f"(margin: {m.margin:.2f})</li>"
             )
-        parts.append("</ol>")
-    else:
-        parts.append("<p><em>No games played this week.</em></p>")
+        parts.append("</ul>")
 
-    parts.append("<h2>Top Scorers</h2>")
-    if data.top_scorers:
-        parts.append("<ol>")
-        for s in data.top_scorers:
-            parts.append(f"<li><strong>{e(s['player'])}</strong> — {s['points']:.2f} pts ({e(s['team'])})</li>")
-        parts.append("</ol>")
-    else:
-        parts.append("<p><em>No player data available.</em></p>")
+        parts.append("<h2>Rivals</h2>")
+        if data.rivals["results"]:
+            parts.append("<ul>")
+            for r in data.rivals["results"]:
+                parts.append(
+                    f"<li>Week {r['week']}: <strong>{e(r['team_a'])}</strong> {r['score_a']:.2f} - "
+                    f"{r['score_b']:.2f} <strong>{e(r['team_b'])}</strong></li>"
+                )
+            parts.append("</ul>")
+        else:
+            parts.append("<p><em>No rival matchups completed yet this season.</em></p>")
+        if data.rivals["upcoming"]:
+            parts.append("<ul>")
+            for u in data.rivals["upcoming"]:
+                parts.append(
+                    f"<li><strong>Upcoming (Week {u['week']}):</strong> {e(u['team_a'])} vs {e(u['team_b'])}</li>"
+                )
+            parts.append("</ul>")
+        else:
+            parts.append("<p><em>No rival matchup scheduled for the upcoming week.</em></p>")
+
+        parts.append("<h2>Big Game of the Week</h2>")
+        if data.big_games["available"]:
+            parts.append(
+                f"<p><em>Both teams top {BIG_GAME_TOP_N} in the league; picked for being the "
+                "closest projected matchups, highest combined projection as the tiebreaker.</em></p>"
+            )
+            parts.append("<ul>")
+            for g in data.big_games["games"]:
+                parts.append(
+                    f"<li><strong>{e(g['team_a'])}</strong> (proj {g['proj_a']}) vs "
+                    f"<strong>{e(g['team_b'])}</strong> (proj {g['proj_b']}) — combined {g['combined']}, "
+                    f"projected margin {g['margin']}</li>"
+                )
+            parts.append("</ul>")
+        else:
+            parts.append(
+                "<p><em>Not enough projection data available yet to pick marquee matchups "
+                "(needs real per-player point projections, which typically aren't published "
+                "until closer to the regular season).</em></p>"
+            )
+
+        parts.append("<h2>Closest Games</h2>")
+        if data.closest_games:
+            parts.append("<ol>")
+            for m in data.closest_games:
+                winner, loser = m.winner, m.loser
+                parts.append(
+                    f"<li><strong>{e(winner['team'])}</strong> {winner['points']:.2f} - "
+                    f"{loser['points']:.2f} <strong>{e(loser['team'])}</strong> "
+                    f"(margin: {m.margin:.2f})</li>"
+                )
+            parts.append("</ol>")
+        else:
+            parts.append("<p><em>No games played this week.</em></p>")
+
+        parts.append("<h2>Top Scorers</h2>")
+        if data.top_scorers:
+            parts.append("<ol>")
+            for s in data.top_scorers:
+                parts.append(f"<li><strong>{e(s['player'])}</strong> — {s['points']:.2f} pts ({e(s['team'])})</li>")
+            parts.append("</ol>")
+        else:
+            parts.append("<p><em>No player data available.</em></p>")
 
     parts.append("<h2>Standings</h2>")
     if data.divisional_standings:
