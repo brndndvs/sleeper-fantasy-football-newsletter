@@ -24,9 +24,11 @@ with `--season-type off|pre|regular|post`):
 It covers:
 
 - **Commissioner's Notes**: whatever the commissioner submitted most recently via
-  a Google Form, pulled in automatically -- no manual copy/paste needed. Omitted
-  entirely if he hasn't submitted anything since the current newsletter week
-  started.
+  a Google Form, pulled in automatically -- no manual copy/paste needed. If he
+  hasn't submitted anything new this week, his last note is shown anyway with a
+  callout that it's carried over and nothing new was added, rather than
+  silently repeating it or silently dropping the section. Omitted entirely
+  only if he's never submitted anything at all.
 - Trades from the past week, **ranked by estimated value** (most lopsided
   first), each with the date it was made
 - Waiver/free-agent moves from the past week, in chronological order, grouped
@@ -124,10 +126,12 @@ problem and stays visible throughout.
 The commissioner fills out a short Google Form each week; responses land in a
 Google Sheet, which is published to the web as a CSV (File → Share → Publish
 to web → the response tab → CSV). `newsletter.py` fetches that CSV on every
-run and picks out the most recent submission — but only if it was submitted
-since the current newsletter week's Tuesday anchor, so an old note from a week
-he skipped doesn't keep reappearing. If he hasn't submitted anything yet this
-week, the section is left out entirely.
+run and picks out the most recent submission. If it was submitted since the
+current newsletter week's Tuesday anchor, it's shown normally. If he skipped
+this week, the same note is still shown (so a real note from him is never
+silently swapped for nothing), but with an explicit callout that nothing new
+was submitted this week and which date the note is actually from. The section
+is only left out entirely if he's never submitted a note at all.
 
 The form link and published CSV link are hardcoded near the top of
 `newsletter.py` (`COMMISSIONER_FORM_URL` / `COMMISSIONER_NOTES_CSV_URL`) —
