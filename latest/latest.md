@@ -1,4 +1,4 @@
-# Floridian Dynasty Football Association LLC — July 26, 2026 Newsletter
+# Floridian Dynasty Football Association LLC — Preseason Week 1 — July 28, 2026 Newsletter
 _2026 Season_
 
 ## Commissioner's Notes
