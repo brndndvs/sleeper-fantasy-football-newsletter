@@ -416,6 +416,7 @@ def get_commissioner_notes(csv_url: str, anchor: datetime) -> Optional[dict]:
         )
         return None
 
+    print(f"Commissioner notes: using submission from {latest_dt} (this week's anchor: {anchor})", file=sys.stderr)
     return {"note": note, "when": latest_dt}
 
 
