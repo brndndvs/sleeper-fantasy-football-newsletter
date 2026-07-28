@@ -371,9 +371,11 @@ def _parse_form_timestamp(raw: str) -> Optional[datetime]:
 
 
 def get_commissioner_notes(csv_url: str, anchor: datetime) -> Optional[dict]:
-    """Fetch the commissioner's latest note from the published Google Sheet CSV. Only
-    returns it if submitted since this newsletter week's anchor -- otherwise a stale
-    note from a week he skipped would keep reappearing."""
+    """Fetch the commissioner's latest note from the published Google Sheet CSV.
+    Always returns the most recent submission if there is one, flagged as "is_new"
+    when it was submitted since this newsletter week's anchor. If he skipped this
+    week, the same note carries over with is_new=False so the newsletter can say so
+    explicitly, rather than either silently repeating it or silently dropping it."""
     try:
         resp = requests.get(csv_url, timeout=20)
         resp.raise_for_status()
@@ -409,15 +411,16 @@ def get_commissioner_notes(csv_url: str, anchor: datetime) -> Optional[dict]:
     if not note:
         return None
 
-    if latest_dt < anchor:
+    is_new = latest_dt >= anchor
+    if is_new:
+        print(f"Commissioner notes: using submission from {latest_dt} (this week's anchor: {anchor})", file=sys.stderr)
+    else:
         print(
-            f"Skipping commissioner notes: latest submission ({latest_dt}) predates this week's anchor ({anchor})",
+            f"Commissioner notes: no new submission since anchor ({anchor}); "
+            f"carrying over note from {latest_dt}",
             file=sys.stderr,
         )
-        return None
-
-    print(f"Commissioner notes: using submission from {latest_dt} (this week's anchor: {anchor})", file=sys.stderr)
-    return {"note": note, "when": latest_dt}
+    return {"note": note, "when": latest_dt, "is_new": is_new}
 
 
 @dataclass
@@ -1050,6 +1053,11 @@ def render_markdown(data: NewsletterData) -> str:
 
     if data.commissioner_notes:
         lines.append("## Commissioner's Notes\n")
+        if not data.commissioner_notes["is_new"]:
+            lines.append(
+                f"_Nothing new was submitted this week — this note carries over from "
+                f"{format_day(data.commissioner_notes['when'])}._\n"
+            )
         lines.append(data.commissioner_notes["note"])
         lines.append("")
 
@@ -1271,6 +1279,12 @@ ul, ol { padding-left: 1.4rem; }
 
     if data.commissioner_notes:
         parts.append("<h2>Commissioner's Notes</h2>")
+        if not data.commissioner_notes["is_new"]:
+            carried_over_date = e(format_day(data.commissioner_notes["when"]))
+            parts.append(
+                f"<p><em>Nothing new was submitted this week — this note carries over "
+                f"from {carried_over_date}.</em></p>"
+            )
         note_html = e(data.commissioner_notes["note"]).replace("\n", "<br>")
         parts.append(f"<p>{note_html}</p>")
 
