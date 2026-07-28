@@ -890,12 +890,22 @@ class NewsletterData:
     commissioner_notes: Optional[dict]
 
     @property
+    def games_started(self) -> bool:
+        """Whether any real preseason/regular-season game has actually been played
+        yet -- Sleeper's own season_type can flip to "pre" and its week counter to 1
+        well before actual preseason games kick off, so this is checked separately."""
+        return any(m.has_scores for m in self.matchups)
+
+    @property
     def title(self) -> str:
         date_str = datetime.now(timezone.utc).strftime("%B %d, %Y")
         if self.season_type == "off":
             period = date_str
         elif self.season_type == "pre":
-            period = f"Preseason Week {self.week} — {date_str}"
+            if self.games_started:
+                period = f"Preseason Week {self.week} — {date_str}"
+            else:
+                period = f"Preseason — {date_str}"
         else:
             period = f"Week {self.week} — {date_str}"
         return f"{self.league_name} — {period}"

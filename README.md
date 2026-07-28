@@ -12,7 +12,12 @@ with `--season-type off|pre|regular|post`):
 
 - **Offseason** (now): just the date — e.g. "Floridian Dynasty Football
   Association LLC — July 22, 2026"
-- **Preseason**: "Preseason Week 2 — August 12, 2026"
+- **Preseason, before any preseason game has actually been played**: just
+  "Preseason — July 28, 2026", no week number. Sleeper's own `season_type`
+  can flip to `pre` and its week counter to 1 well before real preseason
+  games kick off, so the week number is held back until a matchup shows a
+  real (non-0-0) score.
+- **Preseason, once games are underway**: "Preseason Week 2 — August 12, 2026"
 - **Regular season** (and playoffs): "Week 5 — October 7, 2026" (no
   "Regular Season" prefix — just the week number, like before)
 
