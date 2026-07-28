@@ -2,12 +2,16 @@ name: Commissioner Notes Reminder
 
 on:
   schedule:
-    # 8:00 PM ET on Mondays, so there's time to fill it out before the Tuesday
+    # ~8:00 PM ET on Mondays, so there's time to fill it out before the Tuesday
     # newsletter. GitHub Actions cron always runs in UTC and has no DST awareness,
     # so two schedules cover the two ET offsets across the year -- accurate except
-    # for the handful of days right at the DST switchover itself.
-    - cron: "0 0 * 3-10 2" # EDT (UTC-4): Mar-Oct, 8:00 PM ET Monday = 00:00 UTC Tuesday
-    - cron: "0 1 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, 8:00 PM ET Monday = 01:00 UTC Tuesday
+    # for the handful of days right at the DST switchover itself. Minute is 58,
+    # not 0 -- GitHub's own docs warn that scheduled runs queue up (and can be
+    # delayed well past their trigger time) worst at round :00/:15/:30/:45 marks
+    # -- the top of the hour is called out specifically -- since that's when
+    # everyone else's cron jobs fire too.
+    - cron: "58 23 * 3-10 1" # EDT (UTC-4): Mar-Oct, ~8:00 PM ET Monday = 23:58 UTC Monday
+    - cron: "58 0 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, ~8:00 PM ET Monday = 00:58 UTC Tuesday
   workflow_dispatch: {}
 
 permissions:
