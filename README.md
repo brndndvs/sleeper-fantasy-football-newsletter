@@ -257,7 +257,7 @@ rather than the full newsletter, since SMS isn't meant for long-form content.
 ### Running it automatically every week
 
 `.github/workflows/weekly-newsletter.yml` runs the newsletter every Tuesday at
-8:45 AM ET via GitHub Actions (two `cron` entries handle the EDT/EST switch,
+~8:45 AM ET via GitHub Actions (two `cron` entries handle the EDT/EST switch,
 since Actions cron has no timezone/DST awareness), and can also be triggered
 manually from the Actions tab. To enable it:
 
@@ -271,7 +271,21 @@ You can enable just email, just SMS, or both — whichever secrets are set
 determine what actually gets sent.
 
 `.github/workflows/commissioner-reminder.yml` runs separately, every Monday at
-8:00 PM ET, and just emails the commissioner a reminder with the Commissioner's
+~8:00 PM ET, and just emails the commissioner a reminder with the Commissioner's
 Notes form link (see above) — it needs the `COMMISSIONER_EMAIL` secret in
 addition to the `SMTP_*`/`FROM_EMAIL` ones already set up above.
+
+#### Why the cron minutes aren't round numbers (:43 / :58, not :45 / :00)
+
+GitHub Actions scheduled workflows are best-effort, not exact — GitHub's own
+docs warn that scheduled runs can be delayed, especially "during periods of
+high load," and specifically call out the top of every hour as a high-load
+time. In practice this means workflows scheduled for round minutes (`:00`,
+`:15`, `:30`, `:45`) queue up behind everyone else's cron jobs firing at the
+same moment and can run late. Both workflows here are offset a couple of
+minutes early (`:43` and `:58`) to dodge that contention — this meaningfully
+reduces delay but doesn't eliminate it; GitHub never guarantees exact-minute
+execution for scheduled workflows. If a run is more than a few minutes late,
+check the Actions tab for a `schedule`-triggered run before assuming
+something's broken — it may just be running behind.
 
