@@ -1,19 +1,14 @@
-# Floridian Dynasty Football Association LLC — Preseason — July 28, 2026 Newsletter
+# Floridian Dynasty Football Association LLC — Preseason — August 04, 2026 Newsletter
 _2026 Season_
 
 ## Commissioner's Notes
 
 Good day, 
-
-We are all very excited for a new league year. There has been a lot of activity these past few weeks. A lot of controversy, a lot of love, a lot of anger, a lot of prosperity. Myself and the rules committee are here for you. We want everyone to enjoy this league as much as I do. However, this is a dictatorship with democratic views. 
-If necessary we will take action on owners not doing right. Including myself. 
-If anyone has any problem with anything take it up with me or the rules committee. 
-If you want something changed speak up.
-MAJOR ANNOUNCEMENT:
-We will now be doing trophy’s and the price will be taken out of the winners pot for future winners. As commissioner, I will pay for the first 2 trophy winners as I feel it is wrong to make them buy their own now. 
-The trophy is $40 so it doesn’t take much away from you if you win. 
-If you win it will have the year league and your name on it. You will be proud with this trophy. Something to show your kids one day.
-I am available 24/7 if need be. You have my number.
+As many of you know. Owner Cole Jasper lost his 2027 3rd round pick due to missing the draft without a pre approved excuse. 
+The rules committee and myself were offended by his lack of remorse and will to appeal the ruling of him being kicked from the league. 
+While some may say only a 3rd round pick? We came to the conclusion that it is harsh to kick someone from the league just because he doesn’t have the same grit as some of the other owners. 
+We wish Cole the best and hope this serves as a lesson to him to keep pushing towards a championship while his roster may not be very close. 
+We are only a couple of weeks away from the season opener, with the hall of fame game this Thursday.
 
 ## Trades — Preseason Trade Window (ranked by estimated value)
 
@@ -31,7 +26,7 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Better Call Hall | $30 FAAB | 300 | -10120 |
+| Boynton Beach Blue Balls | $30 FAAB | 300 | -10120 |
 | CeDeez big ones | Theo Johnson (TE - NYG), Colby Parkinson (TE - LAR), $10 FAAB | 10420 | +10120 |
 
 **Trade 3 (Tuesday, July 21) — MaxiVidret wins it (+6551 est. value)**
@@ -48,11 +43,11 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | Roger Goodell | $1 FAAB | 10 | -5574 |
 | Simply Touchdowns | Kyle Pitts (TE - ATL), $1 FAAB | 5584 | +5574 |
 
-**Trade 5 (Wednesday, July 22) — Better Call Hall wins it (+4444 est. value)**
+**Trade 5 (Wednesday, July 22) — Boynton Beach Blue Balls wins it (+4444 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Better Call Hall | Tucker Kraft (TE - GB), Quentin Johnston (WR - LAC) | 10980 | +4444 |
+| Boynton Beach Blue Balls | Tucker Kraft (TE - GB), Quentin Johnston (WR - LAC) | 10980 | +4444 |
 | MaxiVidret | Kenyon Sadiq (TE - NYJ), 2027 Round 2 pick | 6536 | -4444 |
 
 **Trade 6 (Tuesday, July 21) — Roger Goodell wins it (+4393 est. value)**
@@ -83,11 +78,11 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | Cam Show | Quinshon Judkins (RB - CLE) | 5730 | -2364 |
 | Larkinsjacob | Carson Beck (QB - ARI), 2027 Round 2 pick, 2027 Round 1 pick | 8094 | +2364 |
 
-**Trade 10 (Sunday, July 19) — Better Call Hall wins it (+2139 est. value)**
+**Trade 10 (Sunday, July 19) — Boynton Beach Blue Balls wins it (+2139 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Better Call Hall | Darnell Mooney (WR - NYG), Zay Flowers (WR - BAL) | 10572 | +2139 |
+| Boynton Beach Blue Balls | Darnell Mooney (WR - NYG), Zay Flowers (WR - BAL) | 10572 | +2139 |
 | Larkinsjacob | Tank Bigsby (RB - PHI), 2027 Round 3 pick, 2028 Round 1 pick | 8433 | -2139 |
 
 ## Rookie Draft Value Tracker
@@ -96,41 +91,26 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 
 **Top 10 Highest Current Value**
 
-1. Jeremiyah Love (RB - ARI) — LaPorta Potty (Round 1, Pick 1) — ~5910 value
+1. Jeremiyah Love (RB - ARI) — Balls (Round 1, Pick 1) — ~5910 value
 2. Fernando Mendoza (QB - LV) — JordanFFantasy (Round 1, Pick 9) — ~5766 value
 3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — ~5634 value
 4. Jadarian Price (RB - SEA) — Cam Show (Round 1, Pick 4) — ~5622 value
 5. Jordyn Tyson (WR - NO) — Cam Show (Round 1, Pick 3) — ~5586 value
 6. Makai Lemon (WR - PHI) — MaxiVidret (Round 1, Pick 5) — ~5538 value
-7. Kenyon Sadiq (TE - NYJ) — Better Call Hall (Round 1, Pick 10) — ~5346 value
-8. Emmett Johnson (RB - KC) — LaPorta Potty (Round 2, Pick 19) — ~5322 value
+7. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — ~5346 value
+8. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — ~5322 value
 9. KC Concepcion (WR - CLE) — Larkinsjacob (Round 1, Pick 6) — ~5304 value
-10. Jonah Coleman (RB - DEN) — Better Call Hall (Round 2, Pick 18) — ~5292 value
+10. Jonah Coleman (RB - DEN) — Boynton Beach Blue Balls (Round 2, Pick 18) — ~5292 value
 
 
 ## Waiver Wire / Free Agency This Week
 
-**Tuesday, July 21:**
-- **MaxiVidret** (Free Agent Move): added —; dropped Jerome Ford (RB - WAS)
-- **andrewburkhardt1** (Free Agent Move): added —; dropped Austin Ekeler (RB - FA)
+**Wednesday, July 29:**
+- **MaxiVidret** (Waiver Claim ($1 FAAB)): added Sean Tucker (RB - TB); dropped Samaje Perine (RB - CIN)
+- **MaxiVidret** (Waiver Claim ($1 FAAB)): added Greg Dulcich (TE - MIA); dropped —
 
-**Wednesday, July 22:**
-- **Roger Goodell** (Free Agent Move): added —; dropped Ryan Fitzgerald (K - CAR)
-- **CeDeez big ones** (Waiver Claim ($3 FAAB)): added Geno Smith (QB - NYJ); dropped —
-- **Cam Show** (Waiver Claim ($1 FAAB)): added Caleb Douglas (WR - MIA); dropped —
-- **Cam Show** (Waiver Claim ($1 FAAB)): added Zavion Thomas (WR - CHI); dropped —
-- **Simply Touchdowns** (Waiver Claim ($1 FAAB)): added Dontayvion Wicks (WR - PHI); dropped —
-
-**Thursday, July 23:**
-- **MaxiVidret** (Waiver Claim ($1 FAAB)): added Ryan Flournoy (WR - DAL); dropped —
-- **andrewburkhardt1** (Waiver Claim ($2 FAAB)): added Malik Benson (WR - LV); dropped —
-
-**Friday, July 24:**
-- **awesomevan** (Waiver Claim ($1 FAAB)): added Taylen Green (QB - CLE); dropped —
-
-**Sunday, July 26:**
-- **awesomevan** (Waiver Claim ($1 FAAB)): added Will Kacmarek (TE - MIA); dropped —
-- **awesomevan** (Waiver Claim ($1 FAAB)): added Bryce Lance (WR - NO); dropped —
+**Thursday, July 30:**
+- **CeDeez big ones** (Waiver Claim ($3 FAAB)): added Ty Johnson (RB - BUF); dropped —
 
 
 ## Standings
@@ -142,7 +122,7 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 | 1 | Cam Show | 0-0 | 0.00 | 0.00 |
 | 2 | JordanFFantasy | 0-0 | 0.00 | 0.00 |
 | 3 | awesomevan | 0-0 | 0.00 | 0.00 |
-| 4 | LaPorta Potty | 0-0 | 0.00 | 0.00 |
+| 4 | Balls | 0-0 | 0.00 | 0.00 |
 | 5 | benmachi | 0-0 | 0.00 | 0.00 |
 | 6 | CeDeez big ones | 0-0 | 0.00 | 0.00 |
 | 7 | Tpotts42 | 0-0 | 0.00 | 0.00 |
@@ -152,7 +132,7 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 | Rank | Team | Record | PF | PA |
 |------|------|--------|----|----|
 | 1 | Roger Goodell | 0-0 | 0.00 | 0.00 |
-| 2 | Better Call Hall | 0-0 | 0.00 | 0.00 |
+| 2 | Boynton Beach Blue Balls | 0-0 | 0.00 | 0.00 |
 | 3 | Simply Touchdowns | 0-0 | 0.00 | 0.00 |
 | 4 | MaxiVidret | 0-0 | 0.00 | 0.00 |
 | 5 | Larkinsjacob | 0-0 | 0.00 | 0.00 |
