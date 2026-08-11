@@ -1,7 +1,9 @@
-# Floridian Dynasty Football Association LLC — Preseason — August 04, 2026 Newsletter
+# Floridian Dynasty Football Association LLC — Preseason — August 11, 2026 Newsletter
 _2026 Season_
 
 ## Commissioner's Notes
+
+_Nothing new was submitted this week — this note carries over from Tuesday, August 4._
 
 Good day, 
 As many of you know. Owner Cole Jasper lost his 2027 3rd round pick due to missing the draft without a pre approved excuse. 
@@ -12,7 +14,7 @@ We are only a couple of weeks away from the season opener, with the hall of fame
 
 ## Trades — Preseason Trade Window (ranked by estimated value)
 
-_13 total preseason trades since February 09, 2026 — showing the top 10, most lopsided first._
+_14 total preseason trades since February 09, 2026 — showing the top 10, most lopsided first._
 _Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked most lopsided first._
 
 **Trade 1 (Sunday, July 19) — Roger Goodell wins it (+11809 est. value)**
@@ -29,12 +31,12 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | Boynton Beach Blue Balls | $30 FAAB | 300 | -10120 |
 | CeDeez big ones | Theo Johnson (TE - NYG), Colby Parkinson (TE - LAR), $10 FAAB | 10420 | +10120 |
 
-**Trade 3 (Tuesday, July 21) — MaxiVidret wins it (+6551 est. value)**
+**Trade 3 (Tuesday, July 21) — The Aubrey Express  wins it (+6563 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Cam Show | TreVeyon Henderson (RB - NE), 2028 Round 2 pick, 2029 Round 2 pick | 7649 | -6551 |
-| MaxiVidret | Woody Marks (RB - HOU), Jacory Croskey-Merritt (RB - WAS), 2027 Round 1 pick | 14200 | +6551 |
+| Cam Show | TreVeyon Henderson (RB - NE), 2028 Round 2 pick, 2029 Round 2 pick | 7637 | -6563 |
+| The Aubrey Express  | Woody Marks (RB - HOU), Jacory Croskey-Merritt (RB - WAS), 2027 Round 1 pick | 14200 | +6563 |
 
 **Trade 4 (Friday, June 5) — Simply Touchdowns wins it (+5574 est. value)**
 
@@ -48,7 +50,7 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
 | Boynton Beach Blue Balls | Tucker Kraft (TE - GB), Quentin Johnston (WR - LAC) | 10980 | +4444 |
-| MaxiVidret | Kenyon Sadiq (TE - NYJ), 2027 Round 2 pick | 6536 | -4444 |
+| The Aubrey Express  | Kenyon Sadiq (TE - NYJ), 2027 Round 2 pick | 6536 | -4444 |
 
 **Trade 6 (Tuesday, July 21) — Roger Goodell wins it (+4393 est. value)**
 
@@ -71,19 +73,19 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | Cam Show | DeVonta Smith (WR - PHI) | 5766 | +4360 |
 | benmachi | Tez Johnson (WR - TB), 2026 Round 2 pick | 1406 | -4360 |
 
-**Trade 9 (Sunday, July 19) — Larkinsjacob wins it (+2364 est. value)**
+**Trade 9 (Monday, August 10) — JordanFFantasy wins it (+2828 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Boynton Beach Blue Balls | 2028 Round 1 pick | 2890 | -2828 |
+| JordanFFantasy | D'Andre Swift (RB - CHI) | 5718 | +2828 |
+
+**Trade 10 (Sunday, July 19) — Larkinsjacob wins it (+2364 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
 | Cam Show | Quinshon Judkins (RB - CLE) | 5730 | -2364 |
 | Larkinsjacob | Carson Beck (QB - ARI), 2027 Round 2 pick, 2027 Round 1 pick | 8094 | +2364 |
-
-**Trade 10 (Sunday, July 19) — Boynton Beach Blue Balls wins it (+2139 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Boynton Beach Blue Balls | Darnell Mooney (WR - NYG), Zay Flowers (WR - BAL) | 10572 | +2139 |
-| Larkinsjacob | Tank Bigsby (RB - PHI), 2027 Round 3 pick, 2028 Round 1 pick | 8433 | -2139 |
 
 ## Rookie Draft Value Tracker
 
@@ -93,10 +95,10 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 
 1. Jeremiyah Love (RB - ARI) — Balls (Round 1, Pick 1) — ~5910 value
 2. Fernando Mendoza (QB - LV) — JordanFFantasy (Round 1, Pick 9) — ~5766 value
-3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — ~5634 value
-4. Jadarian Price (RB - SEA) — Cam Show (Round 1, Pick 4) — ~5622 value
-5. Jordyn Tyson (WR - NO) — Cam Show (Round 1, Pick 3) — ~5586 value
-6. Makai Lemon (WR - PHI) — MaxiVidret (Round 1, Pick 5) — ~5538 value
+3. Jadarian Price (RB - SEA) — Cam Show (Round 1, Pick 4) — ~5652 value
+4. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — ~5634 value
+5. Jordyn Tyson (WR - NO) — Cam Show (Round 1, Pick 3) — ~5628 value
+6. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — ~5466 value
 7. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — ~5346 value
 8. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — ~5322 value
 9. KC Concepcion (WR - CLE) — Larkinsjacob (Round 1, Pick 6) — ~5304 value
@@ -105,12 +107,8 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 
 ## Waiver Wire / Free Agency This Week
 
-**Wednesday, July 29:**
-- **MaxiVidret** (Waiver Claim ($1 FAAB)): added Sean Tucker (RB - TB); dropped Samaje Perine (RB - CIN)
-- **MaxiVidret** (Waiver Claim ($1 FAAB)): added Greg Dulcich (TE - MIA); dropped —
-
-**Thursday, July 30:**
-- **CeDeez big ones** (Waiver Claim ($3 FAAB)): added Ty Johnson (RB - BUF); dropped —
+**Wednesday, August 5:**
+- **The Aubrey Express ** (Waiver Claim ($1 FAAB)): added Kirk Cousins (QB - LV); dropped Mac Jones (QB - SF)
 
 
 ## Standings
@@ -134,7 +132,7 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 | 1 | Roger Goodell | 0-0 | 0.00 | 0.00 |
 | 2 | Boynton Beach Blue Balls | 0-0 | 0.00 | 0.00 |
 | 3 | Simply Touchdowns | 0-0 | 0.00 | 0.00 |
-| 4 | MaxiVidret | 0-0 | 0.00 | 0.00 |
+| 4 | The Aubrey Express  | 0-0 | 0.00 | 0.00 |
 | 5 | Larkinsjacob | 0-0 | 0.00 | 0.00 |
 | 6 | andrewburkhardt1 | 0-0 | 0.00 | 0.00 |
 | 7 | Talking Tua Teenager | 0-0 | 0.00 | 0.00 |
