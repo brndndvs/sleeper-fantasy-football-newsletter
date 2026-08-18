@@ -1577,6 +1577,7 @@ def determine_week(league_id: str, explicit_week: Optional[int]) -> int:
     if explicit_week is not None:
         return explicit_week
     state = get_nfl_state()
+    print(f"Sleeper NFL state: {state}", file=sys.stderr)
     current_week = int(state.get("week") or 1)
     # Recap the most recently completed week, not the upcoming/in-progress one.
     return max(current_week - 1, 1)
