@@ -876,6 +876,7 @@ class NewsletterData:
     season: str
     week: int
     season_type: str
+    season_has_scores: bool
     matchups: list[MatchupResult]
     closest_games: list[MatchupResult]
     top_scorers: list[dict]
@@ -890,19 +891,12 @@ class NewsletterData:
     commissioner_notes: Optional[dict]
 
     @property
-    def games_started(self) -> bool:
-        """Whether any real preseason/regular-season game has actually been played
-        yet -- Sleeper's own season_type can flip to "pre" and its week counter to 1
-        well before actual preseason games kick off, so this is checked separately."""
-        return any(m.has_scores for m in self.matchups)
-
-    @property
     def title(self) -> str:
         date_str = datetime.now(timezone.utc).strftime("%B %d, %Y")
         if self.season_type == "off":
             period = date_str
         elif self.season_type == "pre":
-            if self.games_started:
+            if self.season_has_scores:
                 period = f"Preseason Week {self.week} — {date_str}"
             else:
                 period = f"Preseason — {date_str}"
@@ -936,6 +930,7 @@ def build_newsletter_data(
     lookback_days: Optional[int] = None,
     rivalry_week: int = DEFAULT_RIVALRY_WEEK,
     season_type: Optional[str] = None,
+    season_has_scores: Optional[bool] = None,
     commissioner_notes_csv_url: Optional[str] = COMMISSIONER_NOTES_CSV_URL,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
@@ -946,7 +941,12 @@ def build_newsletter_data(
         raw_transactions if raw_transactions is not None else get_transactions(league_id, week)
     )
     players = players if players is not None else get_players()
-    season_type = season_type if season_type is not None else (get_nfl_state().get("season_type") or "regular")
+    if season_type is None or season_has_scores is None:
+        nfl_state = get_nfl_state()
+        if season_type is None:
+            season_type = nfl_state.get("season_type") or "regular"
+        if season_has_scores is None:
+            season_has_scores = bool(nfl_state.get("season_has_scores", True))
 
     try:
         current_season = int(league.get("season"))
@@ -1004,6 +1004,7 @@ def build_newsletter_data(
         season=str(league.get("season", "")),
         week=week,
         season_type=season_type,
+        season_has_scores=season_has_scores,
         matchups=matchups,
         closest_games=closest_games,
         top_scorers=top_scorers,
@@ -1579,6 +1580,11 @@ def determine_week(league_id: str, explicit_week: Optional[int]) -> int:
     state = get_nfl_state()
     print(f"Sleeper NFL state: {state}", file=sys.stderr)
     current_week = int(state.get("week") or 1)
+    if state.get("season_type") == "pre":
+        # Sleeper's `week` during the preseason already means "this is the current
+        # preseason week," not "this week is upcoming/in-progress" the way it does
+        # in the regular season -- so no "-1" here, unlike below.
+        return max(current_week, 1)
     # Recap the most recently completed week, not the upcoming/in-progress one.
     return max(current_week - 1, 1)
 
