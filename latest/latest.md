@@ -13,9 +13,8 @@ I have also changed minimum bid to $0.
 Starting this year, a small fee will be taken from the winners pot (I think it’s $37 plus shipping) for a trophy. I will be ordering the two previous winners Tpotts and Jose trophies. 
 The trophy’s will resemble the Lombardi trophy and will have your name or team name (choice is of the winner), year, and league name on the trophy. If you got a problem with money being taken from the winners pot for a trophy for yourself, then just don’t win.
 
-## Trades — Preseason Trade Window (ranked by estimated value)
+## Trades — Last 14 Days (ranked by estimated value)
 
-_16 total preseason trades since February 09, 2026 — showing the top 10, most lopsided first._
 _Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked most lopsided first._
 
 **Trade 1 (Tuesday, August 11) — CeDeez big ones wins it (+11964 est. value)**
@@ -25,68 +24,19 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | Simply Touchdowns | Josh Jacobs (RB - GB), 2028 Round 2 pick | 6892 | -11964 |
 | CeDeez big ones | Jonathon Brooks (RB - CAR), Isaac TeSlaa (WR - DET), Tony Pollard (RB - TEN), 2028 Round 1 pick | 18856 | +11964 |
 
-**Trade 2 (Sunday, July 19) — Roger Goodell wins it (+11755 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Roger Goodell | Dalton Kincaid (TE - BUF), Nico Collins (WR - HOU), Romeo Doubs (WR - NE) | 16668 | +11755 |
-| Larkinsjacob | 2028 Round 1 pick, 2028 Round 2 pick, 2028 Round 2 pick | 4913 | -11755 |
-
-**Trade 3 (Sunday, July 19) — CeDeez big ones wins it (+10120 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Boynton Beach Blue Balls | $30 FAAB | 300 | -10120 |
-| CeDeez big ones | Theo Johnson (TE - NYG), Colby Parkinson (TE - LAR), $10 FAAB | 10420 | +10120 |
-
-**Trade 4 (Tuesday, July 21) — The Aubrey Express  wins it (+6563 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| KC | TreVeyon Henderson (RB - NE), 2028 Round 2 pick, 2029 Round 2 pick | 7637 | -6563 |
-| The Aubrey Express  | Woody Marks (RB - HOU), Jacory Croskey-Merritt (RB - WAS), 2027 Round 1 pick | 14200 | +6563 |
-
-**Trade 5 (Friday, June 5) — Simply Touchdowns wins it (+5592 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Roger Goodell | $1 FAAB | 10 | -5592 |
-| Simply Touchdowns | Kyle Pitts (TE - ATL), $1 FAAB | 5602 | +5592 |
-
-**Trade 6 (Wednesday, July 22) — Boynton Beach Blue Balls wins it (+4462 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Boynton Beach Blue Balls | Tucker Kraft (TE - GB), Quentin Johnston (WR - LAC) | 10998 | +4462 |
-| The Aubrey Express  | Kenyon Sadiq (TE - NYJ), 2027 Round 2 pick | 6536 | -4462 |
-
-**Trade 7 (Tuesday, July 21) — Roger Goodell wins it (+4393 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Roger Goodell | David Montgomery (RB - HOU), Los Angeles Rams (DEF - LAR) | 5712 | +4393 |
-| benmachi | Buffalo Bills (DEF - BUF), 2029 Round 3 pick, 2028 Round 2 pick | 1319 | -4393 |
-
-**Trade 8 (Sunday, July 19) — Tpotts42 wins it (+4360 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Roger Goodell | 2028 Round 3 pick, 2029 Round 3 pick, $30 FAAB | 968 | -4360 |
-| Tpotts42 | Malik Willis (QB - MIA) | 5328 | +4360 |
-
-**Trade 9 (Sunday, July 19) — Larkinsjacob wins it (+3318 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| KC | Quinshon Judkins (RB - CLE) | 5730 | -3318 |
-| Larkinsjacob | Carson Beck (QB - ARI), 2027 Round 2 pick, 2027 Round 1 pick | 9048 | +3318 |
-
-**Trade 10 (Monday, August 10) — JordanFFantasy wins it (+2828 est. value)**
+**Trade 2 (Monday, August 10) — JordanFFantasy wins it (+2828 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
 | Boynton Beach Blue Balls | 2028 Round 1 pick | 2890 | -2828 |
 | JordanFFantasy | D'Andre Swift (RB - CHI) | 5718 | +2828 |
+
+**Trade 3 (Monday, August 17) — The Aubrey Express  wins it (+1212 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| KC | Marvin Harrison (WR - ARI) | 5556 | -1212 |
+| The Aubrey Express  | Caleb Douglas (WR - MIA), 2027 Round 2 pick, 2028 Round 2 pick | 6768 | +1212 |
 
 ## Rookie Draft Value Tracker
 
