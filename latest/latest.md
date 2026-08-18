@@ -15,7 +15,28 @@ The trophy’s will resemble the Lombardi trophy and will have your name or team
 
 ## Trades — Last 14 Days (ranked by estimated value)
 
-_No trades in the last 14 days._
+_Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked most lopsided first._
+
+**Trade 1 (Tuesday, August 11) — CeDeez big ones wins it (+11964 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Simply Touchdowns | Josh Jacobs (RB - GB), 2028 Round 2 pick | 6892 | -11964 |
+| CeDeez big ones | Jonathon Brooks (RB - CAR), Isaac TeSlaa (WR - DET), Tony Pollard (RB - TEN), 2028 Round 1 pick | 18856 | +11964 |
+
+**Trade 2 (Monday, August 10) — JordanFFantasy wins it (+2828 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Boynton Beach Blue Balls | 2028 Round 1 pick | 2890 | -2828 |
+| JordanFFantasy | D'Andre Swift (RB - CHI) | 5718 | +2828 |
+
+**Trade 3 (Monday, August 17) — The Aubrey Express  wins it (+1212 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| KC | Marvin Harrison (WR - ARI) | 5556 | -1212 |
+| The Aubrey Express  | Caleb Douglas (WR - MIA), 2027 Round 2 pick, 2028 Round 2 pick | 6768 | +1212 |
 
 ## Rookie Draft Value Tracker
 
@@ -37,7 +58,28 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 
 ## Waiver Wire / Free Agency This Week
 
-_No waiver or free agent moves this week._
+**Tuesday, August 11:**
+- **The Aubrey Express ** (Free Agent Move): added —; dropped Will Shipley (RB - PHI)
+- **CeDeez big ones** (Free Agent Move): added —; dropped Ty Johnson (RB - BUF)
+
+**Wednesday, August 12:**
+- **Boynton Beach Blue Balls** (Waiver Claim ($1 FAAB)): added Roman Wilson (WR - PIT); dropped DJ Giddens (RB - IND)
+- **Simply Touchdowns** (Waiver Claim ($1 FAAB)): added Jahdae Walker (WR - CHI); dropped —
+- **The Aubrey Express ** (Waiver Claim ($2 FAAB)): added Seth McGowan (RB - IND); dropped Emari Demercado (RB - KC)
+
+**Thursday, August 13:**
+- **Simply Touchdowns** (Waiver Claim ($3 FAAB)): added Kye Robichaux (RB - DET); dropped —
+- **Simply Touchdowns** (Free Agent Move): added —; dropped Kye Robichaux (RB - DET)
+
+**Sunday, August 16:**
+- **The Aubrey Express ** (Waiver Claim ($3 FAAB)): added Barion Brown (WR - NO); dropped Andrei Iosivas (WR - CIN)
+- **The Aubrey Express ** (Waiver Claim ($1 FAAB)): added Darren Waller (TE - CAR); dropped Greg Dulcich (TE - MIA)
+
+**Monday, August 17:**
+- **Boynton Beach Blue Balls** (Free Agent Move): added Roschon Johnson (RB - CHI); dropped Roman Wilson (WR - PIT)
+- **andrewburkhardt1** (Free Agent Move): added Matt Hibner (TE - BAL); dropped —
+- **Simply Touchdowns** (Free Agent Move): added Devaughn Vele (WR - NO); dropped —
+
 
 ## Standings
 
