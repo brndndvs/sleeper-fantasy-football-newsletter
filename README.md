@@ -14,10 +14,14 @@ with `--season-type off|pre|regular|post`):
   Association LLC — July 22, 2026"
 - **Preseason, before any preseason game has actually been played**: just
   "Preseason — July 28, 2026", no week number. Sleeper's own `season_type`
-  can flip to `pre` and its week counter to 1 well before real preseason
-  games kick off, so the week number is held back until a matchup shows a
-  real (non-0-0) score.
-- **Preseason, once games are underway**: "Preseason Week 2 — August 12, 2026"
+  can flip to `pre` well before real preseason games kick off; the week
+  number is held back until Sleeper's own `season_has_scores` flag (from
+  `/state/nfl`) confirms real score data actually exists.
+- **Preseason, once games are underway**: "Preseason Week 2 — August 12, 2026".
+  Note that Sleeper's `week` field means something different here than in the
+  regular season: during the preseason it's already "the current week," not
+  "the upcoming one," so `determine_week()` doesn't subtract 1 from it the way
+  it does for the regular season below.
 - **Regular season** (and playoffs): "Week 5 — October 7, 2026" (no
   "Regular Season" prefix — just the week number, like before)
 
