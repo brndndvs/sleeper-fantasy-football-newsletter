@@ -72,8 +72,14 @@ are at the top of `newsletter.py` if you want to tune them.
 
 #### Why waivers are scoped to "this week" only, but trades cover two weeks
 
-Sleeper's `transactions/{week}` endpoint can otherwise lump an entire
-offseason's activity into "week 1" before the season starts. **Waivers**
+Sleeper's `transactions/{week}` endpoint only returns transactions bucketed
+under that specific week (week 1 is the one exception — it also accumulates
+everything from before the season starts). Since a trade or waiver move near a
+week boundary could be bucketed under either side, `get_recent_transactions`
+fetches and merges a small trailing range of weeks (current week and the two
+before it) rather than trusting a single week's bucket to have everything —
+this is what caught the bug where trades vanished the moment the newsletter
+correctly advanced past week 1. **Waivers**
 default to **since the most recent Tuesday** (matching the every-Tuesday send
 schedule below) — not a flat "last 7 days," since that would only be correct
 if the script always ran exactly a week apart. This means:

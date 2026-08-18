@@ -134,6 +134,27 @@ def get_transactions(league_id: str, week: int) -> list[dict]:
     return fetch_json(f"{API_BASE}/league/{league_id}/transactions/{week}") or []
 
 
+def get_recent_transactions(league_id: str, week: int, *, weeks_back: int = 2) -> list[dict]:
+    """Sleeper's transactions/{week} endpoint only returns transactions bucketed
+    under that specific week (week 1 is the one exception -- it additionally
+    accumulates everything from before the season starts). A trade or waiver move
+    made near a week boundary can end up bucketed under either side, so this fetches
+    a small trailing range of weeks and merges/dedupes by transaction_id, rather than
+    trusting a single week's bucket to have everything relevant to the trade/waiver
+    lookback windows below."""
+    seen_ids: set = set()
+    merged: list[dict] = []
+    for w in range(max(1, week - weeks_back), week + 1):
+        for tx in get_transactions(league_id, w):
+            tx_id = tx.get("transaction_id")
+            if tx_id is not None:
+                if tx_id in seen_ids:
+                    continue
+                seen_ids.add(tx_id)
+            merged.append(tx)
+    return merged
+
+
 def get_nfl_state() -> dict:
     return fetch_json(f"{API_BASE}/state/nfl") or {}
 
@@ -938,7 +959,7 @@ def build_newsletter_data(
     users = users if users is not None else get_users(league_id)
     raw_matchups = raw_matchups if raw_matchups is not None else get_matchups(league_id, week)
     raw_transactions = (
-        raw_transactions if raw_transactions is not None else get_transactions(league_id, week)
+        raw_transactions if raw_transactions is not None else get_recent_transactions(league_id, week)
     )
     players = players if players is not None else get_players()
     if season_type is None or season_has_scores is None:
