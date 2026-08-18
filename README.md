@@ -29,7 +29,7 @@ It covers:
   callout that it's carried over and nothing new was added, rather than
   silently repeating it or silently dropping the section. Omitted entirely
   only if he's never submitted anything at all.
-- Trades from the past week, **ranked by estimated value** (most lopsided
+- Trades from the last two weeks, **ranked by estimated value** (most lopsided
   first), each with the date it was made
 - Waiver/free-agent moves from the past week, in chronological order, grouped
   under the day they happened
@@ -66,34 +66,28 @@ heuristic for *ranking* trades relative to each other, not an authoritative
 valuation — the constants (`PLAYER_VALUE_MAX`, `PICK_ROUND_BASE_VALUE`, etc.)
 are at the top of `newsletter.py` if you want to tune them.
 
-#### Why trades/waivers are scoped to "this week" only
+#### Why waivers are scoped to "this week" only, but trades cover two weeks
 
 Sleeper's `transactions/{week}` endpoint can otherwise lump an entire
-offseason's activity into "week 1" before the season starts. By default,
-trades/waivers are scoped to **since the most recent Tuesday** (matching the
-every-Tuesday send schedule below) — not a flat "last 7 days," since that
-would only be correct if the script always ran exactly a week apart. This
-means:
+offseason's activity into "week 1" before the season starts. **Waivers**
+default to **since the most recent Tuesday** (matching the every-Tuesday send
+schedule below) — not a flat "last 7 days," since that would only be correct
+if the script always ran exactly a week apart. This means:
 
 - Run on the scheduled Tuesday: covers the full week since the previous send
 - Run mid-week (e.g. manually testing on a Wednesday): only covers since that
   same Tuesday, not a rolling 7 days
 
-Pass `--lookback-days N` to override this with a flat rolling window instead.
-Every run prints the exact date range of included/excluded transactions to
-the console/Action log, so you can verify the scoping on any given week.
+**Trades** instead use a flat trailing window (`TRADE_LOOKBACK_DAYS = 14` at
+the top of `newsletter.py`) rather than the Tuesday anchor. Trade activity is
+bursty, and a trade made right before the week rolled over was showing up in
+exactly one send and then disappearing; the 14-day window means a trade stays
+visible across two consecutive sends instead of just one.
 
-**One-time exception for this season:** trades made anywhere from February 9
-through September 8, 2026 (the day before the first regular season game) all
-count toward one ranked list — not just the current week — so the whole
-preseason's trading activity gets covered. Only the top 10 (most lopsided)
-are shown, but the total count of preseason trades is mentioned too. Waivers
-are unaffected and always stay week-to-week. This is controlled by
-`PRESEASON_TRADE_WINDOW_START` / `_END` / `TOP_TRADES_LIMIT` at the top of
-`newsletter.py`; once the window passes, trades automatically revert to the
-normal weekly Tuesday-anchored scoping above with no further changes needed.
-Update those two dates if a similar preseason
-window is wanted in a future season.
+Pass `--lookback-days N` to override either scoping with a different flat
+rolling window for that run. Every run prints the exact date range of
+included/excluded transactions to the console/Action log, so you can verify
+the scoping on any given week.
 
 #### About the Rookie Draft Value Tracker
 

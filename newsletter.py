@@ -65,15 +65,12 @@ FAAB_VALUE_PER_DOLLAR = 10
 NEWSLETTER_ANCHOR_WEEKDAY = 1  # Monday=0 ... Tuesday=1
 NEWSLETTER_ANCHOR_HOUR_UTC = 12  # matches the "0 12 * * 2" cron
 
-# One-time exception for this season: trades made throughout the whole preseason
-# trading window should all show up together, ranked, instead of only the current
-# week. Waivers are unaffected and always stay week-to-week. Once this window
-# passes (day before the first regular season game), trades automatically revert
-# to the normal weekly Tuesday-anchored scoping above -- no further changes needed.
-# Update these two dates if a similar preseason window is wanted in a future season.
-PRESEASON_TRADE_WINDOW_START = datetime(2026, 2, 9, tzinfo=timezone.utc)
-PRESEASON_TRADE_WINDOW_END = datetime(2026, 9, 9, tzinfo=timezone.utc)  # exclusive; covers through Sept 8
-TOP_TRADES_LIMIT = 10  # during the preseason window, show only the top N, but mention the total count
+# Trades are shown from the trailing two weeks, not the flat weekly Tuesday-anchor
+# used for waivers -- trade activity is bursty, and a trade made right before the
+# window rolled over was disappearing from the newsletter after showing up only
+# once. A trade now stays visible across two consecutive sends. Override per-run
+# with --lookback-days.
+TRADE_LOOKBACK_DAYS = 14
 
 # The commissioner manually schedules a rivalry week where every team plays its
 # rival; rivals also meet once more wherever the normal round-robin schedule
@@ -332,7 +329,8 @@ def filter_transactions_to_window(
     """Sleeper's transactions/{week} endpoint can lump an entire offseason's activity
     into "week 1" before the season starts. Filter to only transactions actually
     completed since the newsletter's weekly anchor (or an explicit --lookback-days
-    override) so "this week's" trades/waivers are accurate."""
+    override) so "this week's" waivers are accurate. Trades use filter_trades_to_window
+    instead, which scopes to a flat trailing window rather than this weekly anchor."""
     now = datetime.now(timezone.utc)
     if days is not None:
         cutoff = now - timedelta(days=days)
@@ -344,18 +342,17 @@ def filter_transactions_to_window(
 
 
 def filter_trades_to_window(raw_transactions: list[dict], *, days: Optional[int] = None) -> list[dict]:
-    """Trades get an extended lookback during this season's preseason trade window
-    (Feb 9 - Sept 8, 2026), so the whole preseason's trades show up together,
-    ranked. Outside that window, falls back to the normal weekly Tuesday-anchored
-    scoping, same as waivers. Only actual trades are counted/logged here -- waiver
-    and free-agent moves in the same date range are excluded before counting, so
-    the printed total matches what's actually shown in the Trades section."""
+    """Trades are scoped to a trailing window (default TRADE_LOOKBACK_DAYS = 14),
+    unlike the flat weekly Tuesday-anchor used for waivers, so a trade doesn't
+    vanish the moment the week rolls over -- it stays visible across two sends.
+    Only actual trades are counted/logged here -- waiver and free-agent moves in
+    the same date range are excluded before counting, so the printed total matches
+    what's actually shown in the Trades section."""
     trade_txs = [tx for tx in raw_transactions if tx.get("type") == "trade"]
-    now = datetime.now(timezone.utc)
-    if PRESEASON_TRADE_WINDOW_START <= now < PRESEASON_TRADE_WINDOW_END:
-        window_desc = f"since {PRESEASON_TRADE_WINDOW_START.strftime('%B %d, %Y')} (preseason trade window)"
-        return _filter_transactions(trade_txs, PRESEASON_TRADE_WINDOW_START, window_desc, "Trades")
-    return filter_transactions_to_window(trade_txs, days=days, label="Trades")
+    lookback_days = days if days is not None else TRADE_LOOKBACK_DAYS
+    cutoff = datetime.now(timezone.utc) - timedelta(days=lookback_days)
+    window_desc = f"the last {lookback_days} days"
+    return _filter_transactions(trade_txs, cutoff, window_desc, "Trades")
 
 
 def _parse_form_timestamp(raw: str) -> Optional[datetime]:
@@ -915,9 +912,7 @@ class NewsletterData:
 
     @property
     def no_trades_message(self) -> str:
-        if self.trades_period_label == "This Week":
-            return "No trades this week."
-        return "No trades during the preseason trade window."
+        return f"No trades in the last {TRADE_LOOKBACK_DAYS} days."
 
     @property
     def in_season(self) -> bool:
@@ -1002,11 +997,7 @@ def build_newsletter_data(
         if commissioner_notes_csv_url
         else None
     )
-    trades_period_label = (
-        "Preseason Trade Window"
-        if PRESEASON_TRADE_WINDOW_START <= now < PRESEASON_TRADE_WINDOW_END
-        else "This Week"
-    )
+    trades_period_label = f"Last {TRADE_LOOKBACK_DAYS} Days"
 
     return NewsletterData(
         league_name=league.get("name", "Fantasy League"),
@@ -1061,22 +1052,13 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append(data.commissioner_notes["note"])
         lines.append("")
 
-    is_preseason_window = data.trades_period_label == "Preseason Trade Window"
-    shown_trades = data.trades[:TOP_TRADES_LIMIT] if is_preseason_window else data.trades
-
     lines.append(f"## Trades — {data.trades_period_label} (ranked by estimated value)\n")
     if data.trades:
-        if is_preseason_window:
-            lines.append(
-                f"_{len(data.trades)} total preseason trades since "
-                f"{PRESEASON_TRADE_WINDOW_START.strftime('%B %d, %Y')} — showing the top "
-                f"{len(shown_trades)}, most lopsided first._"
-            )
         lines.append(
             "_Value is a rough estimate from Sleeper's own player rankings and a simple "
             "pick-value table — not official ADP or projections. Ranked most lopsided first._\n"
         )
-        for i, trade in enumerate(shown_trades, start=1):
+        for i, trade in enumerate(data.trades, start=1):
             date_str = format_day(trade["when"])
             headline = f"**Trade {i} ({date_str})"
             if trade["winner"]:
@@ -1288,22 +1270,13 @@ ul, ol { padding-left: 1.4rem; }
         note_html = e(data.commissioner_notes["note"]).replace("\n", "<br>")
         parts.append(f"<p>{note_html}</p>")
 
-    is_preseason_window = data.trades_period_label == "Preseason Trade Window"
-    shown_trades = data.trades[:TOP_TRADES_LIMIT] if is_preseason_window else data.trades
-
     parts.append(f"<h2>Trades — {e(data.trades_period_label)} (ranked by estimated value)</h2>")
     if data.trades:
-        if is_preseason_window:
-            parts.append(
-                f"<p><em>{len(data.trades)} total preseason trades since "
-                f"{e(PRESEASON_TRADE_WINDOW_START.strftime('%B %d, %Y'))} — showing the top "
-                f"{len(shown_trades)}, most lopsided first.</em></p>"
-            )
         parts.append(
             "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
             "pick-value table — not official ADP or projections. Ranked most lopsided first.</em></p>"
         )
-        for i, trade in enumerate(shown_trades, start=1):
+        for i, trade in enumerate(data.trades, start=1):
             date_str = e(format_day(trade["when"]))
             if trade["winner"]:
                 headline = f"Trade {i} ({date_str}) — {e(trade['winner'])} wins it (+{trade['value_diff']} est. value)"
@@ -1631,9 +1604,10 @@ def main(argv: Optional[list[str]] = None) -> int:
         type=int,
         default=None,
         help=(
-            "Override: only count trades/waiver moves completed in this many trailing days. "
-            "Default (omit this flag) scopes to since the most recent Tuesday, matching the "
-            "weekly send schedule."
+            "Override: only count trades/waiver moves completed in this many trailing days for "
+            "both. Default (omit this flag): waivers scope to since the most recent Tuesday "
+            "(matching the weekly send schedule); trades scope to the trailing "
+            f"{TRADE_LOOKBACK_DAYS} days (TRADE_LOOKBACK_DAYS)."
         ),
     )
     parser.add_argument(
