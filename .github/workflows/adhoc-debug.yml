@@ -1,0 +1,52 @@
+name: Adhoc Debug
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: |
+          python - <<'EOF'
+          from newsletter import (
+              get_league, get_rosters, get_users, get_players, build_teams,
+              player_display_name, player_value, DEFAULT_LEAGUE_ID,
+          )
+
+          league = get_league(DEFAULT_LEAGUE_ID)
+          rosters = get_rosters(DEFAULT_LEAGUE_ID)
+          users = get_users(DEFAULT_LEAGUE_ID)
+          players = get_players()
+          teams = build_teams(rosters, users)
+
+          target_name = "Balls"
+          target_roster = None
+          for r in rosters:
+              team = teams.get(r["roster_id"])
+              if team and team.team_name == target_name:
+                  target_roster = r
+                  break
+
+          if not target_roster:
+              print("Team not found. Available teams:", [t.team_name for t in teams.values()])
+          else:
+              player_ids = target_roster.get("players") or []
+              starters = target_roster.get("starters") or []
+              print(f"Roster for {target_name} ({len(player_ids)} players):")
+              entries = []
+              for pid in player_ids:
+                  name = player_display_name(pid, players)
+                  val = round(player_value(pid, players))
+                  is_starter = pid in starters
+                  entries.append((val, name, is_starter))
+              entries.sort(reverse=True)
+              for val, name, is_starter in entries:
+                  marker = " [STARTER]" if is_starter else ""
+                  print(f"  {name} -- ~{val} value{marker}")
+          EOF
