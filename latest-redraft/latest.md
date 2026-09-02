@@ -1,3 +1,5 @@
+![Diddy Party  logo](https://github.com/user-attachments/assets/6e564ead-5a50-41fe-b078-8d370225c27e)
+
 # Diddy Party  — Week 1 — September 02, 2026 Newsletter
 _2026 Season_
 
@@ -42,6 +44,10 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 ## Waiver Wire / Free Agency This Week
 
 _No waiver or free agent moves this week._
+
+## Top 5 Highest-Value Waiver Pickups
+
+_Will populate once Week 1 games get underway._
 
 ## Matchup Recap
 
