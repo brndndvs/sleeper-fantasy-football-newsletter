@@ -1,20 +1,6 @@
 # Diddy Party  — Week 1 — September 02, 2026 Newsletter
 _2026 Season_
 
-## Commissioner's Notes
-
-_Nothing new was submitted this week — this note carries over from Tuesday, August 25._
-
-Good morning,
-Lots of moves this week. Love it, love the activity, love the engagement, love it all. 
-As you all know my power house of a squad had a huge scare this week. While I didn’t think the season was over bc well let’s face it, he’s maybe my third best back. I was still worried that everything I worked for this off season was over in seconds. It looked terrible. Couldn’t put weight on it, team prayed for his health. AND GOD HIMSELF ANSWERED. He is fine and ready to fucking go. Watch out bitches I am coming for you all. 
-Once the season starts I will not make this about me but had to this one time. 
-Good luck to
-All the other owners still trying to make moves to make it to the top.
-And to the tankers, remember this. You can tank, but you CANNOT start a player not active for the day. Bye week, injured or non rostered players cannot be in a starting lineup. Unless for whatever circumstances u can’t play anyone else without dropping a player you wish to not risk to free agency pit.
-15 days and we have kick off in Brazil.
-Thank you
-
 ## Trades — Last 14 Days (ranked by estimated value)
 
 _No trades in the last 14 days._
