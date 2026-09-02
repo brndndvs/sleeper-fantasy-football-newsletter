@@ -5,9 +5,9 @@ _2026 Season_
 
 Draft day is officially in the books. Rosters are set, questionable decisions have been made, and optimism is at an all-time high. The real action begins next week as Week 1 kicks off. Good luck to everyone and remember, every team looks like a championship contender until the games actually start.
 
-## Trades — Last 14 Days (ranked by estimated value)
+## Trades — Last 21 Days (top 5)
 
-_No trades in the last 14 days._
+_No trades in the last 21 days._
 
 ## Draft Value Tracker
 
