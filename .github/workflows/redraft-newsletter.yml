@@ -61,6 +61,7 @@ jobs:
             --output-dir output-redraft \
             --latest-dir latest-redraft \
             --commissioner-notes-csv-url "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLoJKRe8VMv1r_mU9sX_zNOJJXT_cxyU1NyYvDJdmGkADrQ1Dqg13BkEmy-dI5cuuOfptBHgf0YErA/pub?gid=1044733345&single=true&output=csv" \
+            --league-logo-url "https://github.com/user-attachments/assets/6e564ead-5a50-41fe-b078-8d370225c27e" \
             $WEEK_ARG $SEND_ARGS
 
       - name: Upload newsletter artifacts
