@@ -287,6 +287,7 @@ def build_draft_value_rankings(league: dict, teams: dict, players: dict, *, limi
         entries.append(
             {
                 "player": player_display_name(player_id, players),
+                "player_id": player_id,
                 "team": team_name,
                 "round": pick.get("round"),
                 "pick_no": pick_no,
@@ -452,6 +453,7 @@ class Team:
     fpts: float = 0.0
     fpts_against: float = 0.0
     division: Optional[int] = None
+    avatar_url: Optional[str] = None
 
     @property
     def record(self) -> str:
@@ -477,6 +479,13 @@ def build_teams(rosters: list[dict], users: list[dict]) -> dict[int, Team]:
             settings.get("fpts_against_decimal", 0)
         ) / 100
         division = settings.get("division")
+        # Custom-uploaded team logos live at user.metadata.avatar (already a full URL);
+        # a user who hasn't uploaded one just has user.avatar, a bare Sleeper CDN hash
+        # that needs the thumbs/ prefix added.
+        user_metadata = user.get("metadata") or {}
+        avatar_url = user_metadata.get("avatar") or (
+            f"https://sleepercdn.com/avatars/thumbs/{user['avatar']}" if user.get("avatar") else None
+        )
         teams[roster["roster_id"]] = Team(
             roster_id=roster["roster_id"],
             owner_id=owner_id,
@@ -487,6 +496,7 @@ def build_teams(rosters: list[dict], users: list[dict]) -> dict[int, Team]:
             fpts=fpts,
             fpts_against=fpts_against,
             division=int(division) if division else None,
+            avatar_url=avatar_url,
         )
     return teams
 
@@ -739,6 +749,7 @@ def compute_top_scorers(
                 scorers.append(
                     {
                         "player": player_display_name(player_id, players),
+                        "player_id": player_id,
                         "points": round(float(pts), 2),
                         "team": t["team"],
                     }
@@ -939,6 +950,7 @@ def build_luck_index(teams: dict[int, Team], weekly_scores: list[dict[int, float
         entries.append(
             {
                 "team": team.team_name,
+                "avatar_url": team.avatar_url,
                 "record": team.record,
                 "all_play_record": f"{aw}-{al}",
                 "luck_delta": round((actual_pct - all_play_pct) * 100, 1),
@@ -984,6 +996,7 @@ def build_power_rankings(
         entries.append(
             {
                 "team": teams[rid].team_name,
+                "avatar_url": teams[rid].avatar_url,
                 "record": teams[rid].record,
                 "recent_avg": round(recent_avg[rid], 1),
                 "score": record_score[rid] + points_score[rid] + form_score[rid],
@@ -1384,6 +1397,31 @@ def _html_escape(text: str) -> str:
     )
 
 
+def _team_logo_html(avatar_url: Optional[str], *, size_px: int = 24) -> str:
+    """A small rounded team logo, or nothing if the team never set/uploaded one --
+    inline-styled like _bar_html so it survives email clients that strip <style>
+    blocks."""
+    if not avatar_url:
+        return ""
+    return (
+        f'<img src="{_html_escape(avatar_url)}" alt="" width="{size_px}" height="{size_px}" '
+        f'style="border-radius:4px;vertical-align:middle;margin-right:6px;object-fit:cover;">'
+    )
+
+
+def _player_headshot_html(player_id: Optional[str], *, size_px: int = 28) -> str:
+    """A small circular player headshot from Sleeper's own player-image CDN, or
+    nothing for entries with no real player_id (e.g. team defenses use their NFL
+    team abbreviation there, not a numeric id, and simply won't have a photo)."""
+    if not player_id or not str(player_id).isdigit():
+        return ""
+    return (
+        f'<img src="https://sleepercdn.com/content/nfl/players/thumb/{player_id}.jpg" alt="" '
+        f'width="{size_px}" height="{size_px}" '
+        f'style="border-radius:50%;vertical-align:middle;margin-right:6px;object-fit:cover;">'
+    )
+
+
 def _bar_html(fraction: float, color: str, *, width_px: int = 160, height_px: int = 12) -> str:
     """A minimal CSS bar, built with a fixed-width outer div and a percentage-width
     inner div -- fully inline-styled (no <style> classes) so it survives email clients
@@ -1473,9 +1511,10 @@ ul, ol { padding-left: 1.4rem; }
         max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
         for i, entry in enumerate(top_value, start=1):
             bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
+            headshot = _player_headshot_html(entry.get("player_id"))
             parts.append(
                 f"<tr><td>{i}</td>"
-                f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
                 f"Pick {entry['pick_no']})</td>"
                 f"<td>{bar} ~{entry['current_value']}</td></tr>"
             )
@@ -1492,9 +1531,10 @@ ul, ol { padding-left: 1.4rem; }
             for i, entry in enumerate(best_picks, start=1):
                 color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
                 bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
+                headshot = _player_headshot_html(entry.get("player_id"))
                 parts.append(
                     f"<tr><td>{i}</td>"
-                    f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                    f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
                     f"Pick {entry['pick_no']})</td>"
                     f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
                 )
@@ -1596,7 +1636,10 @@ ul, ol { padding-left: 1.4rem; }
         if data.top_scorers:
             parts.append("<ol>")
             for s in data.top_scorers:
-                parts.append(f"<li><strong>{e(s['player'])}</strong> — {s['points']:.2f} pts ({e(s['team'])})</li>")
+                headshot = _player_headshot_html(s.get("player_id"))
+                parts.append(
+                    f"<li>{headshot}<strong>{e(s['player'])}</strong> — {s['points']:.2f} pts ({e(s['team'])})</li>"
+                )
             parts.append("</ol>")
         else:
             parts.append("<p><em>No player data available.</em></p>")
@@ -1607,16 +1650,18 @@ ul, ol { padding-left: 1.4rem; }
             parts.append(f"<h3>{e(division['name'])}</h3>")
             parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>PF</th><th>PA</th></tr>")
             for i, team in enumerate(division["standings"], start=1):
+                logo = _team_logo_html(team.avatar_url)
                 parts.append(
-                    f"<tr><td>{i}</td><td>{e(team.team_name)}</td><td>{team.record}</td>"
+                    f"<tr><td>{i}</td><td>{logo}{e(team.team_name)}</td><td>{team.record}</td>"
                     f"<td>{team.fpts:.2f}</td><td>{team.fpts_against:.2f}</td></tr>"
                 )
             parts.append("</table>")
     else:
         parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>PF</th><th>PA</th></tr>")
         for i, team in enumerate(data.standings, start=1):
+            logo = _team_logo_html(team.avatar_url)
             parts.append(
-                f"<tr><td>{i}</td><td>{e(team.team_name)}</td><td>{team.record}</td>"
+                f"<tr><td>{i}</td><td>{logo}{e(team.team_name)}</td><td>{team.record}</td>"
                 f"<td>{team.fpts:.2f}</td><td>{team.fpts_against:.2f}</td></tr>"
             )
         parts.append("</table>")
@@ -1629,8 +1674,9 @@ ul, ol { padding-left: 1.4rem; }
         )
         parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>Recent Avg</th></tr>")
         for i, p in enumerate(data.power_rankings, start=1):
+            logo = _team_logo_html(p.get("avatar_url"))
             parts.append(
-                f"<tr><td>{i}</td><td>{e(p['team'])}</td><td>{p['record']}</td>"
+                f"<tr><td>{i}</td><td>{logo}{e(p['team'])}</td><td>{p['record']}</td>"
                 f"<td>{p['recent_avg']:.1f}</td></tr>"
             )
         parts.append("</table>")
@@ -1650,8 +1696,9 @@ ul, ol { padding-left: 1.4rem; }
         for i, l in enumerate(data.luck_index, start=1):
             color = "#2c5f2d" if l["luck_delta"] >= 0 else "#b23b3b"
             bar = _bar_html(min(abs(l["luck_delta"]) / 50, 1.0), color)
+            logo = _team_logo_html(l.get("avatar_url"))
             parts.append(
-                f"<tr><td>{i}</td><td>{e(l['team'])}</td><td>{l['record']}</td>"
+                f"<tr><td>{i}</td><td>{logo}{e(l['team'])}</td><td>{l['record']}</td>"
                 f"<td>{l['all_play_record']}</td><td>{bar} {l['luck_delta']:+.1f}</td></tr>"
             )
         parts.append("</table>")
