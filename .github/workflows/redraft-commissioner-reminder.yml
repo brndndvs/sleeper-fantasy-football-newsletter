@@ -2,10 +2,11 @@ name: Redraft Commissioner Notes Reminder
 
 on:
   schedule:
-    # ~8:00 PM ET on Mondays, same cadence as the dynasty reminder. See
+    # 2 hours earlier than before (was ~8:00 PM ET), to keep more of a gap
+    # ahead of the redraft newsletter's own send time move. See
     # commissioner-reminder.yml for why the minute isn't a round number.
-    - cron: "59 23 * 3-10 1" # EDT (UTC-4): Mar-Oct, ~8:01 PM ET Monday = 23:59 UTC Monday
-    - cron: "59 0 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, ~8:01 PM ET Monday = 00:59 UTC Tuesday
+    - cron: "59 21 * 3-10 1" # EDT (UTC-4): Mar-Oct, ~5:59 PM ET Monday = 21:59 UTC Monday
+    - cron: "59 22 * 11,12,1,2 1" # EST (UTC-5): Nov-Feb, ~5:59 PM ET Monday = 22:59 UTC Monday
   workflow_dispatch: {}
 
 permissions:
