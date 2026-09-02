@@ -15,9 +15,9 @@ And to the tankers, remember this. You can tank, but you CANNOT start a player n
 15 days and we have kick off in Brazil.
 Thank you
 
-## Trades — Last 14 Days (ranked by estimated value)
+## Trades — Last 14 Days (top 5)
 
-_Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked most lopsided first._
+_Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked by a blend of how lopsided the trade was and how much total value changed hands, so a real blockbuster outranks a minor move that just happens to be a bit uneven._
 
 **Trade 1 (Sunday, August 23) — A FOOTBALL TEAM wins it (+7647 est. value)**
 
@@ -33,47 +33,26 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | Balls | Mike Evans (WR - SF), Kenneth Walker (RB - KC) | 11532 | +7346 |
 | andrewburkhardt1 | 2027 Round 3 pick, 2027 Round 1 pick, 2028 Round 3 pick | 4186 | -7346 |
 
-**Trade 3 (Monday, August 31) — Roger Goodell wins it (+5296 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Roger Goodell | Stefon Diggs (WR - WAS) | 5346 | +5296 |
-| The Aubrey Express  | $5 FAAB | 50 | -5296 |
-
-**Trade 4 (Thursday, August 20) — Talking Tua Teenager wins it (+4228 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| The Aubrey Express  | 2027 Round 2 pick | 1190 | -4228 |
-| Talking Tua Teenager | Jake Ferguson (TE - DAL) | 5418 | +4228 |
-
-**Trade 5 (Monday, August 31) — Talking Tua Teenager wins it (+3736 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Boynton Beach Blue Balls | $5 FAAB | 50 | -3736 |
-| Talking Tua Teenager | Darren Waller (TE - CAR) | 3786 | +3736 |
-
-**Trade 6 (Tuesday, September 1) — Balls wins it (+2708 est. value)**
+**Trade 3 (Tuesday, September 1) — Balls wins it (+2708 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
 | Balls | Lamar Jackson (QB - BAL), Mark Andrews (TE - BAL) | 11364 | +2708 |
 | CeDeez big ones | Trevor Lawrence (QB - JAX), 2028 Round 1 pick | 8656 | -2708 |
 
-**Trade 7 (Wednesday, September 2) — The Aubrey Express  wins it (+615 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| The Aubrey Express  | Pat Bryant (WR - DEN), 2028 Round 3 pick, 2029 Round 2 pick | 6189 | +615 |
-| awesomevan | Parker Washington (WR - JAX) | 5574 | -615 |
-
-**Trade 8 (Monday, August 31) — The Aubrey Express  wins it (+157 est. value)**
+**Trade 4 (Monday, August 31) — The Aubrey Express  wins it (+157 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
 | Boynton Beach Blue Balls | Troy Franklin (WR - DEN), Darren Waller (TE - CAR), 2027 Round 2 pick | 9950 | -157 |
 | The Aubrey Express  | Tre Tucker (WR - LV), Keon Coleman (WR - BUF), 2028 Round 3 pick, $8 FAAB | 10107 | +157 |
+
+**Trade 5 (Monday, August 31) — Roger Goodell wins it (+5296 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Roger Goodell | Stefon Diggs (WR - WAS) | 5346 | +5296 |
+| The Aubrey Express  | $5 FAAB | 50 | -5296 |
 
 ## Rookie Draft Value Tracker
 
