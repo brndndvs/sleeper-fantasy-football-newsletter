@@ -1,0 +1,37 @@
+name: Redraft Commissioner Notes Reminder
+
+on:
+  schedule:
+    # ~8:00 PM ET on Mondays, same cadence as the dynasty reminder. See
+    # commissioner-reminder.yml for why the minute isn't a round number.
+    - cron: "59 23 * 3-10 1" # EDT (UTC-4): Mar-Oct, ~8:01 PM ET Monday = 23:59 UTC Monday
+    - cron: "59 0 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, ~8:01 PM ET Monday = 00:59 UTC Tuesday
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  send-reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Email redraft commissioner reminder
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          COMMISSIONER_EMAIL: ${{ secrets.REDRAFT_COMMISSIONER_EMAIL }}
+        run: |
+          python newsletter.py --remind-commissioner \
+            --commissioner-form-url "https://docs.google.com/forms/d/e/1FAIpQLScN_wePZ6xIOZh3F-nN6igVkpy3T4pa1vkul6ejeRejc_J0fw/viewform"
