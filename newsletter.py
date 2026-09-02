@@ -65,12 +65,12 @@ FAAB_VALUE_PER_DOLLAR = 10
 NEWSLETTER_ANCHOR_WEEKDAY = 1  # Monday=0 ... Tuesday=1
 NEWSLETTER_ANCHOR_HOUR_UTC = 12  # matches the "0 12 * * 2" cron
 
-# Trades are shown from the trailing two weeks, not the flat weekly Tuesday-anchor
+# Trades are shown from the trailing three weeks, not the flat weekly Tuesday-anchor
 # used for waivers -- trade activity is bursty, and a trade made right before the
 # window rolled over was disappearing from the newsletter after showing up only
-# once. A trade now stays visible across two consecutive sends. Override per-run
-# with --lookback-days.
-TRADE_LOOKBACK_DAYS = 14
+# once. A trade now stays visible across multiple consecutive sends. Override
+# per-run with --lookback-days.
+TRADE_LOOKBACK_DAYS = 21
 
 # The Trades section shows the top N by a blended rank of value disparity (how
 # lopsided) and total value moved (how big) -- not just the most lopsided, so a

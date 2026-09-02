@@ -33,8 +33,9 @@ It covers:
   callout that it's carried over and nothing new was added, rather than
   silently repeating it or silently dropping the section. Omitted entirely
   only if he's never submitted anything at all.
-- Trades from the last two weeks, **ranked by estimated value** (most lopsided
-  first), each with the date it was made
+- Top 5 trades from the last three weeks, **ranked by a blend of value
+  disparity and total value moved** (so a real blockbuster outranks a minor
+  move that just happens to be a bit uneven), each with the date it was made
 - Waiver/free-agent moves from the past week, in chronological order, grouped
   under the day they happened
 - Matchup recap (final scores, who beat whom)
@@ -70,7 +71,15 @@ heuristic for *ranking* trades relative to each other, not an authoritative
 valuation — the constants (`PLAYER_VALUE_MAX`, `PICK_ROUND_BASE_VALUE`, etc.)
 are at the top of `newsletter.py` if you want to tune them.
 
-#### Why waivers are scoped to "this week" only, but trades cover two weeks
+Only the top `TRADE_DISPLAY_LIMIT` (5) trades are shown, ranked by a blend of
+two signals -- value disparity (how lopsided) and total value moved (how big)
+-- using the same rank-blend approach as Power Rankings, so each signal
+contributes comparably despite being on very different scales. This means a
+genuine blockbuster (e.g. a star player plus several future picks) outranks a
+minor move that just happens to be a bit uneven, which pure disparity ranking
+alone would have gotten backwards.
+
+#### Why waivers are scoped to "this week" only, but trades cover three weeks
 
 Sleeper's `transactions/{week}` endpoint only returns transactions bucketed
 under that specific week (week 1 is the one exception — it also accumulates
@@ -88,11 +97,15 @@ if the script always ran exactly a week apart. This means:
 - Run mid-week (e.g. manually testing on a Wednesday): only covers since that
   same Tuesday, not a rolling 7 days
 
-**Trades** instead use a flat trailing window (`TRADE_LOOKBACK_DAYS = 14` at
+**Trades** instead use a flat trailing window (`TRADE_LOOKBACK_DAYS = 21` at
 the top of `newsletter.py`) rather than the Tuesday anchor. Trade activity is
 bursty, and a trade made right before the week rolled over was showing up in
-exactly one send and then disappearing; the 14-day window means a trade stays
-visible across two consecutive sends instead of just one.
+exactly one send and then disappearing; the 21-day window means a trade stays
+visible across multiple consecutive sends instead of just one. (This was
+originally 14 days, but a real trade landed right at that boundary — made
+about 19 hours before the exact 14-day cutoff at send time — and got excluded
+before ranking even ran; 21 days gives real trading-week activity more room
+before that edge case recurs.)
 
 Pass `--lookback-days N` to override either scoping with a different flat
 rolling window for that run. Every run prints the exact date range of
