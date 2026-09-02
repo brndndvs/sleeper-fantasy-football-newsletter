@@ -72,6 +72,12 @@ NEWSLETTER_ANCHOR_HOUR_UTC = 12  # matches the "0 12 * * 2" cron
 # with --lookback-days.
 TRADE_LOOKBACK_DAYS = 14
 
+# The Trades section shows the top N by a blended rank of value disparity (how
+# lopsided) and total value moved (how big) -- not just the most lopsided, so a
+# kicker-for-a-third swap that happens to be a bit uneven doesn't outrank an
+# actual blockbuster. See the rank-blend in summarize_transactions.
+TRADE_DISPLAY_LIMIT = 5
+
 # The commissioner manually schedules a rivalry week where every team plays its
 # rival; rivals also meet once more wherever the normal round-robin schedule
 # happens to pair them up.
@@ -794,7 +800,9 @@ def summarize_transactions(
             }
             for player_id, rid in adds.items():
                 per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
-                per_team[rid]["received"].append(player_display_name(player_id, players))
+                per_team[rid]["received"].append(
+                    {"label": player_display_name(player_id, players), "player_id": player_id}
+                )
                 per_team[rid]["received_value"] += player_value(player_id, players)
             for player_id, rid in drops.items():
                 per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
@@ -805,7 +813,7 @@ def summarize_transactions(
                 pick_desc = f"{pick.get('season')} Round {pick.get('round')} pick"
                 value = pick_value(pick.get("season"), pick.get("round"), current_season)
                 if owner_rid in per_team:
-                    per_team[owner_rid]["received"].append(pick_desc)
+                    per_team[owner_rid]["received"].append({"label": pick_desc, "player_id": None})
                     per_team[owner_rid]["received_value"] += value
                 if prev_owner_rid in per_team:
                     per_team[prev_owner_rid]["sent"].append(pick_desc)
@@ -815,7 +823,7 @@ def summarize_transactions(
                 amount = wb.get("amount") or 0
                 desc = f"${amount} FAAB"
                 if receiver in per_team:
-                    per_team[receiver]["received"].append(desc)
+                    per_team[receiver]["received"].append({"label": desc, "player_id": None})
                     per_team[receiver]["received_value"] += amount * FAAB_VALUE_PER_DOLLAR
                 if sender in per_team:
                     per_team[sender]["sent"].append(desc)
@@ -827,6 +835,7 @@ def summarize_transactions(
                 value_diff = winner_info["received_value"] - ranked[1][1]["received_value"]
             else:
                 winner_name, value_diff = None, 0.0
+            total_value = sum(info["received_value"] for info in team_info.values())
 
             trades.append(
                 {
@@ -834,6 +843,7 @@ def summarize_transactions(
                     "when": when,
                     "winner": winner_name if value_diff > 50 else None,
                     "value_diff": round(value_diff),
+                    "total_value": round(total_value),
                 }
             )
         elif tx_type in ("waiver", "free_agent"):
@@ -852,7 +862,26 @@ def summarize_transactions(
                 }
             )
 
-    trades.sort(key=lambda t: t["value_diff"], reverse=True)
+    if trades:
+        n = len(trades)
+
+        def rank_by(key) -> list[int]:
+            # Highest value gets n points, lowest gets 1 -- same rank-blend approach
+            # as build_power_rankings, so disparity and size contribute comparably
+            # despite being on very different scales.
+            order = sorted(range(n), key=lambda i: key(trades[i]), reverse=True)
+            scores = [0] * n
+            for rank, i in enumerate(order):
+                scores[i] = n - rank
+            return scores
+
+        disparity_rank = rank_by(lambda t: t["value_diff"])
+        size_rank = rank_by(lambda t: t["total_value"])
+        for i, t in enumerate(trades):
+            t["combined_score"] = disparity_rank[i] + size_rank[i]
+        trades.sort(key=lambda t: t["combined_score"], reverse=True)
+        trades = trades[:TRADE_DISPLAY_LIMIT]
+
     waivers.sort(key=lambda w: w["when"] or datetime.min.replace(tzinfo=timezone.utc))
     return {"trades": trades, "waivers": waivers}
 
@@ -1206,11 +1235,13 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append(data.commissioner_notes["note"])
         lines.append("")
 
-    lines.append(f"## Trades — {data.trades_period_label} (ranked by estimated value)\n")
+    lines.append(f"## Trades — {data.trades_period_label} (top {TRADE_DISPLAY_LIMIT})\n")
     if data.trades:
         lines.append(
             "_Value is a rough estimate from Sleeper's own player rankings and a simple "
-            "pick-value table — not official ADP or projections. Ranked most lopsided first._\n"
+            "pick-value table — not official ADP or projections. Ranked by a blend of how "
+            "lopsided the trade was and how much total value changed hands, so a real "
+            "blockbuster outranks a minor move that just happens to be a bit uneven._\n"
         )
         for i, trade in enumerate(data.trades, start=1):
             date_str = format_day(trade["when"])
@@ -1225,7 +1256,7 @@ def render_markdown(data: NewsletterData) -> str:
             lines.append("|---|---|---|---|")
             for team_name, swing in trade_net_swings(trade):
                 info = trade["teams"][team_name]
-                received = ", ".join(info["received"]) or "—"
+                received = ", ".join(item["label"] for item in info["received"]) or "—"
                 value = round(info["received_value"])
                 lines.append(f"| {team_name} | {received} | {value} | {swing:+d} |")
             lines.append("")
@@ -1428,6 +1459,21 @@ def _player_headshot_html(player_id: Optional[str], *, size_px: int = 28) -> str
     )
 
 
+def _received_list_html(items: list[dict], *, e) -> str:
+    """One asset per line for a trade's Received column: a headshot for players,
+    a same-size blank spacer for picks/FAAB (which have no photo) so every line
+    lines up and reads at the same visual weight instead of picks looking like an
+    afterthought."""
+    if not items:
+        return "—"
+    rows = []
+    for item in items:
+        photo = _player_headshot_html(item.get("player_id"))
+        icon = photo if photo else '<span class="spacer"></span>'
+        rows.append(f"<li>{icon}{e(item['label'])}</li>")
+    return f'<ul class="received">{"".join(rows)}</ul>'
+
+
 def _bar_html(fraction: float, color: str, *, width_px: int = 160, height_px: int = 12) -> str:
     """A minimal CSS bar, built with a fixed-width outer div and a percentage-width
     inner div -- fully inline-styled (no <style> classes) so it survives email clients
@@ -1458,6 +1504,9 @@ th, td { border: 1px solid #ddd; padding: .4rem .6rem; text-align: left; }
 th { background: #2c5f2d; color: white; }
 tr:nth-child(even) { background: #f6f6f6; }
 ul, ol { padding-left: 1.4rem; }
+ul.received { margin: 0; padding-left: 0; list-style: none; }
+ul.received li { display: flex; align-items: center; padding: 3px 0; }
+ul.received .spacer { display: inline-block; width: 28px; height: 28px; margin-right: 6px; flex: none; }
 .subtitle { color: #666; margin-top: -0.5rem; }
 </style>"""
     )
@@ -1477,11 +1526,13 @@ ul, ol { padding-left: 1.4rem; }
         note_html = e(data.commissioner_notes["note"]).replace("\n", "<br>")
         parts.append(f"<p>{note_html}</p>")
 
-    parts.append(f"<h2>Trades — {e(data.trades_period_label)} (ranked by estimated value)</h2>")
+    parts.append(f"<h2>Trades — {e(data.trades_period_label)} (top {TRADE_DISPLAY_LIMIT})</h2>")
     if data.trades:
         parts.append(
             "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
-            "pick-value table — not official ADP or projections. Ranked most lopsided first.</em></p>"
+            "pick-value table — not official ADP or projections. Ranked by a blend of how "
+            "lopsided the trade was and how much total value changed hands, so a real "
+            "blockbuster outranks a minor move that just happens to be a bit uneven.</em></p>"
         )
         team_logos_by_name = {t.team_name: t.avatar_url for t in data.standings}
         for i, trade in enumerate(data.trades, start=1):
@@ -1496,11 +1547,11 @@ ul, ol { padding-left: 1.4rem; }
             )
             for team_name, swing in trade_net_swings(trade):
                 info = trade["teams"][team_name]
-                received = ", ".join(info["received"]) or "—"
+                received = _received_list_html(info["received"], e=e)
                 value = round(info["received_value"])
                 logo = _team_logo_html(team_logos_by_name.get(team_name))
                 parts.append(
-                    f"<tr><td>{logo}{e(team_name)}</td><td>{e(received)}</td>"
+                    f"<tr><td>{logo}{e(team_name)}</td><td>{received}</td>"
                     f"<td>{value}</td><td>{swing:+d}</td></tr>"
                 )
             parts.append("</table>")
