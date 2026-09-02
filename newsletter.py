@@ -891,6 +891,108 @@ def build_divisional_standings(teams: dict[int, Team], league: dict) -> Optional
     return divisions
 
 
+def build_weekly_scores(league_id: str, through_week: int, teams: dict[int, Team]) -> list[dict[int, float]]:
+    """Per-team point totals for every completed week from 1 through through_week,
+    skipping any week with no real scores yet. Standings alone (wins/losses/fpts,
+    from Sleeper's roster settings) aren't enough for Luck Index or Power Rankings --
+    both need each team's week-by-week scoring, not just the current week's matchups
+    or the season-to-date totals."""
+    weekly = []
+    for w in range(1, through_week + 1):
+        results = build_matchup_results(get_matchups(league_id, w), teams)
+        if not any(m.has_scores for m in results):
+            continue
+        week_scores = {t["roster_id"]: t["points"] for m in results for t in m.teams}
+        weekly.append(week_scores)
+    return weekly
+
+
+def build_luck_index(teams: dict[int, Team], weekly_scores: list[dict[int, float]]) -> list[dict]:
+    """All-play record: for every week, compares each team's score against every
+    other team's score that same week (not just their actual opponent), then
+    compares the resulting all-play win total to their actual record. A team doing
+    much better in real standings than their all-play record suggests has been
+    winning close games / catching favorable matchups; much worse suggests the
+    opposite."""
+    if not weekly_scores:
+        return []
+    all_play_wins = {rid: 0 for rid in teams}
+    all_play_losses = {rid: 0 for rid in teams}
+    for week_scores in weekly_scores:
+        roster_ids = list(week_scores.keys())
+        for rid in roster_ids:
+            score = week_scores[rid]
+            for other_id in roster_ids:
+                if other_id == rid:
+                    continue
+                if score > week_scores[other_id]:
+                    all_play_wins[rid] += 1
+                elif score < week_scores[other_id]:
+                    all_play_losses[rid] += 1
+
+    entries = []
+    for rid, team in teams.items():
+        aw, al = all_play_wins.get(rid, 0), all_play_losses.get(rid, 0)
+        all_play_pct = aw / (aw + al) if (aw + al) else 0.0
+        actual_games = team.wins + team.losses
+        actual_pct = team.wins / actual_games if actual_games else 0.0
+        entries.append(
+            {
+                "team": team.team_name,
+                "record": team.record,
+                "all_play_record": f"{aw}-{al}",
+                "luck_delta": round((actual_pct - all_play_pct) * 100, 1),
+            }
+        )
+    entries.sort(key=lambda e: e["luck_delta"], reverse=True)
+    return entries
+
+
+def build_power_rankings(
+    teams: dict[int, Team], weekly_scores: list[dict[int, float]], *, recent_weeks: int = 3
+) -> list[dict]:
+    """Blends three signals into one score per team: win percentage, total points
+    scored, and average score over the most recent weeks -- so it surfaces who's
+    actually playing well right now, not just who has the best record so far.
+    Each signal is converted to a rank (best team in the league gets N points,
+    worst gets 1) before blending, so the three signals -- record, season points,
+    recent points -- carry roughly equal weight despite being on different scales."""
+    roster_ids = list(teams.keys())
+    n = len(roster_ids)
+    if n == 0:
+        return []
+
+    def rank_score(values: dict[int, float]) -> dict[int, float]:
+        ordered = sorted(roster_ids, key=lambda rid: values.get(rid, 0.0), reverse=True)
+        return {rid: n - i for i, rid in enumerate(ordered)}
+
+    win_pct = {
+        rid: (teams[rid].wins / (teams[rid].wins + teams[rid].losses) if (teams[rid].wins + teams[rid].losses) else 0.0)
+        for rid in roster_ids
+    }
+    total_fpts = {rid: teams[rid].fpts for rid in roster_ids}
+    recent = weekly_scores[-recent_weeks:] if weekly_scores else []
+    recent_avg = {}
+    for rid in roster_ids:
+        scores = [wk[rid] for wk in recent if rid in wk]
+        recent_avg[rid] = sum(scores) / len(scores) if scores else 0.0
+
+    record_score, points_score, form_score = rank_score(win_pct), rank_score(total_fpts), rank_score(recent_avg)
+
+    entries = []
+    for rid in roster_ids:
+        entries.append(
+            {
+                "team": teams[rid].team_name,
+                "record": teams[rid].record,
+                "recent_avg": round(recent_avg[rid], 1),
+                "score": record_score[rid] + points_score[rid] + form_score[rid],
+            }
+        )
+    entries.sort(key=lambda e: (-e["score"], -e["recent_avg"]))
+    return entries
+
+
 @dataclass
 class NewsletterData:
     league_name: str
@@ -907,6 +1009,8 @@ class NewsletterData:
     waivers: list[dict]
     standings: list[Team]
     divisional_standings: Optional[list[dict]]
+    power_rankings: list[dict]
+    luck_index: list[dict]
     rivals: dict
     big_games: dict
     draft_rankings: dict
@@ -1012,11 +1116,14 @@ def build_newsletter_data(
         preview_week=preview_week,
         current_week_matchups=raw_matchups,
     )
-    draft_rankings = (
-        build_draft_value_rankings(league, teams, players)
-        if league_type == "dynasty"
-        else {"available": False}
-    )
+    draft_rankings = build_draft_value_rankings(league, teams, players)
+
+    if league_type == "redraft":
+        weekly_scores = build_weekly_scores(league_id, week, teams)
+        power_rankings = build_power_rankings(teams, weekly_scores)
+        luck_index = build_luck_index(teams, weekly_scores)
+    else:
+        power_rankings, luck_index = [], []
 
     now = datetime.now(timezone.utc)
     commissioner_notes = (
@@ -1041,6 +1148,8 @@ def build_newsletter_data(
         waivers=waivers,
         standings=standings,
         divisional_standings=divisional_standings,
+        power_rankings=power_rankings,
+        luck_index=luck_index,
         rivals=rivals,
         big_games=big_games,
         draft_rankings=draft_rankings,
@@ -1107,30 +1216,30 @@ def render_markdown(data: NewsletterData) -> str:
     else:
         lines.append(f"_{data.no_trades_message}_\n")
 
-    if data.league_type == "dynasty":
-        lines.append("## Rookie Draft Value Tracker\n")
-        if data.draft_rankings["available"]:
+    is_dynasty = data.league_type == "dynasty"
+    lines.append(f"## {'Rookie ' if is_dynasty else ''}Draft Value Tracker\n")
+    if data.draft_rankings["available"]:
+        lines.append(
+            "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
+            f"week to week as {'rookies' if is_dynasty else 'players'} rise and fall._\n"
+        )
+        lines.append("**Top 10 Highest Current Value**\n")
+        for i, e in enumerate(data.draft_rankings["top_value"], start=1):
             lines.append(
-                "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
-                "week to week as rookies rise and fall._\n"
+                f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
+                f"— ~{e['current_value']} value"
             )
-            lines.append("**Top 10 Highest Current Value**\n")
-            for i, e in enumerate(data.draft_rankings["top_value"], start=1):
+        lines.append("")
+        if data.in_season:
+            lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
+            for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
                 lines.append(
                     f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                    f"— ~{e['current_value']} value"
+                    f"— {e['value_gap']:+d} value vs. draft slot"
                 )
-            lines.append("")
-            if data.in_season:
-                lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
-                for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
-                    lines.append(
-                        f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                        f"— {e['value_gap']:+d} value vs. draft slot"
-                    )
-        else:
-            lines.append("_No draft data available for this season's rookie draft yet._")
-        lines.append("")
+    else:
+        lines.append(f"_No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet._")
+    lines.append("")
 
     lines.append("## Waiver Wire / Free Agency This Week\n")
     if data.waivers:
@@ -1240,6 +1349,33 @@ def render_markdown(data: NewsletterData) -> str:
             )
         lines.append("")
 
+    if data.league_type == "redraft":
+        lines.append("## Power Rankings\n")
+        if data.power_rankings:
+            lines.append(
+                "_Blends record, season points, and the last 3 weeks of scoring — not just win-loss._\n"
+            )
+            for i, p in enumerate(data.power_rankings, start=1):
+                lines.append(f"{i}. **{p['team']}** ({p['record']}) — recent avg {p['recent_avg']:.1f} pts")
+        else:
+            lines.append("_Not enough games played yet to compute power rankings._")
+        lines.append("")
+
+        lines.append("## Luck Index\n")
+        if data.luck_index:
+            lines.append(
+                "_All-play record: how each team's actual record compares to if they'd played "
+                "every other team, every week. Positive = luckier than their schedule; negative = unlucky._\n"
+            )
+            for i, l in enumerate(data.luck_index, start=1):
+                lines.append(
+                    f"{i}. **{l['team']}** — record {l['record']}, all-play {l['all_play_record']} "
+                    f"({l['luck_delta']:+.1f})"
+                )
+        else:
+            lines.append("_Not enough games played yet to compute a luck index._")
+        lines.append("")
+
     return "\n".join(lines)
 
 
@@ -1328,47 +1464,47 @@ ul, ol { padding-left: 1.4rem; }
     else:
         parts.append(f"<p><em>{e(data.no_trades_message)}</em></p>")
 
-    if data.league_type == "dynasty":
-        parts.append("<h2>Rookie Draft Value Tracker</h2>")
-        if data.draft_rankings["available"]:
+    is_dynasty = data.league_type == "dynasty"
+    parts.append(f"<h2>{'Rookie ' if is_dynasty else ''}Draft Value Tracker</h2>")
+    if data.draft_rankings["available"]:
+        parts.append(
+            "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
+            f"shifts week to week as {'rookies' if is_dynasty else 'players'} rise and fall.</em></p>"
+        )
+        parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
+        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
+        top_value = data.draft_rankings["top_value"]
+        max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
+        for i, entry in enumerate(top_value, start=1):
+            bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
             parts.append(
-                "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
-                "shifts week to week as rookies rise and fall.</em></p>"
+                f"<tr><td>{i}</td>"
+                f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                f"Pick {entry['pick_no']})</td>"
+                f"<td>{bar} ~{entry['current_value']}</td></tr>"
             )
-            parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
-            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
-            top_value = data.draft_rankings["top_value"]
-            max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
-            for i, entry in enumerate(top_value, start=1):
-                bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
+        parts.append("</table>")
+
+        if data.in_season:
+            parts.append(
+                "<p><strong>Top 10 Best Value Picks</strong> "
+                "<em>(current value vs. where they were drafted)</em></p>"
+            )
+            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
+            best_picks = data.draft_rankings["best_picks"]
+            max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
+            for i, entry in enumerate(best_picks, start=1):
+                color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
+                bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
                 parts.append(
                     f"<tr><td>{i}</td>"
                     f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
                     f"Pick {entry['pick_no']})</td>"
-                    f"<td>{bar} ~{entry['current_value']}</td></tr>"
+                    f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
                 )
             parts.append("</table>")
-
-            if data.in_season:
-                parts.append(
-                    "<p><strong>Top 10 Best Value Picks</strong> "
-                    "<em>(current value vs. where they were drafted)</em></p>"
-                )
-                parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
-                best_picks = data.draft_rankings["best_picks"]
-                max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
-                for i, entry in enumerate(best_picks, start=1):
-                    color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
-                    bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
-                    parts.append(
-                        f"<tr><td>{i}</td>"
-                        f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
-                        f"Pick {entry['pick_no']})</td>"
-                        f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
-                    )
-                parts.append("</table>")
-        else:
-            parts.append("<p><em>No draft data available for this season's rookie draft yet.</em></p>")
+    else:
+        parts.append(f"<p><em>No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet.</em></p>")
 
     parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
     if data.waivers:
@@ -1488,6 +1624,44 @@ ul, ol { padding-left: 1.4rem; }
                 f"<td>{team.fpts:.2f}</td><td>{team.fpts_against:.2f}</td></tr>"
             )
         parts.append("</table>")
+
+    if data.league_type == "redraft":
+        parts.append("<h2>Power Rankings</h2>")
+        if data.power_rankings:
+            parts.append(
+                "<p><em>Blends record, season points, and the last 3 weeks of scoring — "
+                "not just win-loss.</em></p>"
+            )
+            parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>Recent Avg</th></tr>")
+            for i, p in enumerate(data.power_rankings, start=1):
+                parts.append(
+                    f"<tr><td>{i}</td><td>{e(p['team'])}</td><td>{p['record']}</td>"
+                    f"<td>{p['recent_avg']:.1f}</td></tr>"
+                )
+            parts.append("</table>")
+        else:
+            parts.append("<p><em>Not enough games played yet to compute power rankings.</em></p>")
+
+        parts.append("<h2>Luck Index</h2>")
+        if data.luck_index:
+            parts.append(
+                "<p><em>All-play record: how each team's actual record compares to if they'd "
+                "played every other team, every week. Positive = luckier than their schedule; "
+                "negative = unlucky.</em></p>"
+            )
+            parts.append(
+                "<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>All-Play</th><th>Luck</th></tr>"
+            )
+            for i, l in enumerate(data.luck_index, start=1):
+                color = "#2c5f2d" if l["luck_delta"] >= 0 else "#b23b3b"
+                bar = _bar_html(min(abs(l["luck_delta"]) / 50, 1.0), color)
+                parts.append(
+                    f"<tr><td>{i}</td><td>{e(l['team'])}</td><td>{l['record']}</td>"
+                    f"<td>{l['all_play_record']}</td><td>{bar} {l['luck_delta']:+.1f}</td></tr>"
+                )
+            parts.append("</table>")
+        else:
+            parts.append("<p><em>Not enough games played yet to compute a luck index.</em></p>")
 
     parts.append("</body></html>")
     return "\n".join(parts)
