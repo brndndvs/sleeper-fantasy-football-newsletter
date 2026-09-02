@@ -1679,6 +1679,16 @@ def main(argv: Optional[list[str]] = None) -> int:
             "then exit (used by the Monday-night reminder workflow; skips newsletter generation)"
         ),
     )
+    parser.add_argument(
+        "--commissioner-form-url",
+        default=COMMISSIONER_FORM_URL,
+        help="Google Form link to send in the Monday-night commissioner reminder (default: this league's form)",
+    )
+    parser.add_argument(
+        "--commissioner-notes-csv-url",
+        default=COMMISSIONER_NOTES_CSV_URL,
+        help="Published-to-web CSV URL for the commissioner notes sheet (default: this league's sheet)",
+    )
     args = parser.parse_args(argv)
 
     if args.remind_commissioner:
@@ -1695,7 +1705,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                 password=os.environ["SMTP_PASSWORD"],
                 from_addr=os.environ["FROM_EMAIL"],
                 to_addr=os.environ["COMMISSIONER_EMAIL"],
-                form_url=COMMISSIONER_FORM_URL,
+                form_url=args.commissioner_form_url,
             )
             print(f"Emailed commissioner reminder to {os.environ['COMMISSIONER_EMAIL']}")
         except smtplib.SMTPException as exc:
@@ -1715,6 +1725,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             rivalry_week=args.rivalry_week,
             season_type=args.season_type,
             league_type=args.league_type,
+            commissioner_notes_csv_url=args.commissioner_notes_csv_url,
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
