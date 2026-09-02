@@ -1483,6 +1483,7 @@ ul, ol { padding-left: 1.4rem; }
             "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
             "pick-value table — not official ADP or projections. Ranked most lopsided first.</em></p>"
         )
+        team_logos_by_name = {t.team_name: t.avatar_url for t in data.standings}
         for i, trade in enumerate(data.trades, start=1):
             date_str = e(format_day(trade["when"]))
             if trade["winner"]:
@@ -1497,8 +1498,9 @@ ul, ol { padding-left: 1.4rem; }
                 info = trade["teams"][team_name]
                 received = ", ".join(info["received"]) or "—"
                 value = round(info["received_value"])
+                logo = _team_logo_html(team_logos_by_name.get(team_name))
                 parts.append(
-                    f"<tr><td>{e(team_name)}</td><td>{e(received)}</td>"
+                    f"<tr><td>{logo}{e(team_name)}</td><td>{e(received)}</td>"
                     f"<td>{value}</td><td>{swing:+d}</td></tr>"
                 )
             parts.append("</table>")
