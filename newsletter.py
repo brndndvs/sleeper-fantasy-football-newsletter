@@ -1118,12 +1118,9 @@ def build_newsletter_data(
     )
     draft_rankings = build_draft_value_rankings(league, teams, players)
 
-    if league_type == "redraft":
-        weekly_scores = build_weekly_scores(league_id, week, teams)
-        power_rankings = build_power_rankings(teams, weekly_scores)
-        luck_index = build_luck_index(teams, weekly_scores)
-    else:
-        power_rankings, luck_index = [], []
+    weekly_scores = build_weekly_scores(league_id, week, teams)
+    power_rankings = build_power_rankings(teams, weekly_scores)
+    luck_index = build_luck_index(teams, weekly_scores)
 
     now = datetime.now(timezone.utc)
     commissioner_notes = (
@@ -1349,32 +1346,31 @@ def render_markdown(data: NewsletterData) -> str:
             )
         lines.append("")
 
-    if data.league_type == "redraft":
-        lines.append("## Power Rankings\n")
-        if data.power_rankings:
-            lines.append(
-                "_Blends record, season points, and the last 3 weeks of scoring — not just win-loss._\n"
-            )
-            for i, p in enumerate(data.power_rankings, start=1):
-                lines.append(f"{i}. **{p['team']}** ({p['record']}) — recent avg {p['recent_avg']:.1f} pts")
-        else:
-            lines.append("_Not enough games played yet to compute power rankings._")
-        lines.append("")
+    lines.append("## Power Rankings\n")
+    if data.power_rankings:
+        lines.append(
+            "_Blends record, season points, and the last 3 weeks of scoring — not just win-loss._\n"
+        )
+        for i, p in enumerate(data.power_rankings, start=1):
+            lines.append(f"{i}. **{p['team']}** ({p['record']}) — recent avg {p['recent_avg']:.1f} pts")
+    else:
+        lines.append("_Not enough games played yet to compute power rankings._")
+    lines.append("")
 
-        lines.append("## Luck Index\n")
-        if data.luck_index:
+    lines.append("## Luck Index\n")
+    if data.luck_index:
+        lines.append(
+            "_All-play record: how each team's actual record compares to if they'd played "
+            "every other team, every week. Positive = luckier than their schedule; negative = unlucky._\n"
+        )
+        for i, l in enumerate(data.luck_index, start=1):
             lines.append(
-                "_All-play record: how each team's actual record compares to if they'd played "
-                "every other team, every week. Positive = luckier than their schedule; negative = unlucky._\n"
+                f"{i}. **{l['team']}** — record {l['record']}, all-play {l['all_play_record']} "
+                f"({l['luck_delta']:+.1f})"
             )
-            for i, l in enumerate(data.luck_index, start=1):
-                lines.append(
-                    f"{i}. **{l['team']}** — record {l['record']}, all-play {l['all_play_record']} "
-                    f"({l['luck_delta']:+.1f})"
-                )
-        else:
-            lines.append("_Not enough games played yet to compute a luck index._")
-        lines.append("")
+    else:
+        lines.append("_Not enough games played yet to compute a luck index._")
+    lines.append("")
 
     return "\n".join(lines)
 
@@ -1625,43 +1621,42 @@ ul, ol { padding-left: 1.4rem; }
             )
         parts.append("</table>")
 
-    if data.league_type == "redraft":
-        parts.append("<h2>Power Rankings</h2>")
-        if data.power_rankings:
+    parts.append("<h2>Power Rankings</h2>")
+    if data.power_rankings:
+        parts.append(
+            "<p><em>Blends record, season points, and the last 3 weeks of scoring — "
+            "not just win-loss.</em></p>"
+        )
+        parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>Recent Avg</th></tr>")
+        for i, p in enumerate(data.power_rankings, start=1):
             parts.append(
-                "<p><em>Blends record, season points, and the last 3 weeks of scoring — "
-                "not just win-loss.</em></p>"
+                f"<tr><td>{i}</td><td>{e(p['team'])}</td><td>{p['record']}</td>"
+                f"<td>{p['recent_avg']:.1f}</td></tr>"
             )
-            parts.append("<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>Recent Avg</th></tr>")
-            for i, p in enumerate(data.power_rankings, start=1):
-                parts.append(
-                    f"<tr><td>{i}</td><td>{e(p['team'])}</td><td>{p['record']}</td>"
-                    f"<td>{p['recent_avg']:.1f}</td></tr>"
-                )
-            parts.append("</table>")
-        else:
-            parts.append("<p><em>Not enough games played yet to compute power rankings.</em></p>")
+        parts.append("</table>")
+    else:
+        parts.append("<p><em>Not enough games played yet to compute power rankings.</em></p>")
 
-        parts.append("<h2>Luck Index</h2>")
-        if data.luck_index:
+    parts.append("<h2>Luck Index</h2>")
+    if data.luck_index:
+        parts.append(
+            "<p><em>All-play record: how each team's actual record compares to if they'd "
+            "played every other team, every week. Positive = luckier than their schedule; "
+            "negative = unlucky.</em></p>"
+        )
+        parts.append(
+            "<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>All-Play</th><th>Luck</th></tr>"
+        )
+        for i, l in enumerate(data.luck_index, start=1):
+            color = "#2c5f2d" if l["luck_delta"] >= 0 else "#b23b3b"
+            bar = _bar_html(min(abs(l["luck_delta"]) / 50, 1.0), color)
             parts.append(
-                "<p><em>All-play record: how each team's actual record compares to if they'd "
-                "played every other team, every week. Positive = luckier than their schedule; "
-                "negative = unlucky.</em></p>"
+                f"<tr><td>{i}</td><td>{e(l['team'])}</td><td>{l['record']}</td>"
+                f"<td>{l['all_play_record']}</td><td>{bar} {l['luck_delta']:+.1f}</td></tr>"
             )
-            parts.append(
-                "<table><tr><th>Rank</th><th>Team</th><th>Record</th><th>All-Play</th><th>Luck</th></tr>"
-            )
-            for i, l in enumerate(data.luck_index, start=1):
-                color = "#2c5f2d" if l["luck_delta"] >= 0 else "#b23b3b"
-                bar = _bar_html(min(abs(l["luck_delta"]) / 50, 1.0), color)
-                parts.append(
-                    f"<tr><td>{i}</td><td>{e(l['team'])}</td><td>{l['record']}</td>"
-                    f"<td>{l['all_play_record']}</td><td>{bar} {l['luck_delta']:+.1f}</td></tr>"
-                )
-            parts.append("</table>")
-        else:
-            parts.append("<p><em>Not enough games played yet to compute a luck index.</em></p>")
+        parts.append("</table>")
+    else:
+        parts.append("<p><em>Not enough games played yet to compute a luck index.</em></p>")
 
     parts.append("</body></html>")
     return "\n".join(parts)
