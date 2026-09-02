@@ -1,4 +1,4 @@
-# Floridian Dynasty Football Association LLC — Week 1 — September 01, 2026 Newsletter
+# Floridian Dynasty Football Association LLC — Week 1 — September 02, 2026 Newsletter
 _2026 Season_
 
 ## Commissioner's Notes
@@ -19,26 +19,26 @@ Thank you
 
 _Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked most lopsided first._
 
-**Trade 1 (Sunday, August 23) — A FOOTBALL TEAM wins it (+7641 est. value)**
+**Trade 1 (Sunday, August 23) — A FOOTBALL TEAM wins it (+7647 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Roger Goodell | Chris Olave (WR - NO), Tank Dell (WR - HOU) | 10698 | -7641 |
-| A FOOTBALL TEAM | DJ Moore (WR - BUF), David Montgomery (RB - HOU), Wan'Dale Robinson (WR - TEN), 2027 Round 2 pick, 2028 Round 3 pick | 18339 | +7641 |
+| Roger Goodell | Chris Olave (WR - NO), Tank Dell (WR - HOU) | 10692 | -7647 |
+| A FOOTBALL TEAM | DJ Moore (WR - BUF), David Montgomery (RB - HOU), Wan'Dale Robinson (WR - TEN), 2027 Round 2 pick, 2028 Round 3 pick | 18339 | +7647 |
 
-**Trade 2 (Thursday, August 20) — Balls wins it (+7340 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Balls | Mike Evans (WR - SF), Kenneth Walker (RB - KC) | 11526 | +7340 |
-| andrewburkhardt1 | 2027 Round 3 pick, 2027 Round 1 pick, 2028 Round 3 pick | 4186 | -7340 |
-
-**Trade 3 (Monday, August 31) — Roger Goodell wins it (+5302 est. value)**
+**Trade 2 (Thursday, August 20) — Balls wins it (+7346 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Roger Goodell | Stefon Diggs (WR - WAS) | 5352 | +5302 |
-| The Aubrey Express  | $5 FAAB | 50 | -5302 |
+| Balls | Mike Evans (WR - SF), Kenneth Walker (RB - KC) | 11532 | +7346 |
+| andrewburkhardt1 | 2027 Round 3 pick, 2027 Round 1 pick, 2028 Round 3 pick | 4186 | -7346 |
+
+**Trade 3 (Monday, August 31) — Roger Goodell wins it (+5296 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Roger Goodell | Stefon Diggs (WR - WAS) | 5346 | +5296 |
+| The Aubrey Express  | $5 FAAB | 50 | -5296 |
 
 **Trade 4 (Thursday, August 20) — Talking Tua Teenager wins it (+4228 est. value)**
 
@@ -47,26 +47,33 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | The Aubrey Express  | 2027 Round 2 pick | 1190 | -4228 |
 | Talking Tua Teenager | Jake Ferguson (TE - DAL) | 5418 | +4228 |
 
-**Trade 5 (Monday, August 31) — Talking Tua Teenager wins it (+3724 est. value)**
+**Trade 5 (Monday, August 31) — Talking Tua Teenager wins it (+3736 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Boynton Beach Blue Balls | $5 FAAB | 50 | -3724 |
-| Talking Tua Teenager | Darren Waller (TE - CAR) | 3774 | +3724 |
+| Boynton Beach Blue Balls | $5 FAAB | 50 | -3736 |
+| Talking Tua Teenager | Darren Waller (TE - CAR) | 3786 | +3736 |
 
-**Trade 6 (Wednesday, August 19) — Balls wins it (+938 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Balls | DK Metcalf (WR - PIT), Jahmyr Gibbs (RB - DET) | 11556 | +938 |
-| BlowPaterno | 2027 Round 1 pick, 2028 Round 1 pick, 2028 Round 2 pick, 2029 Round 1 pick, 2029 Round 2 pick | 10618 | -938 |
-
-**Trade 7 (Monday, August 31) — The Aubrey Express  wins it (+175 est. value)**
+**Trade 6 (Tuesday, September 1) — Balls wins it (+2708 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Boynton Beach Blue Balls | Troy Franklin (WR - DEN), Darren Waller (TE - CAR), 2027 Round 2 pick | 9938 | -175 |
-| The Aubrey Express  | Tre Tucker (WR - LV), Keon Coleman (WR - BUF), 2028 Round 3 pick, $8 FAAB | 10113 | +175 |
+| Balls | Lamar Jackson (QB - BAL), Mark Andrews (TE - BAL) | 11364 | +2708 |
+| CeDeez big ones | Trevor Lawrence (QB - JAX), 2028 Round 1 pick | 8656 | -2708 |
+
+**Trade 7 (Wednesday, September 2) — The Aubrey Express  wins it (+615 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| The Aubrey Express  | Pat Bryant (WR - DEN), 2028 Round 3 pick, 2029 Round 2 pick | 6189 | +615 |
+| awesomevan | Parker Washington (WR - JAX) | 5574 | -615 |
+
+**Trade 8 (Monday, August 31) — The Aubrey Express  wins it (+157 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Boynton Beach Blue Balls | Troy Franklin (WR - DEN), Darren Waller (TE - CAR), 2027 Round 2 pick | 9950 | -157 |
+| The Aubrey Express  | Tre Tucker (WR - LV), Keon Coleman (WR - BUF), 2028 Round 3 pick, $8 FAAB | 10107 | +157 |
 
 ## Rookie Draft Value Tracker
 
@@ -78,12 +85,12 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 2. Jadarian Price (RB - SEA) — KC (Round 1, Pick 4) — ~5658 value
 3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — ~5634 value
 4. Jordyn Tyson (WR - NO) — KC (Round 1, Pick 3) — ~5628 value
-5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — ~5472 value
-6. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — ~5424 value
+5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — ~5478 value
+6. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — ~5430 value
 7. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — ~5346 value
 8. KC Concepcion (WR - CLE) — Larkinsjacob (Round 1, Pick 6) — ~5328 value
 9. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — ~5322 value
-10. Jonah Coleman (RB - DEN) — Boynton Beach Blue Balls (Round 2, Pick 18) — ~5292 value
+10. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — ~5298 value
 
 **Top 10 Best Value Picks** _(current value vs. where they were drafted)_
 
@@ -91,34 +98,18 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 2. Jadarian Price (RB - SEA) — KC (Round 1, Pick 4) — -318 value vs. draft slot
 3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — -354 value vs. draft slot
 4. Jordyn Tyson (WR - NO) — KC (Round 1, Pick 3) — -354 value vs. draft slot
-5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — -498 value vs. draft slot
-6. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — -522 value vs. draft slot
-7. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — -564 value vs. draft slot
-8. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — -564 value vs. draft slot
+5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — -492 value vs. draft slot
+6. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — -516 value vs. draft slot
+7. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — -558 value vs. draft slot
+8. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — -564 value vs. draft slot
 9. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — -594 value vs. draft slot
 10. Jonah Coleman (RB - DEN) — Boynton Beach Blue Balls (Round 2, Pick 18) — -600 value vs. draft slot
 
 ## Waiver Wire / Free Agency This Week
 
-**Wednesday, August 26:**
-- **Simply Touchdowns** (Waiver Claim): added Malik Davis (RB - DAL); dropped Jake Tonges (TE - SF)
-
-**Saturday, August 29:**
-- **Roger Goodell** (Free Agent Move): added —; dropped Chase McLaughlin (K - TB)
-
-**Sunday, August 30:**
-- **Roger Goodell** (Waiver Claim): added Odell Beckham (WR - NYG); dropped —
-
-**Monday, August 31:**
-- **The Aubrey Express ** (Waiver Claim ($1 FAAB)): added Eli Heidenreich (RB - PIT); dropped Trey Smack (K - GB)
-- **The Aubrey Express ** (Waiver Claim ($2 FAAB)): added Devin Neal (RB - NO); dropped Jam Miller (RB - FA)
-- **Boynton Beach Blue Balls** (Waiver Claim ($1 FAAB)): added Jake Tonges (TE - SF); dropped Roschon Johnson (RB - CHI)
-
-**Tuesday, September 1:**
-- **The Aubrey Express ** (Waiver Claim ($1 FAAB)): added Tahj Brooks (RB - CIN); dropped —
-- **Boynton Beach Blue Balls** (Waiver Claim): added Roschon Johnson (RB - CHI); dropped —
-- **BlowPaterno** (Waiver Claim): added Raheim Sanders (RB - CLE); dropped —
-- **The Aubrey Express ** (Waiver Claim ($1 FAAB)): added DJ Giddens (RB - IND); dropped —
+**Wednesday, September 2:**
+- **CeDeez big ones** (Waiver Claim ($2 FAAB)): added Justice Hill (RB - BAL); dropped —
+- **CeDeez big ones** (Waiver Claim ($1 FAAB)): added Greg Dulcich (TE - MIA); dropped —
 
 
 ## Matchup Recap
@@ -141,7 +132,7 @@ _No rival matchup scheduled for the upcoming week._
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Roger Goodell** (proj 146.8) vs **awesomevan** (proj 143.2) — combined 290.1, projected margin 3.6
+- **Roger Goodell** (proj 148.4) vs **awesomevan** (proj 143.3) — combined 291.7, projected margin 5.1
 
 ## Closest Games
 
@@ -176,3 +167,26 @@ _No player data available._
 | 5 | Larkinsjacob | 0-0 | 0.00 | 0.00 |
 | 6 | andrewburkhardt1 | 0-0 | 0.00 | 0.00 |
 | 7 | Talking Tua Teenager | 0-0 | 0.00 | 0.00 |
+
+## Power Rankings
+
+_Blends record, season points, and the last 3 weeks of scoring — not just win-loss._
+
+1. **Roger Goodell** (0-0) — recent avg 0.0 pts
+2. **Boynton Beach Blue Balls** (0-0) — recent avg 0.0 pts
+3. **KC** (0-0) — recent avg 0.0 pts
+4. **Simply Touchdowns** (0-0) — recent avg 0.0 pts
+5. **A FOOTBALL TEAM** (0-0) — recent avg 0.0 pts
+6. **The Aubrey Express ** (0-0) — recent avg 0.0 pts
+7. **awesomevan** (0-0) — recent avg 0.0 pts
+8. **Balls** (0-0) — recent avg 0.0 pts
+9. **BlowPaterno** (0-0) — recent avg 0.0 pts
+10. **Larkinsjacob** (0-0) — recent avg 0.0 pts
+11. **CeDeez big ones** (0-0) — recent avg 0.0 pts
+12. **Tpotts42** (0-0) — recent avg 0.0 pts
+13. **andrewburkhardt1** (0-0) — recent avg 0.0 pts
+14. **Talking Tua Teenager** (0-0) — recent avg 0.0 pts
+
+## Luck Index
+
+_Not enough games played yet to compute a luck index._
