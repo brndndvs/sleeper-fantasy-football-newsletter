@@ -1,0 +1,77 @@
+name: Redraft Weekly Newsletter
+
+on:
+  schedule:
+    # Same weekly cadence as the dynasty newsletter, offset one minute so the two
+    # don't queue at the exact same instant. See weekly-newsletter.yml for why the
+    # minute isn't a round number.
+    - cron: "44 12 * 3-10 2" # EDT (UTC-4): Mar-Oct, ~8:44 AM ET = 12:44 UTC
+    - cron: "44 13 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, ~8:44 AM ET = 13:44 UTC
+  workflow_dispatch:
+    inputs:
+      week:
+        description: "Week to recap (leave blank for most recently completed week)"
+        required: false
+      send:
+        description: "Actually send email/SMS (default: false -- just generates and commits latest-redraft/ for preview)"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate and send redraft newsletter
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          NEWSLETTER_EMAILS: ${{ secrets.REDRAFT_NEWSLETTER_EMAILS }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          NEWSLETTER_PHONES: ${{ secrets.REDRAFT_NEWSLETTER_PHONES }}
+        run: |
+          WEEK_ARG=""
+          if [ -n "${{ github.event.inputs.week }}" ]; then
+            WEEK_ARG="--week ${{ github.event.inputs.week }}"
+          fi
+          SEND_ARGS=""
+          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.send }}" == "true" ]; then
+            SEND_ARGS="--send-email --send-sms"
+          fi
+          python newsletter.py \
+            --league-id 1312089746436030464 \
+            --league-type redraft \
+            --output-dir output-redraft \
+            --latest-dir latest-redraft \
+            $WEEK_ARG $SEND_ARGS
+
+      - name: Upload newsletter artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: redraft-newsletter
+          path: output-redraft/
+
+      - name: Commit latest redraft newsletter to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add latest-redraft/
+          git diff --staged --quiet || git commit -m "Update latest redraft newsletter [skip ci]"
+          git push
