@@ -454,6 +454,7 @@ class Team:
     fpts_against: float = 0.0
     division: Optional[int] = None
     avatar_url: Optional[str] = None
+    is_commissioner: bool = False
 
     @property
     def record(self) -> str:
@@ -497,6 +498,7 @@ def build_teams(rosters: list[dict], users: list[dict]) -> dict[int, Team]:
             fpts_against=fpts_against,
             division=int(division) if division else None,
             avatar_url=avatar_url,
+            is_commissioner=bool(user.get("is_owner")),
         )
     return teams
 
@@ -1028,6 +1030,7 @@ class NewsletterData:
     big_games: dict
     draft_rankings: dict
     commissioner_notes: Optional[dict]
+    commissioner_avatar_url: Optional[str]
 
     @property
     def title(self) -> str:
@@ -1141,6 +1144,8 @@ def build_newsletter_data(
         if commissioner_notes_csv_url
         else None
     )
+    commissioner_team = next((t for t in teams.values() if t.is_commissioner), None)
+    commissioner_avatar_url = commissioner_team.avatar_url if commissioner_team else None
     trades_period_label = f"Last {TRADE_LOOKBACK_DAYS} Days"
 
     return NewsletterData(
@@ -1164,6 +1169,7 @@ def build_newsletter_data(
         big_games=big_games,
         draft_rankings=draft_rankings,
         commissioner_notes=commissioner_notes,
+        commissioner_avatar_url=commissioner_avatar_url,
     )
 
 
@@ -1460,7 +1466,8 @@ ul, ol { padding-left: 1.4rem; }
     parts.append(f"<p class='subtitle'>{e(data.season)} Season</p>")
 
     if data.commissioner_notes:
-        parts.append("<h2>Commissioner's Notes</h2>")
+        commish_logo = _team_logo_html(data.commissioner_avatar_url, size_px=28)
+        parts.append(f"<h2>{commish_logo}Commissioner's Notes</h2>")
         if not data.commissioner_notes["is_new"]:
             carried_over_date = e(format_day(data.commissioner_notes["when"]))
             parts.append(
