@@ -1,3 +1,5 @@
+![Floridian Dynasty Football Association LLC logo](https://github.com/user-attachments/assets/0d7953c1-a0c4-4279-bbde-c983a6621bb4)
+
 # Floridian Dynasty Football Association LLC — Week 1 — September 02, 2026 Newsletter
 _2026 Season_
 
@@ -90,6 +92,10 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 - **CeDeez big ones** (Waiver Claim ($2 FAAB)): added Justice Hill (RB - BAL); dropped —
 - **CeDeez big ones** (Waiver Claim ($1 FAAB)): added Greg Dulcich (TE - MIA); dropped —
 
+
+## Top 5 Highest-Value Waiver Pickups
+
+_Will populate once Week 1 games get underway._
 
 ## Matchup Recap
 
