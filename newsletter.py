@@ -898,6 +898,7 @@ class NewsletterData:
     week: int
     season_type: str
     season_has_scores: bool
+    league_type: str
     matchups: list[MatchupResult]
     closest_games: list[MatchupResult]
     top_scorers: list[dict]
@@ -952,6 +953,7 @@ def build_newsletter_data(
     rivalry_week: int = DEFAULT_RIVALRY_WEEK,
     season_type: Optional[str] = None,
     season_has_scores: Optional[bool] = None,
+    league_type: str = "dynasty",
     commissioner_notes_csv_url: Optional[str] = COMMISSIONER_NOTES_CSV_URL,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
@@ -1010,7 +1012,11 @@ def build_newsletter_data(
         preview_week=preview_week,
         current_week_matchups=raw_matchups,
     )
-    draft_rankings = build_draft_value_rankings(league, teams, players)
+    draft_rankings = (
+        build_draft_value_rankings(league, teams, players)
+        if league_type == "dynasty"
+        else {"available": False}
+    )
 
     now = datetime.now(timezone.utc)
     commissioner_notes = (
@@ -1026,6 +1032,7 @@ def build_newsletter_data(
         week=week,
         season_type=season_type,
         season_has_scores=season_has_scores,
+        league_type=league_type,
         matchups=matchups,
         closest_games=closest_games,
         top_scorers=top_scorers,
@@ -1100,29 +1107,30 @@ def render_markdown(data: NewsletterData) -> str:
     else:
         lines.append(f"_{data.no_trades_message}_\n")
 
-    lines.append("## Rookie Draft Value Tracker\n")
-    if data.draft_rankings["available"]:
-        lines.append(
-            "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
-            "week to week as rookies rise and fall._\n"
-        )
-        lines.append("**Top 10 Highest Current Value**\n")
-        for i, e in enumerate(data.draft_rankings["top_value"], start=1):
+    if data.league_type == "dynasty":
+        lines.append("## Rookie Draft Value Tracker\n")
+        if data.draft_rankings["available"]:
             lines.append(
-                f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                f"— ~{e['current_value']} value"
+                "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
+                "week to week as rookies rise and fall._\n"
             )
-        lines.append("")
-        if data.in_season:
-            lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
-            for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
+            lines.append("**Top 10 Highest Current Value**\n")
+            for i, e in enumerate(data.draft_rankings["top_value"], start=1):
                 lines.append(
                     f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                    f"— {e['value_gap']:+d} value vs. draft slot"
+                    f"— ~{e['current_value']} value"
                 )
-    else:
-        lines.append("_No draft data available for this season's rookie draft yet._")
-    lines.append("")
+            lines.append("")
+            if data.in_season:
+                lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
+                for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
+                    lines.append(
+                        f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
+                        f"— {e['value_gap']:+d} value vs. draft slot"
+                    )
+        else:
+            lines.append("_No draft data available for this season's rookie draft yet._")
+        lines.append("")
 
     lines.append("## Waiver Wire / Free Agency This Week\n")
     if data.waivers:
@@ -1320,46 +1328,47 @@ ul, ol { padding-left: 1.4rem; }
     else:
         parts.append(f"<p><em>{e(data.no_trades_message)}</em></p>")
 
-    parts.append("<h2>Rookie Draft Value Tracker</h2>")
-    if data.draft_rankings["available"]:
-        parts.append(
-            "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
-            "shifts week to week as rookies rise and fall.</em></p>"
-        )
-        parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
-        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
-        top_value = data.draft_rankings["top_value"]
-        max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
-        for i, entry in enumerate(top_value, start=1):
-            bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
+    if data.league_type == "dynasty":
+        parts.append("<h2>Rookie Draft Value Tracker</h2>")
+        if data.draft_rankings["available"]:
             parts.append(
-                f"<tr><td>{i}</td>"
-                f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
-                f"Pick {entry['pick_no']})</td>"
-                f"<td>{bar} ~{entry['current_value']}</td></tr>"
+                "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
+                "shifts week to week as rookies rise and fall.</em></p>"
             )
-        parts.append("</table>")
-
-        if data.in_season:
-            parts.append(
-                "<p><strong>Top 10 Best Value Picks</strong> "
-                "<em>(current value vs. where they were drafted)</em></p>"
-            )
-            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
-            best_picks = data.draft_rankings["best_picks"]
-            max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
-            for i, entry in enumerate(best_picks, start=1):
-                color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
-                bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
+            parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
+            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
+            top_value = data.draft_rankings["top_value"]
+            max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
+            for i, entry in enumerate(top_value, start=1):
+                bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
                 parts.append(
                     f"<tr><td>{i}</td>"
                     f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
                     f"Pick {entry['pick_no']})</td>"
-                    f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
+                    f"<td>{bar} ~{entry['current_value']}</td></tr>"
                 )
             parts.append("</table>")
-    else:
-        parts.append("<p><em>No draft data available for this season's rookie draft yet.</em></p>")
+
+            if data.in_season:
+                parts.append(
+                    "<p><strong>Top 10 Best Value Picks</strong> "
+                    "<em>(current value vs. where they were drafted)</em></p>"
+                )
+                parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
+                best_picks = data.draft_rankings["best_picks"]
+                max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
+                for i, entry in enumerate(best_picks, start=1):
+                    color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
+                    bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
+                    parts.append(
+                        f"<tr><td>{i}</td>"
+                        f"<td>{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                        f"Pick {entry['pick_no']})</td>"
+                        f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
+                    )
+                parts.append("</table>")
+        else:
+            parts.append("<p><em>No draft data available for this season's rookie draft yet.</em></p>")
 
     parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
     if data.waivers:
@@ -1651,6 +1660,12 @@ def main(argv: Optional[list[str]] = None) -> int:
         help="Override the season phase used for the title (default: auto-detected from Sleeper)",
     )
     parser.add_argument(
+        "--league-type",
+        choices=["dynasty", "redraft"],
+        default="dynasty",
+        help="Dynasty leagues get the Rookie Draft Value Tracker section; redraft leagues skip it (default: dynasty)",
+    )
+    parser.add_argument(
         "--send-email", action="store_true", help="Email the newsletter (see README for required env vars)"
     )
     parser.add_argument(
@@ -1699,6 +1714,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             lookback_days=args.lookback_days,
             rivalry_week=args.rivalry_week,
             season_type=args.season_type,
+            league_type=args.league_type,
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
