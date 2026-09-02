@@ -1,6 +1,10 @@
 # Diddy Party  — Week 1 — September 02, 2026 Newsletter
 _2026 Season_
 
+## Commissioner's Notes
+
+Draft day is officially in the books. Rosters are set, questionable decisions have been made, and optimism is at an all-time high. The real action begins next week as Week 1 kicks off. Good luck to everyone and remember, every team looks like a championship contender until the games actually start.
+
 ## Trades — Last 14 Days (ranked by estimated value)
 
 _No trades in the last 14 days._
