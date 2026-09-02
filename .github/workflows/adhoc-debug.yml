@@ -1,0 +1,56 @@
+name: Adhoc Debug
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: |
+          python - <<'EOF'
+          from datetime import datetime, timezone
+          from newsletter import (
+              get_players, get_rosters, get_users, build_teams,
+              get_transactions, determine_week, DEFAULT_LEAGUE_ID,
+          )
+
+          players = get_players()
+          gibbs_id = None
+          for pid, p in players.items():
+              if (p.get("full_name") or "").strip().lower() == "jahmyr gibbs":
+                  gibbs_id = pid
+                  break
+          print(f"Jahmyr Gibbs player_id: {gibbs_id}")
+
+          for label, league_id in [("Dynasty", DEFAULT_LEAGUE_ID), ("Redraft", "1312089746436030464")]:
+              print(f"\n=== {label} league ===")
+              rosters = get_rosters(league_id)
+              users = get_users(league_id)
+              teams = build_teams(rosters, users)
+              week = determine_week(league_id, None)
+              print(f"Current week: {week}")
+
+              found_any = False
+              for w in range(1, week + 1):
+                  for tx in get_transactions(league_id, w):
+                      if tx.get("type") != "trade" or tx.get("status") != "complete":
+                          continue
+                      adds = tx.get("adds") or {}
+                      if gibbs_id in adds:
+                          found_any = True
+                          ts = tx.get("status_updated") or tx.get("created")
+                          dt = datetime.fromtimestamp(ts / 1000, tz=timezone.utc) if ts else None
+                          roster_ids = tx.get("roster_ids") or []
+                          team_names = [teams.get(rid).team_name if teams.get(rid) else rid for rid in roster_ids]
+                          print(f"  FOUND in week {w}: transaction_id={tx.get('transaction_id')} "
+                                f"date={dt} teams={team_names} adds_keys={list(adds.keys())} "
+                                f"draft_picks={tx.get('draft_picks')}")
+              if not found_any:
+                  print("  No completed trade involving Gibbs found in any fetched week.")
+          EOF
