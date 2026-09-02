@@ -161,6 +161,25 @@ def get_recent_transactions(league_id: str, week: int, *, weeks_back: int = 2) -
     return merged
 
 
+def get_season_transactions(league_id: str, through_week: int) -> list[dict]:
+    """All transactions from week 1 through through_week, merged and deduped by
+    transaction_id. Unlike get_recent_transactions' small trailing window, this
+    covers the whole season so far -- used for season-long aggregates like the
+    top waiver pickups tracker, which should keep surfacing a Week 2 pickup even
+    once the newsletter is many weeks past it."""
+    seen_ids: set = set()
+    merged: list[dict] = []
+    for w in range(1, through_week + 1):
+        for tx in get_transactions(league_id, w):
+            tx_id = tx.get("transaction_id")
+            if tx_id is not None:
+                if tx_id in seen_ids:
+                    continue
+                seen_ids.add(tx_id)
+            merged.append(tx)
+    return merged
+
+
 def get_nfl_state() -> dict:
     return fetch_json(f"{API_BASE}/state/nfl") or {}
 
@@ -886,6 +905,42 @@ def summarize_transactions(
     return {"trades": trades, "waivers": waivers}
 
 
+def build_top_waiver_pickups(
+    raw_season_transactions: list[dict], teams: dict[int, Team], players: dict, *, limit: int = 5
+) -> list[dict]:
+    """Top waiver/free-agent pickups by current player value (Sleeper's own
+    rankings), tracked across the whole season so far -- not just this week's
+    moves. FAAB spent is ignored entirely, per the ask: this is about who found
+    the best player, not who paid the least for them. A player added more than
+    once (e.g. dropped and re-added, or claimed off another roster) is only
+    kept once, crediting whichever pickup was most recent."""
+    best_by_player: dict[str, dict] = {}
+    epoch = datetime.min.replace(tzinfo=timezone.utc)
+    for tx in raw_season_transactions:
+        if tx.get("status") != "complete" or tx.get("type") not in ("waiver", "free_agent"):
+            continue
+        roster_ids = tx.get("roster_ids") or []
+        rid = roster_ids[0] if roster_ids else None
+        team = teams.get(rid)
+        when = transaction_datetime(tx)
+        for player_id in tx.get("adds") or {}:
+            value = player_value(player_id, players)
+            if value <= 0:
+                continue
+            existing = best_by_player.get(player_id)
+            if existing is not None and (existing["when"] or epoch) >= (when or epoch):
+                continue
+            best_by_player[player_id] = {
+                "player": player_display_name(player_id, players),
+                "player_id": player_id,
+                "team": team.team_name if team else "Unknown",
+                "value": round(value),
+                "when": when,
+            }
+    ranked = sorted(best_by_player.values(), key=lambda p: p["value"], reverse=True)
+    return ranked[:limit]
+
+
 def format_day(dt: Optional[datetime]) -> str:
     if dt is None:
         return "Unknown date"
@@ -1060,6 +1115,9 @@ class NewsletterData:
     draft_rankings: dict
     commissioner_notes: Optional[dict]
     commissioner_avatar_url: Optional[str]
+    league_logo_url: Optional[str]
+    top_waiver_pickups: list[dict]
+    games_started: bool
 
     @property
     def title(self) -> str:
@@ -1104,6 +1162,7 @@ def build_newsletter_data(
     season_has_scores: Optional[bool] = None,
     league_type: str = "dynasty",
     commissioner_notes_csv_url: Optional[str] = COMMISSIONER_NOTES_CSV_URL,
+    league_logo_url: Optional[str] = None,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -1166,6 +1225,10 @@ def build_newsletter_data(
     weekly_scores = build_weekly_scores(league_id, week, teams)
     power_rankings = build_power_rankings(teams, weekly_scores)
     luck_index = build_luck_index(teams, weekly_scores)
+    games_started = bool(weekly_scores)
+
+    season_transactions = get_season_transactions(league_id, week)
+    top_waiver_pickups = build_top_waiver_pickups(season_transactions, teams, players)
 
     now = datetime.now(timezone.utc)
     commissioner_notes = (
@@ -1199,6 +1262,9 @@ def build_newsletter_data(
         draft_rankings=draft_rankings,
         commissioner_notes=commissioner_notes,
         commissioner_avatar_url=commissioner_avatar_url,
+        league_logo_url=league_logo_url,
+        top_waiver_pickups=top_waiver_pickups,
+        games_started=games_started,
     )
 
 
@@ -1222,6 +1288,8 @@ def trade_net_swings(trade: dict) -> list[tuple[str, int]]:
 
 def render_markdown(data: NewsletterData) -> str:
     lines = []
+    if data.league_logo_url:
+        lines.append(f"![{data.league_name} logo]({data.league_logo_url})\n")
     lines.append(f"# {data.title} Newsletter")
     lines.append(f"_{data.season} Season_\n")
 
@@ -1300,6 +1368,20 @@ def render_markdown(data: NewsletterData) -> str:
             lines.append("")
     else:
         lines.append("_No waiver or free agent moves this week._")
+    lines.append("")
+
+    lines.append("## Top 5 Highest-Value Waiver Pickups\n")
+    if not data.games_started:
+        lines.append("_Will populate once Week 1 games get underway._")
+    elif data.top_waiver_pickups:
+        lines.append(
+            "_Ranked by current player value (Sleeper's own rankings), not FAAB spent -- "
+            "tracked cumulatively across the whole season so far._\n"
+        )
+        for i, p in enumerate(data.top_waiver_pickups, start=1):
+            lines.append(f"{i}. {p['player']} — added by {p['team']} — ~{p['value']} value")
+    else:
+        lines.append("_No waiver or free agent pickups so far this season._")
     lines.append("")
 
     if data.in_season:
@@ -1508,9 +1590,18 @@ ul.received { margin: 0; padding-left: 0; list-style: none; }
 ul.received li { display: flex; align-items: center; padding: 3px 0; }
 ul.received .spacer { display: inline-block; width: 28px; height: 28px; margin-right: 6px; flex: none; }
 .subtitle { color: #666; margin-top: -0.5rem; }
+table.trades { table-layout: fixed; }
+table.trades th:nth-child(1), table.trades td:nth-child(1) { width: 22%; }
+table.trades th:nth-child(2), table.trades td:nth-child(2) { width: 46%; }
+table.trades th:nth-child(3), table.trades td:nth-child(3) { width: 16%; }
+table.trades th:nth-child(4), table.trades td:nth-child(4) { width: 16%; }
+table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
+.league-logo { display: block; max-width: 200px; margin: 0 auto 1rem; }
 </style>"""
     )
     parts.append("</head><body>")
+    if data.league_logo_url:
+        parts.append(f'<img class="league-logo" src="{e(data.league_logo_url)}" alt="{e(data.league_name)} logo">')
     parts.append(f"<h1>{e(data.title)} Newsletter</h1>")
     parts.append(f"<p class='subtitle'>{e(data.season)} Season</p>")
 
@@ -1543,7 +1634,7 @@ ul.received .spacer { display: inline-block; width: 28px; height: 28px; margin-r
                 headline = f"Trade {i} ({date_str}) — looks even"
             parts.append(f"<p><strong>{headline}</strong></p>")
             parts.append(
-                "<table><tr><th>Manager</th><th>Received</th><th>Value</th><th>Net Swing</th></tr>"
+                '<table class="trades"><tr><th>Manager</th><th>Received</th><th>Value</th><th>Net Swing</th></tr>'
             )
             for team_name, swing in trade_net_swings(trade):
                 info = trade["teams"][team_name]
@@ -1617,6 +1708,27 @@ ul.received .spacer { display: inline-block; width: 28px; height: 28px; margin-r
             parts.append("</ul>")
     else:
         parts.append("<p><em>No waiver or free agent moves this week.</em></p>")
+
+    parts.append("<h2>Top 5 Highest-Value Waiver Pickups</h2>")
+    if not data.games_started:
+        parts.append("<p><em>Will populate once Week 1 games get underway.</em></p>")
+    elif data.top_waiver_pickups:
+        parts.append(
+            "<p><em>Ranked by current player value (Sleeper's own rankings), not FAAB spent — "
+            "tracked cumulatively across the whole season so far.</em></p>"
+        )
+        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Added By</th><th>Value</th></tr>")
+        max_value = max((p["value"] for p in data.top_waiver_pickups), default=0) or 1
+        for i, p in enumerate(data.top_waiver_pickups, start=1):
+            headshot = _player_headshot_html(p.get("player_id"))
+            bar = _bar_html(p["value"] / max_value, "#2c5f2d")
+            parts.append(
+                f"<tr><td>{i}</td><td>{headshot}{e(p['player'])}</td><td>{e(p['team'])}</td>"
+                f"<td>{bar} ~{p['value']}</td></tr>"
+            )
+        parts.append("</table>")
+    else:
+        parts.append("<p><em>No waiver or free agent pickups so far this season.</em></p>")
 
     if data.in_season:
         parts.append("<h2>Matchup Recap</h2><ul>")
@@ -1965,6 +2077,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         default=COMMISSIONER_NOTES_CSV_URL,
         help="Published-to-web CSV URL for the commissioner notes sheet (default: this league's sheet)",
     )
+    parser.add_argument(
+        "--league-logo-url",
+        default=None,
+        help="Image URL to display at the top of the newsletter (default: none)",
+    )
     args = parser.parse_args(argv)
 
     if args.remind_commissioner:
@@ -2002,6 +2119,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             season_type=args.season_type,
             league_type=args.league_type,
             commissioner_notes_csv_url=args.commissioner_notes_csv_url,
+            league_logo_url=args.league_logo_url,
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)

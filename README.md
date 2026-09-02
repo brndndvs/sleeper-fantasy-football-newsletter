@@ -38,6 +38,10 @@ It covers:
   move that just happens to be a bit uneven), each with the date it was made
 - Waiver/free-agent moves from the past week, in chronological order, grouped
   under the day they happened
+- **Top 5 Highest-Value Waiver Pickups**: the best waiver/free-agent
+  adds of the season so far, ranked purely by current player value (FAAB
+  spent isn't a factor) — tracked cumulatively from Week 1 onward, not just
+  the past week
 - Matchup recap (final scores, who beat whom)
 - **Rivals**: final scores for any rival matchup already played this season,
   plus a preview of any rival matchup scheduled for next week
@@ -111,6 +115,20 @@ Pass `--lookback-days N` to override either scoping with a different flat
 rolling window for that run. Every run prints the exact date range of
 included/excluded transactions to the console/Action log, so you can verify
 the scoping on any given week.
+
+#### About Top 5 Highest-Value Waiver Pickups
+
+Scans every transaction from Week 1 through the current week (not just the
+trailing waiver window used for "this week's" moves above), keeps only
+waiver/free-agent adds, and ranks them by the same `search_rank`-based player
+value used for trades and the draft tracker — FAAB spent is ignored
+entirely, since this is about who found the best player, not who paid the
+least for them. A player added more than once over the season (dropped and
+re-added, or claimed off another roster) is only counted once, crediting
+whichever pickup was most recent. The section stays empty with a placeholder
+message until Week 1 games actually get underway (same signal used to gate
+Power Rankings/Luck Index — real weekly scores existing), then keeps
+populating for the rest of the season.
 
 #### About the Rookie Draft Value Tracker
 
@@ -245,6 +263,9 @@ python newsletter.py --league-id <LEAGUE_ID> --week 5 --output-dir output
 
 # Only count trades/waivers from the last 14 days instead of the default 7
 python newsletter.py --lookback-days 14
+
+# Show a logo image at the top of the newsletter
+python newsletter.py --league-logo-url https://example.com/logo.png
 ```
 
 This writes `newsletter_week{N}.md` and `newsletter_week{N}.html` to the output
