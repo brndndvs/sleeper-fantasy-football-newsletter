@@ -304,7 +304,7 @@ rather than the full newsletter, since SMS isn't meant for long-form content.
 ### Running it automatically every week
 
 `.github/workflows/weekly-newsletter.yml` runs the newsletter every Tuesday at
-~8:45 AM ET via GitHub Actions (two `cron` entries handle the EDT/EST switch,
+~8:00 AM ET via GitHub Actions (two `cron` entries handle the EDT/EST switch,
 since Actions cron has no timezone/DST awareness), and can also be triggered
 manually from the Actions tab. To enable it:
 

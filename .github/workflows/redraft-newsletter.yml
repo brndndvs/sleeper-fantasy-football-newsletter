@@ -2,11 +2,12 @@ name: Redraft Weekly Newsletter
 
 on:
   schedule:
-    # 3 hours earlier than the dynasty newsletter's send time, offset one minute
-    # from a round number so the two don't queue at the exact same instant. See
-    # weekly-newsletter.yml for why the minute isn't a round number.
-    - cron: "44 9 * 3-10 2" # EDT (UTC-4): Mar-Oct, ~5:44 AM ET = 9:44 UTC
-    - cron: "44 10 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, ~5:44 AM ET = 10:44 UTC
+    # Same 8 AM ET target as the dynasty newsletter, offset 10 minutes later so
+    # the two don't both try to commit to main at the same instant (they raced
+    # and one lost before when only 1 minute apart). See weekly-newsletter.yml
+    # for why the minute isn't a round number.
+    - cron: "08 12 * 3-10 2" # EDT (UTC-4): Mar-Oct, ~8:08 AM ET = 12:08 UTC
+    - cron: "08 13 * 11,12,1,2 2" # EST (UTC-5): Nov-Feb, ~8:08 AM ET = 13:08 UTC
   workflow_dispatch:
     inputs:
       week:
