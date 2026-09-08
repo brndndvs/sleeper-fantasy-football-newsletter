@@ -60,7 +60,7 @@ jobs:
             SEND_ARGS="--send-email --send-sms"
           fi
           python newsletter.py $WEEK_ARG $SEND_ARGS \
-            --league-logo-url "https://github.com/user-attachments/assets/0d7953c1-a0c4-4279-bbde-c983a6621bb4"
+            --league-logo-url "https://github.com/user-attachments/assets/d9830c50-3fc5-4241-9d2d-5e0029eb343d"
 
       - name: Upload newsletter artifacts
         uses: actions/upload-artifact@v4
