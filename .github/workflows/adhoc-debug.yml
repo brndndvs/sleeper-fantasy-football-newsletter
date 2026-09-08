@@ -1,0 +1,64 @@
+name: Adhoc Debug
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Look up Lamar Jackson / Rashee Rice
+        run: |
+          python3 - <<'EOF'
+          import newsletter as nl
+
+          league_id = nl.DEFAULT_LEAGUE_ID
+          league = nl.get_league(league_id)
+          rosters = nl.get_rosters(league_id)
+          users = nl.get_users(league_id)
+          teams = nl.build_teams(rosters, users)
+          players = nl.get_players()
+
+          settings = league.get("settings") or {}
+          roster_positions = league.get("roster_positions") or []
+          qb_slots = roster_positions.count("QB")
+          superflex_slots = roster_positions.count("SUPER_FLEX")
+          print("roster_positions:", roster_positions)
+          print(f"QB slots: {qb_slots}, SUPER_FLEX slots: {superflex_slots}")
+          print("total_rosters:", settings.get("num_teams"))
+
+          def find_player_id(name_query):
+              name_query = name_query.lower()
+              matches = []
+              for pid, p in players.items():
+                  full = (p.get("full_name") or "").lower()
+                  if name_query in full:
+                      matches.append((pid, p.get("full_name"), p.get("position"), p.get("team"), p.get("search_rank")))
+              return matches
+
+          def owner_of(player_id):
+              for r in rosters:
+                  if player_id in (r.get("players") or []):
+                      team = teams.get(r["roster_id"])
+                      return team.team_name if team else f"roster {r['roster_id']}"
+              return "unowned/FA"
+
+          for name in ["Lamar Jackson", "Rashee Rice"]:
+              print(f"--- {name} ---")
+              matches = find_player_id(name)
+              for m in matches:
+                  pid = m[0]
+                  print(m, "value:", round(nl.player_value(pid, players)), "owner:", owner_of(pid))
+          EOF
