@@ -33,6 +33,8 @@ It covers:
   callout that it's carried over and nothing new was added, rather than
   silently repeating it or silently dropping the section. Omitted entirely
   only if he's never submitted anything at all.
+- **Week N Awards** (optional, `--weekly-awards`): a comedic, R-rated set of
+  awards for that week's real results, written by the Claude API -- see below
 - Top 5 trades from the last three weeks, **ranked by a blend of value
   disparity and total value moved** (so a real blockbuster outranks a minor
   move that just happens to be a bit uneven), each with the date it was made
@@ -115,6 +117,26 @@ Pass `--lookback-days N` to override either scoping with a different flat
 rolling window for that run. Every run prints the exact date range of
 included/excluded transactions to the console/Action log, so you can verify
 the scoping on any given week.
+
+#### About Week N Awards
+
+Off by default. Pass `--weekly-awards` (plus an `ANTHROPIC_API_KEY` environment
+variable) and each run sends that week's real results — matchup scores and
+margins, bench points left unused, closest games, top individual scorers,
+standings, luck index, and waiver moves — to the Claude API, asking it to
+write 8-12 comedic, R-rated "award" categories (biggest blowout, luckiest
+win, worst bench decision, etc.) roasting the actual teams by name. Every
+joke is required to be grounded in a real number from that week; nothing is
+invented. Skipped entirely (with a message, not a failure) if either the
+flag or the API key is missing, same as email/SMS when their secrets aren't
+set, and only generated once real games have been played that week (same
+gate as Power Rankings/Luck Index). Override the model with `--awards-model`
+(default `claude-sonnet-5`).
+
+Costs a small amount per run against your own Anthropic account — get an API
+key at [console.anthropic.com](https://console.anthropic.com/), add billing,
+and set it as the `ANTHROPIC_API_KEY` repo secret to enable this in GitHub
+Actions.
 
 #### About Top 5 Highest-Value Waiver Pickups
 
@@ -266,6 +288,9 @@ python newsletter.py --lookback-days 14
 
 # Show a logo image at the top of the newsletter
 python newsletter.py --league-logo-url https://example.com/logo.png
+
+# Generate a comedic "Week N Awards" section via the Claude API
+ANTHROPIC_API_KEY=sk-ant-... python newsletter.py --weekly-awards
 ```
 
 This writes `newsletter_week{N}.md` and `newsletter_week{N}.html` to the output
