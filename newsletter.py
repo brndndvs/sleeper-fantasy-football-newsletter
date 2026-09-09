@@ -915,14 +915,20 @@ def generate_weekly_awards(
     user_prompt = (
         f'Write this week\'s awards for "{league_name}", Week {week}. Use ONLY the '
         "real stats below -- every joke must be grounded in an actual number or "
-        "result, never invented. Cover the whole league (every team should get at "
-        "least one mention across all the awards). Pick 8-12 award categories that "
-        "fit what actually happened this week (blowout, nail-biter, best/worst "
-        "bench decision, luckiest win, unluckiest loss, best waiver pickup, etc. -- "
+        "result, never invented. These stats already exclude any team that isn't "
+        "competing this season -- treat the teams listed below as the entire "
+        "league; don't mention or reference any team that doesn't appear in the "
+        "stats. Cover every team that does appear (each should get at least one "
+        "mention across all the awards). Pick 8-12 award categories that fit what "
+        "actually happened this week (blowout, nail-biter, best/worst bench "
+        "decision, luckiest win, unluckiest loss, best waiver pickup, etc. -- "
         "invent category names in the same spirit as the sample). Each award: an "
         "emoji+title heading, the winning team name, and 2-4 sentences of comedic "
         "roast copy. Plain text only, blank line between awards, no markdown "
-        "formatting.\n\n"
+        "formatting. You can riff on a team's own name for a joke when it's "
+        "genuinely funny, but don't force a name-based pun into every single "
+        "award -- that gimmick gets old fast. Most of the humor should come from "
+        "the actual stat, not wordplay on the team name.\n\n"
         f"--- THIS WEEK'S REAL STATS ---\n{stats_packet}"
     )
     try:
@@ -1343,6 +1349,7 @@ def build_newsletter_data(
     league_logo_url: Optional[str] = None,
     weekly_awards_api_key: Optional[str] = None,
     weekly_awards_model: str = DEFAULT_AWARDS_MODEL,
+    weekly_awards_exclude_teams: Optional[list[str]] = None,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -1422,8 +1429,31 @@ def build_newsletter_data(
 
     weekly_awards = None
     if weekly_awards_api_key and games_started:
+        exclude_lower = {t.strip().lower() for t in (weekly_awards_exclude_teams or [])}
+
+        def _competing(team_name: str) -> bool:
+            return team_name.strip().lower() not in exclude_lower
+
+        # Excluded teams (e.g. tanking rosters) are dropped from the awards
+        # material entirely -- not just de-emphasized -- so they can't get
+        # mentioned or roasted. This only affects what's fed to the awards
+        # prompt; the rest of the newsletter (Standings, etc.) still shows
+        # every team as usual.
+        awards_matchups = [m for m in matchups if all(_competing(n) for n in m.team_names)]
+        awards_standings = [t for t in standings if _competing(t.team_name)]
+        awards_closest_games = [m for m in closest_games if all(_competing(n) for n in m.team_names)]
+        awards_top_scorers = [s for s in top_scorers if _competing(s["team"])]
+        awards_luck_index = [entry for entry in luck_index if _competing(entry["team"])]
+        awards_waivers = [w for w in waivers if _competing(w["team"])]
+
         stats_packet = build_weekly_stats_packet(
-            week, matchups, standings, closest_games, top_scorers, luck_index, waivers
+            week,
+            awards_matchups,
+            awards_standings,
+            awards_closest_games,
+            awards_top_scorers,
+            awards_luck_index,
+            awards_waivers,
         )
         weekly_awards = generate_weekly_awards(
             stats_packet,
@@ -2303,6 +2333,16 @@ def main(argv: Optional[list[str]] = None) -> int:
         default=DEFAULT_AWARDS_MODEL,
         help=f"Claude model ID for weekly awards generation (default: {DEFAULT_AWARDS_MODEL})",
     )
+    parser.add_argument(
+        "--awards-exclude-teams",
+        default=None,
+        help=(
+            "Comma-separated team names to leave out of Week N Awards entirely (e.g. "
+            "teams that are tanking) -- they won't be mentioned, roasted, or counted "
+            "in any award's stats. Matched case-insensitively. Everywhere else in the "
+            "newsletter (Standings, etc.) still shows every team as usual."
+        ),
+    )
     args = parser.parse_args(argv)
 
     if args.remind_commissioner:
@@ -2352,6 +2392,11 @@ def main(argv: Optional[list[str]] = None) -> int:
             league_logo_url=args.league_logo_url,
             weekly_awards_api_key=weekly_awards_api_key,
             weekly_awards_model=args.awards_model,
+            weekly_awards_exclude_teams=(
+                [name.strip() for name in args.awards_exclude_teams.split(",") if name.strip()]
+                if args.awards_exclude_teams
+                else None
+            ),
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)

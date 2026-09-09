@@ -133,6 +133,15 @@ set, and only generated once real games have been played that week (same
 gate as Power Rankings/Luck Index). Override the model with `--awards-model`
 (default `claude-sonnet-5`).
 
+Pass `--awards-exclude-teams "Team A,Team B"` to leave specific teams out
+entirely — useful for teams that are openly tanking, where getting roasted
+for a bad week isn't funny, it's just their plan working. Excluded teams are
+matched case-insensitively and dropped from every input the prompt sees
+(matchups, standings, top scorers, luck index, waivers) — not just
+de-emphasized, they can't be mentioned or roasted at all. The rest of the
+newsletter (Standings, etc.) is unaffected and still shows every team as
+usual; the exclusion only applies to what's fed into Week N Awards.
+
 Costs a small amount per run against your own Anthropic account — get an API
 key at [console.anthropic.com](https://console.anthropic.com/), add billing,
 and set it as the `ANTHROPIC_API_KEY` repo secret to enable this in GitHub
@@ -291,6 +300,10 @@ python newsletter.py --league-logo-url https://example.com/logo.png
 
 # Generate a comedic "Week N Awards" section via the Claude API
 ANTHROPIC_API_KEY=sk-ant-... python newsletter.py --weekly-awards
+
+# Same, but leaving tanking teams out of the roast entirely
+ANTHROPIC_API_KEY=sk-ant-... python newsletter.py --weekly-awards \
+  --awards-exclude-teams "BlowPaterno,Boynton Beach Blue Balls,Larkinsjacob,andrewburkhardt1,The Aubrey Express,CeDeez big ones"
 ```
 
 This writes `newsletter_week{N}.md` and `newsletter_week{N}.html` to the output

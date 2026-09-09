@@ -50,6 +50,7 @@ jobs:
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
           NEWSLETTER_PHONES: ${{ secrets.NEWSLETTER_PHONES }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           WEEK_ARG=""
           if [ -n "${{ github.event.inputs.week }}" ]; then
@@ -60,7 +61,9 @@ jobs:
             SEND_ARGS="--send-email --send-sms"
           fi
           python newsletter.py $WEEK_ARG $SEND_ARGS \
-            --league-logo-url "https://github.com/user-attachments/assets/d9830c50-3fc5-4241-9d2d-5e0029eb343d"
+            --league-logo-url "https://github.com/user-attachments/assets/d9830c50-3fc5-4241-9d2d-5e0029eb343d" \
+            --weekly-awards \
+            --awards-exclude-teams "BlowPaterno,Boynton Beach Blue Balls,Larkinsjacob,andrewburkhardt1,The Aubrey Express,CeDeez big ones"
 
       - name: Upload newsletter artifacts
         uses: actions/upload-artifact@v4
