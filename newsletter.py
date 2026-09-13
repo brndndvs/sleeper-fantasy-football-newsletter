@@ -1733,6 +1733,9 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append("_Not enough games played yet to compute a luck index._")
     lines.append("")
 
+    lines.append("Go Giants")
+    lines.append("")
+
     return "\n".join(lines)
 
 
@@ -2113,6 +2116,8 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         parts.append("</table>")
     else:
         parts.append("<p><em>Not enough games played yet to compute a luck index.</em></p>")
+
+    parts.append("<p>Go Giants</p>")
 
     parts.append("</body></html>")
     return "\n".join(parts)
