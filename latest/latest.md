@@ -14,41 +14,41 @@ Let’s have a great week 2
 
 ## 🏆 Week 1 Awards
 
-🏆 THE "WELL THAT WAS OVER BEFORE IT STARTED" AWARD
-Winner: Balls
-196.76 points for, 68.88 against, and a perfect 13-0 all-play record with zero luck required. You didn't win Week 1, you performed an autopsy on it. Kenneth Walker and Jahmyr Gibbs both went for 30-plus in the same lineup like it was a video game on rookie difficulty.
-
-💀 THE "WORST TIMELINE IMAGINABLE" AWARD
+🥇 THE "MATH IS UNDEFEATED" AWARD
 Winner: 12 DAY WAR VET
-You scored 138.30 points, which would have beaten literally every other loser in this league this week, and you still lost. Your all-play record says you should be 10-3. Your actual record says 0-1. The football gods looked at your box score and said "funny, but no."
+138.30 points. Any other week, that's a W. This week, it's a season-opening L and a -76.9 luck score, the worst in the entire league. You didn't lose the game, the schedule mugged you in a parking lot.
 
-🎯 THE "ACTUALLY DESERVED IT" AWARD
+🩸 THE "SEND HELP" AWARD
 Winner: KC
-No sob story here. 68.40 points, a putrid all-play record of 5-8, and a 65-point beatdown at the hands of Tpotts42. This wasn't bad luck, this was just a bad team having a bad week and everyone watching it happen.
+68.40 points for, 133.84 against, a 65.44-point beatdown, the single worst scoring output in the league. Kenneth Walker dropped 34.10 for you personally and it still wasn't enough because the rest of your roster showed up in street clothes. Welcome to 0-1, enjoy the view from last place.
 
-🪑 THE "YOUR BENCH COULD'VE WON THE LEAGUE" AWARD
+🛋️ THE "HEATED BENCH WARMER" AWARD
 Winner: Roger Goodell
-You put up 164 and won, sure, but you left 104.24 points sitting on your bench like a buffet nobody touched. That's more unused points than most teams' entire starting lineup scored. Ashton Jeanty went off for 32.70 in your lineup and you STILL almost tripped over your own depth chart.
+104.24 points rotting on your bench, more than most teams scored total this week. You won by 25.76 anyway, which means you're either a genius or you just accidentally backed into a W with a roster full of guys you forgot to start. Ashton Jeanty went off for 32.70 and somehow wasn't even the reason you're sweating your lineup card.
 
-🛋️ THE "SILVER MEDAL IN SELF-SABOTAGE" AWARD
-Winner: Tpotts42
-87.22 points benched, in a game you won by 65 points. You could've started literally anyone from your bench, thrown a dart, and still buried KC. Efficiency clearly isn't the mission statement here, but the results speak for themselves.
+🎯 THE "CLOSEST THING TO A HEART ATTACK" AWARD
+Winner: Roger Goodell
+The only real game in town this week, a 25.76-point squeaker against 12 DAY WAR VET. Sure, "squeaker" is doing some heavy lifting when both teams cracked 138, but with KC's 65-point massacre as the alternative, this was basically the Super Bowl.
 
-🧟 THE "ZERO SIGNS OF LIFE" AWARD
+🍀 THE "HORSESHOE UP THE ASS" AWARD
 Winner: Simply Touchdowns
-85.36 points for and only 38.10 against is a fine week on paper, but a +46.2 luck index is the biggest gift-wrapped W in the entire league this week. Your all-play record was a mediocre 7-6. You didn't win Week 1 so much as get carried across the finish line.
+1-0 with a measly 85.36 points, the lowest score of any winning team, and a +46.2 luck index that leads the entire league. You didn't win the game so much as you were handed it wrapped in a bow. Enjoy this one, it's not sustainable.
 
-🔥 THE "SHOWED UP AND EMBARRASSED SOMEONE" AWARD
-Winner: A FOOTBALL TEAM
-151.92 points for, only 37.82 against. D'Andre Swift dropped 32.40 on his own. Whoever you played this week didn't lose, they just got assigned homework they weren't ready for.
-
-📈 THE "GAMBLING PROBLEM, BUT IT WORKED" AWARD
-Winner: Talking Tua Teenager
-Derrick Henry went nuclear for a league-best 35.30 points and somehow you're still sitting at +38.5 luck with an 8-5 all-play record. You didn't need to be good this week. Henry made sure of that for you.
-
-🧠 THE "AT LEAST MAKE ONE MOVE" AWARD
+💪 THE "DIDN'T NEED THE LUCK" AWARD
 Winner: Balls
-While literally winning the highest-scoring week in the league, you also found time to drop Darius Slayton and pick up George Holani off waivers. Championship teams tinker even when they don't have to. Everyone else sat on their hands and watched you flex.
+13-0 all-play, 196.76 points for, a league-best beatdown, and a perfectly flat 0.0 luck index because you didn't need luck, you just have Kenneth Walker (34.10) and Jahmyr Gibbs (33.60) both going nuclear in the same lineup. This is what everyone else is going to be chasing all season.
+
+🧟 THE "STYLE POINTS FOR NOTHING" AWARD
+Winner: A FOOTBALL TEAM
+151.92 points for, only 37.82 against, and a 15.4 luck score to boot. D'Andre Swift dropped 32.40 on the way to what might be the most complete no-doubt win of the week. Nobody's talking about you though, because Roger Goodell's shootout stole the spotlight. Rude.
+
+👶 THE "CARRIED BY A ROOKIE-ADJACENT MAN-CHILD" AWARD
+Winner: Talking Tua Teenager
+Derrick Henry put up a league-high 35.30 points and dragged this team to 133.54 for and a laughably easy 45.04 against. You also cut Tyler Lockett this week, which, considering the results, was either genius or you just really trust Henry to do this every Sunday. A +38.5 luck score says the football gods trust him too.
+
+✂️ THE "PANIC BUTTON" AWARD
+Winner: Balls
+You're 1-0 with the most points in the league and you still felt the need to drop Darius Slayton and go get George Holani off waivers. Nothing wrong with staying active, but championship teams don't usually make roster moves the week after dropping 196.
 
 ## Trades — Last 21 Days (top 5)
 
@@ -127,7 +127,7 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 **Wednesday, September 9:**
 - **Larkinsjacob** (Waiver Claim): added Deshaun Watson (QB - CLE); dropped J.J. McCarthy (QB - MIN)
 - **Larkinsjacob** (Waiver Claim ($1 FAAB)): added Ashton Dulin (WR - IND); dropped —
-- **Larkinsjacob** (Waiver Claim ($1 FAAB)): added Lil'Jordan Humphrey (WR - DEN); dropped —
+- **Larkinsjacob** (Waiver Claim ($1 FAAB)): added Lil'Jordan Humphrey (WR - FA); dropped —
 - **The Aubrey Express ** (Waiver Claim ($1 FAAB)): added Kirk Cousins (QB - LV); dropped Camden Brown (WR - DAL)
 - **The Aubrey Express ** (Waiver Claim): added Arizona Cardinals (DEF - ARI); dropped J'Mari Taylor (RB - JAX)
 - **Balls** (Waiver Claim): added George Holani (RB - SEA); dropped —
@@ -146,7 +146,10 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 **Monday, September 14:**
 - **Larkinsjacob** (Free Agent Move): added Evan Engram (TE - DEN); dropped —
 - **Larkinsjacob** (Free Agent Move): added Marvin Mims (WR - DEN); dropped Evan Engram (TE - DEN)
-- **Larkinsjacob** (Free Agent Move): added —; dropped Lil'Jordan Humphrey (WR - DEN)
+- **Larkinsjacob** (Free Agent Move): added —; dropped Lil'Jordan Humphrey (WR - FA)
+
+**Tuesday, September 15:**
+- **Talking Tua Teenager** (Free Agent Move): added —; dropped Tyler Lockett (WR - FA)
 
 
 ## Top 5 Highest-Value Waiver Pickups
@@ -180,7 +183,7 @@ _No rival matchups completed yet this season._
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Roger Goodell** (proj 139.1) vs **Talking Tua Teenager** (proj 134.1) — combined 273.2, projected margin 4.9
+- **Roger Goodell** (proj 139.1) vs **Talking Tua Teenager** (proj 134.3) — combined 273.3, projected margin 4.8
 
 ## Closest Games
 
