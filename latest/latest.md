@@ -12,6 +12,53 @@ Two heavy hitters going to war week 2.
 To the victors this week, congratulations on starting 1-0, only 7 of you have done that. 
 Let’s have a great week 2
 
+## 🏆 Week 1 Awards
+
+🏆 THE "MATHEMATICALLY UNLUCKIEST FUCKER ALIVE" AWARD
+Winner: 12 DAY WAR VET
+
+You went 10-3 in all-play. You scored 138.30 points, which would've beaten five other teams this week outright. Instead you lose to a guy named Roger Goodell, in a fantasy football irony so thick you could spread it on toast. A luck index of -76.9 isn't bad luck, it's the universe personally shitting on you.
+
+🩸 THE "GET THIS MAN A TOURNIQUET" AWARD
+Winner: KC
+
+You scored 68.40 and lost by 65.44, which means Tpotts42 nearly scored double your entire output. Kenneth Walker dropped 34.10 points ON YOUR OWN TEAM'S ROSTER SHEET and you still lost by a margin bigger than most people's whole score. This wasn't a loss, it was a public execution.
+
+🛋️ THE "BENCHWARMER HALL OF FAME" AWARD
+Winner: Roger Goodell
+
+You won your game and still left 104.24 points on your bench, more points than KC scored in their entire loss. Ashton Jeanty popped off for 32.70 and somehow that wasn't even the story of your week. Imagine winning by 25 and still coaching like you were trying to lose.
+
+🎯 THE "SHOULDN'T HAVE EVEN BEEN CLOSE" AWARD
+Winner: Roger Goodell
+
+Your only "close game" of the week was a 25.76-point margin. In this league that counts as a nail-biter. Congrats on the tightest game of Week 1 being a game that wasn't actually tight at all.
+
+💀 THE "IT WASN'T EVEN A FAIR FIGHT" AWARD
+Winner: A FOOTBALL TEAM
+
+151.92 points for, 37.82 against. That's not a fantasy matchup, that's a hostage situation. D'Andre Swift alone outscored your opponent's entire roster by himself with room to spare.
+
+🍀 THE "LUCKIEST SON OF A BITCH" AWARD
+Winner: Simply Touchdowns
+
+You scored the fewest points of any winning team, 85.36, and still walked away 1-0 with a +46.2 luck rating, the highest in the league. You didn't win the game, the schedule maker handed you a participation trophy dressed up as a victory.
+
+🔥 THE "DIDN'T EVEN NEED TO SWEAT" AWARD
+Winner: Balls
+
+196.76 points for, a perfect 13-0 all-play record, and 68.88 points against. You're not playing the same sport as everyone else. Kenneth Walker went off for 34.10 and Jahmyr Gibbs added another 33.60, and you still found time to drop Darius Slayton like he owed you money.
+
+📉 THE "DIDN'T EVEN TRY, DIDN'T EVEN CARE" AWARD
+Winner: Tpotts42
+
+You won by 65.44 points, the single biggest margin of the week, and still somehow left 87.22 points on your bench. That's not a fantasy roster, that's a hostage negotiation where you refused to use half your leverage.
+
+🪦 THE "DEAD ON ARRIVAL" AWARD
+Winner: KC
+
+An 0-1 record, a -38.5 luck index, and the least points scored league-wide. You lost this week before you even hit submit on your lineup. Week 1 and you're already the answer to "who's getting the first overall waiver priority."
+
 ## Trades — Last 21 Days (top 5)
 
 _Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked by a blend of how lopsided the trade was and how much total value changed hands, so a real blockbuster outranks a minor move that just happens to be a bit uneven._
