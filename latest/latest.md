@@ -14,50 +14,41 @@ Let’s have a great week 2
 
 ## 🏆 Week 1 Awards
 
-🏆 THE "MATHEMATICALLY UNLUCKIEST FUCKER ALIVE" AWARD
-Winner: 12 DAY WAR VET
-
-You went 10-3 in all-play. You scored 138.30 points, which would've beaten five other teams this week outright. Instead you lose to a guy named Roger Goodell, in a fantasy football irony so thick you could spread it on toast. A luck index of -76.9 isn't bad luck, it's the universe personally shitting on you.
-
-🩸 THE "GET THIS MAN A TOURNIQUET" AWARD
-Winner: KC
-
-You scored 68.40 and lost by 65.44, which means Tpotts42 nearly scored double your entire output. Kenneth Walker dropped 34.10 points ON YOUR OWN TEAM'S ROSTER SHEET and you still lost by a margin bigger than most people's whole score. This wasn't a loss, it was a public execution.
-
-🛋️ THE "BENCHWARMER HALL OF FAME" AWARD
-Winner: Roger Goodell
-
-You won your game and still left 104.24 points on your bench, more points than KC scored in their entire loss. Ashton Jeanty popped off for 32.70 and somehow that wasn't even the story of your week. Imagine winning by 25 and still coaching like you were trying to lose.
-
-🎯 THE "SHOULDN'T HAVE EVEN BEEN CLOSE" AWARD
-Winner: Roger Goodell
-
-Your only "close game" of the week was a 25.76-point margin. In this league that counts as a nail-biter. Congrats on the tightest game of Week 1 being a game that wasn't actually tight at all.
-
-💀 THE "IT WASN'T EVEN A FAIR FIGHT" AWARD
-Winner: A FOOTBALL TEAM
-
-151.92 points for, 37.82 against. That's not a fantasy matchup, that's a hostage situation. D'Andre Swift alone outscored your opponent's entire roster by himself with room to spare.
-
-🍀 THE "LUCKIEST SON OF A BITCH" AWARD
-Winner: Simply Touchdowns
-
-You scored the fewest points of any winning team, 85.36, and still walked away 1-0 with a +46.2 luck rating, the highest in the league. You didn't win the game, the schedule maker handed you a participation trophy dressed up as a victory.
-
-🔥 THE "DIDN'T EVEN NEED TO SWEAT" AWARD
+🏆 THE "WELL THAT WAS OVER BEFORE IT STARTED" AWARD
 Winner: Balls
+196.76 points for, 68.88 against, and a perfect 13-0 all-play record with zero luck required. You didn't win Week 1, you performed an autopsy on it. Kenneth Walker and Jahmyr Gibbs both went for 30-plus in the same lineup like it was a video game on rookie difficulty.
 
-196.76 points for, a perfect 13-0 all-play record, and 68.88 points against. You're not playing the same sport as everyone else. Kenneth Walker went off for 34.10 and Jahmyr Gibbs added another 33.60, and you still found time to drop Darius Slayton like he owed you money.
+💀 THE "WORST TIMELINE IMAGINABLE" AWARD
+Winner: 12 DAY WAR VET
+You scored 138.30 points, which would have beaten literally every other loser in this league this week, and you still lost. Your all-play record says you should be 10-3. Your actual record says 0-1. The football gods looked at your box score and said "funny, but no."
 
-📉 THE "DIDN'T EVEN TRY, DIDN'T EVEN CARE" AWARD
-Winner: Tpotts42
-
-You won by 65.44 points, the single biggest margin of the week, and still somehow left 87.22 points on your bench. That's not a fantasy roster, that's a hostage negotiation where you refused to use half your leverage.
-
-🪦 THE "DEAD ON ARRIVAL" AWARD
+🎯 THE "ACTUALLY DESERVED IT" AWARD
 Winner: KC
+No sob story here. 68.40 points, a putrid all-play record of 5-8, and a 65-point beatdown at the hands of Tpotts42. This wasn't bad luck, this was just a bad team having a bad week and everyone watching it happen.
 
-An 0-1 record, a -38.5 luck index, and the least points scored league-wide. You lost this week before you even hit submit on your lineup. Week 1 and you're already the answer to "who's getting the first overall waiver priority."
+🪑 THE "YOUR BENCH COULD'VE WON THE LEAGUE" AWARD
+Winner: Roger Goodell
+You put up 164 and won, sure, but you left 104.24 points sitting on your bench like a buffet nobody touched. That's more unused points than most teams' entire starting lineup scored. Ashton Jeanty went off for 32.70 in your lineup and you STILL almost tripped over your own depth chart.
+
+🛋️ THE "SILVER MEDAL IN SELF-SABOTAGE" AWARD
+Winner: Tpotts42
+87.22 points benched, in a game you won by 65 points. You could've started literally anyone from your bench, thrown a dart, and still buried KC. Efficiency clearly isn't the mission statement here, but the results speak for themselves.
+
+🧟 THE "ZERO SIGNS OF LIFE" AWARD
+Winner: Simply Touchdowns
+85.36 points for and only 38.10 against is a fine week on paper, but a +46.2 luck index is the biggest gift-wrapped W in the entire league this week. Your all-play record was a mediocre 7-6. You didn't win Week 1 so much as get carried across the finish line.
+
+🔥 THE "SHOWED UP AND EMBARRASSED SOMEONE" AWARD
+Winner: A FOOTBALL TEAM
+151.92 points for, only 37.82 against. D'Andre Swift dropped 32.40 on his own. Whoever you played this week didn't lose, they just got assigned homework they weren't ready for.
+
+📈 THE "GAMBLING PROBLEM, BUT IT WORKED" AWARD
+Winner: Talking Tua Teenager
+Derrick Henry went nuclear for a league-best 35.30 points and somehow you're still sitting at +38.5 luck with an 8-5 all-play record. You didn't need to be good this week. Henry made sure of that for you.
+
+🧠 THE "AT LEAST MAKE ONE MOVE" AWARD
+Winner: Balls
+While literally winning the highest-scoring week in the league, you also found time to drop Darius Slayton and pick up George Holani off waivers. Championship teams tinker even when they don't have to. Everyone else sat on their hands and watched you flex.
 
 ## Trades — Last 21 Days (top 5)
 
