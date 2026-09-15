@@ -112,7 +112,13 @@ COMMISSIONER_NOTES_TIMEZONE = ZoneInfo("America/New_York")
 ANTHROPIC_API_BASE = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_API_VERSION = "2023-06-01"
 DEFAULT_AWARDS_MODEL = "claude-sonnet-5"
-AWARDS_MAX_TOKENS = 2000
+# Sonnet 5 runs adaptive (extended) thinking by default even with no "thinking"
+# param set, and thinking tokens count against max_tokens same as output --
+# with a low ceiling, an unlucky verbose week can burn the whole budget on
+# invisible reasoning and return zero visible text. This is a pure creative
+# writing task with no need for multi-step reasoning, so thinking is disabled
+# outright below rather than just raising the ceiling.
+AWARDS_MAX_TOKENS = 4000
 AWARDS_STYLE_SAMPLE = """\
 🥇 THE "DID YOU EVEN FUCKING TRY?" AWARD
 Winner: In Fins I Trust
@@ -944,6 +950,11 @@ def generate_weekly_awards(
                 "max_tokens": AWARDS_MAX_TOKENS,
                 "system": system_prompt,
                 "messages": [{"role": "user", "content": user_prompt}],
+                # No reasoning needed for a comedy-writing prompt, and Sonnet 5
+                # thinks by default even with no "thinking" param at all --
+                # explicitly off so max_tokens can't be silently eaten by
+                # invisible thinking output instead of the actual awards text.
+                "thinking": {"type": "disabled"},
             },
             timeout=60,
         )
@@ -961,7 +972,13 @@ def generate_weekly_awards(
         return None
 
     if not text:
-        print("Skipping weekly awards: empty response from Claude API", file=sys.stderr)
+        stop_reason = response_data.get("stop_reason")
+        block_types = [p.get("type") for p in (response_data.get("content") or [])]
+        print(
+            f"Skipping weekly awards: empty response from Claude API "
+            f"(stop_reason={stop_reason!r}, content block types={block_types!r})",
+            file=sys.stderr,
+        )
         return None
 
     print(f"Weekly awards: generated {len(text)} characters via {model}", file=sys.stderr)
