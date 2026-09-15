@@ -1310,7 +1310,7 @@ class NewsletterData:
     divisional_standings: Optional[list[dict]]
     power_rankings: list[dict]
     luck_index: list[dict]
-    rivals: dict
+    rivals: Optional[dict]
     big_games: dict
     draft_rankings: dict
     commissioner_notes: Optional[dict]
@@ -1359,6 +1359,7 @@ def build_newsletter_data(
     raw_transactions: Optional[list[dict]] = None,
     lookback_days: Optional[int] = None,
     rivalry_week: int = DEFAULT_RIVALRY_WEEK,
+    has_rivalry_week: bool = True,
     season_type: Optional[str] = None,
     season_has_scores: Optional[bool] = None,
     league_type: str = "dynasty",
@@ -1406,15 +1407,22 @@ def build_newsletter_data(
     else:
         print("Divisional standings: league has no divisions configured, using overall standings", file=sys.stderr)
     preview_week = next_preview_week(week, matchups)
-    rival_pairs = build_rival_pairs(league_id, rivalry_week)
-    rivals = build_rivals_section(
-        league_id,
-        week,
-        teams,
-        rival_pairs,
-        current_week_matchups=raw_matchups,
-        preview_week=preview_week,
-    )
+    if has_rivalry_week:
+        rival_pairs = build_rival_pairs(league_id, rivalry_week)
+        rivals = build_rivals_section(
+            league_id,
+            week,
+            teams,
+            rival_pairs,
+            current_week_matchups=raw_matchups,
+            preview_week=preview_week,
+        )
+    else:
+        # Some leagues (e.g. casual redraft) never manually pair up rivals for
+        # a rivalry week -- treating week `rivalry_week`'s normal round-robin
+        # matchups as if they were curated rivalries would mislabel ordinary
+        # games as "Rivals", so skip the section outright instead.
+        rivals = None
     big_games = build_big_games(
         league_id,
         week,
@@ -1647,23 +1655,24 @@ def render_markdown(data: NewsletterData) -> str:
             )
         lines.append("")
 
-        lines.append("## Rivals\n")
-        if data.rivals["results"]:
-            for r in data.rivals["results"]:
-                lines.append(
-                    f"- Week {r['week']}: **{r['team_a']}** {r['score_a']:.2f} - "
-                    f"{r['score_b']:.2f} **{r['team_b']}**"
-                )
-        else:
-            lines.append("_No rival matchups completed yet this season._")
-        if data.rivals["upcoming"]:
+        if data.rivals is not None:
+            lines.append("## Rivals\n")
+            if data.rivals["results"]:
+                for r in data.rivals["results"]:
+                    lines.append(
+                        f"- Week {r['week']}: **{r['team_a']}** {r['score_a']:.2f} - "
+                        f"{r['score_b']:.2f} **{r['team_b']}**"
+                    )
+            else:
+                lines.append("_No rival matchups completed yet this season._")
+            if data.rivals["upcoming"]:
+                lines.append("")
+                for u in data.rivals["upcoming"]:
+                    lines.append(f"- **Upcoming (Week {u['week']}):** {u['team_a']} vs {u['team_b']}")
+            else:
+                lines.append("")
+                lines.append("_No rival matchup scheduled for the upcoming week._")
             lines.append("")
-            for u in data.rivals["upcoming"]:
-                lines.append(f"- **Upcoming (Week {u['week']}):** {u['team_a']} vs {u['team_b']}")
-        else:
-            lines.append("")
-            lines.append("_No rival matchup scheduled for the upcoming week._")
-        lines.append("")
 
         lines.append("## Big Game of the Week\n")
         if data.big_games["available"]:
@@ -2005,26 +2014,27 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
             )
         parts.append("</ul>")
 
-        parts.append("<h2>Rivals</h2>")
-        if data.rivals["results"]:
-            parts.append("<ul>")
-            for r in data.rivals["results"]:
-                parts.append(
-                    f"<li>Week {r['week']}: <strong>{e(r['team_a'])}</strong> {r['score_a']:.2f} - "
-                    f"{r['score_b']:.2f} <strong>{e(r['team_b'])}</strong></li>"
-                )
-            parts.append("</ul>")
-        else:
-            parts.append("<p><em>No rival matchups completed yet this season.</em></p>")
-        if data.rivals["upcoming"]:
-            parts.append("<ul>")
-            for u in data.rivals["upcoming"]:
-                parts.append(
-                    f"<li><strong>Upcoming (Week {u['week']}):</strong> {e(u['team_a'])} vs {e(u['team_b'])}</li>"
-                )
-            parts.append("</ul>")
-        else:
-            parts.append("<p><em>No rival matchup scheduled for the upcoming week.</em></p>")
+        if data.rivals is not None:
+            parts.append("<h2>Rivals</h2>")
+            if data.rivals["results"]:
+                parts.append("<ul>")
+                for r in data.rivals["results"]:
+                    parts.append(
+                        f"<li>Week {r['week']}: <strong>{e(r['team_a'])}</strong> {r['score_a']:.2f} - "
+                        f"{r['score_b']:.2f} <strong>{e(r['team_b'])}</strong></li>"
+                    )
+                parts.append("</ul>")
+            else:
+                parts.append("<p><em>No rival matchups completed yet this season.</em></p>")
+            if data.rivals["upcoming"]:
+                parts.append("<ul>")
+                for u in data.rivals["upcoming"]:
+                    parts.append(
+                        f"<li><strong>Upcoming (Week {u['week']}):</strong> {e(u['team_a'])} vs {e(u['team_b'])}</li>"
+                    )
+                parts.append("</ul>")
+            else:
+                parts.append("<p><em>No rival matchup scheduled for the upcoming week.</em></p>")
 
         parts.append("<h2>Big Game of the Week</h2>")
         if data.big_games["available"]:
@@ -2301,6 +2311,15 @@ def main(argv: Optional[list[str]] = None) -> int:
         help=f"Week the commissioner manually scheduled rivalry matchups for (default: {DEFAULT_RIVALRY_WEEK})",
     )
     parser.add_argument(
+        "--no-rivalry-week",
+        action="store_true",
+        help=(
+            "This league never manually pairs up rivals for a rivalry week -- skip the "
+            "Rivals section entirely instead of mislabeling that week's normal "
+            "round-robin matchups as rivalries."
+        ),
+    )
+    parser.add_argument(
         "--season-type",
         choices=["off", "pre", "regular", "post"],
         default=None,
@@ -2408,6 +2427,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             players=players,
             lookback_days=args.lookback_days,
             rivalry_week=args.rivalry_week,
+            has_rivalry_week=not args.no_rivalry_week,
             season_type=args.season_type,
             league_type=args.league_type,
             commissioner_notes_csv_url=args.commissioner_notes_csv_url,

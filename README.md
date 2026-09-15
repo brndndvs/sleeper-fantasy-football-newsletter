@@ -274,6 +274,12 @@ schedule happens to pair them up — completed weeks are scanned for either
 meeting, and the next upcoming week (see `next_preview_week` above) is checked
 for one scheduled.
 
+Leagues that never manually schedule a rivalry week (e.g. Diddy Party, a
+casual redraft league) don't have real rivalries to derive — treating that
+week's normal round-robin matchups as if they were curated rivalries would
+mislabel ordinary games. Pass `--no-rivalry-week` to skip the Rivals section
+entirely for those leagues.
+
 ### Setup
 
 ```bash
