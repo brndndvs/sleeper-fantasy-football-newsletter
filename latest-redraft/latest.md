@@ -35,25 +35,53 @@ See you next week.
 
 ## 🏆 Week 1 Awards
 
-🖕 THE "WELCOME TO THE FUCKING NFL" AWARD
+🥇 THE "PISS ON EVERYONE FROM A GREAT HEIGHT" AWARD
 Winner: Jahmyr-oquai
-Jahmyr-oquai dropped 213.06 points on MarlBurrow Man in Week 1, an actual mercy-rule situation in a league with no mercy rule. Josh Allen went off for 41.66 and D'Andre Swift added 37.90, meaning this roster's WAIVER WIRE PLAYERS could've beaten most other lineups outright. MarlBurrow Man, your season is now 100 points in the hole and it's not even Week 2. Hope Tank Dell fixes that.
+213.06 points. 100.60 margin of victory. An all-play record of 11-0. This wasn't a fantasy matchup, this was a public execution with a scoreboard attached. MarlBurrow Man didn't lose a game, he lost a hostage negotiation.
 
-😬 THE "THANKS FOR PLAYING" AWARD
+💀 THE "WELCOME TO THE LEAGUE, NOW EAT SHIT" AWARD
 Winner: MarlBurrow Man
-Getting run over 213-112 is bad. Getting run over 213-112 and then having to go pick through the waiver wire for Tank Dell and Malachi Fields like a raccoon in a dumpster is worse. At least you're proactive about your own demolition.
+112.46 points against 213.06. That's not a loss, that's a punt returned for a touchdown before you even snapped the ball. You also had 35.88 points rotting on your bench, so congrats, you lost by a hundred AND left change on the table.
 
-😰 THE "HEART ATTACK FOR NO REASON" AWARD
+🍑 THE "CLENCHED ASSHOLE FINISH" AWARD
 Winner: Purdy Good
-114.66 to 109.96. A 4.70-point margin over Tee Time, the closest game of the week. Congrats on the W, but that's not domination, that's a coin flip that happened to land in your favor.
+4.70 points. That's it. That's the margin. Tee Time had every right to flip their table over this one, and yet Purdy Good's luck index sits at a filthy +54.5, meaning the fantasy gods personally reached down and closed this one out for you. Enjoy the shower, you filthy-lucky bastard.
 
-💀 THE "SO CLOSE, SO POINTLESS" AWARD
-Winner: Tee Time
-You put up 109.96 and still lost by less than five points. That's the fantasy equivalent of missing a field goal by an inch. Tee Time indeed — go hit something.
-
-🍀 THE "LUCKIEST SON OF A BITCH" AWARD
+🎯 THE "STILL GETS SCREWED EVEN WHEN HE WINS" AWARD
 Winner: Ne-Tuten-yahu
-Your all-play record is a putrid 2-9. Against literally anyone else on
+You won. Somehow. 104.06 to 83.40. But your all-play record is a putrid 2-9, giving you a +81.8 luck rating that basically confirms you backed into this win like a drunk parallel parking. Don't get used to it.
+
+🪦 THE "DESERVED BETTER, GOT NOTHING" AWARD
+Winner: Balls
+8-3 all-play record. A perfectly respectable 132.00 points. And you're 0-1 with a -72.7 luck index, the worst in the entire league. The fantasy gods looked at your resume and said "cute" before slamming the door in your face.
+
+🚽 THE "SOMEHOW EVEN WORSE THAN THAT" AWARD
+Winner: za island animals
+130.02 points, a 7-4 all-play record, and you STILL lost by 49.54 because Puka and rally decided to have a field day. Kenneth Walker dropped 40.60 points on your own roster and it still wasn't enough to save you. That's not bad luck, that's a targeted airstrike.
+
+🛋️ THE "YOUR STARTING LINEUP IS A HATE CRIME" AWARD
+Winner: Just take the $50 💸
+85.76 points left rotting on your bench, the most in the league, while your starters combined for a pathetic 81.74. You basically benched an entire second team that would've beaten what you actually played. Take the $50, take an L, take a long look in the mirror.
+
+🧠 THE "PLAYED CHESS, LOST TO CHECKERS" AWARD
+Winner: Tee Time
+67.40 bench points wasted in a game you lost by 4.70. Somewhere on your bench sat the exact 4.71 points you needed and you just... didn't use them. A -27.3 luck score to top it off. Tough week to be you.
+
+🐐 THE "ONE MAN ARMY" AWARD
+Winner: Dak MVP szn
+Derrick Henry went full nuclear for 40.80 points and single-handedly carried you to a win over Balls. Never mind that you also left 65.64 points on your bench doing absolutely nothing — Henry made sure you didn't need them. Efficient? No. Effective? Also no, but you won anyway.
+
+📈 THE "QUIETLY TERRIFYING" AWARD
+Winner: Throwsa parks
+128.22 points, a 46.48-point blowout, and a +45.5 luck score, all while still having 52.80 points glued to the bench. You beat Just take the $50 💸 like a drum without even trying particularly hard. Scary stuff for Week 2 opponents.
+
+🌟 THE "SHOWED UP, SHUT UP" AWARD
+Winner: Puka and rally
+179.56 points, second-best in the league, powered by Christian Watson's 37.70-point explosion. You beat za island animals by nearly 50 points and only left 19.80 on your bench. Clean, professional, borderline boring. Do it again and people will stop hate-reading your team name.
+
+🗑️ THE "DEAD LAST, DESERVED IT" AWARD
+Winner: DomOfTheMFYear
+83.40 points is the lowest score by an actual winner-loser matchup in the league not named Just take the $50 💸, and you still found a way to leave 37.70 points on your bench while losing. A -9.1 luck score just confirms what everyone already knew watching your lineup: this was self-inflicted.
 
 ## Trades — Last 21 Days (top 5)
 
