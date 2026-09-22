@@ -2261,6 +2261,30 @@ def send_sms_summary(
         resp.raise_for_status()
 
 
+def _send_marker_path(latest_dir: Path) -> Path:
+    return latest_dir / ".last_sent.json"
+
+
+def already_sent(latest_dir: Path, season: str, week: int) -> bool:
+    """Whether a real send (email or SMS) already went out for this exact
+    season+week, per the marker committed alongside latest/ -- guards against
+    double-sending the same week's newsletter (e.g. a stale GitHub Actions
+    schedule tick still firing after its cron was just changed, racing with a
+    manual catch-up dispatch)."""
+    try:
+        marker = json.loads(_send_marker_path(latest_dir).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    return marker.get("season") == season and marker.get("week") == week
+
+
+def mark_sent(latest_dir: Path, season: str, week: int) -> None:
+    _send_marker_path(latest_dir).write_text(
+        json.dumps({"season": season, "week": week, "sent_at": datetime.now(timezone.utc).isoformat()}),
+        encoding="utf-8",
+    )
+
+
 def determine_week(league_id: str, explicit_week: Optional[int]) -> int:
     if explicit_week is not None:
         return explicit_week
@@ -2336,6 +2360,17 @@ def main(argv: Optional[list[str]] = None) -> int:
     )
     parser.add_argument(
         "--send-sms", action="store_true", help="Text a short summary via Twilio (see README for required env vars)"
+    )
+    parser.add_argument(
+        "--force-send",
+        action="store_true",
+        help=(
+            "Send even if this exact season+week was already sent (per latest-dir's "
+            ".last_sent.json marker) -- normally that's skipped so a stray double-trigger "
+            "(e.g. a stale GitHub Actions schedule tick firing after its cron just changed, "
+            "racing a manual catch-up dispatch) can't email/text the league twice for the "
+            "same week. Use this for a deliberate manual resend."
+        ),
     )
     parser.add_argument(
         "--remind-commissioner",
@@ -2463,7 +2498,20 @@ def main(argv: Optional[list[str]] = None) -> int:
     (latest_dir / "latest.html").write_text(html_body, encoding="utf-8")
     print(f"Wrote {latest_dir / 'latest.md'} (always-current copy)")
 
-    if args.send_email:
+    skip_send = (
+        (args.send_email or args.send_sms)
+        and not args.force_send
+        and already_sent(latest_dir, data.season, week)
+    )
+    if skip_send:
+        print(
+            f"Skipping send: {data.season} week {week} was already sent for this league "
+            f"(see {latest_dir / '.last_sent.json'}) -- pass --force-send to resend anyway.",
+            file=sys.stderr,
+        )
+    sent_something = False
+
+    if args.send_email and not skip_send:
         required = ["SMTP_HOST", "SMTP_USERNAME", "SMTP_PASSWORD", "FROM_EMAIL", "NEWSLETTER_EMAILS"]
         missing = [key for key in required if not os.environ.get(key)]
         if missing:
@@ -2481,11 +2529,12 @@ def main(argv: Optional[list[str]] = None) -> int:
                     to_addrs=_env_list("NEWSLETTER_EMAILS"),
                 )
                 print(f"Emailed newsletter to {', '.join(_env_list('NEWSLETTER_EMAILS'))}")
+                sent_something = True
             except (ValueError, smtplib.SMTPException) as exc:
                 print(f"Failed to send email: {exc}", file=sys.stderr)
                 return 1
 
-    if args.send_sms:
+    if args.send_sms and not skip_send:
         required = ["TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN", "TWILIO_FROM_NUMBER", "NEWSLETTER_PHONES"]
         missing = [key for key in required if not os.environ.get(key)]
         if missing:
@@ -2500,9 +2549,13 @@ def main(argv: Optional[list[str]] = None) -> int:
                     to_numbers=_env_list("NEWSLETTER_PHONES"),
                 )
                 print(f"Texted summary to {', '.join(_env_list('NEWSLETTER_PHONES'))}")
+                sent_something = True
             except (ValueError, requests.RequestException) as exc:
                 print(f"Failed to send SMS: {exc}", file=sys.stderr)
                 return 1
+
+    if sent_something:
+        mark_sent(latest_dir, data.season, week)
 
     return 0
 
