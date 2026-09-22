@@ -18,6 +18,11 @@ on:
         required: false
         type: boolean
         default: false
+      force_send:
+        description: "Send even if this week was already sent (bypasses the once-per-week guard -- use for a deliberate manual resend)"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -57,6 +62,10 @@ jobs:
           if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.send }}" == "true" ]; then
             SEND_ARGS="--send-email --send-sms"
           fi
+          FORCE_ARG=""
+          if [ "${{ github.event.inputs.force_send }}" == "true" ]; then
+            FORCE_ARG="--force-send"
+          fi
           python newsletter.py \
             --league-id 1312089746436030464 \
             --league-type redraft \
@@ -66,7 +75,7 @@ jobs:
             --league-logo-url "https://github.com/user-attachments/assets/64f64aba-8f36-4fdf-be8a-33c77fe2bcc6" \
             --weekly-awards \
             --no-rivalry-week \
-            $WEEK_ARG $SEND_ARGS
+            $WEEK_ARG $SEND_ARGS $FORCE_ARG
 
       - name: Upload newsletter artifacts
         uses: actions/upload-artifact@v4

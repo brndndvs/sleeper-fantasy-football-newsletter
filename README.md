@@ -345,6 +345,19 @@ SMS later without anything breaking.
 SMS gets a short plain-text digest (closest game, top scorer, first place)
 rather than the full newsletter, since SMS isn't meant for long-form content.
 
+#### Once-per-week send guard
+
+A real send (`--send-email`/`--send-sms`) writes a `.last_sent.json` marker
+into `--latest-dir` recording the season+week that was just sent. If you run
+the command again for that same season+week, the send is skipped (email/SMS
+are not re-sent) even though the newsletter still regenerates normally —
+this guards against double-sending, e.g. a GitHub Actions schedule tick that
+was already queued under an old cron still firing after the schedule was
+just changed, racing a manual catch-up dispatch. Pass `--force-send` to
+override and resend deliberately. The marker is scoped per league since each
+league has its own `--latest-dir`, and it's committed to the repo alongside
+`latest.md`/`latest.html` so the guard persists across workflow runs.
+
 ### Running it automatically every week
 
 `.github/workflows/weekly-newsletter.yml` runs the newsletter every Tuesday at

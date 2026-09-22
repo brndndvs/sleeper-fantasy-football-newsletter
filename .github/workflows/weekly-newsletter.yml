@@ -21,6 +21,11 @@ on:
         required: false
         type: boolean
         default: false
+      force_send:
+        description: "Send even if this week was already sent (bypasses the once-per-week guard -- use for a deliberate manual resend)"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -60,7 +65,11 @@ jobs:
           if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.send }}" == "true" ]; then
             SEND_ARGS="--send-email --send-sms"
           fi
-          python newsletter.py $WEEK_ARG $SEND_ARGS \
+          FORCE_ARG=""
+          if [ "${{ github.event.inputs.force_send }}" == "true" ]; then
+            FORCE_ARG="--force-send"
+          fi
+          python newsletter.py $WEEK_ARG $SEND_ARGS $FORCE_ARG \
             --league-logo-url "https://github.com/user-attachments/assets/d9830c50-3fc5-4241-9d2d-5e0029eb343d" \
             --weekly-awards \
             --awards-exclude-teams "BlowPaterno,Boynton Beach Blue Balls,Larkinsjacob,andrewburkhardt1,The Aubrey Express,CeDeez big ones"
