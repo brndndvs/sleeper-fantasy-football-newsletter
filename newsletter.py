@@ -1557,87 +1557,6 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append(data.weekly_awards)
         lines.append("")
 
-    lines.append(f"## Trades — {data.trades_period_label} (top {TRADE_DISPLAY_LIMIT})\n")
-    if data.trades:
-        lines.append(
-            "_Value is a rough estimate from Sleeper's own player rankings and a simple "
-            "pick-value table — not official ADP or projections. Ranked by a blend of how "
-            "lopsided the trade was and how much total value changed hands, so a real "
-            "blockbuster outranks a minor move that just happens to be a bit uneven._\n"
-        )
-        for i, trade in enumerate(data.trades, start=1):
-            date_str = format_day(trade["when"])
-            headline = f"**Trade {i} ({date_str})"
-            if trade["winner"]:
-                headline += f" — {trade['winner']} wins it (+{trade['value_diff']} est. value)**"
-            else:
-                headline += " — looks even**"
-            lines.append(headline)
-            lines.append("")
-            lines.append("| Manager | Received | Value | Net Swing |")
-            lines.append("|---|---|---|---|")
-            for team_name, swing in trade_net_swings(trade):
-                info = trade["teams"][team_name]
-                received = ", ".join(item["label"] for item in info["received"]) or "—"
-                value = round(info["received_value"])
-                lines.append(f"| {team_name} | {received} | {value} | {swing:+d} |")
-            lines.append("")
-    else:
-        lines.append(f"_{data.no_trades_message}_\n")
-
-    is_dynasty = data.league_type == "dynasty"
-    lines.append(f"## {'Rookie ' if is_dynasty else ''}Draft Value Tracker\n")
-    if data.draft_rankings["available"]:
-        lines.append(
-            "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
-            f"week to week as {'rookies' if is_dynasty else 'players'} rise and fall._\n"
-        )
-        lines.append("**Top 10 Highest Current Value**\n")
-        for i, e in enumerate(data.draft_rankings["top_value"], start=1):
-            lines.append(
-                f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                f"— ~{e['current_value']} value"
-            )
-        lines.append("")
-        if data.in_season:
-            lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
-            for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
-                lines.append(
-                    f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                    f"— {e['value_gap']:+d} value vs. draft slot"
-                )
-    else:
-        lines.append(f"_No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet._")
-    lines.append("")
-
-    lines.append("## Waiver Wire / Free Agency This Week\n")
-    if data.waivers:
-        for day_label, moves in group_waivers_by_day(data.waivers):
-            lines.append(f"**{day_label}:**")
-            for w in moves:
-                added = ", ".join(w["added"]) or "—"
-                dropped = ", ".join(w["dropped"]) or "—"
-                faab_str = f" (${w['faab']} FAAB)" if w.get("faab") else ""
-                lines.append(f"- **{w['team']}** ({w['type']}{faab_str}): added {added}; dropped {dropped}")
-            lines.append("")
-    else:
-        lines.append("_No waiver or free agent moves this week._")
-    lines.append("")
-
-    lines.append("## Top 5 Highest-Value Waiver Pickups\n")
-    if not data.games_started:
-        lines.append("_Will populate once Week 1 games get underway._")
-    elif data.top_waiver_pickups:
-        lines.append(
-            "_Ranked by current player value (Sleeper's own rankings), not FAAB spent -- "
-            "tracked cumulatively across the whole season so far._\n"
-        )
-        for i, p in enumerate(data.top_waiver_pickups, start=1):
-            lines.append(f"{i}. {p['player']} — added by {p['team']} — ~{p['value']} value")
-    else:
-        lines.append("_No waiver or free agent pickups so far this season._")
-    lines.append("")
-
     if data.in_season:
         lines.append("## Matchup Recap\n")
         for m in data.matchups:
@@ -1757,6 +1676,87 @@ def render_markdown(data: NewsletterData) -> str:
             )
     else:
         lines.append("_Not enough games played yet to compute a luck index._")
+    lines.append("")
+
+    lines.append(f"## Trades — {data.trades_period_label} (top {TRADE_DISPLAY_LIMIT})\n")
+    if data.trades:
+        lines.append(
+            "_Value is a rough estimate from Sleeper's own player rankings and a simple "
+            "pick-value table — not official ADP or projections. Ranked by a blend of how "
+            "lopsided the trade was and how much total value changed hands, so a real "
+            "blockbuster outranks a minor move that just happens to be a bit uneven._\n"
+        )
+        for i, trade in enumerate(data.trades, start=1):
+            date_str = format_day(trade["when"])
+            headline = f"**Trade {i} ({date_str})"
+            if trade["winner"]:
+                headline += f" — {trade['winner']} wins it (+{trade['value_diff']} est. value)**"
+            else:
+                headline += " — looks even**"
+            lines.append(headline)
+            lines.append("")
+            lines.append("| Manager | Received | Value | Net Swing |")
+            lines.append("|---|---|---|---|")
+            for team_name, swing in trade_net_swings(trade):
+                info = trade["teams"][team_name]
+                received = ", ".join(item["label"] for item in info["received"]) or "—"
+                value = round(info["received_value"])
+                lines.append(f"| {team_name} | {received} | {value} | {swing:+d} |")
+            lines.append("")
+    else:
+        lines.append(f"_{data.no_trades_message}_\n")
+
+    lines.append("## Waiver Wire / Free Agency This Week\n")
+    if data.waivers:
+        for day_label, moves in group_waivers_by_day(data.waivers):
+            lines.append(f"**{day_label}:**")
+            for w in moves:
+                added = ", ".join(w["added"]) or "—"
+                dropped = ", ".join(w["dropped"]) or "—"
+                faab_str = f" (${w['faab']} FAAB)" if w.get("faab") else ""
+                lines.append(f"- **{w['team']}** ({w['type']}{faab_str}): added {added}; dropped {dropped}")
+            lines.append("")
+    else:
+        lines.append("_No waiver or free agent moves this week._")
+    lines.append("")
+
+    lines.append("## Top 5 Highest-Value Waiver Pickups\n")
+    if not data.games_started:
+        lines.append("_Will populate once Week 1 games get underway._")
+    elif data.top_waiver_pickups:
+        lines.append(
+            "_Ranked by current player value (Sleeper's own rankings), not FAAB spent -- "
+            "tracked cumulatively across the whole season so far._\n"
+        )
+        for i, p in enumerate(data.top_waiver_pickups, start=1):
+            lines.append(f"{i}. {p['player']} — added by {p['team']} — ~{p['value']} value")
+    else:
+        lines.append("_No waiver or free agent pickups so far this season._")
+    lines.append("")
+
+    is_dynasty = data.league_type == "dynasty"
+    lines.append(f"## {'Rookie ' if is_dynasty else ''}Draft Value Tracker\n")
+    if data.draft_rankings["available"]:
+        lines.append(
+            "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
+            f"week to week as {'rookies' if is_dynasty else 'players'} rise and fall._\n"
+        )
+        lines.append("**Top 10 Highest Current Value**\n")
+        for i, e in enumerate(data.draft_rankings["top_value"], start=1):
+            lines.append(
+                f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
+                f"— ~{e['current_value']} value"
+            )
+        lines.append("")
+        if data.in_season:
+            lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
+            for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
+                lines.append(
+                    f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
+                    f"— {e['value_gap']:+d} value vs. draft slot"
+                )
+    else:
+        lines.append(f"_No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet._")
     lines.append("")
 
     lines.append("Go Giants")
@@ -1882,119 +1882,6 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
                 continue
             paragraph_html = e(paragraph).replace("\n", "<br>")
             parts.append(f"<p>{paragraph_html}</p>")
-
-    parts.append(f"<h2>Trades — {e(data.trades_period_label)} (top {TRADE_DISPLAY_LIMIT})</h2>")
-    if data.trades:
-        parts.append(
-            "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
-            "pick-value table — not official ADP or projections. Ranked by a blend of how "
-            "lopsided the trade was and how much total value changed hands, so a real "
-            "blockbuster outranks a minor move that just happens to be a bit uneven.</em></p>"
-        )
-        team_logos_by_name = {t.team_name: t.avatar_url for t in data.standings}
-        for i, trade in enumerate(data.trades, start=1):
-            date_str = e(format_day(trade["when"]))
-            if trade["winner"]:
-                headline = f"Trade {i} ({date_str}) — {e(trade['winner'])} wins it (+{trade['value_diff']} est. value)"
-            else:
-                headline = f"Trade {i} ({date_str}) — looks even"
-            parts.append(f"<p><strong>{headline}</strong></p>")
-            parts.append(
-                '<table class="trades"><tr><th>Manager</th><th>Received</th><th>Value</th><th>Net Swing</th></tr>'
-            )
-            for team_name, swing in trade_net_swings(trade):
-                info = trade["teams"][team_name]
-                received = _received_list_html(info["received"], e=e)
-                value = round(info["received_value"])
-                logo = _team_logo_html(team_logos_by_name.get(team_name))
-                parts.append(
-                    f"<tr><td>{logo}{e(team_name)}</td><td>{received}</td>"
-                    f"<td>{value}</td><td>{swing:+d}</td></tr>"
-                )
-            parts.append("</table>")
-    else:
-        parts.append(f"<p><em>{e(data.no_trades_message)}</em></p>")
-
-    is_dynasty = data.league_type == "dynasty"
-    parts.append(f"<h2>{'Rookie ' if is_dynasty else ''}Draft Value Tracker</h2>")
-    if data.draft_rankings["available"]:
-        parts.append(
-            "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
-            f"shifts week to week as {'rookies' if is_dynasty else 'players'} rise and fall.</em></p>"
-        )
-        parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
-        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
-        top_value = data.draft_rankings["top_value"]
-        max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
-        for i, entry in enumerate(top_value, start=1):
-            bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
-            headshot = _player_headshot_html(entry.get("player_id"))
-            parts.append(
-                f"<tr><td>{i}</td>"
-                f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
-                f"Pick {entry['pick_no']})</td>"
-                f"<td>{bar} ~{entry['current_value']}</td></tr>"
-            )
-        parts.append("</table>")
-
-        if data.in_season:
-            parts.append(
-                "<p><strong>Top 10 Best Value Picks</strong> "
-                "<em>(current value vs. where they were drafted)</em></p>"
-            )
-            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
-            best_picks = data.draft_rankings["best_picks"]
-            max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
-            for i, entry in enumerate(best_picks, start=1):
-                color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
-                bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
-                headshot = _player_headshot_html(entry.get("player_id"))
-                parts.append(
-                    f"<tr><td>{i}</td>"
-                    f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
-                    f"Pick {entry['pick_no']})</td>"
-                    f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
-                )
-            parts.append("</table>")
-    else:
-        parts.append(f"<p><em>No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet.</em></p>")
-
-    parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
-    if data.waivers:
-        for day_label, moves in group_waivers_by_day(data.waivers):
-            parts.append(f"<p><strong>{e(day_label)}:</strong></p><ul>")
-            for w in moves:
-                added = ", ".join(w["added"]) or "—"
-                dropped = ", ".join(w["dropped"]) or "—"
-                faab_str = f" (${w['faab']} FAAB)" if w.get("faab") else ""
-                parts.append(
-                    f"<li><strong>{e(w['team'])}</strong> ({e(w['type'])}{faab_str}): "
-                    f"added {e(added)}; dropped {e(dropped)}</li>"
-                )
-            parts.append("</ul>")
-    else:
-        parts.append("<p><em>No waiver or free agent moves this week.</em></p>")
-
-    parts.append("<h2>Top 5 Highest-Value Waiver Pickups</h2>")
-    if not data.games_started:
-        parts.append("<p><em>Will populate once Week 1 games get underway.</em></p>")
-    elif data.top_waiver_pickups:
-        parts.append(
-            "<p><em>Ranked by current player value (Sleeper's own rankings), not FAAB spent — "
-            "tracked cumulatively across the whole season so far.</em></p>"
-        )
-        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Added By</th><th>Value</th></tr>")
-        max_value = max((p["value"] for p in data.top_waiver_pickups), default=0) or 1
-        for i, p in enumerate(data.top_waiver_pickups, start=1):
-            headshot = _player_headshot_html(p.get("player_id"))
-            bar = _bar_html(p["value"] / max_value, "#2c5f2d")
-            parts.append(
-                f"<tr><td>{i}</td><td>{headshot}{e(p['player'])}</td><td>{e(p['team'])}</td>"
-                f"<td>{bar} ~{p['value']}</td></tr>"
-            )
-        parts.append("</table>")
-    else:
-        parts.append("<p><em>No waiver or free agent pickups so far this season.</em></p>")
 
     if data.in_season:
         parts.append("<h2>Matchup Recap</h2><ul>")
@@ -2143,6 +2030,119 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         parts.append("</table>")
     else:
         parts.append("<p><em>Not enough games played yet to compute a luck index.</em></p>")
+
+    parts.append(f"<h2>Trades — {e(data.trades_period_label)} (top {TRADE_DISPLAY_LIMIT})</h2>")
+    if data.trades:
+        parts.append(
+            "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
+            "pick-value table — not official ADP or projections. Ranked by a blend of how "
+            "lopsided the trade was and how much total value changed hands, so a real "
+            "blockbuster outranks a minor move that just happens to be a bit uneven.</em></p>"
+        )
+        team_logos_by_name = {t.team_name: t.avatar_url for t in data.standings}
+        for i, trade in enumerate(data.trades, start=1):
+            date_str = e(format_day(trade["when"]))
+            if trade["winner"]:
+                headline = f"Trade {i} ({date_str}) — {e(trade['winner'])} wins it (+{trade['value_diff']} est. value)"
+            else:
+                headline = f"Trade {i} ({date_str}) — looks even"
+            parts.append(f"<p><strong>{headline}</strong></p>")
+            parts.append(
+                '<table class="trades"><tr><th>Manager</th><th>Received</th><th>Value</th><th>Net Swing</th></tr>'
+            )
+            for team_name, swing in trade_net_swings(trade):
+                info = trade["teams"][team_name]
+                received = _received_list_html(info["received"], e=e)
+                value = round(info["received_value"])
+                logo = _team_logo_html(team_logos_by_name.get(team_name))
+                parts.append(
+                    f"<tr><td>{logo}{e(team_name)}</td><td>{received}</td>"
+                    f"<td>{value}</td><td>{swing:+d}</td></tr>"
+                )
+            parts.append("</table>")
+    else:
+        parts.append(f"<p><em>{e(data.no_trades_message)}</em></p>")
+
+    parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
+    if data.waivers:
+        for day_label, moves in group_waivers_by_day(data.waivers):
+            parts.append(f"<p><strong>{e(day_label)}:</strong></p><ul>")
+            for w in moves:
+                added = ", ".join(w["added"]) or "—"
+                dropped = ", ".join(w["dropped"]) or "—"
+                faab_str = f" (${w['faab']} FAAB)" if w.get("faab") else ""
+                parts.append(
+                    f"<li><strong>{e(w['team'])}</strong> ({e(w['type'])}{faab_str}): "
+                    f"added {e(added)}; dropped {e(dropped)}</li>"
+                )
+            parts.append("</ul>")
+    else:
+        parts.append("<p><em>No waiver or free agent moves this week.</em></p>")
+
+    parts.append("<h2>Top 5 Highest-Value Waiver Pickups</h2>")
+    if not data.games_started:
+        parts.append("<p><em>Will populate once Week 1 games get underway.</em></p>")
+    elif data.top_waiver_pickups:
+        parts.append(
+            "<p><em>Ranked by current player value (Sleeper's own rankings), not FAAB spent — "
+            "tracked cumulatively across the whole season so far.</em></p>"
+        )
+        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Added By</th><th>Value</th></tr>")
+        max_value = max((p["value"] for p in data.top_waiver_pickups), default=0) or 1
+        for i, p in enumerate(data.top_waiver_pickups, start=1):
+            headshot = _player_headshot_html(p.get("player_id"))
+            bar = _bar_html(p["value"] / max_value, "#2c5f2d")
+            parts.append(
+                f"<tr><td>{i}</td><td>{headshot}{e(p['player'])}</td><td>{e(p['team'])}</td>"
+                f"<td>{bar} ~{p['value']}</td></tr>"
+            )
+        parts.append("</table>")
+    else:
+        parts.append("<p><em>No waiver or free agent pickups so far this season.</em></p>")
+
+    is_dynasty = data.league_type == "dynasty"
+    parts.append(f"<h2>{'Rookie ' if is_dynasty else ''}Draft Value Tracker</h2>")
+    if data.draft_rankings["available"]:
+        parts.append(
+            "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
+            f"shifts week to week as {'rookies' if is_dynasty else 'players'} rise and fall.</em></p>"
+        )
+        parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
+        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
+        top_value = data.draft_rankings["top_value"]
+        max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
+        for i, entry in enumerate(top_value, start=1):
+            bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
+            headshot = _player_headshot_html(entry.get("player_id"))
+            parts.append(
+                f"<tr><td>{i}</td>"
+                f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                f"Pick {entry['pick_no']})</td>"
+                f"<td>{bar} ~{entry['current_value']}</td></tr>"
+            )
+        parts.append("</table>")
+
+        if data.in_season:
+            parts.append(
+                "<p><strong>Top 10 Best Value Picks</strong> "
+                "<em>(current value vs. where they were drafted)</em></p>"
+            )
+            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
+            best_picks = data.draft_rankings["best_picks"]
+            max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
+            for i, entry in enumerate(best_picks, start=1):
+                color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
+                bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
+                headshot = _player_headshot_html(entry.get("player_id"))
+                parts.append(
+                    f"<tr><td>{i}</td>"
+                    f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                    f"Pick {entry['pick_no']})</td>"
+                    f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
+                )
+            parts.append("</table>")
+    else:
+        parts.append(f"<p><em>No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet.</em></p>")
 
     parts.append("<p>Go Giants</p>")
 
