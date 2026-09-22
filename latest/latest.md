@@ -11,45 +11,45 @@ Congratulations to Cole who will be 2-0 after declaring the tank.
 
 ## 🏆 Week 2 Awards
 
-🥇 THE "MATH DOESN'T LIE, YOU JUST SUCK" AWARD
-Winner: 12 DAY WAR VET
-0-2, and your luck index is a putrid -61.5, the worst in the entire league. You'd have gone 16-10 against literally anyone else on your schedule, but no, you had to run into the two teams that actually showed up. At some point "unlucky" just becomes "unwatchable."
-
-🍑 THE "GETTING RAILED FOR SPORT" AWARD
-Winner: Roger Goodell
-You put up 302.94 points through two weeks — third most in the league — and still sit at 1-1 with a -38.5 luck score. This week you dropped 138.88 and lost by 73.5. You're basically the commissioner's namesake getting fined by his own league.
-
-🧠 THE "LEAVE IT ON THE BENCH, GENIUS" AWARD
-Winner: Roger Goodell
-115.88 points rotting on your bench this week, tops in the league. You lost by 73.5 and had enough on your pine to win by 40. Devin Singletary can't save you if you can't even set the right damn lineup.
-
-🪑 THE "SECOND PLACE IN THE COUCH POTATO OLYMPICS" AWARD
+🥇 THE "212 POINTS AND STILL LEAVING MONEY ON THE TABLE" AWARD
 Winner: Talking Tua Teenager
-You scored 212.38 and won by 73.5, and STILL left 107.12 on your bench. Jaxon Smith-Njigba (42.5) and Davante Adams (39.5) went off for you and you still couldn't be bothered to optimize the rest. Flex-and-chill energy, apparently it works.
+You dropped 212.38 points behind a 42.50-point JSN game and a 39.50-point Davante Adams game, and you STILL benched 107.12 points. That's not a starting lineup, that's a hostage situation. Roger Goodell lost by 73 and you still managed to be reckless with your own roster.
 
-💀 THE "ACTUAL WAR CRIME" AWARD
+💀 THE "GOODELL SUSPENDS HIMSELF" AWARD
+Winner: Roger Goodell
+302.94 points for on the season and a losing record. You've scored more than everyone except Talking Tua and Balls, and you're 1-1 with a -38.5 luck rating. The commissioner giveth 302 points, the commissioner taketh away 350 points against. Truly fitting for a guy named after the league's most punitive dipshit.
+
+🪖 THE "FRIENDLY FIRE" AWARD
+Winner: 12 DAY WAR VET
+0-2, dead last in luck at -61.5, and you just took a 36.92-point beatdown from KC. You've been drafted, deployed, and discharged all in two weeks. At this rate the only war you're fighting is against your own bench.
+
+🛋️ THE "COMFIEST BENCH IN THE LEAGUE" AWARD
+Winner: Roger Goodell
+115.88 points sat on your bench this week, the most in the league, while you lost by 73.5. Somewhere on your roster is a guy who outscored half the starting lineups in this league and you just let him rot. Incredible work.
+
+🎯 THE "BARELY BROKE A SWEAT" AWARD
 Winner: KC
-You beat 12 DAY WAR VET by 36.92, which sounds nice until you remember you only scored 134.68 doing it. You also left 47.02 on your bench and are now cutting a defense AND a WR in the same week trying to find any pulse on your roster. Winning ugly is still winning, but damn, sir.
+Your only win of the season came by "just" 36.92 points over a winless team, and you still left 47.02 on your bench, the LEAST wasted of anyone. Efficient mediocrity. You're basically the Honda Civic of this league — reliable, boring, and somehow still 1-1.
 
-🎯 THE "STAT LINE OF THE WEEK" AWARD
-Winner: Talking Tua Teenager
-Jaxon Smith-Njigba went for 42.5 and Davante Adams for 39.5 in the same lineup, same week. That's 82 points from two guys — more than KC's ENTIRE TEAM scored (134.68 total, so basically). Unfair. Disgusting. Keep going.
+🍀 THE "HORSESHOE UP THE ASS" AWARD
+Winner: Simply Touchdowns
+2-0 with a +38.5 luck index, the luckiest team standing. Your all-play record is 16-10, meaning in a fair universe you'd have lost multiple times already. Amon-Ra St. Brown dropped 35.20 on your behalf and bailed you out. Enjoy the mirage while it lasts.
 
-🔮 THE "REGRESSION IS COMING FOR YOU" AWARD
-Winner: Balls
-2-0, 335.66 PF, and a laughably low +3.8 luck score with a 25-1 all-play record. This isn't luck, this is just domination. Everybody else in this league should be terrified, and also a little bit turned on.
-
-🩸 THE "BLED OUT SLOWLY" AWARD
+😤 THE "KARMA'S GOT YOUR ADDRESS" AWARD
 Winner: 12 DAY WAR VET
-298.74 points against already, the most allowed in the league, paired with 0 wins. You're not losing close, you're losing loud. This week's 36.92-point beatdown from KC was basically a mercy killing.
+Worst luck index in the league at -61.5 to go with your 0-2 record. You're basically the control group for this entire experiment in misery. The football gods aren't just ignoring you, they're actively taking your calls just to hang up.
 
-🎖️ THE "QUIETLY UNDEFEATED AND NOBODY'S TALKING ABOUT YOU" AWARD
+📈 THE "SUSPICIOUSLY UNTOUCHABLE" AWARD
+Winner: Balls
+2-0, 335.66 points for, only 140.50 against, and a 25-1 all-play record. This isn't luck, this isn't variance, this is just a good team quietly making everyone else look like shit. Nothing funny to say here because you haven't given anyone anything to laugh at yet. Boring is a compliment when you're this good.
+
+🧠 THE "SMARTEST GUY IN THE ROOM WHO STILL DID NOTHING" AWARD
 Winner: A FOOTBALL TEAM
-2-0, allowing the fewest points against in the league (108.62), and Jonathan Taylor dropped 29.2 for you this week. You're doing everything right and somehow still the most boring 2-0 team to talk about. Keep cooking in silence, nerd.
+Jonathan Taylor dropped 29.20 for you and you're sitting pretty at 2-0 with the third-best luck index at +30.8. Your only move this week was apparently to sit back and watch everyone else self-destruct. Somehow that's a legitimate strategy right now.
 
-🧟 THE "DEAD ROSTER WALKING" AWARD
-Winner: Roger Goodell / 12 DAY WAR VET (tie)
-Combined bench waste this week: 214.84 points between the two of you, and a combined record of 1-3. Roger dropped Tyrone Tracy for Devin Singletary like that was going to fix anything. It did not.
+✂️ THE "ADDITION BY SUBTRACTION" AWARD
+Winner: KC
+You made two roster moves this week and both of them were just dropping guys, first the Titans defense, then Chimere Dike. No adds, just amputations. At some point you're going to drop your own kicker out of spite and honestly we'd respect it.
 
 ## Trades — Last 21 Days (top 5)
 
@@ -158,7 +158,7 @@ _No rival matchup scheduled for the upcoming week._
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Roger Goodell** (proj 139.3) vs **A FOOTBALL TEAM** (proj 127.4) — combined 266.7, projected margin 12.0
+- **Roger Goodell** (proj 139.0) vs **A FOOTBALL TEAM** (proj 127.4) — combined 266.4, projected margin 11.6
 - **Simply Touchdowns** (proj 108.5) vs **Tpotts42** (proj 140.8) — combined 249.3, projected margin 32.2
 
 ## Closest Games
