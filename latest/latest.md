@@ -11,131 +11,53 @@ Congratulations to Cole who will be 2-0 after declaring the tank.
 
 ## 🏆 Week 2 Awards
 
-🥇 THE "212 POINTS AND STILL LEAVING MONEY ON THE TABLE" AWARD
+🥇 THE "MATH CAN BE VERY CRUEL" AWARD
+Winner: Roger Goodell
+303 points for. A losing record. Roger Goodell put up 302.94 points on the season, more than four teams with actual wins, and he's sitting at 1-1 with a -38.5 luck score. The league office is corrupt, apparently, and also somehow the victim of its own corruption.
+
+🖕 THE "PLAY YOUR FUCKING STUDS" AWARD
+Winner: Roger Goodell
+115.88 points left rotting on your bench in a game you lost by 73.5. If you'd played literally anyone else you might've scraped a win. Instead you scored 138.88 while your bench outscored your entire actual lineup's margin by 40 points. Incredible self-sabotage. Truly commissioner behavior.
+
+💀 THE "GET THE FUCK OUT OF HERE" AWARD
 Winner: Talking Tua Teenager
-You dropped 212.38 points behind a 42.50-point JSN game and a 39.50-point Davante Adams game, and you STILL benched 107.12 points. That's not a starting lineup, that's a hostage situation. Roger Goodell lost by 73 and you still managed to be reckless with your own roster.
+212.38 points. A 73.5 point margin of victory. Jaxon Smith-Njigba dropped 42.5 and Davante Adams casually added 39.5 on top, meaning your two receivers alone nearly out-scored Goodell's entire roster. This wasn't a fantasy matchup, it was a public execution with a halftime show.
 
-💀 THE "GOODELL SUSPENDS HIMSELF" AWARD
-Winner: Roger Goodell
-302.94 points for on the season and a losing record. You've scored more than everyone except Talking Tua and Balls, and you're 1-1 with a -38.5 luck rating. The commissioner giveth 302 points, the commissioner taketh away 350 points against. Truly fitting for a guy named after the league's most punitive dipshit.
-
-🪖 THE "FRIENDLY FIRE" AWARD
+🩸 THE "CAN'T CATCH A GODDAMN BREAK" AWARD
 Winner: 12 DAY WAR VET
-0-2, dead last in luck at -61.5, and you just took a 36.92-point beatdown from KC. You've been drafted, deployed, and discharged all in two weeks. At this rate the only war you're fighting is against your own bench.
+0-2, -61.5 luck index, worst in the league by a mile. You're averaging enough points to beat most all-play opponents (16-10 all-play) but somehow found the two teams built to bury you. Also left 98.96 points on your bench like you weren't even trying to fight back.
 
-🛋️ THE "COMFIEST BENCH IN THE LEAGUE" AWARD
-Winner: Roger Goodell
-115.88 points sat on your bench this week, the most in the league, while you lost by 73.5. Somewhere on your roster is a guy who outscored half the starting lineups in this league and you just let him rot. Incredible work.
-
-🎯 THE "BARELY BROKE A SWEAT" AWARD
+🎯 THE "CLOSEST THING TO A PULSE" AWARD
 Winner: KC
-Your only win of the season came by "just" 36.92 points over a winless team, and you still left 47.02 on your bench, the LEAST wasted of anyone. Efficient mediocrity. You're basically the Honda Civic of this league — reliable, boring, and somehow still 1-1.
+The only game this week that wasn't a massacre, and you still won it by 36.92. Congrats on the nail-biter, even if "nail-biter" here means "beat a winless team by five touchdowns." At 1-1 with a -7.7 luck score, the football gods are still deciding if they like you.
 
-🍀 THE "HORSESHOE UP THE ASS" AWARD
-Winner: Simply Touchdowns
-2-0 with a +38.5 luck index, the luckiest team standing. Your all-play record is 16-10, meaning in a fair universe you'd have lost multiple times already. Amon-Ra St. Brown dropped 35.20 on your behalf and bailed you out. Enjoy the mirage while it lasts.
-
-😤 THE "KARMA'S GOT YOUR ADDRESS" AWARD
-Winner: 12 DAY WAR VET
-Worst luck index in the league at -61.5 to go with your 0-2 record. You're basically the control group for this entire experiment in misery. The football gods aren't just ignoring you, they're actively taking your calls just to hang up.
-
-📈 THE "SUSPICIOUSLY UNTOUCHABLE" AWARD
+🧟 THE "UNDEAD AND UNDEFEATED" AWARD
 Winner: Balls
-2-0, 335.66 points for, only 140.50 against, and a 25-1 all-play record. This isn't luck, this isn't variance, this is just a good team quietly making everyone else look like shit. Nothing funny to say here because you haven't given anyone anything to laugh at yet. Boring is a compliment when you're this good.
+2-0, 335.66 PF, and an all-play record of 25-1. Twenty-five and one. You have lost exactly once against every possible opponent combination in the SIM, which means the only team that's beaten you this year is theoretical. Terrifying.
 
-🧠 THE "SMARTEST GUY IN THE ROOM WHO STILL DID NOTHING" AWARD
-Winner: A FOOTBALL TEAM
-Jonathan Taylor dropped 29.20 for you and you're sitting pretty at 2-0 with the third-best luck index at +30.8. Your only move this week was apparently to sit back and watch everyone else self-destruct. Somehow that's a legitimate strategy right now.
+🍀 THE "BORN LUCKY, STAYIN' LUCKY" AWARD
+Winner: Simply Touchdowns
++38.5 luck index, tops in the league, riding shotgun on Amon-Ra St. Brown's 35.20-point ceiling-buster. 210.50 points for on the season is the lowest of all 2-0 teams, but hey, a win's a win, even when the universe basically gift-wrapped it.
 
-✂️ THE "ADDITION BY SUBTRACTION" AWARD
+🗑️ THE "TRASH CAN FIRE, WEEKLY EDITION" AWARD
+Winner: 12 DAY WAR VET
+236.06 PF, 298.74 PA, and a bench that dropped 98.96 unused points while you got run over by KC. You're not just losing, you're actively declining to help yourself while doing it. Bold strategy.
+
+🧠 THE "GALAXY BRAIN WAIVER MOVE" AWARD
+Winner: Roger Goodell
+Dropped Tyrone Tracy for Devin Singletary the same week you lost by 73.5 points. Really rearranging the deck chairs on the Titanic there, champ. At least somebody on your roster is trying to matter.
+
+🤷 THE "WHY EVEN BOTHER" AWARD
 Winner: KC
-You made two roster moves this week and both of them were just dropping guys, first the Titans defense, then Chimere Dike. No adds, just amputations. At some point you're going to drop your own kicker out of spite and honestly we'd respect it.
+Dropped the Titans defense AND Chimere Dike in the same week — a full active roster purge — and still only managed 134.68 points in a win. Addition by subtraction only works if you actually add something back.
 
-## Trades — Last 21 Days (top 5)
+📉 THE "GOOD STATS, BAD VIBES" AWARD
+Winner: A FOOTBALL TEAM
+2-0, Jonathan Taylor dropping 29.2 points for you, +30.8 luck index — everything's coming up roses, and yet you're only third in points for among 2-0 teams. Winning ugly is still winning, but this is winning in a beige minivan.
 
-_Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked by a blend of how lopsided the trade was and how much total value changed hands, so a real blockbuster outranks a minor move that just happens to be a bit uneven._
-
-**Trade 1 (Tuesday, September 1) — Balls wins it (+2726 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Balls | Lamar Jackson (QB - BAL), Mark Andrews (TE - BAL) | 11364 | +2726 |
-| CeDeez big ones | Trevor Lawrence (QB - JAX), 2028 Round 1 pick | 8638 | -2726 |
-
-**Trade 2 (Wednesday, September 2) — The Aubrey Express  wins it (+597 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| The Aubrey Express  | Pat Bryant (WR - DEN), 2028 Round 3 pick, 2029 Round 2 pick | 6189 | +597 |
-| 12 DAY WAR VET | Parker Washington (WR - JAX) | 5592 | -597 |
-
-## Rookie Draft Value Tracker
-
-_Recalculated fresh from Sleeper's own player rankings each run, so this shifts week to week as rookies rise and fall._
-
-**Top 10 Highest Current Value**
-
-1. Jeremiyah Love (RB - ARI) — Balls (Round 1, Pick 1) — ~5910 value
-2. Jadarian Price (RB - SEA) — KC (Round 1, Pick 4) — ~5688 value
-3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — ~5634 value
-4. Jordyn Tyson (WR - NO) — KC (Round 1, Pick 3) — ~5628 value
-5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — ~5454 value
-6. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — ~5346 value
-7. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — ~5346 value
-8. KC Concepcion (WR - CLE) — Larkinsjacob (Round 1, Pick 6) — ~5340 value
-9. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — ~5328 value
-10. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — ~5322 value
-
-**Top 10 Best Value Picks** _(current value vs. where they were drafted)_
-
-1. Jeremiyah Love (RB - ARI) — Balls (Round 1, Pick 1) — -84 value vs. draft slot
-2. Jadarian Price (RB - SEA) — KC (Round 1, Pick 4) — -288 value vs. draft slot
-3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — -354 value vs. draft slot
-4. Jordyn Tyson (WR - NO) — KC (Round 1, Pick 3) — -354 value vs. draft slot
-5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — -516 value vs. draft slot
-6. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — -528 value vs. draft slot
-7. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — -564 value vs. draft slot
-8. Mike Washington (RB - LV) — Balls (Round 2, Pick 27) — -582 value vs. draft slot
-9. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — -594 value vs. draft slot
-10. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — -600 value vs. draft slot
-
-## Waiver Wire / Free Agency This Week
-
-**Tuesday, September 15:**
-- **Talking Tua Teenager** (Free Agent Move): added —; dropped Tyler Lockett (WR - FA)
-- **KC** (Free Agent Move): added —; dropped Tennessee Titans (DEF - TEN)
-
-**Wednesday, September 16:**
-- **The Aubrey Express ** (Waiver Claim): added Miami Dolphins (DEF - MIA); dropped Arizona Cardinals (DEF - ARI)
-- **Boynton Beach Blue Balls** (Waiver Claim): added Will Shipley (RB - PHI); dropped —
-- **Boynton Beach Blue Balls** (Waiver Claim): added Julius Chestnut (RB - TEN); dropped Jake Tonges (TE - SF)
-- **Boynton Beach Blue Balls** (Waiver Claim ($1 FAAB)): added Drew Lock (QB - SEA); dropped Darnell Mooney (WR - NYG)
-- **Roger Goodell** (Waiver Claim ($16 FAAB)): added Devin Singletary (RB - NYG); dropped Tyrone Tracy (RB - NYG)
-- **The Aubrey Express ** (Free Agent Move): added DeMario Douglas (WR - NE); dropped Max Bredeson (RB - MIN)
-- **KC** (Free Agent Move): added —; dropped Chimere Dike (WR - TEN)
-- **CeDeez big ones** (Free Agent Move): added Kyle Juszczyk (FB - SF); dropped Justice Hill (RB - BAL)
-
-**Thursday, September 17:**
-- **Boynton Beach Blue Balls** (Waiver Claim ($1 FAAB)): added Tyrone Tracy (RB - NYG); dropped Julius Chestnut (RB - TEN)
-- **Larkinsjacob** (Free Agent Move): added Kendrick Bourne (WR - ARI); dropped —
-- **Larkinsjacob** (Free Agent Move): added Emari Demercado (RB - DAL); dropped Jordan James (RB - SF)
-
-**Friday, September 18:**
-- **CeDeez big ones** (Free Agent Move): added Chimere Dike (WR - TEN); dropped Xavier Hutchinson (WR - HOU)
-
-**Sunday, September 20:**
-- **CeDeez big ones** (Free Agent Move): added Tyquan Thornton (WR - KC); dropped Christian Kirk (WR - SF)
-
-
-## Top 5 Highest-Value Waiver Pickups
-
-_Ranked by current player value (Sleeper's own rankings), not FAAB spent -- tracked cumulatively across the whole season so far._
-
-1. Kyle Pitts (TE - ATL) — added by Roger Goodell — ~5598 value
-2. Tyrone Tracy (RB - NYG) — added by Boynton Beach Blue Balls — ~5340 value
-3. Malik Willis (QB - MIA) — added by Roger Goodell — ~5292 value
-4. Harrison Mevis (K - LAR) — added by Roger Goodell — ~5076 value
-5. Sean Tucker (RB - TB) — added by The Aubrey Express  — ~5070 value
+🎯 THE "QUIETLY TERRIFYING" AWARD
+Winner: Tpotts42
+Jared Goff put up 29.78 for you and somehow that's not even your best story — a +34.6 luck index means the schedule is doing half your work. 2-0 and nobody's talking about you yet. Keep it that way, weirdo.
 
 ## Matchup Recap
 
@@ -238,5 +160,91 @@ _All-play record: how each team's actual record compares to if they'd played eve
 12. **Boynton Beach Blue Balls** — record 0-2, all-play 8-18 (-30.8)
 13. **Roger Goodell** — record 1-1, all-play 23-3 (-38.5)
 14. **12 DAY WAR VET** — record 0-2, all-play 16-10 (-61.5)
+
+## Trades — Last 21 Days (top 5)
+
+_Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked by a blend of how lopsided the trade was and how much total value changed hands, so a real blockbuster outranks a minor move that just happens to be a bit uneven._
+
+**Trade 1 (Tuesday, September 1) — Balls wins it (+2726 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Balls | Lamar Jackson (QB - BAL), Mark Andrews (TE - BAL) | 11364 | +2726 |
+| CeDeez big ones | Trevor Lawrence (QB - JAX), 2028 Round 1 pick | 8638 | -2726 |
+
+**Trade 2 (Wednesday, September 2) — The Aubrey Express  wins it (+597 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| The Aubrey Express  | Pat Bryant (WR - DEN), 2028 Round 3 pick, 2029 Round 2 pick | 6189 | +597 |
+| 12 DAY WAR VET | Parker Washington (WR - JAX) | 5592 | -597 |
+
+## Waiver Wire / Free Agency This Week
+
+**Tuesday, September 15:**
+- **Talking Tua Teenager** (Free Agent Move): added —; dropped Tyler Lockett (WR - FA)
+- **KC** (Free Agent Move): added —; dropped Tennessee Titans (DEF - TEN)
+
+**Wednesday, September 16:**
+- **The Aubrey Express ** (Waiver Claim): added Miami Dolphins (DEF - MIA); dropped Arizona Cardinals (DEF - ARI)
+- **Boynton Beach Blue Balls** (Waiver Claim): added Will Shipley (RB - PHI); dropped —
+- **Boynton Beach Blue Balls** (Waiver Claim): added Julius Chestnut (RB - TEN); dropped Jake Tonges (TE - SF)
+- **Boynton Beach Blue Balls** (Waiver Claim ($1 FAAB)): added Drew Lock (QB - SEA); dropped Darnell Mooney (WR - NYG)
+- **Roger Goodell** (Waiver Claim ($16 FAAB)): added Devin Singletary (RB - NYG); dropped Tyrone Tracy (RB - NYG)
+- **The Aubrey Express ** (Free Agent Move): added DeMario Douglas (WR - NE); dropped Max Bredeson (RB - MIN)
+- **KC** (Free Agent Move): added —; dropped Chimere Dike (WR - TEN)
+- **CeDeez big ones** (Free Agent Move): added Kyle Juszczyk (FB - SF); dropped Justice Hill (RB - BAL)
+
+**Thursday, September 17:**
+- **Boynton Beach Blue Balls** (Waiver Claim ($1 FAAB)): added Tyrone Tracy (RB - NYG); dropped Julius Chestnut (RB - TEN)
+- **Larkinsjacob** (Free Agent Move): added Kendrick Bourne (WR - ARI); dropped —
+- **Larkinsjacob** (Free Agent Move): added Emari Demercado (RB - DAL); dropped Jordan James (RB - SF)
+
+**Friday, September 18:**
+- **CeDeez big ones** (Free Agent Move): added Chimere Dike (WR - TEN); dropped Xavier Hutchinson (WR - HOU)
+
+**Sunday, September 20:**
+- **CeDeez big ones** (Free Agent Move): added Tyquan Thornton (WR - KC); dropped Christian Kirk (WR - SF)
+
+
+## Top 5 Highest-Value Waiver Pickups
+
+_Ranked by current player value (Sleeper's own rankings), not FAAB spent -- tracked cumulatively across the whole season so far._
+
+1. Kyle Pitts (TE - ATL) — added by Roger Goodell — ~5598 value
+2. Tyrone Tracy (RB - NYG) — added by Boynton Beach Blue Balls — ~5340 value
+3. Malik Willis (QB - MIA) — added by Roger Goodell — ~5292 value
+4. Harrison Mevis (K - LAR) — added by Roger Goodell — ~5076 value
+5. Sean Tucker (RB - TB) — added by The Aubrey Express  — ~5070 value
+
+## Rookie Draft Value Tracker
+
+_Recalculated fresh from Sleeper's own player rankings each run, so this shifts week to week as rookies rise and fall._
+
+**Top 10 Highest Current Value**
+
+1. Jeremiyah Love (RB - ARI) — Balls (Round 1, Pick 1) — ~5910 value
+2. Jadarian Price (RB - SEA) — KC (Round 1, Pick 4) — ~5688 value
+3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — ~5634 value
+4. Jordyn Tyson (WR - NO) — KC (Round 1, Pick 3) — ~5628 value
+5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — ~5454 value
+6. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — ~5346 value
+7. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — ~5346 value
+8. KC Concepcion (WR - CLE) — Larkinsjacob (Round 1, Pick 6) — ~5340 value
+9. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — ~5328 value
+10. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — ~5322 value
+
+**Top 10 Best Value Picks** _(current value vs. where they were drafted)_
+
+1. Jeremiyah Love (RB - ARI) — Balls (Round 1, Pick 1) — -84 value vs. draft slot
+2. Jadarian Price (RB - SEA) — KC (Round 1, Pick 4) — -288 value vs. draft slot
+3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — -354 value vs. draft slot
+4. Jordyn Tyson (WR - NO) — KC (Round 1, Pick 3) — -354 value vs. draft slot
+5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — -516 value vs. draft slot
+6. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — -528 value vs. draft slot
+7. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — -564 value vs. draft slot
+8. Mike Washington (RB - LV) — Balls (Round 2, Pick 27) — -582 value vs. draft slot
+9. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — -594 value vs. draft slot
+10. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — -600 value vs. draft slot
 
 Go Giants
