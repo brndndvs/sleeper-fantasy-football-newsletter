@@ -19,50 +19,50 @@ Please report to me or one of the other members of the rules committee with your
 
 ## 🏆 Week 3 Awards
 
-🏆 THE "WORLD'S MOST EXPENSIVE CRYING TOWEL" AWARD
-Winner: Roger Goodell
-
-You put up 138.28 and won, great, congrats, but you left 145.90 points rotting on your bench — more than your actual score. That's right, your bench outscored your starters by a hair and could've beaten literally everyone this week. Your luck index is -17.9 because the football gods know you're an idiot and keep punishing you anyway. Championship-caliber roster, group-home-caliber lineup decisions.
-
-🩸 THE "DEATH BY A THOUSAND BLOWOUTS" AWARD
-Winner: KC
-
-50.20 point margin of defeat. 1-2 record. -28.2 luck index, dead last in the entire league. You didn't lose this week so much as get workshopped into a cautionary tale. Even your waiver move — grabbing the Saints defense — screams "I have given up and am now just collecting NFC South leftovers for sport."
-
-💀 THE "TOTAL SYSTEMS FAILURE" AWARD
-Winner: Simply Touchdowns
-
-Drake London went off for 28.40 points for you and you still lost by 50.68. That's not a loss, that's a crime scene. You left only 36.40 on the bench, the lowest in the league, meaning you basically played your best possible lineup and got run over anyway. Sometimes the other guy is just built different — or in Tpotts42's case, apparently unkillable.
-
-🔥 THE "UNSTOPPABLE MENACE" AWARD
-Winner: Tpotts42
-
-161.46 points, a 50-point win, Bijan Robinson dropping 35.30 on the world, and a +28.2 luck index that leads the entire league. You are 3-0 and all-play at a grotesque 28-11. At this point you're not playing fantasy football, you're just bullying the concept of parity.
-
-😤 THE "IT WAS NEVER EVEN CLOSE AND THAT'S THE PROBLEM" AWARD
-Winner: Talking Tua Teenager
-
-170.40 points, a 50.20-point win, and Jaxon Smith-Njigba torching everyone for 35.36. You're 3-0 with 516.32 points for — most in the league — and still somehow left 75.04 on your bench like you were trying to be polite about it. Nobody asked you to be humble, you absolute steamroller.
-
-🧟 THE "HAUNTED BY YOUR OWN BENCH" AWARD
-Winner: A FOOTBALL TEAM
-
-You lost by 37.32 and still had 88.78 points napping on your bench — enough to have won outright with room to spare. 2-1 record, +2.6 luck index, meaning the universe has been perfectly fair to you and you're still finding ways to embarrass yourself. Somewhere your bench is laughing at your starters.
-
-🎯 THE "SET YOUR LINEUP, YOU HAVE ONE JOB" AWARD
-Winner: KC (runner-up: Roger Goodell)
-
-Only 40.84 left on KC's bench this week, which sounds responsible until you remember you still lost by 50 and are now 1-2 with the league's worst luck index. Meanwhile Roger Goodell somehow benched more points than he scored. Between these two, we've got a full house of dysfunction — one guy who can't pick winners and one guy who can't stop drowning even when he's "winning."
-
-🏅 THE "NOTHING TO SEE HERE, WE'RE JUST GREAT" AWARD
+🏆 THE "PERFECT UNTOUCHABLE GOD-TIER" AWARD
 Winner: Balls
 
-Jahmyr Gibbs put up an absurd 41.40 points, Garrett Wilson chipped in 26.70, and Balls sits at 3-0 with a video-game-ass 513.90 points for against only 220.24 against. Your all-play record is 38-1. One. Loss. All season. In the entire league. Congrats on being so dominant you didn't even need a matchup mentioned this week — you just showed up in the box score and ruined everyone's day by proxy.
+38-1 all-play. THIRTY-EIGHT AND ONE. Jahmyr Gibbs dropped 41.40 points on the league like he owed everybody money, and Garrett Wilson tacked on 26.70 just to remind you he exists too. You have given up 220.24 points across three weeks, which is basically a bye week's worth of stats for everyone else. Congrats on being mathematically boring.
 
-🪦 THE "STILL RECOVERING" AWARD
+💀 THE "WE GET IT, YOU'RE SAD" AWARD
+Winner: KC
+
+Not only did you drop 120.20 in a 50-point beatdown, you're sitting at -28.2 luck, the worst in the league. You picked up the Saints defense off waivers, which is like trading in a flat tire for a flat tire with a different logo on it. 1-2 with the league's second-worst point differential — the vibes are not immaculate.
+
+🩸 THE "DEATH BY A THOUSAND BENCHWARMERS" AWARD
+Winner: Roger Goodell
+
+You won your game 138.28 to 100.96, which sounds great until you realize you left 145.90 points on your bench. That's not a bench, that's a second starting lineup that's better than your actual starting lineup. You're 2-1 but your -17.9 luck score says the universe is already drawing up the paperwork to take that away.
+
+🎯 THE "STILL SOMEHOW ONLY 2-1" AWARD
+Winner: Simply Touchdowns
+
+Drake London went off for 28.40 and you STILL lost by 50 points. You're +5.1 in luck and own a winning record, so stop complaining, but a 36.40-point bench is the tightest lineup management in the league this week — everyone else is out here fielding corpses.
+
+🤡 THE "CONGRATS ON THE FREE WIN" AWARD
+Winner: Tpotts42
+
++28.2 luck. Twenty. Eight. Point. Two. That's not a hot streak, that's the fantasy gods personally carrying you to 3-0 in a wheelbarrow. Bijan Robinson's 35.30 didn't hurt either. You also went and added Justice Hill and Tyquan Thornton like a man trying to cover his tracks before the regression police show up.
+
+🔥 THE "MOST POINTS SCORED BY A LOSER" AWARD
+Winner: KC
+
+120.20 points and still got smoked by 50. In most leagues that's a competitive week. In yours it's a funeral. Talking Tua Teenager didn't even need to sweat — JSN went nuclear for 35.36 and you were already dead in the water.
+
+🧟 THE "ZOMBIE APOCALYPSE BENCH" AWARD
+Winner: A FOOTBALL TEAM
+
+88.78 points rotting on your bench while you got run over 138.28 to 100.96. Somewhere in your starting lineup there's a guy who scored single digits while a stud on your bench was out there feasting. You're 2-1 despite yourself.
+
+😢 THE "NOBODY FEELS BAD FOR YOU" AWARD
 Winner: 12 DAY WAR VET
 
-You didn't play a game featured in the headlines this week, and honestly, with a -23.1 luck index and a 1-2 record built on 332.00 points for against 360.80 against, that might be for the best. You did manage to drop the Bucs D for the Bengals D, which is the fantasy equivalent of rearranging deck chairs. Sit this one out, champ, nobody's watching anyway.
+-23.1 luck AND 1-2. You didn't even get the dignity of a close game to complain about — the all-play record (22-17) says you're actually fine, the standings say you're a disaster. You also spent the week swapping Tampa's defense for Cincinnati's, which is the fantasy equivalent of rearranging deck chairs while your record sinks.
+
+👑 THE "SHOWING OFF" AWARD
+Winner: Talking Tua Teenager
+
+170.40 points, a 50-point win, and Jaxon Smith-Njigba dropping the second-highest individual score of the entire week. You're 3-0 with 516.32 points for — the highest in the league — and +15.4 luck on top of it. At some point this stops being fantasy football and starts being bullying.
 
 ## Matchup Recap
 
@@ -85,7 +85,7 @@ You didn't play a game featured in the headlines this week, and honestly, with a
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Roger Goodell** (proj 146.4) vs **CeDeez big ones** (proj 47.4) — combined 193.7, projected margin 99.0
+- **Roger Goodell** (proj 150.2) vs **CeDeez big ones** (proj 47.5) — combined 197.8, projected margin 102.7
 
 ## Closest Games
 
