@@ -7,63 +7,6 @@ _2026 Season_
 
 I got one thing to say. Brock Bowers is back baby. 3-0 never felt so nice. After doing an Orange County Firefighter gauntlet. I now move onto Pete. Who’s currently competing to not be in last. 4-0 seems inevitable, but you never know. Commish out.
 
-## 🏆 Week 3 Awards
-
-🥇 THE "JUST GET IT OVER WITH" AWARD
-Winner: Jahmyr-oquai
-
-You beat Just take the $50 💸 by 69.14 points. Sixty. Nine. Points. That's not a fantasy matchup, that's assault with a deadly Jahmyr Gibbs, who dropped 37.90 all by himself. You're 3-0 with 508 points for, and at this point the league office should just mail everyone else their L's on Tuesday to save time.
-
-🍆 THE "BIGGEST DRAFT BONER" AWARD
-Winner: Throwsa parks
-
-Bijan Robinson went nuclear for 40.30 points, Drake London tacked on 29.90, and somehow you still left 33.58 points on your bench. You're 2-1 and stacked with Atlanta's entire offense in your starting lineup, just… try not to bench the guy who scores 40 next time, yeah?
-
-🗑️ THE "BENCH GOBLIN" AWARD
-Winner: Dak MVP szn
-
-69.24 points rotting on your bench while you're 3-0. That's more points left on your bench than Tee Time scored TOTAL in some recent week. You're winning in spite of your own lineup decisions, which is either genius-level depth or a cry for someone to just set your lineup for you.
-
-💔 THE "SO CLOSE, YET SO STUPID" AWARD
-Winner: Tee Time
-
-You lost by 6.58 to Balls, the closest game of the week, and you're now 0-3 with a putrid 258.78 points for — dead last in the league. Your luck index sits at -15.2 because apparently even the fantasy gods think you deserve better than this. You'd need Chase McLaughlin to kick nothing but 60-yarders to dig out of this hole.
-
-😭 THE "CURSED BY THE FOOTBALL GODS" AWARD
-Winner: za island animals
-
-0-3, 326.90 points for, 460.00 against, and a luck index of -39.4 — the worst in the entire league by a mile. You're getting torched every week and the schedule refuses to throw you a bone. At this point just start dropping and adding guys named "Please" and "Help."
-
-🎰 THE "RUNNING HOT ON HOUSE MONEY" AWARD
-Winner: Purdy Good at Getting Off
-
-You're 2-1 despite an all-play record of 15-18 and a point differential that's actually negative (372.12 for, 383.16 against). Your luck index is a gaudy +21.2, tied for best in the league. Brock Purdy himself dropped 31.28 on you in a loss to DomOfTheMFYear — even your own QB couldn't save you, and yet here you are, winning anyway.
-
-🔮 THE "STAT LINE LIES" AWARD
-Winner: DomOfTheMFYear
-
-You're 1-2 but somehow have a positive luck index of -18.2 working against you, meaning you're actually getting robbed on paper less than it feels like. You did beat Purdy Good at Getting Off by 32.12 this week while leaving 35.94 on your bench — a good reminder that even your bad lineup decisions can't stop you from occasionally showing up.
-
-🧟 THE "DEAD TEAM WALKING" AWARD
-Winner: Balls
-
-You're 1-2 with a -24.2 luck index, second-worst in the league, and you've cycled through four different quarterbacks this week alone — Cousins, Winston, Murray, back to who even knows. Meanwhile Jaxon Smith-Njigba dropped 36.36 points on your roster and it still wasn't enough to feel safe. Pick a QB and stick with him, my man.
-
-🩹 THE "IT'S NOT A LOSS, IT'S A LESSON" AWARD
-Winner: Ne-Tuten-yahu
-
-You dropped a game to MarlBurrow Man by 26.94 despite a shiny +18.2 luck index, meaning the schedule loves you way more than your roster does. You also spent your bye week benching 29.74 points and panic-adding Adonai Mitchell off waivers. Slow down, breathe, you're still 2-1.
-
-🎯 THE "MERCY RULE PLEASE" AWARD
-Winner: Puka and rally
-
-Lost to Throwsa parks by 60.48, the second-worst beatdown of the week, and you're now 1-2 with a -15.2 luck index piling on the misery. You left 26.20 points on your bench during the massacre too, just in case you wanted the loss to sting a little more on the scoreboard math alone.
-
-📉 THE "PANIC BUTTON" AWARD
-Winner: Just take the $50 💸
-
-Five different waiver moves this week — Palmer in, Hunter out, Stroud in, Mayfield out, Bateman in, Sutton out, Waller in, then Cousins in AGAIN after already moving off him earlier in the season. You're 1-2 with the lowest point total for in the league not named Tee Time. Maybe stop trading in your whole roster like a fantasy football fire sale and just pick some guys.
-
 ## Matchup Recap
 
 - **Jahmyr-oquai** 183.76 def. **Just take the $50 💸** 114.62 (margin: 69.14)
@@ -77,8 +20,8 @@ Five different waiver moves this week — Palmer in, Hunter out, Stroud in, Mayf
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Dak MVP szn** (proj 123.5) vs **MarlBurrow Man** (proj 110.2) — combined 233.7, projected margin 13.4
-- **Throwsa parks** (proj 121.2) vs **Ne-Tuten-yahu** (proj 98.1) — combined 219.3, projected margin 23.1
+- **Dak MVP szn** (proj 123.6) vs **MarlBurrow Man** (proj 110.2) — combined 233.8, projected margin 13.3
+- **Throwsa parks** (proj 121.1) vs **Ne-Tuten-yahu** (proj 98.0) — combined 219.1, projected margin 23.0
 
 ## Closest Games
 
