@@ -72,7 +72,7 @@ jobs:
           python newsletter.py $WEEK_ARG $SEND_ARGS $FORCE_ARG \
             --league-logo-url "https://github.com/user-attachments/assets/d9830c50-3fc5-4241-9d2d-5e0029eb343d" \
             --weekly-awards \
-            --awards-exclude-teams "BlowPaterno,Boynton Beach Blue Balls,Larkinsjacob,andrewburkhardt1,The Aubrey Express,CeDeez big ones"
+            --awards-exclude-teams "BlowPaterno,Boynton Beach Blue Balls,Larkinsjacob,andrewburkhardt1,The Aubrey Express,CeDeez big ones,Chud Team"
 
       - name: Upload newsletter artifacts
         uses: actions/upload-artifact@v4
