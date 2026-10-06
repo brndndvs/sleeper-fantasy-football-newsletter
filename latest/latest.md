@@ -14,45 +14,45 @@ Good luck to owners and wishing you all future success.
 
 ## 🏆 Week 4 Awards
 
-🩸 THE "MERCY RULE DOESN'T EXIST HERE" AWARD
-Winner: Talking Tua Teenager
-Chud Team put up 71.82 and got buried by 49.54 points like a body in the Everglades. This wasn't a fantasy matchup, it was a public execution with a scoreboard. Chud Team is now 0-4 and the only thing scoring less than them is their own self-esteem.
-
-💀 THE "DEAD MAN WALKING" AWARD
-Winner: Chud Team
-0-4, dead last in points for at 337.88, and just got annihilated by nearly 50. The luck index has you at -25.0 because apparently even random chance looked at your roster and said "yeah, no." At this point the only thing keeping you in the league is the LLC paperwork.
-
-😬 THE "LEFT MONEY ON THE NIGHTSTAND" AWARD
+🪑 THE "YOUR BENCH OUTSCORED YOUR LIFE CHOICES" AWARD
 Winner: A FOOTBALL TEAM
-You won by 3.74 points while leaving 149.46 on your bench. That's not a bench, that's a second starting lineup that would've won by 100. You're 3-1 and somehow still playing fantasy football with one eye closed.
+149.46 points sat on your bench this week. You won your game with 125.18. Your bench could've beaten you, beaten KC, and probably beaten half this league in a fistfight. Start setting lineups with a dartboard, it genuinely couldn't go worse.
 
-🫠 THE "SO CLOSE, SO WHAT" AWARD
-Winner: 12 DAY WAR VET
-Lost by 1.46 points despite Javonte Williams going off for 31.30. You also left 56.52 on your bench, meaning the difference between winning and losing was sitting right there doing absolutely nothing. Your luck index is -34.6, which is just the universe's way of telling you to stop checking the league standings before bed.
-
-🎯 THE "UNLUCKIEST SON OF A BITCH" AWARD
-Winner: KC
-1-3 record, but a 31-21 all-play mark and a brutal -34.6 luck score says you've been getting fantasy-football mugged in broad daylight. You lost by 3.74 this week after Kenneth Walker dropped 30.90 points on someone else's roster. You also dropped a kicker and a defense this week like rearranging deck chairs on the Titanic.
-
-🤡 THE "WHY EVEN BOTHER" AWARD
-Winner: Roger Goodell
-3-1 record but a -13.5 luck index, meaning your record is basically fraud. Nico Collins went for 30.80 and it still wasn't enough to keep you off this list. The commissioner's own namesake team getting exposed by math is the kind of justice this league needed.
-
-🧟 THE "UNDEAD AND LOVING IT" AWARD
+💀 THE "THANOS SNAP" AWARD
 Winner: Balls
-4-0, a video-game-ass 50-2 all-play record, and Tetairoa McMillan dropping a league-best 45.20 points. You're not playing the same sport as everyone else. Kenneth Walker also went off for you at 30.90 — congrats on literally rostering the top two scorers of the week like it's cheating with extra steps.
+4-0, 672.98 points for, 257.16 against. You're not playing fantasy football, you're running a science experiment on human suffering. Kenneth Walker and Tetairoa McMillan combined for 76 points in the same lineup, which should honestly be a banned substance.
 
-🥱 THE "BORING BECAUSE YOU'RE PERFECT" AWARD
-Winner: Tpotts42
-4-0, +25.0 luck index, 39-13 all-play. You haven't even been in a real game yet and you're still undefeated. Nothing to roast here except the crushing inevitability of your championship run — congrats on being the least interesting 4-0 team alive.
-
-🔄 THE "DESK JOCKEY OF THE WEEK" AWARD
+🎯 THE "ONE BUTTON PUSH FROM HEARTBREAK" AWARD
 Winner: Simply Touchdowns
-Won by 1.46, the tightest margin of the week, and still found time to swap Jacob Saylors for Kendre Miller like it mattered. Kyle Monangai quietly dropped 28.00 points for you while you were busy fiddling with waiver wire RBs nobody asked about. You're 3-1 and sweating bullets over a game decided by less than two points.
+You beat 12 DAY WAR VET by 1.46 points. That's not a win, that's a rounding error with a trophy attached. Kyle Monangai popped off for 28 and saved your ass by the width of a kicker's dick.
 
-🪦 THE "DEFENSIVE MUSICAL CHAIRS" AWARD
+😭 THE "ALL-PLAY SAYS YOU'RE CURSED" AWARD
+Winner: 12 DAY WAR VET
+31-21 all-play record says you should be fine. 1-3 actual record says the universe hates you specifically. Javonte Williams dropped 31.30 points on your roster and you STILL found a way to lose by 1.46. That's not luck, that's a hex.
+
+🤡 THE "SAME EXACT CURSE, DIFFERENT TEAM" AWARD
 Winner: KC
-Dropped the Saints defense, picked up the Raiders defense, dropped a kicker, added a kicker — an entire week of roster moves and you still lost. At 1-3 with a -34.6 luck index, maybe the problem isn't your streaming strategy, it's the cosmic joke that is your entire season.
+Tied with 12 DAY WAR VET at a -34.6 luck index, the worst in the league, because misery apparently loves company. You lost by 3.74 points while Kenneth Walker went off for 30.90 on somebody else's roster entirely. You started your own Chiefs player against the Chiefs. Make it make sense.
+
+🔮 THE "UNDEFEATED AND STILL SOMEHOW BORING ABOUT IT" AWARD
+Winner: Tpotts42
+4-0, and your luck index is +25.0, tied for the highest in the league. You're not good, you're lucky, and now you're both. Enjoy it while the math hasn't caught up to you yet.
+
+🧊 THE "ICE COLD FRONT OFFICE" AWARD
+Winner: Simply Touchdowns
+Dropped Jacob Saylors, a man who apparently did nothing for you, then grabbed Kendre Miller off waivers like he's the answer. Meanwhile you're 3-1 with only 48.20 points left on your bench, the lowest number in the league. At least you're not lying to yourself about who to start.
+
+🔁 THE "ADD HIM, DROP HIM, ADD HIM AGAIN" AWARD
+Winner: 12 DAY WAR VET
+You added Kalif Raymond, then dropped Kalif Raymond. Same week. You also swapped the Saints defense for the Bengals defense then back to the Saints like a man rearranging deck chairs on a 1-3 ship. Pick a lane.
+
+📉 THE "PUNTER ENERGY" AWARD
+Winner: KC
+You dropped a kicker to pick up a different kicker. Spencer Shrader for Trey Smack. In a week you lost by 3.74 points. This is the fantasy equivalent of rearranging your Titanic deck chairs by kicker leg strength.
+
+🥵 THE "PLAYED LIKE A CHAMP, SCOREBOARD SAYS OTHERWISE" AWARD
+Winner: Roger Goodell
+46-6 all-play but a -13.5 luck index and a 501.10 points-against number that's the ugliest in the league. Nico Collins dropped 30.80 on you and you're still only 3-1 because your schedule apparently hates your guts.
 
 ## Matchup Recap
 
@@ -76,8 +76,8 @@ _No rival matchup scheduled for the upcoming week._
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Simply Touchdowns** (proj 121.3) vs **Talking Tua Teenager** (proj 117.7) — combined 239.0, projected margin 3.5
-- **Roger Goodell** (proj 145.9) vs **Balls** (proj 137.1) — combined 283.0, projected margin 8.8
+- **Simply Touchdowns** (proj 121.2) vs **Talking Tua Teenager** (proj 117.7) — combined 238.9, projected margin 3.5
+- **Roger Goodell** (proj 147.3) vs **Balls** (proj 137.5) — combined 284.8, projected margin 9.7
 
 ## Closest Games
 
@@ -182,6 +182,13 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 | KC | Ollie Gordon (RB - MIA) | 3210 | +2260 |
 | The Aubrey Express  | 2027 Round 3 pick, 2027 Round 3 pick, $10 FAAB | 950 | -2260 |
 
+**Trade 4 (Tuesday, October 6) — Roger Goodell wins it (+168 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Roger Goodell | De'Von Achane (RB - MIA) | 5952 | +168 |
+| 12 DAY WAR VET | Cam Skattebo (RB - NYG) | 5784 | -168 |
+
 ## Waiver Wire / Free Agency This Week
 
 **Wednesday, September 30:**
@@ -216,6 +223,9 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 - **andrewburkhardt1** (Free Agent Move): added Barion Brown (WR - NO); dropped Jack Strand (QB - ATL)
 - **The Aubrey Express ** (Free Agent Move): added Jason Sanders (K - NYJ); dropped Devin Neal (RB - MIN)
 - **andrewburkhardt1** (Free Agent Move): added Efton Chism (WR - NE); dropped Cooper Kupp (WR - SEA)
+
+**Tuesday, October 6:**
+- **12 DAY WAR VET** (Free Agent Move): added —; dropped Kalif Raymond (WR - CHI)
 
 
 ## Top 5 Highest-Value Waiver Pickups
