@@ -9,53 +9,53 @@ _2026 Season_
 
 ## 🏆 Week 4 Awards
 
-🥇 THE "UNDEFEATED AND UNBOTHERED" AWARD
+🏆 THE "PERFECT, KEEP BEING PERFECT" AWARD
 Winner: Jahmyr-oquai
-4-0, 616 points for, and the luckiest sonofabitch in the league at +34.1 luck index. Your all-play record is 29-15, which means you're not just winning, you're winning while the universe personally holds the door open for you. Enjoy it now, because math has a way of catching up to guys who churn their tight end spot four times in two weeks.
+4-0, leads the league in points for, and sports a luck index of +34.1, which means even the universe is holding your hand across the street. You're 29-15 in all-play. At this point you're not winning games, you're just collecting W's like Pokemon cards while everyone else cries in the parking lot.
 
-🖕 THE "MATH SAYS YOU SHOULD BE SAD" AWARD
-Winner: za island animals
-1-3 record with 510 points for, more than eight teams with better records than you. Your all-play record is a respectable 23-21 but your luck index is a brutal -27.3, the worst in the league. The football gods looked at your roster and said "nah, suffer."
-
-💩 THE "PARTICIPATION TROPHY DENIED" AWARD
+💀 THE "MATHEMATICALLY DECEASED" AWARD
 Winner: Tee Time
-0-4. Dead last in points for at 359.02. You lost by 7.18 this week to a team that also left 29 points on their bench, and you STILL couldn't close it out. You dropped a running back for Ollie Gordon like that was gonna be the move that saves your season. It wasn't.
+0-4, dead last, and your all-play record is a gruesome 7-37. That's not a losing streak, that's a crime scene. You lost by 7.18 this week and it's genuinely the closest you've felt to happiness all season.
 
-🔥 THE "SOMEBODY CALL THE POLICE" AWARD
+🔥 THE "NUCLEAR LAUNCH CODES" AWARD
 Winner: DomOfTheMFYear
-You beat Balls 129.18 to 92.48, a 36.70-point massacre, the single biggest margin of the week. You also added and dropped John Metchie in the same breath like a man who panic-swiped on a dating app and immediately unmatched. Ruthless on both fronts.
+36.70 points was the margin of destruction you dropped on Balls this week, the single most lopsided beatdown of the slate. You didn't just win, you performed a public execution and called it fantasy football.
 
-🛋️ THE "YOUR BENCH OUTSCORED YOUR WILL TO LIVE" AWARD
+🎯 THE "SO CLOSE, SO FAR" AWARD
+Winner: Tee Time
+107.42 to 100.24. Seven measly points separated you from your first win of the season, and instead you're 0-4 wondering why the football gods specifically hate you. The gap between misery and relief was one (1) flex decision.
+
+🪑 THE "YOUR BENCH OUTSCORED YOUR LINEUP'S DIGNITY" AWARD
 Winner: Dak MVP szn
-76.18 points sat on your bench this week, tops in the league, while you still somehow went 3-1 on the season. Imagine losing by 33 points to MarlBurrow Man with that much gas left in the tank. You didn't lose this week, you just actively refused to try.
+76.18 points sat on your bench this week, more than entire teams' starting rosters have scored combined. You won anyway, somehow, which means you're either a genius or the universe just felt bad for whoever drafted this hard and still benched gold.
 
-🎯 THE "CLUTCH BY THE SKIN OF YOUR TEETH" AWARD
-Winner: Jahmyr-oquai
-A 7.18-point win over Tee Time, the closest game of the week. Not exactly must-see TV, but a win's a win, and you're the only team in the league who doesn't have to care how ugly it looked.
+🧠 THE "IT'S CALLED STRATEGY, LOOK IT UP" AWARD
+Winner: DomOfTheMFYear
+58.46 points of churned butter rotting on your bench, and yet you still smoked Balls by 36 points. Imagine how disrespectful the final score would've been if you'd actually started your best players.
 
-🧟 THE "WALKING DEAD BUT MAKE IT FANTASY" AWARD
-Winner: Puka and rally
-Lost by 23.80 to a team called Just take the $50, which feels thematically appropriate since you're 1-3 and your season's basically a smash-and-grab at this point. Your luck index sits at -20.5, so even the algorithm feels bad for you. Rally indeed.
+🍀 THE "HORSESHOE SURGICALLY REMOVED FROM ASS" AWARD
+Winner: za island animals
+1-3 record with a 23-21 all-play mark, good for the single unluckiest luck index in the league at -27.3. Kenneth Walker dropped 36.40 points on your roster this week and you STILL lost, which is the fantasy equivalent of winning the lottery and getting hit by the delivery truck bringing you the check.
 
-💸 THE "TAKE THE MONEY AND RUN" AWARD
-Winner: Just take the $50 💸
-Won by 23.80, climbed to 2-2, and did it all with a luck index of +15.9, meaning you're outperforming your actual quality. You also dropped Joshua Palmer for literally nobody, which is either genius roster management or you just forgot to hit confirm. Either way, cash the check.
+😤 THE "DESERVE BETTER" AWARD
+Winner: Dak MVP szn
+34-10 all-play, 3-1 on the season, and still somehow sporting a -2.3 luck index, meaning your record is basically earned in blood, not gifted. You got run over by MarlBurrow Man by 33.42 points this week, the single ugliest final score on the board.
 
-🚑 THE "MEDICAL EMERGENCY" AWARD
-Winner: Balls
-92.48 points, the lowest score by any winner or loser not named Tee Time, in a 36.70-point beatdown. You also dropped De'Von Achane for Braelon Allen, which is the fantasy equivalent of trading a Ferrari for a Honda because you liked the color better.
-
-🏆 THE "BEST PLAYER NOBODY'S TALKING ABOUT" AWARD
-Winner: Purdy Good at Getting Off
-Tetairoa McMillan dropped 44.20 points on you, the single best individual performance of the week, and you still lost by 29.24. That's not a loss, that's a crime scene. You then went and grabbed the Browns defense off waivers like that's gonna fix anything.
-
-🎢 THE "EMOTIONAL ROLLERCOASTER" AWARD
+🤡 THE "33 POINT FACEPLANT" AWARD
 Winner: MarlBurrow Man
-185.82 points and a 33.42-point win, the second-biggest blowout of the week, fueled by CeeDee Lamb's 38.80-point outing. You also sit at 3-1 despite a middling +9.1 luck score, meaning you're just straight up good. Congrats on being boring and correct.
+You beat Dak MVP szn by 33.42 points on the back of CeeDee Lamb's absurd 38.80, and now you're 3-1 looking real comfortable. Enjoy it while it lasts, the waiver wire panic-add of Tyler Higbee suggests you already know regression is coming for that tight end room.
 
-🦴 THE "SCRAPING BY ON FUMES" AWARD
-Winner: Throwsa parks
-Bijan Robinson put up 35.20 points for you in a 19.88-point win over Ne-Tuten-yahu, and your luck index sits at a shiny +20.5. 3-1 on the season, 526 points for, and you're quietly looking like the scariest team nobody's scared of yet.
+🎒 THE "CARRIED LIKE A BACKPACK" AWARD
+Winner: Purdy Good at Getting Off
+Tetairoa McMillan dropped an absurd 44.20 points on your team, the single best individual performance of the entire week, and you still lost by 29.24. That's not a loss, that's a hostage situation where your receiver tried to save you and your roster shot the hostage anyway.
+
+💸 THE "LITERALLY NAMED FOR THIS MOMENT" AWARD
+Winner: Just take the $50 💸
+2-2 but riding a +15.9 luck index, which means your record is basically a participation trophy with extra steps. You beat Puka and rally by 23.80 while leaving the second-least amount of points on your bench in the league. Efficient mediocrity, truly an art form.
+
+🪦 THE "QUIETLY DYING" AWARD
+Winner: Balls
+1-3, dead last in bench points left unused at a mere 11.60, meaning you started your best lineup possible and still got demolished 129.18 to 92.48. You did everything right and lost by 36 anyway. There's no moral victory here, just Balls, getting stomped.
 
 ## Matchup Recap
 
@@ -70,8 +70,8 @@ Bijan Robinson put up 35.20 points for you in a 19.88-point win over Ne-Tuten-ya
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Dak MVP szn** (proj 121.7) vs **Throwsa parks** (proj 121.3) — combined 243.0, projected margin 0.4
-- **Purdy Good at Getting Off** (proj 88.5) vs **MarlBurrow Man** (proj 120.9) — combined 209.4, projected margin 32.3
+- **Dak MVP szn** (proj 120.3) vs **Throwsa parks** (proj 121.9) — combined 242.2, projected margin 1.6
+- **Purdy Good at Getting Off** (proj 99.7) vs **MarlBurrow Man** (proj 124.8) — combined 224.5, projected margin 25.2
 
 ## Closest Games
 
