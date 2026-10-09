@@ -17,4 +17,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Fetch Jeremiah Love stats
-        run: python scripts/_adhoc_love_stats.py
+        run: python _adhoc_love_stats.py
