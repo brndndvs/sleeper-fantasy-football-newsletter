@@ -18,6 +18,17 @@ for pid, p in players.items():
     if full_name in targets:
         name_to_id[full_name] = pid
 
+print("--- fuzzy search for any missing targets ---")
+for name in targets:
+    if name in name_to_id:
+        continue
+    last = name.split()[-1].lower()
+    for pid, p in players.items():
+        full_name = (p.get("full_name") or "").lower()
+        if last in full_name and p.get("position") == "RB":
+            print(f"  candidate for {name!r}: id={pid} full_name={p.get('full_name')!r} team={p.get('team')} active={p.get('active')}")
+print()
+
 for name in targets:
     pid = name_to_id.get(name)
     if not pid:
