@@ -9,49 +9,45 @@ _2026 Season_
 
 ## 🏆 Week 5 Awards
 
-🥇 THE "UNDEFEATED AND UNBOTHERED" AWARD
+🥇 THE "UNDEFEATED AND INSUFFERABLE" AWARD
 Winner: Jahmyr-oquai
-Five weeks, five wins, 828 points for. You're +27.3 on the luck index AND you still dropped 212 on Puka and rally like it owed you money. At this point the league shouldn't vote on awards, they should just mail you the trophy and ask for an autograph.
+5-0, 828.64 points for, and a +27.3 luck index that's basically a cheat code. You scored 212.58 this week against the single lowest-scoring team in the entire matchup slate and still won by 73. Gibbs went for 41.20, Allen went for 36.50, and you're out here dropping a tight end for a tight end like you don't even need the help. At some point the league is just going to start taxing you.
 
-💸 THE "I'M JUST HERE FOR THE BAG" AWARD
-Winner: Just take the $50 💸
-You left 63.30 points on your bench this week, the most in the entire league, and still somehow won by 62. Jaylen Warren dropped 43.80 on your starting lineup and you ALSO had a guy rotting on your bench doing nothing useful. You're not managing a roster, you're just vibing.
-
-🪦 THE "ACTIVELY DYING" AWARD
+💀 THE "PUT YOUR TEAM OUT OF ITS MISERY" AWARD
 Winner: Tee Time
-0-5. 55.54 points this week. 414.56 points on the season, dead last in the entire league by a mile. You dropped the Chiefs for the Cowboys and benched Xavier Worthy for Isaiah Williams, which is the fantasy equivalent of trading a kidney for a hangnail.
+0-5, 414.56 points for, dead last in literally every category that matters. You lost 151.82-55.54, a 96.28-point beatdown, and somehow still found time to drop Xavier Worthy for Isaiah Williams like that's the move that saves the season. It's not the Cowboys defense swap that's sinking you, buddy, it's everything.
 
-🎯 THE "PHOTO FINISH" AWARD
+🎯 THE "CLOSER THAN YOUR MARRIAGE SHOULD BE" AWARD
 Winner: Balls
-You won by one single point. ONE. 152.36 to 151.36. Somewhere za island animals is staring at their box score wondering if they left a decimal point on the table, and the answer is yes, they did, 28.40 points of it actually.
+You won by exactly 1.00 point. One. A rounding error. A sneeze. 152.36 to 151.36 over za island animals, and you only left 7.20 points on your bench all week, which is the only reason you're not the saddest story in this newsletter. Enjoy the win, it's basically a coin flip with extra steps.
 
-😭 THE "CURSED BY THE FANTASY GODS" AWARD
-Winner: za island animals
--30.9 luck index, worst in the league, and your QB Drake Maye just dropped 45.46 points, the single highest individual score of the entire week. You lost by one point WHILE OWNING THE BEST PERFORMANCE ON THE SLATE. That's not bad luck, that's a hate crime from the scheduling algorithm.
-
-🛋️ THE "COACHING FROM THE COUCH, BADLY" AWARD
-Winner: MarlBurrow Man
-50.88 points left on your bench, second-most in the league, in a game you lost by 2.26. Flip literally one lineup decision and you're not reading this sentence right now. Instead you're reading this one, where I tell you that you cooked yourself.
-
-🔥 THE "NAJEE BY A HAIR" AWARD
+🩸 THE "DEATH BY A THOUSAND PAPER CUTS" AWARD
 Winner: Purdy Good at Getting Off
-A 2.26-point win over MarlBurrow Man, the tightest non-Balls margin of the week, somehow secured with 10.24 points still parked on your bench. You didn't need to sweat this one and you definitely did anyway. +10.9 luck index says the fantasy gods like you more than your actual roster does.
+2.26 points. That's your margin of victory over MarlBurrow Man, which means your season basically came down to a kicker's shoe size. You're 3-2 with a +10.9 luck rating, so let's be honest, the name of your team is now also a description of your schedule luck.
 
-💀 THE "MERCY RULE REQUEST" AWARD
-Winner: DomOfTheMFYear
-151.82 to 55.54. You didn't beat Tee Time, you performed a public execution. Nearly a 100-point margin is the kind of score that gets you reported for excessive celebration in real sports.
+🔥 THE "YOUR BENCH OUTSCORED SOMEONE'S STARTERS" AWARD
+Winner: Just take the $50 💸
+You left 63.30 points on your bench this week, the most in the entire league, and you still won by 62.50. Jaylen Warren dropped 43.80 and your bench STILL had enough gas left to beat Ne-Tuten-yahu by basically the same margin as your bench waste. Imagine actually optimizing your lineup — terrifying thought, never do it.
 
-📉 THE "PUKA DOESN'T RALLY" AWARD
-Winner: Puka and rally
-Lost by 73.20, the single ugliest margin of the week, despite Christian Watson personally dropping 37.30 points on you. 1-4 on the season with a -23.6 luck score means it's not just bad luck, it's a vibe, and the vibe is bad.
+🪦 THE "ALREADY MATHEMATICALLY HAUNTED" AWARD
+Winner: za island animals
+Drake Maye threw for 45.46 points for you, the single best individual performance of the entire week, and you still lost by one measly point. Your luck index is a league-worst -30.9, meaning the simulation hates you more than any other team in this league. 1-4 despite 661.62 points for. You're basically getting mugged every Sunday.
 
-🧢 THE "FAKE TOP DOG" AWARD
-Winner: Picken my ass
-4-1 looks great on paper until you realize your luck index is a flat 0.0, meaning the universe owes you nothing and you're earning every single win the hard way. You also burned three different waiver moves this week on a defense, a kicker, AND a running back you cut a week later. Pick a lane.
+🧊 THE "ICE COLD BENCH MANAGEMENT" AWARD
+Winner: MarlBurrow Man
+50.88 points left on your bench, second-worst in the league, in a game you lost by only 2.26. Do the math — you had the horses, you just left them in the barn. 3-2 feels like a mirage when your actual decision-making is this brutal.
 
-🏚️ THE "ROSTER ARSON" AWARD
+🎰 THE "RUNNING HOT ON SOMEONE ELSE'S DIME" AWARD
 Winner: Ne-Tuten-yahu
-Lost by 62.50 and your luck index is still +7.3, which means statistically you should be getting beat by MORE. You dropped Josh Jacobs for Antonio Williams mid-season like that was going to save the ship. It did not. 2-3 and sinking.
+18-37 all-play record but somehow +7.3 luck and still sitting at 2-3 instead of being buried. You got run over 151.72-89.22 this week by Just take the $50, your defense is now a Jets defense because apparently you've given up trying, and yet the universe keeps gently patting you on the head instead of ending you. Enjoy the mercy.
+
+🏆 THE "BORING BECAUSE YOU'RE JUST GOOD" AWARD
+Winner: Picken my ass
+4-1, a +0.0 luck index meaning you're winning exactly as much as you deserve, and a 183.34 performance that beat Throwsa parks by 26.90. Three separate waiver moves this week trying to fine-tune a kicker situation nobody asked about. Matt Gay? Really? You're 4-1 and sweating your K position like it's the playoffs already.
+
+🛋️ THE "COULD'VE BENCHED A COUCH CUSHION" AWARD
+Winner: DomOfTheMFYear
+Only 18.30 points left on your bench, one of the tightest lineups in the league, and you still only beat Tee Time by 96.28 — which honestly says more about Tee Time than it does about you. Dropped a kicker for a kicker and a defense for a running back this week like you're assembling a go-kart out of spare parts. It's working though, 3-2 and climbing.
 
 ## Matchup Recap
 
@@ -66,8 +62,8 @@ Lost by 62.50 and your luck index is still +7.3, which means statistically you s
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Purdy Good at Getting Off** (proj 122.0) vs **Throwsa parks** (proj 116.1) — combined 238.1, projected margin 5.8
-- **Picken my ass** (proj 128.6) vs **Just take the $50 💸** (proj 87.7) — combined 216.2, projected margin 40.9
+- **Purdy Good at Getting Off** (proj 121.4) vs **Throwsa parks** (proj 116.4) — combined 237.8, projected margin 5.0
+- **Picken my ass** (proj 129.2) vs **Just take the $50 💸** (proj 88.9) — combined 218.1, projected margin 40.3
 
 ## Closest Games
 
