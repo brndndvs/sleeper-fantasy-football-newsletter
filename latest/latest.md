@@ -12,39 +12,53 @@ Keep it rolling
 
 🏆 THE "KICKING A MAN WHEN HE'S DOWN" AWARD
 Winner: Balls
-Balls dropped 189.98 on Roger Goodell like he owed them money, which honestly, in this league, he kind of does. Jahmyr Gibbs and Isaiah Likely combined for 70.1 points, and Balls still only used 22.70 bench points all week because God forbid they leave a single point on the table. 5-0, 862.96 points for, and a +4.6 luck index — these dickheads aren't lucky, they're just better than you. Terrifying.
 
-💀 THE "AUTOPSY REPORT" AWARD
+189.98 points. Jahmyr Gibbs AND Isaiah Likely both going off for 37+ and 32+. This isn't a fantasy team, it's a war crime. 5-0, nearly 863 points for on the year, and a +4.6 luck index means you didn't even need the luck, you just have the best roster in the building. Roger Goodell didn't lose this week so much as he got mugged in broad daylight.
+
+🩸 THE "BLED OUT ON THE TABLE" AWARD
 Winner: Roger Goodell
-159.18 points scored and still lost by 30, which is a special kind of sad. But the real crime scene is the 121 points rotting on your bench — more points than most teams scored THIS WEEK. You didn't lose to Balls, you lost to your own lineup decisions, and the coroner's cause of death is "self-inflicted."
 
-🩸 THE "GET OUT OF MY HOUSE" MASSACRE AWARD
+159.18 points scored, which would've beaten literally everybody else's floor this week, and you still lost by 30.8 because Balls decided to have a both-of-my-studs-go-nuclear kind of Sunday. To make it worse, you left 121 points on your bench, the most of anyone in the league. You basically benched a second starting lineup that could've won you the game outright.
+
+😭 THE "UNLUCKIEST SON OF A BITCH" AWARD
 Winner: 12 DAY WAR VET
-62.1 points. Sixty-two. Puka Nacua and Jaylen Warren combined to drop 74.5 points on Tpotts42 like it was a scrimmage, not a real game. Enjoy the scoreboard, Tpotts, that's not a loss, that's a hate crime.
 
-😬 THE "LEFT THE PARTY TOO EARLY" AWARD
+You beat Tpotts42 by 62 points this week behind Puka Nacua and Jaylen Warren both going off for 36+, and your record is still 2-3. Your luck index sits at -27.7, tied for worst in the league, which means the math itself feels bad for you. You also left 78.7 points on your bench in the blowout, so even your best week was somehow still inefficient.
+
+💀 THE "ACTIVE WARFARE" AWARD
 Winner: Tpotts42
-132.84 points and 48.10 of them sat on your bench while you got run over by a truck. Also, fresh off getting embarrassed by 62 points, you went and added Kalif Raymond off waivers — the exact guy 12 DAY WAR VET just cut. Buying a man's trash the same week he beat your ass by 62. Bold.
 
-😮‍💨 THE "HEART ATTACK SPECIAL" AWARD
+Losing 194.94-132.84 is the kind of margin where you check if the other team accidentally started two lineups. 62.1 points is the widest gap of the week, and your luck index is still a cushy +7.7 overall, meaning this one loss was just the league reminding you it can still hurt you whenever it wants.
+
+🧟 THE "ZOMBIE WIN" AWARD
 Winner: Talking Tua Teenager
-A nail-biting 143.32-139.96 win over Simply Touchdowns, margin of a measly 3.36 points. You're 5-0 and still somehow riding a +24.6 luck index, the highest in the league, meaning your all-play record (49-16) says you've basically been getting away with murder all season. Also you used literally your last roster move of the week to add a kicker. A kicker. Living the dream.
 
-🎯 THE "YOUR RECORD IS A LIE" AWARD
+5-0, beat Simply Touchdowns by a microscopic 3.36 points, and you're still riding a +24.6 luck index, the most fortunate number in the entire league. You're not good, you're blessed. The football gods clearly owe you money and are paying it off in cheap, ugly wins.
+
+🪦 THE "SO CLOSE, YET SO FUCKING FAR" AWARD
 Winner: Simply Touchdowns
-3-2 actual record but a 43-22 all-play mark and a -6.2 luck rating says you've actually been pretty unlucky, and this week's heartbreaker against Talking Tua Teenager (lost by 3.36) is exhibit A. You left 56.80 points on your bench in a game you lost by 3.36. Do the math. That one hurts.
 
-🧊 THE "ICE COLD, STILL WINNING" AWARD
+139.96 points and a loss. In almost any other matchup this week that score wins comfortably, but you ran into the luckiest team in the league by 3.36 points. Your luck index is already -6.2, so add this one to the pile of "we got robbed" group texts.
+
+🤡 THE "PLAYING 4D CHESS WHILE LOSING AT CHECKERS" AWARD
 Winner: A FOOTBALL TEAM
-No matchup data to even roast you for this week, but Drake Maye went off for 39.46 points, the single highest individual score in the league, and you're sitting pretty at 4-1 with a +18.5 luck rating. Must be nice to coast on a rookie QB's legs while everyone else is setting their own house on fire.
 
-📉 THE "THE NUMBERS DON'T LIE, YOU'RE JUST UNLUCKY" AWARD
+4-1, +18.5 luck index, second luckiest team in the league, and somehow nobody from your roster cracked the top scorers list except Drake Maye's 39.46-point explosion. You're winning games you have no business winning and getting zero style points for it. Keep it up, nobody's mad, everybody's suspicious.
+
+🦴 THE "SCRAPS OFF THE WAIVER FLOOR" AWARD
 Winner: KC
-2-3 record, but 37-28 all-play and a -16.9 luck index says the universe owes you at least one win back. Instead you're down here making lateral moves like swapping Elijah Arroyo for Dohnte Meyers, which is the fantasy equivalent of rearranging deck chairs on a ship that was never going to sink that hard anyway.
 
-🃏 THE "WORST LUCK IN THE BUILDING" AWARD
-Winner: Roger Goodell AND 12 DAY WAR VET
-Tied at a brutal -27.7 luck index, the two unluckiest degenerates in the league. Goodell benched 121 points and still has receipts proving he's actually better than 3-2. 12 DAY WAR VET just got demolished by 62 and somehow still has a positive all-play record (44-21). The universe hates you both equally. Misery loves company.
+2-3, -16.9 luck index, and your big offseason… I mean in-season move this week was Dohnte Meyers off waivers. Not exactly a blockbuster. At 550.46 points for, the lowest in the league, you need more than a waiver-wire flyer at this point, you need a miracle.
+
+🔁 THE "MUSICAL CHAIRS AT KICKER" AWARD
+Winner: 12 DAY WAR VET
+
+You didn't just make one roster move this week, you made five, including benching Cam Little for Will Reichard like kickers are interchangeable Pokemon cards. You also swapped defenses and dumped a tight end for a running back nobody's excited about. Grinding that hard on the waiver wire and still losing the week's biggest point differential in your favor and still sitting at 2-3 has to sting.
+
+🛋️ THE "BEST SEAT IN THE HOUSE" AWARD
+Winner: Simply Touchdowns
+
+56.8 points stranded on your bench in a game you lost by 3.36. Somewhere in your bench spots sat the exact margin you needed, just chilling, doing absolutely nothing for you. That's not bad luck, that's a lineup decision haunting you in your sleep tonight.
 
 ## Matchup Recap
 
@@ -69,8 +83,8 @@ Tied at a brutal -27.7 luck index, the two unluckiest degenerates in the league.
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Tpotts42** (proj 131.2) vs **Talking Tua Teenager** (proj 136.3) — combined 267.4, projected margin 5.1
-- **Simply Touchdowns** (proj 82.5) vs **A FOOTBALL TEAM** (proj 110.7) — combined 193.2, projected margin 28.1
+- **Tpotts42** (proj 131.5) vs **Talking Tua Teenager** (proj 136.8) — combined 268.4, projected margin 5.3
+- **Simply Touchdowns** (proj 82.5) vs **A FOOTBALL TEAM** (proj 97.7) — combined 180.2, projected margin 15.2
 
 ## Closest Games
 
