@@ -1,160 +1,156 @@
 ![Diddy Party  logo](https://github.com/user-attachments/assets/64f64aba-8f36-4fdf-be8a-33c77fe2bcc6)
 
-# Diddy Party  — Week 4 — October 06, 2026 Newsletter
+# Diddy Party  — Week 5 — October 13, 2026 Newsletter
 _2026 Season_
 
 ## Commissioner's Notes
 
-4-0 LETS GO. Almost sold, but we took the dub.
+5-0! Week 6 is here. Clay put up 50 on TNF, and honestly, I didn't break a sweat. This team is inevitable. (*thanos snap) cant wait to win week 6
 
-## 🏆 Week 4 Awards
+## 🏆 Week 5 Awards
 
-🏆 THE "PERFECT, KEEP BEING PERFECT" AWARD
+🥇 THE "UNDEFEATED AND UNBOTHERED" AWARD
 Winner: Jahmyr-oquai
-4-0, leads the league in points for, and sports a luck index of +34.1, which means even the universe is holding your hand across the street. You're 29-15 in all-play. At this point you're not winning games, you're just collecting W's like Pokemon cards while everyone else cries in the parking lot.
+Five weeks, five wins, 828 points for. You're +27.3 on the luck index AND you still dropped 212 on Puka and rally like it owed you money. At this point the league shouldn't vote on awards, they should just mail you the trophy and ask for an autograph.
 
-💀 THE "MATHEMATICALLY DECEASED" AWARD
-Winner: Tee Time
-0-4, dead last, and your all-play record is a gruesome 7-37. That's not a losing streak, that's a crime scene. You lost by 7.18 this week and it's genuinely the closest you've felt to happiness all season.
-
-🔥 THE "NUCLEAR LAUNCH CODES" AWARD
-Winner: DomOfTheMFYear
-36.70 points was the margin of destruction you dropped on Balls this week, the single most lopsided beatdown of the slate. You didn't just win, you performed a public execution and called it fantasy football.
-
-🎯 THE "SO CLOSE, SO FAR" AWARD
-Winner: Tee Time
-107.42 to 100.24. Seven measly points separated you from your first win of the season, and instead you're 0-4 wondering why the football gods specifically hate you. The gap between misery and relief was one (1) flex decision.
-
-🪑 THE "YOUR BENCH OUTSCORED YOUR LINEUP'S DIGNITY" AWARD
-Winner: Dak MVP szn
-76.18 points sat on your bench this week, more than entire teams' starting rosters have scored combined. You won anyway, somehow, which means you're either a genius or the universe just felt bad for whoever drafted this hard and still benched gold.
-
-🧠 THE "IT'S CALLED STRATEGY, LOOK IT UP" AWARD
-Winner: DomOfTheMFYear
-58.46 points of churned butter rotting on your bench, and yet you still smoked Balls by 36 points. Imagine how disrespectful the final score would've been if you'd actually started your best players.
-
-🍀 THE "HORSESHOE SURGICALLY REMOVED FROM ASS" AWARD
-Winner: za island animals
-1-3 record with a 23-21 all-play mark, good for the single unluckiest luck index in the league at -27.3. Kenneth Walker dropped 36.40 points on your roster this week and you STILL lost, which is the fantasy equivalent of winning the lottery and getting hit by the delivery truck bringing you the check.
-
-😤 THE "DESERVE BETTER" AWARD
-Winner: Dak MVP szn
-34-10 all-play, 3-1 on the season, and still somehow sporting a -2.3 luck index, meaning your record is basically earned in blood, not gifted. You got run over by MarlBurrow Man by 33.42 points this week, the single ugliest final score on the board.
-
-🤡 THE "33 POINT FACEPLANT" AWARD
-Winner: MarlBurrow Man
-You beat Dak MVP szn by 33.42 points on the back of CeeDee Lamb's absurd 38.80, and now you're 3-1 looking real comfortable. Enjoy it while it lasts, the waiver wire panic-add of Tyler Higbee suggests you already know regression is coming for that tight end room.
-
-🎒 THE "CARRIED LIKE A BACKPACK" AWARD
-Winner: Purdy Good at Getting Off
-Tetairoa McMillan dropped an absurd 44.20 points on your team, the single best individual performance of the entire week, and you still lost by 29.24. That's not a loss, that's a hostage situation where your receiver tried to save you and your roster shot the hostage anyway.
-
-💸 THE "LITERALLY NAMED FOR THIS MOMENT" AWARD
+💸 THE "I'M JUST HERE FOR THE BAG" AWARD
 Winner: Just take the $50 💸
-2-2 but riding a +15.9 luck index, which means your record is basically a participation trophy with extra steps. You beat Puka and rally by 23.80 while leaving the second-least amount of points on your bench in the league. Efficient mediocrity, truly an art form.
+You left 63.30 points on your bench this week, the most in the entire league, and still somehow won by 62. Jaylen Warren dropped 43.80 on your starting lineup and you ALSO had a guy rotting on your bench doing nothing useful. You're not managing a roster, you're just vibing.
 
-🪦 THE "QUIETLY DYING" AWARD
+🪦 THE "ACTIVELY DYING" AWARD
+Winner: Tee Time
+0-5. 55.54 points this week. 414.56 points on the season, dead last in the entire league by a mile. You dropped the Chiefs for the Cowboys and benched Xavier Worthy for Isaiah Williams, which is the fantasy equivalent of trading a kidney for a hangnail.
+
+🎯 THE "PHOTO FINISH" AWARD
 Winner: Balls
-1-3, dead last in bench points left unused at a mere 11.60, meaning you started your best lineup possible and still got demolished 129.18 to 92.48. You did everything right and lost by 36 anyway. There's no moral victory here, just Balls, getting stomped.
+You won by one single point. ONE. 152.36 to 151.36. Somewhere za island animals is staring at their box score wondering if they left a decimal point on the table, and the answer is yes, they did, 28.40 points of it actually.
+
+😭 THE "CURSED BY THE FANTASY GODS" AWARD
+Winner: za island animals
+-30.9 luck index, worst in the league, and your QB Drake Maye just dropped 45.46 points, the single highest individual score of the entire week. You lost by one point WHILE OWNING THE BEST PERFORMANCE ON THE SLATE. That's not bad luck, that's a hate crime from the scheduling algorithm.
+
+🛋️ THE "COACHING FROM THE COUCH, BADLY" AWARD
+Winner: MarlBurrow Man
+50.88 points left on your bench, second-most in the league, in a game you lost by 2.26. Flip literally one lineup decision and you're not reading this sentence right now. Instead you're reading this one, where I tell you that you cooked yourself.
+
+🔥 THE "NAJEE BY A HAIR" AWARD
+Winner: Purdy Good at Getting Off
+A 2.26-point win over MarlBurrow Man, the tightest non-Balls margin of the week, somehow secured with 10.24 points still parked on your bench. You didn't need to sweat this one and you definitely did anyway. +10.9 luck index says the fantasy gods like you more than your actual roster does.
+
+💀 THE "MERCY RULE REQUEST" AWARD
+Winner: DomOfTheMFYear
+151.82 to 55.54. You didn't beat Tee Time, you performed a public execution. Nearly a 100-point margin is the kind of score that gets you reported for excessive celebration in real sports.
+
+📉 THE "PUKA DOESN'T RALLY" AWARD
+Winner: Puka and rally
+Lost by 73.20, the single ugliest margin of the week, despite Christian Watson personally dropping 37.30 points on you. 1-4 on the season with a -23.6 luck score means it's not just bad luck, it's a vibe, and the vibe is bad.
+
+🧢 THE "FAKE TOP DOG" AWARD
+Winner: Picken my ass
+4-1 looks great on paper until you realize your luck index is a flat 0.0, meaning the universe owes you nothing and you're earning every single win the hard way. You also burned three different waiver moves this week on a defense, a kicker, AND a running back you cut a week later. Pick a lane.
+
+🏚️ THE "ROSTER ARSON" AWARD
+Winner: Ne-Tuten-yahu
+Lost by 62.50 and your luck index is still +7.3, which means statistically you should be getting beat by MORE. You dropped Josh Jacobs for Antonio Williams mid-season like that was going to save the ship. It did not. 2-3 and sinking.
 
 ## Matchup Recap
 
-- **Jahmyr-oquai** 107.42 def. **Tee Time** 100.24 (margin: 7.18)
-- **MarlBurrow Man** 185.82 def. **Dak MVP szn** 152.40 (margin: 33.42)
-- **DomOfTheMFYear** 129.18 def. **Balls** 92.48 (margin: 36.70)
-- **za island animals** 183.36 def. **Purdy Good at Getting Off** 154.12 (margin: 29.24)
-- **Throwsa parks** 119.18 def. **Ne-Tuten-yahu** 99.30 (margin: 19.88)
-- **Just take the $50 💸** 137.28 def. **Puka and rally** 113.48 (margin: 23.80)
+- **Jahmyr-oquai** 212.58 def. **Puka and rally** 139.38 (margin: 73.20)
+- **DomOfTheMFYear** 151.82 def. **Tee Time** 55.54 (margin: 96.28)
+- **Picken my ass** 183.34 def. **Throwsa parks** 156.44 (margin: 26.90)
+- **Balls** 152.36 def. **za island animals** 151.36 (margin: 1.00)
+- **Purdy Good at Getting Off** 110.56 def. **MarlBurrow Man** 108.30 (margin: 2.26)
+- **Just take the $50 💸** 151.72 def. **Ne-Tuten-yahu** 89.22 (margin: 62.50)
 
 ## Big Game of the Week
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Dak MVP szn** (proj 120.3) vs **Throwsa parks** (proj 121.9) — combined 242.2, projected margin 1.6
-- **Purdy Good at Getting Off** (proj 99.7) vs **MarlBurrow Man** (proj 124.8) — combined 224.5, projected margin 25.2
+- **Purdy Good at Getting Off** (proj 122.0) vs **Throwsa parks** (proj 116.1) — combined 238.1, projected margin 5.8
+- **Picken my ass** (proj 128.6) vs **Just take the $50 💸** (proj 87.7) — combined 216.2, projected margin 40.9
 
 ## Closest Games
 
-1. **Jahmyr-oquai** 107.42 - 100.24 **Tee Time** (margin: 7.18)
-2. **Throwsa parks** 119.18 - 99.30 **Ne-Tuten-yahu** (margin: 19.88)
-3. **Just take the $50 💸** 137.28 - 113.48 **Puka and rally** (margin: 23.80)
+1. **Balls** 152.36 - 151.36 **za island animals** (margin: 1.00)
+2. **Purdy Good at Getting Off** 110.56 - 108.30 **MarlBurrow Man** (margin: 2.26)
+3. **Picken my ass** 183.34 - 156.44 **Throwsa parks** (margin: 26.90)
 
 ## Top Scorers
 
-1. **Tetairoa McMillan (WR - CAR)** — 44.20 pts (Purdy Good at Getting Off)
-2. **CeeDee Lamb (WR - DAL)** — 38.80 pts (MarlBurrow Man)
-3. **Kenneth Walker (RB - KC)** — 36.40 pts (za island animals)
-4. **Bijan Robinson (RB - ATL)** — 35.20 pts (Throwsa parks)
-5. **Kyle Monangai (RB - CHI)** — 33.50 pts (Ne-Tuten-yahu)
+1. **Drake Maye (QB - NE)** — 45.46 pts (za island animals)
+2. **Jaylen Warren (RB - PIT)** — 43.80 pts (Just take the $50 💸)
+3. **Jahmyr Gibbs (RB - DET)** — 41.20 pts (Jahmyr-oquai)
+4. **Christian Watson (WR - GB)** — 37.30 pts (Puka and rally)
+5. **Josh Allen (QB - BUF)** — 36.50 pts (Jahmyr-oquai)
 
 ## Standings
 
 | Rank | Team | Record | PF | PA |
 |------|------|--------|----|----|
-| 1 | Jahmyr-oquai | 4-0 | 616.06 | 434.48 |
-| 2 | Dak MVP szn | 3-1 | 574.32 | 530.76 |
-| 3 | MarlBurrow Man | 3-1 | 550.44 | 567.90 |
-| 4 | Throwsa parks | 3-1 | 526.08 | 403.90 |
-| 5 | Purdy Good at Getting Off | 2-2 | 526.24 | 566.52 |
-| 6 | DomOfTheMFYear | 2-2 | 488.76 | 458.08 |
-| 7 | Ne-Tuten-yahu | 2-2 | 471.18 | 463.08 |
-| 8 | Just take the $50 💸 | 2-2 | 437.28 | 471.38 |
-| 9 | za island animals | 1-3 | 510.26 | 614.12 |
-| 10 | Puka and rally | 1-3 | 498.28 | 555.80 |
-| 11 | Balls | 1-3 | 472.36 | 529.06 |
-| 12 | Tee Time | 0-4 | 359.02 | 435.20 |
+| 1 | Jahmyr-oquai | 5-0 | 828.64 | 573.86 |
+| 2 | Picken my ass | 4-1 | 757.66 | 687.20 |
+| 3 | Throwsa parks | 3-2 | 682.52 | 587.24 |
+| 4 | MarlBurrow Man | 3-2 | 658.74 | 678.46 |
+| 5 | DomOfTheMFYear | 3-2 | 640.58 | 513.62 |
+| 6 | Purdy Good at Getting Off | 3-2 | 636.80 | 674.82 |
+| 7 | Just take the $50 💸 | 3-2 | 589.00 | 560.60 |
+| 8 | Balls | 2-3 | 624.72 | 680.42 |
+| 9 | Ne-Tuten-yahu | 2-3 | 560.40 | 614.80 |
+| 10 | za island animals | 1-4 | 661.62 | 766.48 |
+| 11 | Puka and rally | 1-4 | 637.66 | 768.38 |
+| 12 | Tee Time | 0-5 | 414.56 | 587.02 |
 
 ## Power Rankings
 
 _Blends record, season points, and the last 3 weeks of scoring — not just win-loss._
 
-1. **Dak MVP szn** (3-1) — recent avg 144.0 pts
-2. **MarlBurrow Man** (3-1) — recent avg 146.0 pts
-3. **Jahmyr-oquai** (4-0) — recent avg 134.3 pts
-4. **Purdy Good at Getting Off** (2-2) — recent avg 137.2 pts
-5. **Throwsa parks** (3-1) — recent avg 132.6 pts
-6. **DomOfTheMFYear** (2-2) — recent avg 135.1 pts
-7. **za island animals** (1-3) — recent avg 126.7 pts
-8. **Ne-Tuten-yahu** (2-2) — recent avg 122.4 pts
-9. **Just take the $50 💸** (2-2) — recent avg 118.5 pts
-10. **Balls** (1-3) — recent avg 113.5 pts
-11. **Puka and rally** (1-3) — recent avg 106.2 pts
-12. **Tee Time** (0-4) — recent avg 83.0 pts
+1. **Jahmyr-oquai** (5-0) — recent avg 167.9 pts
+2. **Picken my ass** (4-1) — recent avg 152.2 pts
+3. **Throwsa parks** (3-2) — recent avg 149.0 pts
+4. **MarlBurrow Man** (3-2) — recent avg 143.1 pts
+5. **DomOfTheMFYear** (3-2) — recent avg 138.6 pts
+6. **Purdy Good at Getting Off** (3-2) — recent avg 122.5 pts
+7. **za island animals** (1-4) — recent avg 135.4 pts
+8. **Just take the $50 💸** (3-2) — recent avg 134.5 pts
+9. **Puka and rally** (1-4) — recent avg 121.3 pts
+10. **Balls** (2-3) — recent avg 118.1 pts
+11. **Ne-Tuten-yahu** (2-3) — recent avg 98.9 pts
+12. **Tee Time** (0-5) — recent avg 86.2 pts
 
 ## Luck Index
 
 _All-play record: how each team's actual record compares to if they'd played every other team, every week. Positive = luckier than their schedule; negative = unlucky._
 
-1. **Jahmyr-oquai** — record 4-0, all-play 29-15 (+34.1)
-2. **Throwsa parks** — record 3-1, all-play 24-20 (+20.5)
-3. **Just take the $50 💸** — record 2-2, all-play 15-29 (+15.9)
-4. **Ne-Tuten-yahu** — record 2-2, all-play 17-27 (+11.4)
-5. **MarlBurrow Man** — record 3-1, all-play 29-15 (+9.1)
-6. **Dak MVP szn** — record 3-1, all-play 34-10 (-2.3)
-7. **DomOfTheMFYear** — record 2-2, all-play 23-21 (-2.3)
-8. **Purdy Good at Getting Off** — record 2-2, all-play 24-20 (-4.5)
-9. **Tee Time** — record 0-4, all-play 7-37 (-15.9)
-10. **Balls** — record 1-3, all-play 19-25 (-18.2)
-11. **Puka and rally** — record 1-3, all-play 20-24 (-20.5)
-12. **za island animals** — record 1-3, all-play 23-21 (-27.3)
+1. **Jahmyr-oquai** — record 5-0, all-play 40-15 (+27.3)
+2. **Just take the $50 💸** — record 3-2, all-play 21-34 (+21.8)
+3. **Purdy Good at Getting Off** — record 3-2, all-play 27-28 (+10.9)
+4. **Ne-Tuten-yahu** — record 2-3, all-play 18-37 (+7.3)
+5. **DomOfTheMFYear** — record 3-2, all-play 30-25 (+5.5)
+6. **MarlBurrow Man** — record 3-2, all-play 31-24 (+3.6)
+7. **Picken my ass** — record 4-1, all-play 44-11 (+0.0)
+8. **Throwsa parks** — record 3-2, all-play 33-22 (+0.0)
+9. **Balls** — record 2-3, all-play 27-28 (-9.1)
+10. **Tee Time** — record 0-5, all-play 7-48 (-12.7)
+11. **Puka and rally** — record 1-4, all-play 24-31 (-23.6)
+12. **za island animals** — record 1-4, all-play 28-27 (-30.9)
 
 ## Trades — Last 21 Days (top 5)
 
 _Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked by a blend of how lopsided the trade was and how much total value changed hands, so a real blockbuster outranks a minor move that just happens to be a bit uneven._
 
-**Trade 1 (Wednesday, September 23) — za island animals wins it (+5760 est. value)**
+**Trade 1 (Monday, October 12) — Tee Time wins it (+762 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Tee Time | Bucky Irving (RB - TB) | 5808 | -5760 |
-| za island animals | Malik Nabers (WR - NYG), Quinshon Judkins (RB - CLE) | 11568 | +5760 |
+| Tee Time | TreVeyon Henderson (RB - NE), Travis Kelce (TE - KC), Nico Collins (WR - HOU) | 17094 | +762 |
+| Purdy Good at Getting Off | Saquon Barkley (RB - PHI), Tucker Kraft (TE - GB), Dontayvion Wicks (WR - PHI) | 16332 | -762 |
 
-**Trade 2 (Wednesday, September 30) — Puka and rally wins it (+60 est. value)**
+**Trade 2 (Wednesday, September 30) — Puka and rally wins it (+54 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Tee Time | David Montgomery (RB - HOU) | 5748 | -60 |
-| Puka and rally | Bucky Irving (RB - TB) | 5808 | +60 |
+| Tee Time | David Montgomery (RB - HOU) | 5754 | -54 |
+| Puka and rally | Bucky Irving (RB - TB) | 5808 | +54 |
 
 **Trade 3 (Wednesday, September 30) — looks even**
 
@@ -165,40 +161,40 @@ _Value is a rough estimate from Sleeper's own player rankings and a simple pick-
 
 ## Waiver Wire / Free Agency This Week
 
-**Wednesday, September 30:**
-- **za island animals** (Waiver Claim): added Deshaun Watson (QB - CLE); dropped Fernando Mendoza (QB - LV)
-- **Balls** (Waiver Claim): added Braelon Allen (RB - NYJ); dropped De'Von Achane (RB - MIA)
-- **Jahmyr-oquai** (Waiver Claim): added Kenyon Sadiq (TE - NYJ); dropped Terrance Ferguson (TE - LAR)
-- **Tee Time** (Waiver Claim): added Ollie Gordon (RB - MIA); dropped Jacory Croskey-Merritt (RB - WAS)
-- **Dak MVP szn** (Waiver Claim): added Pittsburgh Steelers (DEF - PIT); dropped San Francisco 49ers (DEF - SF)
-- **MarlBurrow Man** (Waiver Claim): added Konata Mumpfield (WR - LAR); dropped Jayden Reed (WR - GB)
-- **DomOfTheMFYear** (Waiver Claim): added John Metchie (WR - CAR); dropped Tyjae Spears (RB - TEN)
-- **Dak MVP szn** (Waiver Claim): added Brian Robinson (RB - ATL); dropped Chris Rodriguez (RB - JAX)
-- **Just take the $50 💸** (Free Agent Move): added —; dropped Joshua Palmer (WR - BUF)
-- **MarlBurrow Man** (Free Agent Move): added Tyler Higbee (TE - LAR); dropped Devin Singletary (RB - NYG)
-- **Just take the $50 💸** (Free Agent Move): added Chicago Bears (DEF - CHI); dropped Philadelphia Eagles (DEF - PHI)
-- **DomOfTheMFYear** (Free Agent Move): added Green Bay Packers (DEF - GB); dropped John Metchie (WR - CAR)
+**Wednesday, October 7:**
+- **Ne-Tuten-yahu** (Waiver Claim): added Will Shipley (RB - PHI); dropped Kalif Raymond (WR - CHI)
+- **Balls** (Waiver Claim): added Keon Coleman (WR - BUF); dropped Isaiah Davis (RB - NYJ)
+- **Picken my ass** (Waiver Claim): added Denver Broncos (DEF - DEN); dropped Pittsburgh Steelers (DEF - PIT)
+- **Picken my ass** (Waiver Claim): added Joe Mixon (RB - FA); dropped Brian Robinson (RB - ATL)
+- **Jahmyr-oquai** (Waiver Claim): added Khalil Shakir (WR - BUF); dropped Kenyon Sadiq (TE - NYJ)
+- **DomOfTheMFYear** (Waiver Claim): added Will Reichard (K - MIN); dropped Tyler Bass (K - BUF)
+- **DomOfTheMFYear** (Waiver Claim): added Tyler Allgeier (RB - ARI); dropped Green Bay Packers (DEF - GB)
+- **Jahmyr-oquai** (Free Agent Move): added T.J. Hockenson (TE - MIN); dropped Jaylen Wright (RB - MIA)
+- **Purdy Good at Getting Off** (Free Agent Move): added Brenton Strange (TE - JAX); dropped Tank Bigsby (RB - PHI)
+- **Picken my ass** (Free Agent Move): added Dohnte Meyers (WR - CIN); dropped Joe Mixon (RB - FA)
+- **Puka and rally** (Free Agent Move): added Jacoby Brissett (QB - ARI); dropped Oronde Gadsden (TE - LAC)
+- **DomOfTheMFYear** (Free Agent Move): added Mike Gesicki (TE - CIN); dropped Quentin Johnston (WR - LAC)
+- **Picken my ass** (Free Agent Move): added Matt Gay (K - LV); dropped Cam Little (K - JAX)
 
-**Thursday, October 1:**
-- **Purdy Good at Getting Off** (Free Agent Move): added Cleveland Browns (DEF - CLE); dropped Denver Broncos (DEF - DEN)
-- **Jahmyr-oquai** (Free Agent Move): added —; dropped Caleb Douglas (WR - MIA)
-- **Jahmyr-oquai** (Free Agent Move): added —; dropped Kenyon Sadiq (TE - NYJ)
-- **Jahmyr-oquai** (Free Agent Move): added Kalif Raymond (WR - CHI); dropped —
-- **Jahmyr-oquai** (Free Agent Move): added Jaylen Wright (RB - MIA); dropped Kalif Raymond (WR - CHI)
-- **Ne-Tuten-yahu** (Free Agent Move): added Keenan Allen (WR - IND); dropped Antonio Williams (WR - WAS)
+**Thursday, October 8:**
+- **Just take the $50 💸** (Free Agent Move): added Cincinnati Bengals (DEF - CIN); dropped Chicago Bears (DEF - CHI)
+- **za island animals** (Free Agent Move): added Kenny Gainwell (RB - TB); dropped Jauan Jennings (WR - MIN)
+- **za island animals** (Free Agent Move): added Jakobi Meyers (WR - JAX); dropped Kayshon Boutte (WR - HOU)
+- **Just take the $50 💸** (Free Agent Move): added Roman Wilson (WR - PIT); dropped —
+- **Tee Time** (Free Agent Move): added Dallas Cowboys (DEF - DAL); dropped Kansas City Chiefs (DEF - KC)
 
-**Friday, October 2:**
-- **Purdy Good at Getting Off** (Waiver Claim): added Jacory Croskey-Merritt (RB - WAS); dropped T.J. Hockenson (TE - MIN)
+**Friday, October 9:**
+- **Tee Time** (Free Agent Move): added Isaiah Williams (WR - NYJ); dropped Xavier Worthy (WR - KC)
+- **Just take the $50 💸** (Waiver Claim): added Brian Robinson (RB - ATL); dropped Rashod Bateman (WR - BAL)
+- **Ne-Tuten-yahu** (Free Agent Move): added Antonio Williams (WR - WAS); dropped Josh Jacobs (RB - GB)
 
-**Saturday, October 3:**
-- **Ne-Tuten-yahu** (Free Agent Move): added Kalif Raymond (WR - CHI); dropped Keenan Allen (WR - IND)
-- **Balls** (Free Agent Move): added Isaiah Davis (RB - NYJ); dropped —
+**Saturday, October 10:**
+- **Puka and rally** (Free Agent Move): added Kendrick Bourne (WR - ARI); dropped Kaelon Black (RB - SF)
+- **za island animals** (Free Agent Move): added Efton Chism (WR - NE); dropped —
+- **za island animals** (Free Agent Move): added Keaton Mitchell (RB - LAC); dropped Jakobi Meyers (WR - JAX)
 
-**Sunday, October 4:**
-- **za island animals** (Free Agent Move): added Jauan Jennings (WR - MIN); dropped Tyler Allgeier (RB - ARI)
-- **Ne-Tuten-yahu** (Free Agent Move): added Wan'Dale Robinson (WR - TEN); dropped Adonai Mitchell (WR - NYJ)
-- **Jahmyr-oquai** (Free Agent Move): added Kenyon Sadiq (TE - NYJ); dropped Khalil Shakir (WR - BUF)
-- **Ne-Tuten-yahu** (Free Agent Move): added New Orleans Saints (DEF - NO); dropped Carolina Panthers (DEF - CAR)
+**Sunday, October 11:**
+- **Ne-Tuten-yahu** (Free Agent Move): added New York Jets (DEF - NYJ); dropped New Orleans Saints (DEF - NO)
 
 
 ## Top 5 Highest-Value Waiver Pickups
@@ -207,9 +203,9 @@ _Ranked by current player value (Sleeper's own rankings), not FAAB spent -- trac
 
 1. Josh Jacobs (RB - GB) — added by Ne-Tuten-yahu — ~5880 value
 2. Courtland Sutton (WR - DEN) — added by MarlBurrow Man — ~5568 value
-3. Brian Robinson (RB - ATL) — added by Dak MVP szn — ~5520 value
-4. Kyler Murray (QB - MIN) — added by Balls — ~5484 value
-5. Sam Darnold (QB - SEA) — added by Jahmyr-oquai — ~5448 value
+3. Jakobi Meyers (WR - JAX) — added by za island animals — ~5538 value
+4. Brian Robinson (RB - ATL) — added by Just take the $50 💸 — ~5520 value
+5. Kenny Gainwell (RB - TB) — added by za island animals — ~5484 value
 
 ## Draft Value Tracker
 
@@ -219,26 +215,26 @@ _Recalculated fresh from Sleeper's own player rankings each run, so this shifts 
 
 1. Bijan Robinson (RB - ATL) — Throwsa parks (Round 1, Pick 1) — ~5994 value
 2. Jahmyr Gibbs (RB - DET) — Jahmyr-oquai (Round 1, Pick 9) — ~5994 value
-3. Josh Allen (QB - BUF) — Jahmyr-oquai (Round 3, Pick 33) — ~5982 value
-4. Ja'Marr Chase (WR - CIN) — Just take the $50 💸 (Round 1, Pick 2) — ~5976 value
+3. Ja'Marr Chase (WR - CIN) — Just take the $50 💸 (Round 1, Pick 2) — ~5982 value
+4. Christian McCaffrey (RB - SF) — DomOfTheMFYear (Round 1, Pick 3) — ~5976 value
 5. Jonathan Taylor (RB - IND) — Purdy Good at Getting Off (Round 1, Pick 4) — ~5976 value
 6. Puka Nacua (WR - LAR) — MarlBurrow Man (Round 2, Pick 17) — ~5976 value
-7. Christian McCaffrey (RB - SF) — DomOfTheMFYear (Round 1, Pick 3) — ~5970 value
+7. Josh Allen (QB - BUF) — Jahmyr-oquai (Round 3, Pick 33) — ~5976 value
 8. James Cook (RB - BUF) — Just take the $50 💸 (Round 2, Pick 23) — ~5970 value
 9. Jaxon Smith-Njigba (WR - SEA) — Balls (Round 3, Pick 30) — ~5964 value
-10. Derrick Henry (RB - BAL) — Dak MVP szn (Round 1, Pick 7) — ~5958 value
+10. Derrick Henry (RB - BAL) — Picken my ass (Round 1, Pick 7) — ~5958 value
 
 **Top 10 Best Value Picks** _(current value vs. where they were drafted)_
 
 1. Josh Jacobs (RB - GB) — Balls (Round 14, Pick 163) — +858 value vs. draft slot
 2. Drake Maye (QB - NE) — za island animals (Round 12, Pick 134) — +738 value vs. draft slot
 3. Bo Nix (QB - DEN) — Ne-Tuten-yahu (Round 11, Pick 130) — +510 value vs. draft slot
-4. Jaxson Dart (QB - NYG) — Balls (Round 11, Pick 126) — +504 value vs. draft slot
-5. Tyler Shough (QB - NO) — Tee Time (Round 15, Pick 173) — +498 value vs. draft slot
-6. Trevor Lawrence (QB - JAX) — Throwsa parks (Round 10, Pick 120) — +474 value vs. draft slot
-7. Jordyn Tyson (WR - NO) — Purdy Good at Getting Off (Round 12, Pick 141) — +474 value vs. draft slot
+4. Tyler Shough (QB - NO) — Tee Time (Round 15, Pick 173) — +504 value vs. draft slot
+5. Jaxson Dart (QB - NYG) — Balls (Round 11, Pick 126) — +492 value vs. draft slot
+6. Jordyn Tyson (WR - NO) — Purdy Good at Getting Off (Round 12, Pick 141) — +474 value vs. draft slot
+7. Trevor Lawrence (QB - JAX) — Throwsa parks (Round 10, Pick 120) — +468 value vs. draft slot
 8. Hunter Henry (TE - NE) — Throwsa parks (Round 14, Pick 168) — +456 value vs. draft slot
-9. Javonte Williams (RB - DAL) — Dak MVP szn (Round 9, Pick 103) — +438 value vs. draft slot
-10. Fernando Mendoza (QB - LV) — za island animals (Round 15, Pick 179) — +426 value vs. draft slot
+9. Javonte Williams (RB - DAL) — Picken my ass (Round 9, Pick 103) — +432 value vs. draft slot
+10. Jordan Love (QB - GB) — MarlBurrow Man (Round 12, Pick 137) — +414 value vs. draft slot
 
 Go Giants
