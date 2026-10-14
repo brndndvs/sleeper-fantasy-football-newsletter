@@ -78,6 +78,13 @@ TRADE_LOOKBACK_DAYS = 21
 # actual blockbuster. See the rank-blend in summarize_transactions.
 TRADE_DISPLAY_LIMIT = 5
 
+# The Best GM leaderboard sums each manager's net trade value across every trade
+# since the start of the current dynasty offseason, not the short trailing
+# TRADE_LOOKBACK_DAYS window above. Super Bowl LX is Feb 8, 2026; this anchors
+# to the day after, i.e. the start of this league's current trading period.
+GM_LEADERBOARD_START = datetime(2026, 2, 9, tzinfo=timezone.utc)
+GM_LEADERBOARD_LIMIT = 5
+
 # The commissioner manually schedules a rivalry week where every team plays its
 # rival; rivals also meet once more wherever the normal round-robin schedule
 # happens to pair them up.
@@ -828,31 +835,55 @@ def build_weekly_stats_packet(
     top_scorers: list[dict],
     luck_index: list[dict],
     waivers: list[dict],
+    *,
+    hidden_teams: Optional[set[str]] = None,
 ) -> str:
     """Formats this week's real results into a plain-text block fed to the weekly
     awards prompt -- every number here comes straight from Sleeper, so the model
-    has real material to roast instead of inventing stats."""
+    has real material to roast instead of inventing stats. Teams in hidden_teams
+    (lowercased names) never appear by name; a game against one is shown from
+    the other team's side only, with the opponent unnamed."""
+    hidden = hidden_teams or set()
+
+    def _hidden(team_name: str) -> bool:
+        return team_name.strip().lower() in hidden
+
+    def _game_line(m: MatchupResult) -> Optional[str]:
+        winner, loser = m.winner, m.loser
+        score = f"{winner['points']:.2f}-{loser['points']:.2f}"
+        if _hidden(winner["team"]) and _hidden(loser["team"]):
+            return None
+        if _hidden(loser["team"]):
+            return f"- {winner['team']} beat their opponent by {m.margin:.2f} ({score})"
+        if _hidden(winner["team"]):
+            return f"- {loser['team']} lost to their opponent by {m.margin:.2f} ({score})"
+        return (
+            f"- {winner['team']} {winner['points']:.2f} def. {loser['team']} {loser['points']:.2f} "
+            f"(margin {m.margin:.2f})"
+        )
+
     lines = [f"Week {week} results:"]
 
     lines.append("\nMatchup results (winner, loser, scores, margin):")
     for m in matchups:
         if m.is_bye:
             t = m.teams[0]
-            lines.append(f"- {t['team']} had a bye ({t['points']:.2f} pts)")
+            if not _hidden(t["team"]):
+                lines.append(f"- {t['team']} had a bye ({t['points']:.2f} pts)")
             continue
         if not m.has_scores:
             continue
-        winner, loser = m.winner, m.loser
-        lines.append(
-            f"- {winner['team']} {winner['points']:.2f} def. {loser['team']} {loser['points']:.2f} "
-            f"(margin {m.margin:.2f})"
-        )
+        line = _game_line(m)
+        if line:
+            lines.append(line)
 
     bench_lines = []
     for m in matchups:
         if not m.has_scores:
             continue
         for t in m.teams:
+            if _hidden(t["team"]):
+                continue
             bench_pts = sum(
                 pts
                 for pid, pts in (t["players_points"] or {}).items()
@@ -868,11 +899,9 @@ def build_weekly_stats_packet(
     if closest_games:
         lines.append("\nClosest games this week:")
         for m in closest_games:
-            winner, loser = m.winner, m.loser
-            lines.append(
-                f"- {winner['team']} beat {loser['team']} by {m.margin:.2f} "
-                f"({winner['points']:.2f}-{loser['points']:.2f})"
-            )
+            line = _game_line(m)
+            if line:
+                lines.append(line)
 
     if top_scorers:
         lines.append("\nTop individual scorers this week:")
@@ -924,7 +953,13 @@ def generate_weekly_awards(
         "result, never invented. These stats already exclude any team that isn't "
         "competing this season -- treat the teams listed below as the entire "
         "league; don't mention or reference any team that doesn't appear in the "
-        "stats. Cover every team that does appear (each should get at least one "
+        "stats. Some results say a team beat or lost to \"their opponent\" "
+        "without naming them -- roast the named team's own score and margin, "
+        "but never speculate about who the opponent was, call them tanking or "
+        "inactive, or remark that the opponent is unnamed. Never say a team's "
+        "data, matchup, or stats are missing, limited, or unavailable -- if "
+        "something isn't in the stats, just don't bring it up. Cover every "
+        "named team (each should get at least one "
         "mention across all the awards). Pick 8-12 award categories that fit what "
         "actually happened this week (blowout, nail-biter, best/worst bench "
         "decision, luckiest win, unluckiest loss, best waiver pickup, etc. -- "
@@ -992,16 +1027,23 @@ def transaction_datetime(tx: dict) -> Optional[datetime]:
     return datetime.fromtimestamp(ts / 1000, tz=timezone.utc)
 
 
-def summarize_transactions(
+def build_trade_entries(
     raw_transactions: list[dict], teams: dict[int, Team], players: dict, *, current_season: int
-) -> dict:
-    trades = []
-    waivers = []
+) -> list[dict]:
+    """Builds one entry per completed trade (each team's received items/value, the
+    winner, and the value_diff) -- unranked and untruncated. summarize_transactions
+    ranks and caps this to TRADE_DISPLAY_LIMIT for the weekly Trades section; the
+    Best GM leaderboard instead sums every entry's net swing across a much longer
+    window, so it needs the full list."""
 
+    def team_name_for(rid: int) -> str:
+        team = teams.get(rid)
+        return team.team_name if team else f"Team {rid}"
+
+    entries = []
     for tx in raw_transactions:
-        if tx.get("status") != "complete":
+        if tx.get("status") != "complete" or tx.get("type") != "trade":
             continue
-        tx_type = tx.get("type")
         roster_ids = tx.get("roster_ids") or []
         adds = tx.get("adds") or {}
         drops = tx.get("drops") or {}
@@ -1009,77 +1051,95 @@ def summarize_transactions(
         waiver_budget = tx.get("waiver_budget") or []
         when = transaction_datetime(tx)
 
+        per_team: dict[int, dict] = {
+            rid: {"received": [], "sent": [], "received_value": 0.0} for rid in roster_ids
+        }
+        for player_id, rid in adds.items():
+            per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
+            per_team[rid]["received"].append(
+                {"label": player_display_name(player_id, players), "player_id": player_id}
+            )
+            per_team[rid]["received_value"] += player_value(player_id, players)
+        for player_id, rid in drops.items():
+            per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
+            per_team[rid]["sent"].append(player_display_name(player_id, players))
+        for pick in draft_picks:
+            owner_rid = pick.get("owner_id")
+            prev_owner_rid = pick.get("previous_owner_id")
+            pick_desc = f"{pick.get('season')} Round {pick.get('round')} pick"
+            value = pick_value(pick.get("season"), pick.get("round"), current_season)
+            if owner_rid in per_team:
+                per_team[owner_rid]["received"].append({"label": pick_desc, "player_id": None})
+                per_team[owner_rid]["received_value"] += value
+            if prev_owner_rid in per_team:
+                per_team[prev_owner_rid]["sent"].append(pick_desc)
+        for wb in waiver_budget:
+            sender = wb.get("sender")
+            receiver = wb.get("receiver")
+            amount = wb.get("amount") or 0
+            desc = f"${amount} FAAB"
+            if receiver in per_team:
+                per_team[receiver]["received"].append({"label": desc, "player_id": None})
+                per_team[receiver]["received_value"] += amount * FAAB_VALUE_PER_DOLLAR
+            if sender in per_team:
+                per_team[sender]["sent"].append(desc)
+
+        team_info = {team_name_for(rid): info for rid, info in per_team.items()}
+        ranked = sorted(team_info.items(), key=lambda kv: kv[1]["received_value"], reverse=True)
+        if len(ranked) >= 2:
+            winner_name, winner_info = ranked[0]
+            value_diff = winner_info["received_value"] - ranked[1][1]["received_value"]
+        else:
+            winner_name, value_diff = None, 0.0
+        total_value = sum(info["received_value"] for info in team_info.values())
+
+        entries.append(
+            {
+                "teams": team_info,
+                "when": when,
+                "winner": winner_name if value_diff > 50 else None,
+                "value_diff": round(value_diff),
+                "total_value": round(total_value),
+            }
+        )
+    return entries
+
+
+def summarize_transactions(
+    raw_transactions: list[dict], teams: dict[int, Team], players: dict, *, current_season: int
+) -> dict:
+    trades = build_trade_entries(raw_transactions, teams, players, current_season=current_season)
+    waivers = []
+
+    for tx in raw_transactions:
+        if tx.get("status") != "complete":
+            continue
+        tx_type = tx.get("type")
+        if tx_type not in ("waiver", "free_agent"):
+            continue
+        roster_ids = tx.get("roster_ids") or []
+        adds = tx.get("adds") or {}
+        drops = tx.get("drops") or {}
+        when = transaction_datetime(tx)
+
         def team_name_for(rid: int) -> str:
             team = teams.get(rid)
             return team.team_name if team else f"Team {rid}"
 
-        if tx_type == "trade":
-            per_team: dict[int, dict] = {
-                rid: {"received": [], "sent": [], "received_value": 0.0} for rid in roster_ids
+        rid = roster_ids[0] if roster_ids else None
+        added = [player_display_name(pid, players) for pid in adds]
+        dropped = [player_display_name(pid, players) for pid in drops]
+        faab = tx.get("settings", {}).get("waiver_bid") if tx.get("settings") else None
+        waivers.append(
+            {
+                "team": team_name_for(rid) if rid is not None else "Unknown",
+                "type": TRANSACTION_TYPE_LABELS.get(tx_type, tx_type),
+                "added": added,
+                "dropped": dropped,
+                "faab": faab,
+                "when": when,
             }
-            for player_id, rid in adds.items():
-                per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
-                per_team[rid]["received"].append(
-                    {"label": player_display_name(player_id, players), "player_id": player_id}
-                )
-                per_team[rid]["received_value"] += player_value(player_id, players)
-            for player_id, rid in drops.items():
-                per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
-                per_team[rid]["sent"].append(player_display_name(player_id, players))
-            for pick in draft_picks:
-                owner_rid = pick.get("owner_id")
-                prev_owner_rid = pick.get("previous_owner_id")
-                pick_desc = f"{pick.get('season')} Round {pick.get('round')} pick"
-                value = pick_value(pick.get("season"), pick.get("round"), current_season)
-                if owner_rid in per_team:
-                    per_team[owner_rid]["received"].append({"label": pick_desc, "player_id": None})
-                    per_team[owner_rid]["received_value"] += value
-                if prev_owner_rid in per_team:
-                    per_team[prev_owner_rid]["sent"].append(pick_desc)
-            for wb in waiver_budget:
-                sender = wb.get("sender")
-                receiver = wb.get("receiver")
-                amount = wb.get("amount") or 0
-                desc = f"${amount} FAAB"
-                if receiver in per_team:
-                    per_team[receiver]["received"].append({"label": desc, "player_id": None})
-                    per_team[receiver]["received_value"] += amount * FAAB_VALUE_PER_DOLLAR
-                if sender in per_team:
-                    per_team[sender]["sent"].append(desc)
-
-            team_info = {team_name_for(rid): info for rid, info in per_team.items()}
-            ranked = sorted(team_info.items(), key=lambda kv: kv[1]["received_value"], reverse=True)
-            if len(ranked) >= 2:
-                winner_name, winner_info = ranked[0]
-                value_diff = winner_info["received_value"] - ranked[1][1]["received_value"]
-            else:
-                winner_name, value_diff = None, 0.0
-            total_value = sum(info["received_value"] for info in team_info.values())
-
-            trades.append(
-                {
-                    "teams": team_info,
-                    "when": when,
-                    "winner": winner_name if value_diff > 50 else None,
-                    "value_diff": round(value_diff),
-                    "total_value": round(total_value),
-                }
-            )
-        elif tx_type in ("waiver", "free_agent"):
-            rid = roster_ids[0] if roster_ids else None
-            added = [player_display_name(pid, players) for pid in adds]
-            dropped = [player_display_name(pid, players) for pid in drops]
-            faab = tx.get("settings", {}).get("waiver_bid") if tx.get("settings") else None
-            waivers.append(
-                {
-                    "team": team_name_for(rid) if rid is not None else "Unknown",
-                    "type": TRANSACTION_TYPE_LABELS.get(tx_type, tx_type),
-                    "added": added,
-                    "dropped": dropped,
-                    "faab": faab,
-                    "when": when,
-                }
-            )
+        )
 
     if trades:
         n = len(trades)
@@ -1319,6 +1379,9 @@ class NewsletterData:
     top_waiver_pickups: list[dict]
     games_started: bool
     weekly_awards: Optional[str]
+    best_gms: Optional[list[dict]] = None
+    show_waiver_pickups: bool = True
+    show_draft_value_tracker: bool = True
 
     @property
     def title(self) -> str:
@@ -1368,6 +1431,9 @@ def build_newsletter_data(
     weekly_awards_api_key: Optional[str] = None,
     weekly_awards_model: str = DEFAULT_AWARDS_MODEL,
     weekly_awards_exclude_teams: Optional[list[str]] = None,
+    show_waiver_pickups: bool = True,
+    show_draft_value_tracker: bool = True,
+    show_gm_leaderboard: bool = False,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -1441,6 +1507,13 @@ def build_newsletter_data(
 
     season_transactions = get_season_transactions(league_id, week)
     top_waiver_pickups = build_top_waiver_pickups(season_transactions, teams, players)
+    best_gms = (
+        build_gm_trade_leaderboard(
+            season_transactions, teams, players, current_season=current_season, since=GM_LEADERBOARD_START
+        )
+        if show_gm_leaderboard
+        else None
+    )
 
     now = datetime.now(timezone.utc)
     commissioner_notes = (
@@ -1459,14 +1532,16 @@ def build_newsletter_data(
         def _competing(team_name: str) -> bool:
             return team_name.strip().lower() not in exclude_lower
 
-        # Excluded teams (e.g. tanking rosters) are dropped from the awards
-        # material entirely -- not just de-emphasized -- so they can't get
-        # mentioned or roasted. This only affects what's fed to the awards
-        # prompt; the rest of the newsletter (Standings, etc.) still shows
-        # every team as usual.
-        awards_matchups = [m for m in matchups if all(_competing(n) for n in m.team_names)]
+        # Excluded teams (e.g. tanking rosters) never appear by name in the
+        # awards material, so they can't get mentioned or roasted. A competing
+        # team's game against one is still kept (with the opponent unnamed in
+        # the stats packet) -- dropping it outright left that team with no
+        # matchup data, and the awards wrote around the hole. This only affects
+        # what's fed to the awards prompt; the rest of the newsletter still
+        # shows every team as usual.
+        awards_matchups = [m for m in matchups if any(_competing(n) for n in m.team_names)]
         awards_standings = [t for t in standings if _competing(t.team_name)]
-        awards_closest_games = [m for m in closest_games if all(_competing(n) for n in m.team_names)]
+        awards_closest_games = [m for m in closest_games if any(_competing(n) for n in m.team_names)]
         awards_top_scorers = [s for s in top_scorers if _competing(s["team"])]
         awards_luck_index = [entry for entry in luck_index if _competing(entry["team"])]
         awards_waivers = [w for w in waivers if _competing(w["team"])]
@@ -1479,6 +1554,7 @@ def build_newsletter_data(
             awards_top_scorers,
             awards_luck_index,
             awards_waivers,
+            hidden_teams=exclude_lower,
         )
         weekly_awards = generate_weekly_awards(
             stats_packet,
@@ -1514,6 +1590,9 @@ def build_newsletter_data(
         top_waiver_pickups=top_waiver_pickups,
         games_started=games_started,
         weekly_awards=weekly_awards,
+        best_gms=best_gms,
+        show_waiver_pickups=show_waiver_pickups,
+        show_draft_value_tracker=show_draft_value_tracker,
     )
 
 
@@ -1533,6 +1612,39 @@ def trade_net_swings(trade: dict) -> list[tuple[str, int]]:
             swing = 0
         swings.append((team_name, swing))
     return swings
+
+
+def build_gm_trade_leaderboard(
+    raw_season_transactions: list[dict],
+    teams: dict[int, Team],
+    players: dict,
+    *,
+    current_season: int,
+    since: datetime,
+    limit: int = GM_LEADERBOARD_LIMIT,
+) -> list[dict]:
+    """Ranks managers by total estimated trade value won, summed across every
+    completed trade since `since` -- unlike the Trades section, which only shows
+    the top TRADE_DISPLAY_LIMIT most notable trades in a short trailing window,
+    this sums every trade's net swing (see trade_net_swings) so a manager who's
+    made several modest winning trades still shows up alongside one big blockbuster.
+    Recomputed fresh from live transaction history every run, so it keeps moving
+    as new trades happen."""
+    all_trades = build_trade_entries(raw_season_transactions, teams, players, current_season=current_season)
+    totals: dict[str, float] = {}
+    counts: dict[str, int] = {}
+    for trade in all_trades:
+        if not trade["when"] or trade["when"] < since:
+            continue
+        for team_name, swing in trade_net_swings(trade):
+            totals[team_name] = totals.get(team_name, 0) + swing
+            counts[team_name] = counts.get(team_name, 0) + 1
+
+    ranked = sorted(totals.items(), key=lambda kv: kv[1], reverse=True)
+    return [
+        {"team": team_name, "net_value": round(total), "trade_count": counts[team_name]}
+        for team_name, total in ranked[:limit]
+    ]
 
 
 def render_markdown(data: NewsletterData) -> str:
@@ -1706,6 +1818,22 @@ def render_markdown(data: NewsletterData) -> str:
     else:
         lines.append(f"_{data.no_trades_message}_\n")
 
+    if data.best_gms is not None:
+        lines.append("## Best GM\n")
+        lines.append(
+            "_Ranks managers by total estimated trade value won across every trade since "
+            "the start of the offseason — same value model as the Trades section above, just "
+            "tallied cumulatively instead of trade-by-trade. Recalculated fresh each week as "
+            "new trades happen._\n"
+        )
+        if data.best_gms:
+            for i, g in enumerate(data.best_gms, start=1):
+                trade_word = "trade" if g["trade_count"] == 1 else "trades"
+                lines.append(f"{i}. **{g['team']}** — {g['net_value']:+d} net trade value ({g['trade_count']} {trade_word})")
+        else:
+            lines.append("_No trades yet since the start of the offseason._")
+        lines.append("")
+
     lines.append("## Waiver Wire / Free Agency This Week\n")
     if data.waivers:
         for day_label, moves in group_waivers_by_day(data.waivers):
@@ -1720,44 +1848,46 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append("_No waiver or free agent moves this week._")
     lines.append("")
 
-    lines.append("## Top 5 Highest-Value Waiver Pickups\n")
-    if not data.games_started:
-        lines.append("_Will populate once Week 1 games get underway._")
-    elif data.top_waiver_pickups:
-        lines.append(
-            "_Ranked by current player value (Sleeper's own rankings), not FAAB spent -- "
-            "tracked cumulatively across the whole season so far._\n"
-        )
-        for i, p in enumerate(data.top_waiver_pickups, start=1):
-            lines.append(f"{i}. {p['player']} — added by {p['team']} — ~{p['value']} value")
-    else:
-        lines.append("_No waiver or free agent pickups so far this season._")
-    lines.append("")
-
-    is_dynasty = data.league_type == "dynasty"
-    lines.append(f"## {'Rookie ' if is_dynasty else ''}Draft Value Tracker\n")
-    if data.draft_rankings["available"]:
-        lines.append(
-            "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
-            f"week to week as {'rookies' if is_dynasty else 'players'} rise and fall._\n"
-        )
-        lines.append("**Top 10 Highest Current Value**\n")
-        for i, e in enumerate(data.draft_rankings["top_value"], start=1):
+    if data.show_waiver_pickups:
+        lines.append("## Top 5 Highest-Value Waiver Pickups\n")
+        if not data.games_started:
+            lines.append("_Will populate once Week 1 games get underway._")
+        elif data.top_waiver_pickups:
             lines.append(
-                f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                f"— ~{e['current_value']} value"
+                "_Ranked by current player value (Sleeper's own rankings), not FAAB spent -- "
+                "tracked cumulatively across the whole season so far._\n"
             )
+            for i, p in enumerate(data.top_waiver_pickups, start=1):
+                lines.append(f"{i}. {p['player']} — added by {p['team']} — ~{p['value']} value")
+        else:
+            lines.append("_No waiver or free agent pickups so far this season._")
         lines.append("")
-        if data.in_season:
-            lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
-            for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
+
+    if data.show_draft_value_tracker:
+        is_dynasty = data.league_type == "dynasty"
+        lines.append(f"## {'Rookie ' if is_dynasty else ''}Draft Value Tracker\n")
+        if data.draft_rankings["available"]:
+            lines.append(
+                "_Recalculated fresh from Sleeper's own player rankings each run, so this shifts "
+                f"week to week as {'rookies' if is_dynasty else 'players'} rise and fall._\n"
+            )
+            lines.append("**Top 10 Highest Current Value**\n")
+            for i, e in enumerate(data.draft_rankings["top_value"], start=1):
                 lines.append(
                     f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
-                    f"— {e['value_gap']:+d} value vs. draft slot"
+                    f"— ~{e['current_value']} value"
                 )
-    else:
-        lines.append(f"_No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet._")
-    lines.append("")
+            lines.append("")
+            if data.in_season:
+                lines.append("**Top 10 Best Value Picks** _(current value vs. where they were drafted)_\n")
+                for i, e in enumerate(data.draft_rankings["best_picks"], start=1):
+                    lines.append(
+                        f"{i}. {e['player']} — {e['team']} (Round {e['round']}, Pick {e['pick_no']}) "
+                        f"— {e['value_gap']:+d} value vs. draft slot"
+                    )
+        else:
+            lines.append(f"_No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet._")
+        lines.append("")
 
     lines.append("Go Giants")
     lines.append("")
@@ -2063,6 +2193,30 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
     else:
         parts.append(f"<p><em>{e(data.no_trades_message)}</em></p>")
 
+    if data.best_gms is not None:
+        parts.append("<h2>Best GM</h2>")
+        parts.append(
+            "<p><em>Ranks managers by total estimated trade value won across every trade "
+            "since the start of the offseason — same value model as the Trades section above, "
+            "just tallied cumulatively instead of trade-by-trade. Recalculated fresh each week "
+            "as new trades happen.</em></p>"
+        )
+        if data.best_gms:
+            team_logos_by_name = {t.team_name: t.avatar_url for t in data.standings}
+            parts.append("<table><tr><th>Rank</th><th>Manager</th><th>Net Trade Value</th><th>Trades</th></tr>")
+            max_value = max((abs(g["net_value"]) for g in data.best_gms), default=0) or 1
+            for i, g in enumerate(data.best_gms, start=1):
+                logo = _team_logo_html(team_logos_by_name.get(g["team"]))
+                color = "#2c5f2d" if g["net_value"] >= 0 else "#b23b3b"
+                bar = _bar_html(abs(g["net_value"]) / max_value, color)
+                parts.append(
+                    f"<tr><td>{i}</td><td>{logo}{e(g['team'])}</td>"
+                    f"<td>{bar} {g['net_value']:+d}</td><td>{g['trade_count']}</td></tr>"
+                )
+            parts.append("</table>")
+        else:
+            parts.append("<p><em>No trades yet since the start of the offseason.</em></p>")
+
     parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
     if data.waivers:
         for day_label, moves in group_waivers_by_day(data.waivers):
@@ -2079,70 +2233,72 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
     else:
         parts.append("<p><em>No waiver or free agent moves this week.</em></p>")
 
-    parts.append("<h2>Top 5 Highest-Value Waiver Pickups</h2>")
-    if not data.games_started:
-        parts.append("<p><em>Will populate once Week 1 games get underway.</em></p>")
-    elif data.top_waiver_pickups:
-        parts.append(
-            "<p><em>Ranked by current player value (Sleeper's own rankings), not FAAB spent — "
-            "tracked cumulatively across the whole season so far.</em></p>"
-        )
-        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Added By</th><th>Value</th></tr>")
-        max_value = max((p["value"] for p in data.top_waiver_pickups), default=0) or 1
-        for i, p in enumerate(data.top_waiver_pickups, start=1):
-            headshot = _player_headshot_html(p.get("player_id"))
-            bar = _bar_html(p["value"] / max_value, "#2c5f2d")
+    if data.show_waiver_pickups:
+        parts.append("<h2>Top 5 Highest-Value Waiver Pickups</h2>")
+        if not data.games_started:
+            parts.append("<p><em>Will populate once Week 1 games get underway.</em></p>")
+        elif data.top_waiver_pickups:
             parts.append(
-                f"<tr><td>{i}</td><td>{headshot}{e(p['player'])}</td><td>{e(p['team'])}</td>"
-                f"<td>{bar} ~{p['value']}</td></tr>"
+                "<p><em>Ranked by current player value (Sleeper's own rankings), not FAAB spent — "
+                "tracked cumulatively across the whole season so far.</em></p>"
             )
-        parts.append("</table>")
-    else:
-        parts.append("<p><em>No waiver or free agent pickups so far this season.</em></p>")
+            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Added By</th><th>Value</th></tr>")
+            max_value = max((p["value"] for p in data.top_waiver_pickups), default=0) or 1
+            for i, p in enumerate(data.top_waiver_pickups, start=1):
+                headshot = _player_headshot_html(p.get("player_id"))
+                bar = _bar_html(p["value"] / max_value, "#2c5f2d")
+                parts.append(
+                    f"<tr><td>{i}</td><td>{headshot}{e(p['player'])}</td><td>{e(p['team'])}</td>"
+                    f"<td>{bar} ~{p['value']}</td></tr>"
+                )
+            parts.append("</table>")
+        else:
+            parts.append("<p><em>No waiver or free agent pickups so far this season.</em></p>")
 
-    is_dynasty = data.league_type == "dynasty"
-    parts.append(f"<h2>{'Rookie ' if is_dynasty else ''}Draft Value Tracker</h2>")
-    if data.draft_rankings["available"]:
-        parts.append(
-            "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
-            f"shifts week to week as {'rookies' if is_dynasty else 'players'} rise and fall.</em></p>"
-        )
-        parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
-        parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
-        top_value = data.draft_rankings["top_value"]
-        max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
-        for i, entry in enumerate(top_value, start=1):
-            bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
-            headshot = _player_headshot_html(entry.get("player_id"))
+    if data.show_draft_value_tracker:
+        is_dynasty = data.league_type == "dynasty"
+        parts.append(f"<h2>{'Rookie ' if is_dynasty else ''}Draft Value Tracker</h2>")
+        if data.draft_rankings["available"]:
             parts.append(
-                f"<tr><td>{i}</td>"
-                f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
-                f"Pick {entry['pick_no']})</td>"
-                f"<td>{bar} ~{entry['current_value']}</td></tr>"
+                "<p><em>Recalculated fresh from Sleeper's own player rankings each run, so this "
+                f"shifts week to week as {'rookies' if is_dynasty else 'players'} rise and fall.</em></p>"
             )
-        parts.append("</table>")
-
-        if data.in_season:
-            parts.append(
-                "<p><strong>Top 10 Best Value Picks</strong> "
-                "<em>(current value vs. where they were drafted)</em></p>"
-            )
-            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
-            best_picks = data.draft_rankings["best_picks"]
-            max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
-            for i, entry in enumerate(best_picks, start=1):
-                color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
-                bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
+            parts.append("<p><strong>Top 10 Highest Current Value</strong></p>")
+            parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value</th></tr>")
+            top_value = data.draft_rankings["top_value"]
+            max_value = max((entry["current_value"] for entry in top_value), default=0) or 1
+            for i, entry in enumerate(top_value, start=1):
+                bar = _bar_html(entry["current_value"] / max_value, "#2c5f2d")
                 headshot = _player_headshot_html(entry.get("player_id"))
                 parts.append(
                     f"<tr><td>{i}</td>"
                     f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
                     f"Pick {entry['pick_no']})</td>"
-                    f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
+                    f"<td>{bar} ~{entry['current_value']}</td></tr>"
                 )
             parts.append("</table>")
-    else:
-        parts.append(f"<p><em>No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet.</em></p>")
+
+            if data.in_season:
+                parts.append(
+                    "<p><strong>Top 10 Best Value Picks</strong> "
+                    "<em>(current value vs. where they were drafted)</em></p>"
+                )
+                parts.append("<table><tr><th>Rank</th><th>Player</th><th>Value vs. Slot</th></tr>")
+                best_picks = data.draft_rankings["best_picks"]
+                max_gap = max((abs(entry["value_gap"]) for entry in best_picks), default=0) or 1
+                for i, entry in enumerate(best_picks, start=1):
+                    color = "#2c5f2d" if entry["value_gap"] >= 0 else "#b23b3b"
+                    bar = _bar_html(abs(entry["value_gap"]) / max_gap, color)
+                    headshot = _player_headshot_html(entry.get("player_id"))
+                    parts.append(
+                        f"<tr><td>{i}</td>"
+                        f"<td>{headshot}{e(entry['player'])} — {e(entry['team'])} (Round {entry['round']}, "
+                        f"Pick {entry['pick_no']})</td>"
+                        f"<td>{bar} {entry['value_gap']:+d}</td></tr>"
+                    )
+                parts.append("</table>")
+        else:
+            parts.append(f"<p><em>No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet.</em></p>")
 
     parts.append("<p>Go Giants</p>")
 
@@ -2344,6 +2500,25 @@ def main(argv: Optional[list[str]] = None) -> int:
         ),
     )
     parser.add_argument(
+        "--hide-waiver-pickups",
+        action="store_true",
+        help="Skip the Top 5 Highest-Value Waiver Pickups section entirely.",
+    )
+    parser.add_argument(
+        "--hide-draft-value-tracker",
+        action="store_true",
+        help="Skip the (Rookie) Draft Value Tracker section entirely.",
+    )
+    parser.add_argument(
+        "--best-gm-leaderboard",
+        action="store_true",
+        help=(
+            "Add a 'Best GM' leaderboard under Trades, ranking the top "
+            f"{GM_LEADERBOARD_LIMIT} managers by total trade value won across every trade "
+            f"since {GM_LEADERBOARD_START.strftime('%B %d, %Y')} (recalculated fresh each run)."
+        ),
+    )
+    parser.add_argument(
         "--season-type",
         choices=["off", "pre", "regular", "post"],
         default=None,
@@ -2474,6 +2649,9 @@ def main(argv: Optional[list[str]] = None) -> int:
                 if args.awards_exclude_teams
                 else None
             ),
+            show_waiver_pickups=not args.hide_waiver_pickups,
+            show_draft_value_tracker=not args.hide_draft_value_tracker,
+            show_gm_leaderboard=args.best_gm_leaderboard,
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
