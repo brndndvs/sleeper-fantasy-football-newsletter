@@ -835,31 +835,55 @@ def build_weekly_stats_packet(
     top_scorers: list[dict],
     luck_index: list[dict],
     waivers: list[dict],
+    *,
+    hidden_teams: Optional[set[str]] = None,
 ) -> str:
     """Formats this week's real results into a plain-text block fed to the weekly
     awards prompt -- every number here comes straight from Sleeper, so the model
-    has real material to roast instead of inventing stats."""
+    has real material to roast instead of inventing stats. Teams in hidden_teams
+    (lowercased names) never appear by name; a game against one is shown from
+    the other team's side only, with the opponent unnamed."""
+    hidden = hidden_teams or set()
+
+    def _hidden(team_name: str) -> bool:
+        return team_name.strip().lower() in hidden
+
+    def _game_line(m: MatchupResult) -> Optional[str]:
+        winner, loser = m.winner, m.loser
+        score = f"{winner['points']:.2f}-{loser['points']:.2f}"
+        if _hidden(winner["team"]) and _hidden(loser["team"]):
+            return None
+        if _hidden(loser["team"]):
+            return f"- {winner['team']} beat their opponent by {m.margin:.2f} ({score})"
+        if _hidden(winner["team"]):
+            return f"- {loser['team']} lost to their opponent by {m.margin:.2f} ({score})"
+        return (
+            f"- {winner['team']} {winner['points']:.2f} def. {loser['team']} {loser['points']:.2f} "
+            f"(margin {m.margin:.2f})"
+        )
+
     lines = [f"Week {week} results:"]
 
     lines.append("\nMatchup results (winner, loser, scores, margin):")
     for m in matchups:
         if m.is_bye:
             t = m.teams[0]
-            lines.append(f"- {t['team']} had a bye ({t['points']:.2f} pts)")
+            if not _hidden(t["team"]):
+                lines.append(f"- {t['team']} had a bye ({t['points']:.2f} pts)")
             continue
         if not m.has_scores:
             continue
-        winner, loser = m.winner, m.loser
-        lines.append(
-            f"- {winner['team']} {winner['points']:.2f} def. {loser['team']} {loser['points']:.2f} "
-            f"(margin {m.margin:.2f})"
-        )
+        line = _game_line(m)
+        if line:
+            lines.append(line)
 
     bench_lines = []
     for m in matchups:
         if not m.has_scores:
             continue
         for t in m.teams:
+            if _hidden(t["team"]):
+                continue
             bench_pts = sum(
                 pts
                 for pid, pts in (t["players_points"] or {}).items()
@@ -875,11 +899,9 @@ def build_weekly_stats_packet(
     if closest_games:
         lines.append("\nClosest games this week:")
         for m in closest_games:
-            winner, loser = m.winner, m.loser
-            lines.append(
-                f"- {winner['team']} beat {loser['team']} by {m.margin:.2f} "
-                f"({winner['points']:.2f}-{loser['points']:.2f})"
-            )
+            line = _game_line(m)
+            if line:
+                lines.append(line)
 
     if top_scorers:
         lines.append("\nTop individual scorers this week:")
@@ -931,7 +953,13 @@ def generate_weekly_awards(
         "result, never invented. These stats already exclude any team that isn't "
         "competing this season -- treat the teams listed below as the entire "
         "league; don't mention or reference any team that doesn't appear in the "
-        "stats. Cover every team that does appear (each should get at least one "
+        "stats. Some results say a team beat or lost to \"their opponent\" "
+        "without naming them -- roast the named team's own score and margin, "
+        "but never speculate about who the opponent was, call them tanking or "
+        "inactive, or remark that the opponent is unnamed. Never say a team's "
+        "data, matchup, or stats are missing, limited, or unavailable -- if "
+        "something isn't in the stats, just don't bring it up. Cover every "
+        "named team (each should get at least one "
         "mention across all the awards). Pick 8-12 award categories that fit what "
         "actually happened this week (blowout, nail-biter, best/worst bench "
         "decision, luckiest win, unluckiest loss, best waiver pickup, etc. -- "
@@ -1504,14 +1532,16 @@ def build_newsletter_data(
         def _competing(team_name: str) -> bool:
             return team_name.strip().lower() not in exclude_lower
 
-        # Excluded teams (e.g. tanking rosters) are dropped from the awards
-        # material entirely -- not just de-emphasized -- so they can't get
-        # mentioned or roasted. This only affects what's fed to the awards
-        # prompt; the rest of the newsletter (Standings, etc.) still shows
-        # every team as usual.
-        awards_matchups = [m for m in matchups if all(_competing(n) for n in m.team_names)]
+        # Excluded teams (e.g. tanking rosters) never appear by name in the
+        # awards material, so they can't get mentioned or roasted. A competing
+        # team's game against one is still kept (with the opponent unnamed in
+        # the stats packet) -- dropping it outright left that team with no
+        # matchup data, and the awards wrote around the hole. This only affects
+        # what's fed to the awards prompt; the rest of the newsletter still
+        # shows every team as usual.
+        awards_matchups = [m for m in matchups if any(_competing(n) for n in m.team_names)]
         awards_standings = [t for t in standings if _competing(t.team_name)]
-        awards_closest_games = [m for m in closest_games if all(_competing(n) for n in m.team_names)]
+        awards_closest_games = [m for m in closest_games if any(_competing(n) for n in m.team_names)]
         awards_top_scorers = [s for s in top_scorers if _competing(s["team"])]
         awards_luck_index = [entry for entry in luck_index if _competing(entry["team"])]
         awards_waivers = [w for w in waivers if _competing(w["team"])]
@@ -1524,6 +1554,7 @@ def build_newsletter_data(
             awards_top_scorers,
             awards_luck_index,
             awards_waivers,
+            hidden_teams=exclude_lower,
         )
         weekly_awards = generate_weekly_awards(
             stats_packet,
