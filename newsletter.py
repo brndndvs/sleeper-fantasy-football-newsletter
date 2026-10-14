@@ -16,6 +16,7 @@ import argparse
 import csv
 import io
 import json
+import math
 import os
 import smtplib
 import sys
@@ -53,7 +54,17 @@ TRANSACTION_TYPE_LABELS = {
 # ADP or projections feed — tune the constants below if they feel off.
 PLAYER_VALUE_MAX = 6000
 PLAYER_VALUE_SLOPE = 6  # value drops by this much per rank position
-PICK_ROUND_BASE_VALUE = {1: 4000, 2: 1400, 3: 500, 4: 200}
+
+# Trades use a much steeper curve than the linear one above. On the linear curve a
+# rank-120 bench RB scored ~88% of the #1 player, so any many-for-one deal read as
+# a blowout win for whoever got more bodies. Here value falls off exponentially by
+# rank, and within one side of a trade each additional asset (best first) counts
+# for TRADE_PACKAGE_DEPTH_WEIGHT times the one before it, since lineup and roster
+# spots are limited -- the fourth piece of a package isn't worth its standalone value.
+TRADE_VALUE_MAX = 10000
+TRADE_VALUE_DECAY_RANKS = 95  # value falls to ~37% of rank 1 by this many ranks later
+TRADE_PACKAGE_DEPTH_WEIGHT = 0.7
+PICK_ROUND_BASE_VALUE = {1: 5500, 2: 2200, 3: 900, 4: 400}
 PICK_YEAR_DISCOUNT = 0.85  # multiplier applied per year further out than next draft
 FAAB_VALUE_PER_DOLLAR = 10
 
@@ -314,6 +325,19 @@ def player_value(player_id: Optional[str], players: dict) -> float:
     if not isinstance(rank, (int, float)) or rank <= 0:
         return 0.0
     return max(0.0, PLAYER_VALUE_MAX - rank * PLAYER_VALUE_SLOPE)
+
+
+def trade_player_value(player_id: Optional[str], players: dict) -> float:
+    rank = (players.get(player_id) or {}).get("search_rank") if player_id else None
+    if not isinstance(rank, (int, float)) or rank <= 0:
+        return 0.0
+    return TRADE_VALUE_MAX * math.exp(-(rank - 1) / TRADE_VALUE_DECAY_RANKS)
+
+
+def package_value(asset_values: list[float]) -> float:
+    return sum(
+        v * TRADE_PACKAGE_DEPTH_WEIGHT**i for i, v in enumerate(sorted(asset_values, reverse=True))
+    )
 
 
 def pick_value(pick_season: Any, pick_round: Any, current_season: int) -> float:
@@ -1051,17 +1075,16 @@ def build_trade_entries(
         waiver_budget = tx.get("waiver_budget") or []
         when = transaction_datetime(tx)
 
-        per_team: dict[int, dict] = {
-            rid: {"received": [], "sent": [], "received_value": 0.0} for rid in roster_ids
-        }
+        per_team: dict[int, dict] = {rid: {"received": [], "sent": []} for rid in roster_ids}
+        asset_values: dict[int, list[float]] = {rid: [] for rid in roster_ids}
         for player_id, rid in adds.items():
-            per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
+            per_team.setdefault(rid, {"received": [], "sent": []})
             per_team[rid]["received"].append(
                 {"label": player_display_name(player_id, players), "player_id": player_id}
             )
-            per_team[rid]["received_value"] += player_value(player_id, players)
+            asset_values.setdefault(rid, []).append(trade_player_value(player_id, players))
         for player_id, rid in drops.items():
-            per_team.setdefault(rid, {"received": [], "sent": [], "received_value": 0.0})
+            per_team.setdefault(rid, {"received": [], "sent": []})
             per_team[rid]["sent"].append(player_display_name(player_id, players))
         for pick in draft_picks:
             owner_rid = pick.get("owner_id")
@@ -1070,7 +1093,7 @@ def build_trade_entries(
             value = pick_value(pick.get("season"), pick.get("round"), current_season)
             if owner_rid in per_team:
                 per_team[owner_rid]["received"].append({"label": pick_desc, "player_id": None})
-                per_team[owner_rid]["received_value"] += value
+                asset_values.setdefault(owner_rid, []).append(value)
             if prev_owner_rid in per_team:
                 per_team[prev_owner_rid]["sent"].append(pick_desc)
         for wb in waiver_budget:
@@ -1080,10 +1103,12 @@ def build_trade_entries(
             desc = f"${amount} FAAB"
             if receiver in per_team:
                 per_team[receiver]["received"].append({"label": desc, "player_id": None})
-                per_team[receiver]["received_value"] += amount * FAAB_VALUE_PER_DOLLAR
+                asset_values.setdefault(receiver, []).append(amount * FAAB_VALUE_PER_DOLLAR)
             if sender in per_team:
                 per_team[sender]["sent"].append(desc)
 
+        for rid, info in per_team.items():
+            info["received_value"] = package_value(asset_values.get(rid, []))
         team_info = {team_name_for(rid): info for rid, info in per_team.items()}
         ranked = sorted(team_info.items(), key=lambda kv: kv[1]["received_value"], reverse=True)
         if len(ranked) >= 2:
@@ -1794,7 +1819,9 @@ def render_markdown(data: NewsletterData) -> str:
     if data.trades:
         lines.append(
             "_Value is a rough estimate from Sleeper's own player rankings and a simple "
-            "pick-value table — not official ADP or projections. Ranked by a blend of how "
+            "pick-value table — not official ADP or projections. Stars are worth far more "
+            "than depth, and each extra piece in a package counts for less than the one "
+            "before it. Ranked by a blend of how "
             "lopsided the trade was and how much total value changed hands, so a real "
             "blockbuster outranks a minor move that just happens to be a bit uneven._\n"
         )
@@ -2165,7 +2192,9 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
     if data.trades:
         parts.append(
             "<p><em>Value is a rough estimate from Sleeper's own player rankings and a simple "
-            "pick-value table — not official ADP or projections. Ranked by a blend of how "
+            "pick-value table — not official ADP or projections. Stars are worth far more "
+            "than depth, and each extra piece in a package counts for less than the one "
+            "before it. Ranked by a blend of how "
             "lopsided the trade was and how much total value changed hands, so a real "
             "blockbuster outranks a minor move that just happens to be a bit uneven.</em></p>"
         )
