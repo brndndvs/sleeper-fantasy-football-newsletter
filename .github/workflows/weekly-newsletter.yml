@@ -74,7 +74,8 @@ jobs:
             --weekly-awards \
             --awards-exclude-teams "BlowPaterno,Boynton Beach Blue Balls,Larkinsjacob,andrewburkhardt1,The Aubrey Express,CeDeez big ones,Chud Team" \
             --hide-waiver-pickups \
-            --hide-draft-value-tracker
+            --hide-draft-value-tracker \
+            --best-gm-leaderboard
 
       - name: Upload newsletter artifacts
         uses: actions/upload-artifact@v4
