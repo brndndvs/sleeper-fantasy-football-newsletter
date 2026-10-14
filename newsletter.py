@@ -1665,7 +1665,13 @@ def build_gm_trade_leaderboard(
             totals[team_name] = totals.get(team_name, 0) + swing
             counts[team_name] = counts.get(team_name, 0) + 1
 
-    ranked = sorted(totals.items(), key=lambda kv: kv[1], reverse=True)
+    # Only managers who've come out ahead -- in a thin trade market the top N
+    # would otherwise include net losers, which reads wrong under "Best GM".
+    ranked = sorted(
+        ((name, total) for name, total in totals.items() if round(total) > 0),
+        key=lambda kv: kv[1],
+        reverse=True,
+    )
     return [
         {"team": team_name, "net_value": round(total), "trade_count": counts[team_name]}
         for team_name, total in ranked[:limit]
@@ -1858,7 +1864,7 @@ def render_markdown(data: NewsletterData) -> str:
                 trade_word = "trade" if g["trade_count"] == 1 else "trades"
                 lines.append(f"{i}. **{g['team']}** — {g['net_value']:+d} net trade value ({g['trade_count']} {trade_word})")
         else:
-            lines.append("_No trades yet since the start of the offseason._")
+            lines.append("_No manager has come out ahead on a trade since the start of the offseason yet._")
         lines.append("")
 
     lines.append("## Waiver Wire / Free Agency This Week\n")
@@ -2244,7 +2250,7 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
                 )
             parts.append("</table>")
         else:
-            parts.append("<p><em>No trades yet since the start of the offseason.</em></p>")
+            parts.append("<p><em>No manager has come out ahead on a trade since the start of the offseason yet.</em></p>")
 
     parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
     if data.waivers:

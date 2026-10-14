@@ -75,6 +75,7 @@ jobs:
             --league-logo-url "https://github.com/user-attachments/assets/64f64aba-8f36-4fdf-be8a-33c77fe2bcc6" \
             --weekly-awards \
             --no-rivalry-week \
+            --best-gm-leaderboard \
             $WEEK_ARG $SEND_ARGS $FORCE_ARG
 
       - name: Upload newsletter artifacts
