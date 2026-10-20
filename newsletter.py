@@ -18,6 +18,7 @@ import io
 import json
 import math
 import os
+import random
 import smtplib
 import sys
 import time
@@ -95,6 +96,19 @@ TRADE_DISPLAY_LIMIT = 5
 # to the day after, i.e. the start of this league's current trading period.
 GM_LEADERBOARD_START = datetime(2026, 2, 9, tzinfo=timezone.utc)
 GM_LEADERBOARD_LIMIT = 5
+
+# Championship Odds: Monte Carlo over the remaining schedule and playoff bracket.
+# Each team's weekly mean weights recent weeks more (RECENCY_DECAY per week back),
+# blends in SHRINK_WEEKS phantom weeks of league-average scoring so one huge week
+# early in the season doesn't dominate, then mixes in Sleeper's projection for its
+# current starters at PROJECTION_WEIGHT.
+CHAMPIONSHIP_SIMULATIONS = 10000
+CHAMPIONSHIP_RECENCY_DECAY = 0.85
+CHAMPIONSHIP_SHRINK_WEEKS = 2
+CHAMPIONSHIP_PROJECTION_WEIGHT = 0.4
+CHAMPIONSHIP_DEFAULT_SD = 25.0
+CHAMPIONSHIP_MIN_PLAYOFF_PCT_SHOWN = 1.0
+CHAMPIONSHIP_HISTORY_FILE = "championship_odds.json"
 
 # The commissioner manually schedules a rivalry week where every team plays its
 # rival; rivals also meet once more wherever the normal round-robin schedule
@@ -1377,6 +1391,140 @@ def build_power_rankings(
     return entries
 
 
+def _bracket_order(size: int) -> list[int]:
+    """Standard seed order for a bracket of `size` slots (a power of two), e.g.
+    8 -> [1, 8, 4, 5, 2, 7, 3, 6], so 1 and 2 can only meet in the final."""
+    order = [1]
+    while len(order) < size:
+        n = len(order) * 2
+        order = [s for seed in order for s in (seed, n + 1 - seed)]
+    return order
+
+
+def build_championship_odds(
+    league_id: str,
+    league: dict,
+    teams: dict[int, Team],
+    weekly_scores: list[dict[int, float]],
+    *,
+    preview_week: int,
+    previous_title_pct: Optional[dict[str, float]] = None,
+    sims: int = CHAMPIONSHIP_SIMULATIONS,
+) -> Optional[dict]:
+    """Monte Carlo playoff/title odds: simulates the rest of the regular season from
+    Sleeper's real remaining schedule, seeds the league's own playoff field (record,
+    then points for), and plays out the bracket, `sims` times. Each team's weekly
+    score is drawn from a normal distribution: the mean blends its recency-weighted
+    scoring (shrunk toward the league average) with Sleeper's projection for its
+    current starters, so trades and injuries register immediately; the spread is its
+    own week-to-week variance, shrunk toward the league's. Returns None once the
+    regular season is over or there's nothing to simulate yet."""
+    settings = league.get("settings") or {}
+    playoff_teams = int(settings.get("playoff_teams") or 0)
+    playoff_start = int(settings.get("playoff_week_start") or 0)
+    if not weekly_scores or playoff_teams < 2 or len(teams) < playoff_teams or preview_week >= playoff_start:
+        return None
+
+    schedule = []
+    for w in range(preview_week, playoff_start):
+        by_matchup: dict[Any, list[int]] = {}
+        for m in get_matchups(league_id, w):
+            if m.get("matchup_id") is not None and m.get("roster_id") in teams:
+                by_matchup.setdefault(m["matchup_id"], []).append(m["roster_id"])
+        schedule.append([tuple(pair) for pair in by_matchup.values() if len(pair) == 2])
+
+    projected: dict[int, float] = {}
+    projections = get_week_projections(
+        str(league.get("season", "")), preview_week, league.get("season_type") or "regular"
+    )
+    if projections:
+        scoring_key = scoring_key_for_league(league)
+        for m in get_matchups(league_id, preview_week):
+            rid = m.get("roster_id")
+            if rid in teams:
+                projected[rid] = sum(
+                    projected_points_for_player(pid, projections, scoring_key) for pid in (m.get("starters") or [])
+                )
+
+    all_scores = [s for wk in weekly_scores for s in wk.values()]
+    league_mean = sum(all_scores) / len(all_scores)
+    history = {rid: [wk[rid] for wk in weekly_scores if rid in wk] for rid in teams}
+    residuals = [s - sum(h) / len(h) for h in history.values() if h for s in h]
+    pooled_var = sum(r * r for r in residuals) / len(residuals) if residuals else 0.0
+    pooled_var = pooled_var or CHAMPIONSHIP_DEFAULT_SD**2
+
+    mean, sd = {}, {}
+    for rid, scores in history.items():
+        n = len(scores)
+        weights = [CHAMPIONSHIP_RECENCY_DECAY ** (n - 1 - i) for i in range(n)]
+        hist_mean = (sum(w * s for w, s in zip(weights, scores)) + CHAMPIONSHIP_SHRINK_WEEKS * league_mean) / (
+            sum(weights) + CHAMPIONSHIP_SHRINK_WEEKS
+        )
+        if projected.get(rid, 0) > 0:
+            hist_mean = (1 - CHAMPIONSHIP_PROJECTION_WEIGHT) * hist_mean + CHAMPIONSHIP_PROJECTION_WEIGHT * projected[rid]
+        mean[rid] = hist_mean
+        own_var = sum((s - sum(scores) / n) ** 2 for s in scores) / n if n else pooled_var
+        sd[rid] = math.sqrt((own_var * n + pooled_var * CHAMPIONSHIP_SHRINK_WEEKS * 2) / (n + CHAMPIONSHIP_SHRINK_WEEKS * 2))
+
+    size = 1 << (playoff_teams - 1).bit_length()
+    order = _bracket_order(size)
+    byes = size - playoff_teams
+    rng = random.Random(f"{league_id}-{league.get('season')}-{preview_week}")
+    made, bye, title = ({rid: 0 for rid in teams} for _ in range(3))
+
+    for _ in range(sims):
+        wins = {rid: t.wins + 0.5 * t.ties for rid, t in teams.items()}
+        pf = {rid: t.fpts for rid, t in teams.items()}
+        for games in schedule:
+            for a, b in games:
+                pa, pb = rng.gauss(mean[a], sd[a]), rng.gauss(mean[b], sd[b])
+                pf[a] += pa
+                pf[b] += pb
+                wins[a if pa > pb else b] += 1
+        seeds = sorted(teams, key=lambda rid: (-wins[rid], -pf[rid]))[:playoff_teams]
+        for i, rid in enumerate(seeds):
+            made[rid] += 1
+            if i < byes:
+                bye[rid] += 1
+        slots = [seeds[s - 1] if s <= playoff_teams else None for s in order]
+        while len(slots) > 1:
+            nxt = []
+            for a, b in zip(slots[::2], slots[1::2]):
+                if a is None or b is None:
+                    nxt.append(b if a is None else a)
+                else:
+                    nxt.append(a if rng.gauss(mean[a], sd[a]) > rng.gauss(mean[b], sd[b]) else b)
+            slots = nxt
+        title[slots[0]] += 1
+
+    rows = []
+    for rid, t in teams.items():
+        title_pct = 100 * title[rid] / sims
+        prev = (previous_title_pct or {}).get(t.team_name)
+        rows.append(
+            {
+                "team": t.team_name,
+                "avatar_url": t.avatar_url,
+                "record": t.record,
+                "playoff_pct": 100 * made[rid] / sims,
+                "bye_pct": 100 * bye[rid] / sims,
+                "title_pct": title_pct,
+                "delta": None if prev is None else title_pct - prev,
+            }
+        )
+    rows.sort(key=lambda r: (-r["title_pct"], -r["playoff_pct"]))
+    movers = [r for r in rows if r["delta"] is not None and abs(r["delta"]) >= 1]
+    return {
+        "teams": rows,
+        "playoff_teams": playoff_teams,
+        "has_byes": byes > 0,
+        "has_previous": bool(previous_title_pct),
+        "sims": sims,
+        "remaining_weeks": len(schedule),
+        "biggest_mover": max(movers, key=lambda r: abs(r["delta"])) if movers else None,
+    }
+
+
 @dataclass
 class NewsletterData:
     league_name: str
@@ -1407,6 +1555,7 @@ class NewsletterData:
     best_gms: Optional[list[dict]] = None
     show_waiver_pickups: bool = True
     show_draft_value_tracker: bool = True
+    championship_odds: Optional[dict] = None
 
     @property
     def title(self) -> str:
@@ -1459,6 +1608,7 @@ def build_newsletter_data(
     show_waiver_pickups: bool = True,
     show_draft_value_tracker: bool = True,
     show_gm_leaderboard: bool = False,
+    championship_history: Optional[dict] = None,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -1529,6 +1679,14 @@ def build_newsletter_data(
     power_rankings = build_power_rankings(teams, weekly_scores)
     luck_index = build_luck_index(teams, weekly_scores)
     games_started = bool(weekly_scores)
+    championship_odds = build_championship_odds(
+        league_id,
+        league,
+        teams,
+        weekly_scores,
+        preview_week=preview_week,
+        previous_title_pct=(championship_history or {}).get(f"{current_season}-{week - 1}"),
+    )
 
     season_transactions = get_season_transactions(league_id, week)
     top_waiver_pickups = build_top_waiver_pickups(season_transactions, teams, players)
@@ -1618,6 +1776,7 @@ def build_newsletter_data(
         best_gms=best_gms,
         show_waiver_pickups=show_waiver_pickups,
         show_draft_value_tracker=show_draft_value_tracker,
+        championship_odds=championship_odds,
     )
 
 
@@ -1676,6 +1835,42 @@ def build_gm_trade_leaderboard(
         {"team": team_name, "net_value": round(total), "trade_count": counts[team_name]}
         for team_name, total in ranked[:limit]
     ]
+
+
+def _pct_label(p: float) -> str:
+    if p <= 0:
+        return "0%"
+    if p < 1:
+        return "<1%"
+    if p > 99 and p < 100:
+        return ">99%"
+    return f"{p:.0f}%"
+
+
+def _delta_label(delta: Optional[float]) -> str:
+    if delta is None:
+        return "new"
+    if abs(delta) < 1:
+        return "—"
+    return f"{'▲' if delta > 0 else '▼'} {abs(delta):.0f}%"
+
+
+def championship_odds_view(odds: dict) -> tuple[list[dict], int, str, Optional[str]]:
+    """Rows to show (anyone with a real playoff shot), how many were hidden, the
+    caption, and an optional biggest-mover line -- shared by both renderers."""
+    shown = [r for r in odds["teams"] if r["playoff_pct"] >= CHAMPIONSHIP_MIN_PLAYOFF_PCT_SHOWN]
+    hidden = len(odds["teams"]) - len(shown)
+    caption = (
+        f"{odds['sims']:,} simulations of the last {odds['remaining_weeks']} regular-season weeks and the "
+        f"{odds['playoff_teams']}-team playoff, based on each team's scoring so far (recent weeks count more) "
+        "and Sleeper's projections for its current starters."
+    )
+    mover = odds.get("biggest_mover")
+    mover_line = None
+    if mover:
+        direction = "up" if mover["delta"] > 0 else "down"
+        mover_line = f"Biggest mover: {mover['team']}, title odds {direction} {abs(mover['delta']):.0f}% since last week."
+    return shown, hidden, caption, mover_line
 
 
 def render_markdown(data: NewsletterData) -> str:
@@ -1805,6 +2000,30 @@ def render_markdown(data: NewsletterData) -> str:
     else:
         lines.append("_Not enough games played yet to compute power rankings._")
     lines.append("")
+
+    if data.championship_odds:
+        odds = data.championship_odds
+        shown, hidden, caption, mover_line = championship_odds_view(odds)
+        lines.append("## Championship Odds\n")
+        lines.append(f"_{caption}_\n")
+        header = ["Team", "Record", "Playoffs"] + (["Bye"] if odds["has_byes"] else []) + ["Title"]
+        if odds["has_previous"]:
+            header.append("vs. Last Week")
+        lines.append("| " + " | ".join(header) + " |")
+        lines.append("|" + "---|" * len(header))
+        for r in shown:
+            cells = [f"**{r['team']}**", r["record"], _pct_label(r["playoff_pct"])]
+            if odds["has_byes"]:
+                cells.append(_pct_label(r["bye_pct"]))
+            cells.append(_pct_label(r["title_pct"]))
+            if odds["has_previous"]:
+                cells.append(_delta_label(r["delta"]))
+            lines.append("| " + " | ".join(cells) + " |")
+        lines.append("")
+        if mover_line:
+            lines.append(f"**{mover_line}**\n")
+        if hidden:
+            lines.append(f"_Not shown: {hidden} team{'s' if hidden != 1 else ''} under 1% to make the playoffs._\n")
 
     lines.append("## Luck Index\n")
     if data.luck_index:
@@ -2172,6 +2391,30 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
     else:
         parts.append("<p><em>Not enough games played yet to compute power rankings.</em></p>")
 
+    if data.championship_odds:
+        odds = data.championship_odds
+        shown, hidden, caption, mover_line = championship_odds_view(odds)
+        parts.append("<h2>Championship Odds</h2>")
+        parts.append(f"<p><em>{e(caption)}</em></p>")
+        header = ["Team", "Record", "Playoffs"] + (["Bye"] if odds["has_byes"] else []) + ["Title"]
+        if odds["has_previous"]:
+            header.append("vs. Last Week")
+        parts.append("<table><tr>" + "".join(f"<th>{h}</th>" for h in header) + "</tr>")
+        max_title = max((r["title_pct"] for r in shown), default=0) or 1
+        for r in shown:
+            cells = [f"{_team_logo_html(r.get('avatar_url'))}{e(r['team'])}", r["record"], _pct_label(r["playoff_pct"])]
+            if odds["has_byes"]:
+                cells.append(_pct_label(r["bye_pct"]))
+            cells.append(f"{_bar_html(r['title_pct'] / max_title, '#2c5f2d')} {_pct_label(r['title_pct'])}")
+            if odds["has_previous"]:
+                cells.append(_delta_label(r["delta"]))
+            parts.append("<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
+        parts.append("</table>")
+        if mover_line:
+            parts.append(f"<p><strong>{e(mover_line)}</strong></p>")
+        if hidden:
+            parts.append(f"<p><em>Not shown: {hidden} team{'s' if hidden != 1 else ''} under 1% to make the playoffs.</em></p>")
+
     parts.append("<h2>Luck Index</h2>")
     if data.luck_index:
         parts.append(
@@ -2452,6 +2695,22 @@ def send_sms_summary(
         resp.raise_for_status()
 
 
+def load_championship_history(latest_dir: Path) -> dict:
+    """Title odds from earlier runs, keyed "season-week", so each week's section can
+    show movement since the previous week. Lives in latest_dir, which the workflows
+    already commit after every run."""
+    try:
+        return json.loads((latest_dir / CHAMPIONSHIP_HISTORY_FILE).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def save_championship_history(latest_dir: Path, season: str, week: int, odds: dict) -> None:
+    history = load_championship_history(latest_dir)
+    history[f"{season}-{week}"] = {r["team"]: round(r["title_pct"], 2) for r in odds["teams"]}
+    (latest_dir / CHAMPIONSHIP_HISTORY_FILE).write_text(json.dumps(history, indent=2, sort_keys=True), encoding="utf-8")
+
+
 def _send_marker_path(latest_dir: Path) -> Path:
     return latest_dir / ".last_sent.json"
 
@@ -2687,6 +2946,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             show_waiver_pickups=not args.hide_waiver_pickups,
             show_draft_value_tracker=not args.hide_draft_value_tracker,
             show_gm_leaderboard=args.best_gm_leaderboard,
+            championship_history=load_championship_history(Path(args.latest_dir)),
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
@@ -2710,6 +2970,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     (latest_dir / "latest.md").write_text(render_markdown(data), encoding="utf-8")
     (latest_dir / "latest.html").write_text(html_body, encoding="utf-8")
     print(f"Wrote {latest_dir / 'latest.md'} (always-current copy)")
+    if data.championship_odds:
+        save_championship_history(latest_dir, data.season, week, data.championship_odds)
 
     skip_send = (
         (args.send_email or args.send_sms)
