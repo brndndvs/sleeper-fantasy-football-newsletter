@@ -1472,6 +1472,24 @@ def build_championship_odds(
     rng = random.Random(f"{league_id}-{league.get('season')}-{preview_week}")
     made, bye, title = ({rid: 0 for rid in teams} for _ in range(3))
 
+    # Mathematical clinch/elimination, independent of the simulation: a team has
+    # clinched N spots if fewer than N rivals could even reach its current win
+    # total (it loses out, they win out); it's eliminated if at least
+    # playoff_teams rivals already have more wins than it could finish with.
+    # Win ties count against clinching, since points-for could break them either way.
+    now_wins = {rid: t.wins + 0.5 * t.ties for rid, t in teams.items()}
+    max_wins = dict(now_wins)
+    for games in schedule:
+        for a, b in games:
+            max_wins[a] += 1
+            max_wins[b] += 1
+
+    def clinched(rid: int, spots: int) -> bool:
+        return spots > 0 and sum(1 for o in teams if o != rid and max_wins[o] >= now_wins[rid]) < spots
+
+    def eliminated(rid: int) -> bool:
+        return sum(1 for o in teams if o != rid and now_wins[o] > max_wins[rid]) >= playoff_teams
+
     for _ in range(sims):
         wins = {rid: t.wins + 0.5 * t.ties for rid, t in teams.items()}
         pf = {rid: t.fpts for rid, t in teams.items()}
@@ -1510,6 +1528,9 @@ def build_championship_odds(
                 "bye_pct": 100 * bye[rid] / sims,
                 "title_pct": title_pct,
                 "delta": None if prev is None else title_pct - prev,
+                "clinched": clinched(rid, playoff_teams),
+                "bye_clinched": clinched(rid, byes),
+                "eliminated": eliminated(rid),
             }
         )
     rows.sort(key=lambda r: (-r["title_pct"], -r["playoff_pct"]))
@@ -1837,12 +1858,16 @@ def build_gm_trade_leaderboard(
     ]
 
 
-def _pct_label(p: float) -> str:
-    if p <= 0:
+def _pct_label(p: float, *, clinched: bool = False, eliminated: bool = False) -> str:
+    """100% and 0% are reserved for mathematical certainty -- a team that made the
+    playoffs in every simulation but hasn't actually clinched still reads >99%."""
+    if clinched:
+        return "100%"
+    if eliminated:
         return "0%"
     if p < 1:
         return "<1%"
-    if p > 99 and p < 100:
+    if p >= 99.5:
         return ">99%"
     return f"{p:.0f}%"
 
@@ -1863,7 +1888,8 @@ def championship_odds_view(odds: dict) -> tuple[list[dict], int, str, Optional[s
     caption = (
         f"{odds['sims']:,} simulations of the last {odds['remaining_weeks']} regular-season weeks and the "
         f"{odds['playoff_teams']}-team playoff, based on each team's scoring so far (recent weeks count more) "
-        "and Sleeper's projections for its current starters."
+        "and Sleeper's projections for its current starters. 100% means clinched and 0% means eliminated; "
+        "otherwise odds top out at >99% and bottom out at <1%."
     )
     mover = odds.get("biggest_mover")
     mover_line = None
@@ -2012,10 +2038,10 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append("| " + " | ".join(header) + " |")
         lines.append("|" + "---|" * len(header))
         for r in shown:
-            cells = [f"**{r['team']}**", r["record"], _pct_label(r["playoff_pct"])]
+            cells = [f"**{r['team']}**", r["record"], _pct_label(r["playoff_pct"], clinched=r["clinched"], eliminated=r["eliminated"])]
             if odds["has_byes"]:
-                cells.append(_pct_label(r["bye_pct"]))
-            cells.append(_pct_label(r["title_pct"]))
+                cells.append(_pct_label(r["bye_pct"], clinched=r["bye_clinched"], eliminated=r["eliminated"]))
+            cells.append(_pct_label(r["title_pct"], eliminated=r["eliminated"]))
             if odds["has_previous"]:
                 cells.append(_delta_label(r["delta"]))
             lines.append("| " + " | ".join(cells) + " |")
@@ -2402,10 +2428,10 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         parts.append("<table><tr>" + "".join(f"<th>{h}</th>" for h in header) + "</tr>")
         max_title = max((r["title_pct"] for r in shown), default=0) or 1
         for r in shown:
-            cells = [f"{_team_logo_html(r.get('avatar_url'))}{e(r['team'])}", r["record"], _pct_label(r["playoff_pct"])]
+            cells = [f"{_team_logo_html(r.get('avatar_url'))}{e(r['team'])}", r["record"], _pct_label(r["playoff_pct"], clinched=r["clinched"], eliminated=r["eliminated"])]
             if odds["has_byes"]:
-                cells.append(_pct_label(r["bye_pct"]))
-            cells.append(f"{_bar_html(r['title_pct'] / max_title, '#2c5f2d')} {_pct_label(r['title_pct'])}")
+                cells.append(_pct_label(r["bye_pct"], clinched=r["bye_clinched"], eliminated=r["eliminated"]))
+            cells.append(f"{_bar_html(r['title_pct'] / max_title, '#2c5f2d')} {_pct_label(r['title_pct'], eliminated=r['eliminated'])}")
             if odds["has_previous"]:
                 cells.append(_delta_label(r["delta"]))
             parts.append("<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
