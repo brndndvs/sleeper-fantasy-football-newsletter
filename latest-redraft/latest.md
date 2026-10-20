@@ -9,53 +9,49 @@ _2026 Season_
 
 ## 🏆 Week 6 Awards
 
-🏆 THE "OVERKILL" AWARD
+🏆 THE "SOMEBODY CALL AN AMBULANCE" AWARD
 Winner: Balls
-You beat MarlBurrow Man 147.62 to 82.94. That's not a margin, that's a felony. You put up 147 points and still had 54.80 on your bench — you could've benched your starting lineup, played your scrubs, and probably still won by two touchdowns.
+147.62 points. 64.68-point margin of victory. MarlBurrow Man didn't lose, they got hit by a bus and then the bus backed up to make sure. This wasn't a fantasy matchup, it was a public execution with a halftime show.
 
-🩸 THE "DEATH BY A THOUSAND CUTS" AWARD
-Winner: za island animals
-You scraped past DomOfTheMFYear by a whopping 1.22 points. Your season luck index sits at -19.7, so congrats, the fantasy gods finally threw you a stale breadcrumb. Enjoy the single W, it's probably the last close one that breaks your way all year.
-
-💀 THE "UNLUCKIEST MOTHERFUCKER ALIVE" AWARD
-Winner: Puka and rally
-1-5 with a -19.7 luck index tied for worst in the league. You're bad, sure, but you're also getting cosmically screwed on top of it. Lost by 26 to Tee Time, who is somehow also 1-5. That's two sad sacks colliding and only one of you got to feel slightly less pathetic.
-
-🧠 THE "WHY EVEN HAVE A BENCH" AWARD
-Winner: Just take the $50 💸
-65.08 points sitting on your bench this week, more than DOUBLE what you scored your opponent by. You won anyway, 122.72 to 116.52, which means your actual starting lineup is just allergic to using its best players. Imagine winning while actively trying not to.
-
-🎯 THE "CALLED SHOT" AWARD
-Winner: Jahmyr-oquai
-6-0. A league-best +31.8 luck index. 935.74 points for, which is just absurd. You beat Ne-Tuten-yahu by a measly 7.12 and it still felt inevitable, like watching a car crash in slow motion where the car wins every time.
-
-🃏 THE "KARMA'S COMING FOR YOU" AWARD
-Winner: Picken my ass
-4-2 record but a brutal -12.1 luck index, the second worst in the league. Your all-play record is an absurd 52-14, meaning in literally any other universe you're running away with this thing. Instead you lost to Just take the $50 💸 by 6.2 after also swapping your kicker, your DEF, and a random WR all in one week. Chaos energy, zero reward.
-
-🏈 THE "ONE MAN ARMY" AWARD
-Winner: Throwsa parks
-Trevor Lawrence dropped 33.34 points on you this week, the single best individual performance in the entire league, and you still left 39.40 points on your bench during a 22.78-point win. You didn't need to try this hard and you still didn't try hard enough.
-
-🔥 THE "STAT PADDING FOR WHAT" AWARD
-Winner: za island animals
-Kenneth Walker's 32.90 and Malik Nabers's 28.50 combined for over 61 points — practically your whole box score — and you STILL only won by 1.22. Two elite performances and you nearly choked it against DomOfTheMFYear anyway. That's not a team, that's two guys carrying a corpse across the finish line.
-
-🗑️ THE "ROSTER ADHD" AWARD
-Winner: DomOfTheMFYear
-Freiermuth in, Gesicki out. Loop in, Schultz out. Pierce in, Allgeier out. Three different position groups touched in a single week and you still lost by 1.22 to za island animals. Christian McCaffrey put up 26.20 for you and your waiver wire fidgeting still couldn't close the gap.
-
-🎣 THE "HOOK, LINE, AND SINKER" AWARD
-Winner: Ne-Tuten-yahu
-You lost by 7.12, your fourth loss of the year, and still decided the move was to churn through Will Shipley, Antonio Williams, Jacory Croskey-Merritt AND flip your DEF, all in the same week. 2-4 with a measly 660.38 points for, dead last in scoring not named Tee Time. Keep shuffling deck chairs.
-
-🚢 THE "TITANIC" AWARD
-Winner: Tee Time
-1-5, only 513.22 points for on the season, dead last in the entire league by a wide margin. Tyler Shough dropped 26.96 on you and you still lost to Puka and rally by 26.04. At least your luck index is a sunny +3.0, so technically you're underperforming your own garbage, which takes a special kind of talent.
-
-🍆 THE "BIGGEST DRAFT BONER... STILL PAYING OFF" AWARD
+💀 THE "I GOT RAN OVER BY A BUS NAMED BALLS" AWARD
 Winner: MarlBurrow Man
-You got demolished 147.62-82.94 by Balls, the single worst beatdown of the week, and still sit 3-3 because the rest of your season has been that forgettable. You also dropped Tyreek Hill earlier this year, so this roster's been bleeding talent all season and this week it finally showed on the scoreboard.
+82.94 points and somehow that's not even your worst stat this week. You're 3-3 but sitting on 826.08 points against, the second-worst in the league. Please stop scheduling yourself against guys named "Balls," it's clearly a bad matchup for you in every sense.
+
+🧟 THE "WALKING DEAD BUT MAKE IT FANTASY" AWARD
+Winner: za island animals
+You scraped out a 1.22-point win over DomOfTheMFYear thanks to Kenneth Walker dropping 32.90 and Malik Nabers chipping in 28.50. And yet you're 2-4 with a -19.7 luck index, tied for dead last in luck with Puka and rally. The football gods clearly hate you specifically, and after this week's margin, they're still only half-convinced you deserve a win.
+
+🎯 THE "CLOSEST SHAVE" AWARD
+Winner: DomOfTheMFYear
+1.22 points. That's the margin that separated you from a win, and instead you're left holding Christian McCaffrey's 26.20 points and nothing else. You even left 19.84 points on your bench, so really, you beat yourself before za island animals even had to show up.
+
+🪑 THE "MY BENCH COULD'VE WON THIS" AWARD
+Winner: Just take the $50 💸
+65.08 points sat on your bench this week while you squeaked out a win by 6.20. You're out here winning games the hard way when you've clearly got easy mode sitting right there doing nothing. Maybe try, you know, starting your good players.
+
+🎰 THE "RUNNING HOT ON SOMEONE ELSE'S DIME" AWARD
+Winner: Jahmyr-oquai
+6-0, +31.8 luck index, the single luckiest record in the entire league, and you're still out here adding Roschon Johnson one week and cutting him the next like he insulted your mother. You're undefeated and dropping RBs for sport. Must be nice to be this untouchable while statistically backing into half your wins.
+
+🃏 THE "DESERVES BETTER" AWARD
+Winner: Picken my ass
+52-14 all-play record, a brutal -12.1 luck index, and you're STILL 4-2. Imagine being this good and the universe still finding ways to make you sweat a 6.20-point win over a team with your exact same name energy. You're out here collecting Ks and DEFs off waivers like Pokémon cards trying to fix a problem that isn't even yours.
+
+🧯 THE "FIRE EXTINGUISHER NEEDED" AWARD
+Winner: Tee Time
+1-5, 513.22 points for, dead last in total scoring by almost 150 points. Tyler Shough gave you 26.96 and it still wasn't enough to escape the basement. You've added and dropped Dylan Sampson twice in two weeks like he personally wronged you, and honestly at 1-5 maybe HE should be mad at YOU.
+
+🏖️ THE "VACATION ALREADY BOOKED" AWARD
+Winner: Puka and rally
+1-5, lost by 26.04 this week, and a -19.7 luck index to boot. Puka's rallying for someone, just not for you. At this point the bye week might be your best week of the season.
+
+📉 THE "THIS IS FINE" AWARD
+Winner: Purdy Good at Getting Off
+3-3 but 803.56 points against, third-worst in the league, and you lost by 22.78 this week after dropping Brian Thomas for Xavier Worthy mid-collapse. You're not good at getting off anything, least of all opposing scoreboards.
+
+🔧 THE "ROSTER TETRIS CHAMPION" AWARD
+Winner: Ne-Tuten-yahu
+Four different RB moves this month and you still only dropped 99.98 points in a 7.12-point loss, the closest game of the week. You left only 4.48 points on your bench though, the tightest management in the league, so at least you're efficiently losing.
 
 ## Matchup Recap
 
@@ -70,8 +66,8 @@ You got demolished 147.62-82.94 by Balls, the single worst beatdown of the week,
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Jahmyr-oquai** (proj 116.6) vs **Picken my ass** (proj 114.0) — combined 230.6, projected margin 2.6
-- **Balls** (proj 90.4) vs **Throwsa parks** (proj 101.1) — combined 191.6, projected margin 10.7
+- **Jahmyr-oquai** (proj 116.6) vs **Picken my ass** (proj 114.0) — combined 230.7, projected margin 2.6
+- **Balls** (proj 90.8) vs **Throwsa parks** (proj 101.6) — combined 192.4, projected margin 10.8
 
 ## Closest Games
 
