@@ -23,7 +23,7 @@ import smtplib
 import sys
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from email.message import EmailMessage
 from pathlib import Path
 from typing import Any, Optional
@@ -109,6 +109,25 @@ CHAMPIONSHIP_PROJECTION_WEIGHT = 0.4
 CHAMPIONSHIP_DEFAULT_SD = 25.0
 CHAMPIONSHIP_MIN_PLAYOFF_PCT_SHOWN = 1.0
 CHAMPIONSHIP_HISTORY_FILE = "championship_odds.json"
+
+# Dynasty Outlook: each roster aged forward 1-3 seasons. AGE_CURVES give the share
+# of a player's current value kept at each age (anything not listed below the first
+# key is 1.0; anything past the last key falls to AGE_CURVE_FLOOR). Players younger
+# than YOUTH_PEAK_AGE gain YOUTH_GROWTH per season until they reach it, so rookies
+# aren't frozen at today's value. Future picks count at OUTLOOK_PICK_WEIGHT of their
+# trade value, and the projected seasons blend at OUTLOOK_YEAR_WEIGHTS.
+AGE_CURVES = {
+    "RB": {27: 0.85, 28: 0.70, 29: 0.55, 30: 0.42, 31: 0.32, 32: 0.25},
+    "WR": {30: 0.90, 31: 0.80, 32: 0.70, 33: 0.60, 34: 0.52},
+    "TE": {31: 0.92, 32: 0.84, 33: 0.74, 34: 0.64},
+    "QB": {35: 0.90, 36: 0.80},
+}
+AGE_CURVE_FLOOR = {"RB": 0.20, "WR": 0.45, "TE": 0.55, "QB": 0.65}
+YOUTH_PEAK_AGE = 24
+YOUTH_GROWTH = 0.06
+OUTLOOK_YEAR_WEIGHTS = (0.5, 0.3, 0.2)
+OUTLOOK_PICK_WEIGHT = 0.25
+OUTLOOK_TOP_TIER = 4
 
 # The commissioner manually schedules a rivalry week where every team plays its
 # rival; rivals also meet once more wherever the normal round-robin schedule
@@ -297,6 +316,10 @@ def projected_points_for_player(player_id: Optional[str], projections: dict, sco
     stats = entry.get("stats") or {}
     pts = stats.get(scoring_key)
     return float(pts) if isinstance(pts, (int, float)) else 0.0
+
+
+def get_traded_picks(league_id: str) -> list[dict]:
+    return fetch_json(f"{API_BASE}/league/{league_id}/traded_picks") or []
 
 
 def get_draft_picks(draft_id: str) -> list[dict]:
@@ -1546,6 +1569,129 @@ def build_championship_odds(
     }
 
 
+def player_age(player_id: str, players: dict, on: Optional[date] = None) -> Optional[int]:
+    birth = (players.get(player_id) or {}).get("birth_date")
+    if not birth:
+        return None
+    try:
+        y, m, d = map(int, birth.split("-"))
+    except ValueError:
+        return None
+    on = on or datetime.now(timezone.utc).date()
+    return on.year - y - ((on.month, on.day) < (m, d))
+
+
+def age_multiplier(position: Optional[str], age: Optional[int]) -> float:
+    curve = AGE_CURVES.get(position or "")
+    if not curve or age is None:
+        return 1.0
+    if age < min(curve):
+        return 1.0
+    return curve.get(age, AGE_CURVE_FLOOR[position])
+
+
+def projected_player_value(player_id: str, players: dict, years_ahead: int) -> float:
+    """Today's trade value aged forward: young players grow toward YOUTH_PEAK_AGE,
+    then each position's age curve takes over."""
+    base = trade_player_value(player_id, players)
+    pos = (players.get(player_id) or {}).get("position")
+    age = player_age(player_id, players)
+    if age is None:
+        return base
+    growth_years = max(0, min(years_ahead, YOUTH_PEAK_AGE - age))
+    grown = min(TRADE_VALUE_MAX, base * (1 + YOUTH_GROWTH) ** growth_years)
+    return grown * age_multiplier(pos, age + years_ahead)
+
+
+def _best_lineup_value(entries: list[tuple[str, float, str]]) -> tuple[float, list[str]]:
+    pool = sorted(entries, key=lambda e: e[1], reverse=True)
+    used: set[str] = set()
+    total = 0.0
+    for slot in ("QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "FLEX"):
+        allowed = ("RB", "WR", "TE") if slot == "FLEX" else (slot,)
+        pick = next((e for e in pool if e[0] not in used and e[2] in allowed), None)
+        if pick:
+            used.add(pick[0])
+            total += pick[1]
+    return total, list(used)
+
+
+def build_dynasty_outlook(
+    league_id: str, league: dict, rosters: list[dict], teams: dict[int, Team], players: dict
+) -> Optional[dict]:
+    """Ranks rosters on how good they'll be over the next three seasons: each team's
+    best starting lineup is re-valued per season with projected_player_value, then
+    blended (OUTLOOK_YEAR_WEIGHTS) with the value of the future picks it owns."""
+    try:
+        season = int(league.get("season"))
+    except (TypeError, ValueError):
+        return None
+    years = [season + k for k in (1, 2, 3)]
+    rounds = int((league.get("settings") or {}).get("draft_rounds") or 3)
+
+    owner = {(y, r, rid): rid for y in years for r in range(1, rounds + 1) for rid in teams}
+    for tp in get_traded_picks(league_id):
+        try:
+            key = (int(tp["season"]), int(tp["round"]), tp["roster_id"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if key in owner:
+            owner[key] = tp.get("owner_id")
+    owned: dict[int, list[tuple[int, int]]] = {rid: [] for rid in teams}
+    for (y, r, _orig), rid in owner.items():
+        if rid in owned:
+            owned[rid].append((y, r))
+
+    rows = []
+    for roster in rosters:
+        rid = roster.get("roster_id")
+        if rid not in teams:
+            continue
+        pids = [
+            p for p in (roster.get("players") or [])
+            if (players.get(p) or {}).get("position") in ("QB", "RB", "WR", "TE")
+        ]
+        lineup_values, starters_next = [], []
+        for k in (1, 2, 3):
+            entries = [(p, projected_player_value(p, players, k), players[p]["position"]) for p in pids]
+            total, starters = _best_lineup_value(entries)
+            lineup_values.append(total)
+            if k == 1:
+                starters_next = starters
+        ages = [a for a in (player_age(p, players) for p in starters_next) if a is not None]
+        pick_value_total = sum(pick_value(y, r, season) for y, r in owned[rid])
+        rows.append(
+            {
+                "team": teams[rid].team_name,
+                "avatar_url": teams[rid].avatar_url,
+                "lineup": lineup_values,
+                "firsts": sum(1 for _y, r in owned[rid] if r == 1),
+                "avg_age": sum(ages) / len(ages) if ages else None,
+                "raw": sum(w * v for w, v in zip(OUTLOOK_YEAR_WEIGHTS, lineup_values))
+                + OUTLOOK_PICK_WEIGHT * pick_value_total,
+            }
+        )
+    if not rows:
+        return None
+
+    best_by_year = [max(r["lineup"][i] for r in rows) or 1 for i in range(3)]
+    best_raw = max(r["raw"] for r in rows) or 1
+    rows.sort(key=lambda r: r["raw"], reverse=True)
+    for i, r in enumerate(rows):
+        r["outlook"] = round(100 * r["raw"] / best_raw)
+        r["year_scores"] = [round(100 * r["lineup"][k] / best_by_year[k]) for k in range(3)]
+        trend = r["lineup"][2] / r["lineup"][0] if r["lineup"][0] else 1.0
+        if i < OUTLOOK_TOP_TIER:
+            r["window"] = "🟢 Built to last" if trend >= 0.85 else "🟡 Win now"
+        elif trend < 0.8:
+            r["window"] = "🔴 Aging out"
+        elif r["firsts"] >= 4 or (r["avg_age"] is not None and r["avg_age"] <= 24.5):
+            r["window"] = "🔵 Rebuilding"
+        else:
+            r["window"] = "⚪ Middle of the pack"
+    return {"years": years, "teams": rows}
+
+
 @dataclass
 class NewsletterData:
     league_name: str
@@ -1577,6 +1723,7 @@ class NewsletterData:
     show_waiver_pickups: bool = True
     show_draft_value_tracker: bool = True
     championship_odds: Optional[dict] = None
+    dynasty_outlook: Optional[dict] = None
 
     @property
     def title(self) -> str:
@@ -1630,6 +1777,7 @@ def build_newsletter_data(
     show_draft_value_tracker: bool = True,
     show_gm_leaderboard: bool = False,
     championship_history: Optional[dict] = None,
+    show_dynasty_outlook: bool = False,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -1707,6 +1855,9 @@ def build_newsletter_data(
         weekly_scores,
         preview_week=preview_week,
         previous_title_pct=(championship_history or {}).get(f"{current_season}-{week - 1}"),
+    )
+    dynasty_outlook = (
+        build_dynasty_outlook(league_id, league, rosters, teams, players) if show_dynasty_outlook else None
     )
 
     season_transactions = get_season_transactions(league_id, week)
@@ -1798,6 +1949,7 @@ def build_newsletter_data(
         show_waiver_pickups=show_waiver_pickups,
         show_draft_value_tracker=show_draft_value_tracker,
         championship_odds=championship_odds,
+        dynasty_outlook=dynasty_outlook,
     )
 
 
@@ -1897,6 +2049,20 @@ def championship_odds_view(odds: dict) -> tuple[list[dict], int, str, Optional[s
         direction = "up" if mover["delta"] > 0 else "down"
         mover_line = f"Biggest mover: {mover['team']}, title odds {direction} {abs(mover['delta']):.0f}% since last week."
     return shown, hidden, caption, mover_line
+
+
+def dynasty_outlook_view(outlook: dict) -> tuple[list[str], str]:
+    y = [str(v)[2:] for v in outlook["years"]]
+    header = ["Rank", "Team", "Outlook", *map(str, outlook["years"]), "Avg starter age",
+              f"1sts ('{y[0]}–'{y[-1]})", "Window"]
+    caption = (
+        "Who's built to win beyond this season: every roster aged forward with position-specific age "
+        "curves (RBs fade first, QBs last; players under 24 still improve), plus the future picks each "
+        "team owns. Each season's score is that team's best starting lineup vs. the league's best that "
+        "season (100), so a steady number can still mean a slow decline. Outlook blends the three "
+        "seasons with pick value."
+    )
+    return header, caption
 
 
 def render_markdown(data: NewsletterData) -> str:
@@ -2050,6 +2216,21 @@ def render_markdown(data: NewsletterData) -> str:
             lines.append(f"**{mover_line}**\n")
         if hidden:
             lines.append(f"_Not shown: {hidden} team{'s' if hidden != 1 else ''} under 1% to make the playoffs._\n")
+
+    if data.dynasty_outlook:
+        header, caption = dynasty_outlook_view(data.dynasty_outlook)
+        lines.append("## 🔮 Dynasty Outlook\n")
+        lines.append(f"_{caption}_\n")
+        lines.append("| " + " | ".join(header) + " |")
+        lines.append("|" + "---|" * len(header))
+        for i, r in enumerate(data.dynasty_outlook["teams"], start=1):
+            age = f"{r['avg_age']:.1f}" if r["avg_age"] is not None else "—"
+            lines.append(
+                f"| {i} | **{r['team']}** | {r['outlook']} | "
+                + " | ".join(str(v) for v in r["year_scores"])
+                + f" | {age} | {r['firsts']} | {r['window']} |"
+            )
+        lines.append("")
 
     lines.append("## Luck Index\n")
     if data.luck_index:
@@ -2440,6 +2621,19 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
             parts.append(f"<p><strong>{e(mover_line)}</strong></p>")
         if hidden:
             parts.append(f"<p><em>Not shown: {hidden} team{'s' if hidden != 1 else ''} under 1% to make the playoffs.</em></p>")
+
+    if data.dynasty_outlook:
+        header, caption = dynasty_outlook_view(data.dynasty_outlook)
+        parts.append("<h2>🔮 Dynasty Outlook</h2>")
+        parts.append(f"<p><em>{e(caption)}</em></p>")
+        parts.append("<table><tr>" + "".join(f"<th>{e(h)}</th>" for h in header) + "</tr>")
+        for i, r in enumerate(data.dynasty_outlook["teams"], start=1):
+            age = f"{r['avg_age']:.1f}" if r["avg_age"] is not None else "—"
+            bar = _bar_html(r["outlook"] / 100, "#2c5f2d", width_px=80)
+            cells = [str(i), f"{_team_logo_html(r.get('avatar_url'))}{e(r['team'])}", f"{bar} {r['outlook']}"]
+            cells += [str(v) for v in r["year_scores"]] + [age, str(r["firsts"]), e(r["window"])]
+            parts.append("<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
+        parts.append("</table>")
 
     parts.append("<h2>Luck Index</h2>")
     if data.luck_index:
@@ -2839,6 +3033,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         ),
     )
     parser.add_argument(
+        "--dynasty-outlook",
+        action="store_true",
+        help="Add the Dynasty Outlook section: rosters aged forward 1-3 seasons plus future picks.",
+    )
+    parser.add_argument(
         "--season-type",
         choices=["off", "pre", "regular", "post"],
         default=None,
@@ -2973,6 +3172,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             show_draft_value_tracker=not args.hide_draft_value_tracker,
             show_gm_leaderboard=args.best_gm_leaderboard,
             championship_history=load_championship_history(Path(args.latest_dir)),
+            show_dynasty_outlook=args.dynasty_outlook,
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
