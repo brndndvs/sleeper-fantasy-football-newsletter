@@ -9,45 +9,55 @@ Almost had chaos. Chaos was fixed. Big trades big week. Coming up on the midway 
 
 ## 🏆 Week 6 Awards
 
-🖕 THE "KICKING A CORPSE" AWARD
+🥇 THE "MATHEMATICALLY ABUSIVE" AWARD
 Winner: Roger Goodell
-Roger Goodell didn't just beat his opponent, he beat them by 69.72 points like he owed them money from a previous life. 143.08 points for the week while running up a luck index of -23.1, which means the algorithm thinks this man has been getting away with murder. Nice. Sixty-nine point seven two. Immaculate number, disgusting beatdown.
+Score: 143.08-73.36
+You didn't just win by 69.72 points, you won by almost exactly the number everyone immediately giggled at. Your opponent lost by double their own score. That's not a loss, that's a hostage situation with a scoreboard.
 
-🛋️ THE "YOUR BEST PLAYERS ARE HOSTAGES" AWARD
+🛋️ THE "COACHING FROM THE COUCH" AWARD
 Winner: Roger Goodell
-108.60 points left rotting on your bench this week, which is more than four of the eight teams in this league SCORED TOTAL. You won by 70 points and still somehow left a near-triple-digit haul on the pine. Imagine being this good and this careless at the exact same time.
+108.60 points left on the bench
+You scored 143 points and still had 108 more rotting on your bench like a second starting lineup. If you'd started your actual best roster you'd have beaten your own opponent twice. The luck index agrees, by the way, you're sitting at -23.1, the unluckiest sack of good fortune in the entire league.
 
-🪦 THE "DEAD MAN WALKING" AWARD
-Winner: 12 DAY WAR VET
-You won by 64 points this week, 107.42 to 43.42, an absolute mercy-killing of a margin. And yet your luck index sits at -16.7, dead last in the league, because apparently the fantasy gods still think you're due for a reckoning. Also you churned through five different defenses and kickers like a man trying on pants at a store that's closing in ten minutes. Get it together.
+🪦 THE "CLOSEST THING TO A FUNERAL" AWARD
+Winner: Talking Tua Teenager
+Lost 125.12-119.24
+Jaxon Smith-Njigba dropped 25.40 on your behalf, and it still wasn't enough because Kenneth Walker was out there doing felony damage for the other side. 5.88 points is the difference between a highlight reel and a group chat full of "so close" texts nobody means.
 
-😤 THE "THIS IS FINE" AWARD
-Winner: Simply Touchdowns
-Lost by 30.10 to A FOOTBALL TEAM, sit at 3-3, and your luck index is -14.1. Your points for and against are basically a coin flip (700.10 vs 704.68), which is the statistical equivalent of a shrug emoji wearing a jersey.
-
-😮‍💨 THE "BARELY SURVIVED" AWARD
+💅 THE "LOOK GOOD, FEEL NOTHING" AWARD
 Winner: Tpotts42
-5.88 points. That's the margin you squeaked by Talking Tua Teenager with, thanks to Kenneth Walker dropping 27.90 on the week. You're 5-1 and riding a +9.0 luck score, so congrats on the record, but your heart rate during that one had to look like a seismograph during an earthquake.
+125.12 points, 61.50 left on bench
+You won by less than six points while leaving enough points on your bench to have won by fifty. Kenneth Walker carried you to victory and your bench still outkicked your coverage. Live dangerously, I guess.
 
-💔 THE "ROBBED IN BROAD DAYLIGHT" AWARD
-Winner: Talking Tua Teenager
-Christian McCaffrey went off for 30.70 points, Jaxon Smith-Njigba added 25.40, and you STILL lost by 5.88. That's 56 points from two guys and it wasn't enough. Somewhere a general manager is drafting a strongly worded apology letter to himself.
+🧟 THE "EMOTIONAL DAMAGE" AWARD
+Winner: 12 DAY WAR VET
+Won 107.42-43.42, but also dropped 92.80 bench points
+Congrats on the 64-point blowout, truly dominant. Now explain why you left 92.80 points on your bench during a game you were never going to lose anyway. Also you cut the Saints defense, picked them back up, then cut them again in the same week. Make up your mind or get a therapist.
 
-🏆 THE "UNDERDOG WITH A SECRET WHISTLE" AWARD
-Winner: A FOOTBALL TEAM
-5-1, 125.80 points this week, and a league-best +16.7 luck index. You're not just winning, you're winning the way a kid wins hide-and-seek when everyone else agreed to stop looking. Enjoy this ride, it's rigged in your favor and you know it.
-
-🧊 THE "ICE COLD, NO CHASER" AWARD
+🎯 THE "QUIET COMPETENCE" AWARD
 Winner: KC
-112.16 points, a win by 24.32, and Tyler Shough dropping 26.96 points at the QB spot, which is a sentence nobody expected to type in Week 6. Still just 3-3 though, and a luck index of -9.0 says the universe is still deciding if it likes you.
+Only 29.18 points left on the bench
+While everyone else was benching touchdowns, you ran the tightest ship in the league this week, second-lowest bench points, and Tyler Shough went off for 26.96 to back it up. Shame your record still says 3-3, because efficiency doesn't pay the standings bill.
 
-🚮 THE "LEAST WASTED" AWARD
+🍀 THE "GETTING Away WITH MURDER" AWARD
+Winner: A FOOTBALL TEAM
+Luck index: +16.7, record 5-1
+Your all-play record is a pedestrian 52-26, yet you're sitting pretty at 5-1 like you planned it. You're the luckiest 5-1 team in a league full of lucky 5-1 teams, which is genuinely an achievement in itself.
+
+☠️ THE "DESERVES BETTER" AWARD
+Winner: Simply Touchdowns
+Lost 125.80-95.70, luck index -14.1
+You're 3-3 but your all-play record says you should be hovering near a playoff spot instead of praying. Getting run over 30.10 points by A FOOTBALL TEAM this week didn't help your case, and the universe clearly isn't rooting for you either.
+
+🤡 THE "WORST LUCK IN THE BUILDING" AWARD
+Winner: Roger Goodell
+Luck index: -23.1
+You're 4-2 with 921.90 points for, second most in the entire league, and the all-play math says you've been getting robbed all season (70-8!). Somehow still the least lucky team in the FDFA. Keep scoring 143 and losing the "fairness" argument, you'll be fine.
+
+💀 THE "DEAD CAP SPACE" AWARD
 Winner: Balls
-Only 13.10 points left on your bench this week, the tightest ship in the league. Meanwhile you're 5-1 with the most points for in the league (950.80) but somehow a -2.6 luck score, like the stat sheet is annoyed you're actually just good instead of lucky. Also you added a kicker, dropped a kicker, and added another kicker, so clearly priorities are in order.
-
-🩸 THE "DEATH BY A THOUSAND BENCHWARMERS" AWARD
-Winner: Talking Tua Teenager
-43.58 points stranded on your bench in a game you lost by 5.88. Do that math. That math should make you sick. You had the win sitting right there in your own dugout and you left it on the bench to think about what it did.
+950.80 PF, 5-1, but only 13.10 bench points left unused
+You're the model franchise right now, leading the league in points for and barely leaving anything on the table. You also spent the week swapping kickers and tight ends like fantasy stock day trading. Calm down, you're already winning.
 
 ## Matchup Recap
 
@@ -73,8 +83,8 @@ Winner: Talking Tua Teenager
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **12 DAY WAR VET** (proj 124.2) vs **Talking Tua Teenager** (proj 127.8) — combined 251.9, projected margin 3.6
-- **A FOOTBALL TEAM** (proj 125.9) vs **Tpotts42** (proj 135.8) — combined 261.7, projected margin 10.0
+- **12 DAY WAR VET** (proj 124.2) vs **Talking Tua Teenager** (proj 127.8) — combined 252.0, projected margin 3.7
+- **A FOOTBALL TEAM** (proj 126.0) vs **Tpotts42** (proj 135.8) — combined 261.8, projected margin 9.8
 
 ## Closest Games
 
