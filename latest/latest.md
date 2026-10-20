@@ -1,104 +1,94 @@
 ![Floridian Dynasty Football Association LLC logo](https://github.com/user-attachments/assets/d9830c50-3fc5-4241-9d2d-5e0029eb343d)
 
-# Floridian Dynasty Football Association LLC — Week 5 — October 13, 2026 Newsletter
+# Floridian Dynasty Football Association LLC — Week 6 — October 20, 2026 Newsletter
 _2026 Season_
 
 ## Commissioner's Notes
 
-Good week of football
-Keep it rolling
+Almost had chaos. Chaos was fixed. Big trades big week. Coming up on the midway point of our regular season. Crazy
 
-## 🏆 Week 5 Awards
+## 🏆 Week 6 Awards
 
-🏆 THE "KICKING A MAN WHEN HE'S DOWN" AWARD
-Winner: Balls
-
-189.98 points. Jahmyr Gibbs AND Isaiah Likely both going off for 37+ and 32+. This isn't a fantasy team, it's a war crime. 5-0, nearly 863 points for on the year, and a +4.6 luck index means you didn't even need the luck, you just have the best roster in the building. Roger Goodell didn't lose this week so much as he got mugged in broad daylight.
-
-🩸 THE "BLED OUT ON THE TABLE" AWARD
+🖕 THE "KICKING A CORPSE" AWARD
 Winner: Roger Goodell
+Roger Goodell didn't just beat his opponent, he beat them by 69.72 points like he owed them money from a previous life. 143.08 points for the week while running up a luck index of -23.1, which means the algorithm thinks this man has been getting away with murder. Nice. Sixty-nine point seven two. Immaculate number, disgusting beatdown.
 
-159.18 points scored, which would've beaten literally everybody else's floor this week, and you still lost by 30.8 because Balls decided to have a both-of-my-studs-go-nuclear kind of Sunday. To make it worse, you left 121 points on your bench, the most of anyone in the league. You basically benched a second starting lineup that could've won you the game outright.
+🛋️ THE "YOUR BEST PLAYERS ARE HOSTAGES" AWARD
+Winner: Roger Goodell
+108.60 points left rotting on your bench this week, which is more than four of the eight teams in this league SCORED TOTAL. You won by 70 points and still somehow left a near-triple-digit haul on the pine. Imagine being this good and this careless at the exact same time.
 
-😭 THE "UNLUCKIEST SON OF A BITCH" AWARD
+🪦 THE "DEAD MAN WALKING" AWARD
 Winner: 12 DAY WAR VET
+You won by 64 points this week, 107.42 to 43.42, an absolute mercy-killing of a margin. And yet your luck index sits at -16.7, dead last in the league, because apparently the fantasy gods still think you're due for a reckoning. Also you churned through five different defenses and kickers like a man trying on pants at a store that's closing in ten minutes. Get it together.
 
-You beat Tpotts42 by 62 points this week behind Puka Nacua and Jaylen Warren both going off for 36+, and your record is still 2-3. Your luck index sits at -27.7, tied for worst in the league, which means the math itself feels bad for you. You also left 78.7 points on your bench in the blowout, so even your best week was somehow still inefficient.
+😤 THE "THIS IS FINE" AWARD
+Winner: Simply Touchdowns
+Lost by 30.10 to A FOOTBALL TEAM, sit at 3-3, and your luck index is -14.1. Your points for and against are basically a coin flip (700.10 vs 704.68), which is the statistical equivalent of a shrug emoji wearing a jersey.
 
-💀 THE "ACTIVE WARFARE" AWARD
+😮‍💨 THE "BARELY SURVIVED" AWARD
 Winner: Tpotts42
+5.88 points. That's the margin you squeaked by Talking Tua Teenager with, thanks to Kenneth Walker dropping 27.90 on the week. You're 5-1 and riding a +9.0 luck score, so congrats on the record, but your heart rate during that one had to look like a seismograph during an earthquake.
 
-Losing 194.94-132.84 is the kind of margin where you check if the other team accidentally started two lineups. 62.1 points is the widest gap of the week, and your luck index is still a cushy +7.7 overall, meaning this one loss was just the league reminding you it can still hurt you whenever it wants.
-
-🧟 THE "ZOMBIE WIN" AWARD
+💔 THE "ROBBED IN BROAD DAYLIGHT" AWARD
 Winner: Talking Tua Teenager
+Christian McCaffrey went off for 30.70 points, Jaxon Smith-Njigba added 25.40, and you STILL lost by 5.88. That's 56 points from two guys and it wasn't enough. Somewhere a general manager is drafting a strongly worded apology letter to himself.
 
-5-0, beat Simply Touchdowns by a microscopic 3.36 points, and you're still riding a +24.6 luck index, the most fortunate number in the entire league. You're not good, you're blessed. The football gods clearly owe you money and are paying it off in cheap, ugly wins.
-
-🪦 THE "SO CLOSE, YET SO FUCKING FAR" AWARD
-Winner: Simply Touchdowns
-
-139.96 points and a loss. In almost any other matchup this week that score wins comfortably, but you ran into the luckiest team in the league by 3.36 points. Your luck index is already -6.2, so add this one to the pile of "we got robbed" group texts.
-
-🤡 THE "PLAYING 4D CHESS WHILE LOSING AT CHECKERS" AWARD
+🏆 THE "UNDERDOG WITH A SECRET WHISTLE" AWARD
 Winner: A FOOTBALL TEAM
+5-1, 125.80 points this week, and a league-best +16.7 luck index. You're not just winning, you're winning the way a kid wins hide-and-seek when everyone else agreed to stop looking. Enjoy this ride, it's rigged in your favor and you know it.
 
-4-1, +18.5 luck index, second luckiest team in the league, and somehow nobody from your roster cracked the top scorers list except Drake Maye's 39.46-point explosion. You're winning games you have no business winning and getting zero style points for it. Keep it up, nobody's mad, everybody's suspicious.
-
-🦴 THE "SCRAPS OFF THE WAIVER FLOOR" AWARD
+🧊 THE "ICE COLD, NO CHASER" AWARD
 Winner: KC
+112.16 points, a win by 24.32, and Tyler Shough dropping 26.96 points at the QB spot, which is a sentence nobody expected to type in Week 6. Still just 3-3 though, and a luck index of -9.0 says the universe is still deciding if it likes you.
 
-2-3, -16.9 luck index, and your big offseason… I mean in-season move this week was Dohnte Meyers off waivers. Not exactly a blockbuster. At 550.46 points for, the lowest in the league, you need more than a waiver-wire flyer at this point, you need a miracle.
+🚮 THE "LEAST WASTED" AWARD
+Winner: Balls
+Only 13.10 points left on your bench this week, the tightest ship in the league. Meanwhile you're 5-1 with the most points for in the league (950.80) but somehow a -2.6 luck score, like the stat sheet is annoyed you're actually just good instead of lucky. Also you added a kicker, dropped a kicker, and added another kicker, so clearly priorities are in order.
 
-🔁 THE "MUSICAL CHAIRS AT KICKER" AWARD
-Winner: 12 DAY WAR VET
-
-You didn't just make one roster move this week, you made five, including benching Cam Little for Will Reichard like kickers are interchangeable Pokemon cards. You also swapped defenses and dumped a tight end for a running back nobody's excited about. Grinding that hard on the waiver wire and still losing the week's biggest point differential in your favor and still sitting at 2-3 has to sting.
-
-🛋️ THE "BEST SEAT IN THE HOUSE" AWARD
-Winner: Simply Touchdowns
-
-56.8 points stranded on your bench in a game you lost by 3.36. Somewhere in your bench spots sat the exact margin you needed, just chilling, doing absolutely nothing for you. That's not bad luck, that's a lineup decision haunting you in your sleep tonight.
+🩸 THE "DEATH BY A THOUSAND BENCHWARMERS" AWARD
+Winner: Talking Tua Teenager
+43.58 points stranded on your bench in a game you lost by 5.88. Do that math. That math should make you sick. You had the win sitting right there in your own dugout and you left it on the bench to think about what it did.
 
 ## Matchup Recap
 
-- **Balls** 189.98 def. **Roger Goodell** 159.18 (margin: 30.80)
-- **The Aubrey Express ** 55.08 def. **Boynton Beach Blue Balls** 48.66 (margin: 6.42)
-- **KC** 105.74 def. **CeDeez big ones** 105.08 (margin: 0.66)
-- **Talking Tua Teenager** 143.32 def. **Simply Touchdowns** 139.96 (margin: 3.36)
-- **A FOOTBALL TEAM** 126.46 def. **Chud Team** 72.50 (margin: 53.96)
-- **12 DAY WAR VET** 194.94 def. **Tpotts42** 132.84 (margin: 62.10)
-- **BlowPaterno** 43.48 def. **andrewburkhardt1** 40.84 (margin: 2.64)
+- **Roger Goodell** 143.08 def. **The Aubrey Express ** 73.36 (margin: 69.72)
+- **andrewburkhardt1** 92.96 def. **Boynton Beach Blue Balls** 78.00 (margin: 14.96)
+- **KC** 112.16 def. **Balls** 87.84 (margin: 24.32)
+- **A FOOTBALL TEAM** 125.80 def. **Simply Touchdowns** 95.70 (margin: 30.10)
+- **12 DAY WAR VET** 107.42 def. **BlowPaterno** 43.42 (margin: 64.00)
+- **Chud Team** 77.26 def. **CeDeez big ones** 47.18 (margin: 30.08)
+- **Tpotts42** 125.12 def. **Talking Tua Teenager** 119.24 (margin: 5.88)
 
 ## Rivals
 
 - Week 2: **KC** 134.68 - 97.76 **12 DAY WAR VET**
 - Week 2: **Simply Touchdowns** 125.14 - 48.40 **BlowPaterno**
 - Week 4: **Chud Team** 71.82 - 121.36 **Talking Tua Teenager**
+- Week 6: **Roger Goodell** 143.08 - 73.36 **The Aubrey Express **
+- Week 6: **Boynton Beach Blue Balls** 78.00 - 92.96 **andrewburkhardt1**
 
-- **Upcoming (Week 6):** Roger Goodell vs The Aubrey Express 
-- **Upcoming (Week 6):** Boynton Beach Blue Balls vs andrewburkhardt1
+- **Upcoming (Week 7):** A FOOTBALL TEAM vs Tpotts42
 
 ## Big Game of the Week
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Tpotts42** (proj 131.5) vs **Talking Tua Teenager** (proj 136.8) — combined 268.4, projected margin 5.3
-- **Simply Touchdowns** (proj 82.5) vs **A FOOTBALL TEAM** (proj 97.7) — combined 180.2, projected margin 15.2
+- **12 DAY WAR VET** (proj 124.2) vs **Talking Tua Teenager** (proj 127.8) — combined 251.9, projected margin 3.6
+- **A FOOTBALL TEAM** (proj 125.9) vs **Tpotts42** (proj 135.8) — combined 261.7, projected margin 10.0
 
 ## Closest Games
 
-1. **KC** 105.74 - 105.08 **CeDeez big ones** (margin: 0.66)
-2. **BlowPaterno** 43.48 - 40.84 **andrewburkhardt1** (margin: 2.64)
-3. **Talking Tua Teenager** 143.32 - 139.96 **Simply Touchdowns** (margin: 3.36)
+1. **Tpotts42** 125.12 - 119.24 **Talking Tua Teenager** (margin: 5.88)
+2. **andrewburkhardt1** 92.96 - 78.00 **Boynton Beach Blue Balls** (margin: 14.96)
+3. **KC** 112.16 - 87.84 **Balls** (margin: 24.32)
 
 ## Top Scorers
 
-1. **Drake Maye (QB - NE)** — 39.46 pts (A FOOTBALL TEAM)
-2. **Jahmyr Gibbs (RB - DET)** — 37.70 pts (Balls)
-3. **Puka Nacua (WR - LAR)** — 37.70 pts (12 DAY WAR VET)
-4. **Jaylen Warren (RB - PIT)** — 36.80 pts (12 DAY WAR VET)
-5. **Isaiah Likely (TE - NYG)** — 32.40 pts (Balls)
+1. **Christian McCaffrey (RB - SF)** — 30.70 pts (Talking Tua Teenager)
+2. **Malik Nabers (WR - NYG)** — 28.50 pts (Roger Goodell)
+3. **Kenneth Walker (RB - KC)** — 27.90 pts (Tpotts42)
+4. **Tyler Shough (QB - NO)** — 26.96 pts (KC)
+5. **Jaxon Smith-Njigba (WR - SEA)** — 25.40 pts (Talking Tua Teenager)
 
 ## Standings
 
@@ -106,175 +96,158 @@ _Both teams top 7 in the league; picked for being the closest projected matchups
 
 | Rank | Team | Record | PF | PA |
 |------|------|--------|----|----|
-| 1 | Balls | 5-0 | 862.96 | 416.34 |
-| 2 | Tpotts42 | 4-1 | 702.10 | 550.66 |
-| 3 | A FOOTBALL TEAM | 4-1 | 618.24 | 440.84 |
-| 4 | CeDeez big ones | 3-2 | 322.16 | 416.56 |
-| 5 | 12 DAY WAR VET | 2-3 | 668.64 | 636.80 |
-| 6 | KC | 2-3 | 550.46 | 632.26 |
-| 7 | BlowPaterno | 2-3 | 292.60 | 575.04 |
+| 1 | Balls | 5-1 | 950.80 | 528.50 |
+| 2 | Tpotts42 | 5-1 | 827.22 | 669.90 |
+| 3 | A FOOTBALL TEAM | 5-1 | 744.04 | 536.54 |
+| 4 | 12 DAY WAR VET | 3-3 | 776.06 | 680.22 |
+| 5 | KC | 3-3 | 662.62 | 720.10 |
+| 6 | CeDeez big ones | 3-3 | 369.34 | 493.82 |
+| 7 | BlowPaterno | 2-4 | 336.02 | 682.46 |
 
 **STC**
 
 | Rank | Team | Record | PF | PA |
 |------|------|--------|----|----|
-| 1 | Talking Tua Teenager | 5-0 | 781.00 | 515.90 |
-| 2 | Roger Goodell | 3-2 | 778.82 | 691.08 |
-| 3 | Simply Touchdowns | 3-2 | 604.40 | 578.88 |
-| 4 | The Aubrey Express  | 2-3 | 301.42 | 371.92 |
-| 5 | Chud Team | 0-5 | 410.38 | 551.70 |
-| 6 | andrewburkhardt1 | 0-5 | 269.84 | 498.92 |
-| 7 | Boynton Beach Blue Balls | 0-5 | 244.44 | 530.56 |
+| 1 | Talking Tua Teenager | 5-1 | 900.24 | 641.02 |
+| 2 | Roger Goodell | 4-2 | 921.90 | 764.44 |
+| 3 | Simply Touchdowns | 3-3 | 700.10 | 704.68 |
+| 4 | The Aubrey Express  | 2-4 | 374.78 | 515.00 |
+| 5 | Chud Team | 1-5 | 487.64 | 598.88 |
+| 6 | andrewburkhardt1 | 1-5 | 362.80 | 576.92 |
+| 7 | Boynton Beach Blue Balls | 0-6 | 322.44 | 623.52 |
 
 ## Power Rankings
 
 _Blends record, season points, and the last 3 weeks of scoring — not just win-loss._
 
-1. **Balls** (5-0) — recent avg 175.8 pts
-2. **Talking Tua Teenager** (5-0) — recent avg 145.0 pts
-3. **Roger Goodell** (3-2) — recent avg 158.6 pts
-4. **Tpotts42** (4-1) — recent avg 148.6 pts
-5. **A FOOTBALL TEAM** (4-1) — recent avg 117.5 pts
-6. **Simply Touchdowns** (3-2) — recent avg 131.3 pts
-7. **12 DAY WAR VET** (2-3) — recent avg 144.2 pts
-8. **KC** (2-3) — recent avg 115.8 pts
-9. **CeDeez big ones** (3-2) — recent avg 74.6 pts
-10. **The Aubrey Express ** (2-3) — recent avg 62.6 pts
-11. **Chud Team** (0-5) — recent avg 68.8 pts
-12. **BlowPaterno** (2-3) — recent avg 58.4 pts
-13. **andrewburkhardt1** (0-5) — recent avg 61.6 pts
-14. **Boynton Beach Blue Balls** (0-5) — recent avg 42.9 pts
+1. **Balls** (5-1) — recent avg 145.6 pts
+2. **Roger Goodell** (4-2) — recent avg 160.2 pts
+3. **Tpotts42** (5-1) — recent avg 136.4 pts
+4. **Talking Tua Teenager** (5-1) — recent avg 128.0 pts
+5. **A FOOTBALL TEAM** (5-1) — recent avg 125.8 pts
+6. **12 DAY WAR VET** (3-3) — recent avg 148.0 pts
+7. **Simply Touchdowns** (3-3) — recent avg 126.3 pts
+8. **KC** (3-3) — recent avg 113.1 pts
+9. **Chud Team** (1-5) — recent avg 73.9 pts
+10. **CeDeez big ones** (3-3) — recent avg 67.2 pts
+11. **The Aubrey Express ** (2-4) — recent avg 66.7 pts
+12. **andrewburkhardt1** (1-5) — recent avg 66.0 pts
+13. **BlowPaterno** (2-4) — recent avg 47.8 pts
+14. **Boynton Beach Blue Balls** (0-6) — recent avg 54.5 pts
 
 ## Luck Index
 
 _All-play record: how each team's actual record compares to if they'd played every other team, every week. Positive = luckier than their schedule; negative = unlucky._
 
-1. **CeDeez big ones** — record 3-2, all-play 14-51 (+38.5)
-2. **Talking Tua Teenager** — record 5-0, all-play 49-16 (+24.6)
-3. **A FOOTBALL TEAM** — record 4-1, all-play 40-25 (+18.5)
-4. **The Aubrey Express ** — record 2-3, all-play 14-51 (+18.5)
-5. **BlowPaterno** — record 2-3, all-play 14-51 (+18.5)
-6. **Tpotts42** — record 4-1, all-play 47-18 (+7.7)
-7. **Balls** — record 5-0, all-play 62-3 (+4.6)
-8. **Simply Touchdowns** — record 3-2, all-play 43-22 (-6.2)
-9. **andrewburkhardt1** — record 0-5, all-play 8-57 (-12.3)
-10. **Boynton Beach Blue Balls** — record 0-5, all-play 9-56 (-13.8)
-11. **KC** — record 2-3, all-play 37-28 (-16.9)
-12. **Chud Team** — record 0-5, all-play 17-48 (-26.2)
-13. **Roger Goodell** — record 3-2, all-play 57-8 (-27.7)
-14. **12 DAY WAR VET** — record 2-3, all-play 44-21 (-27.7)
+1. **CeDeez big ones** — record 3-3, all-play 15-63 (+30.8)
+2. **A FOOTBALL TEAM** — record 5-1, all-play 52-26 (+16.7)
+3. **BlowPaterno** — record 2-4, all-play 14-64 (+15.4)
+4. **The Aubrey Express ** — record 2-4, all-play 16-62 (+12.8)
+5. **Tpotts42** — record 5-1, all-play 58-20 (+9.0)
+6. **Talking Tua Teenager** — record 5-1, all-play 59-19 (+7.7)
+7. **andrewburkhardt1** — record 1-5, all-play 14-64 (-1.3)
+8. **Balls** — record 5-1, all-play 67-11 (-2.6)
+9. **KC** — record 3-3, all-play 46-32 (-9.0)
+10. **Chud Team** — record 1-5, all-play 20-58 (-9.0)
+11. **Simply Touchdowns** — record 3-3, all-play 50-28 (-14.1)
+12. **Boynton Beach Blue Balls** — record 0-6, all-play 13-65 (-16.7)
+13. **12 DAY WAR VET** — record 3-3, all-play 52-26 (-16.7)
+14. **Roger Goodell** — record 4-2, all-play 70-8 (-23.1)
 
 ## Trades — Last 21 Days (top 5)
 
-_Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Ranked by a blend of how lopsided the trade was and how much total value changed hands, so a real blockbuster outranks a minor move that just happens to be a bit uneven._
+_Value is a rough estimate from Sleeper's own player rankings and a simple pick-value table — not official ADP or projections. Stars are worth far more than depth, and each extra piece in a package counts for less than the one before it. Ranked by a blend of how lopsided the trade was and how much total value changed hands, so a real blockbuster outranks a minor move that just happens to be a bit uneven._
 
-**Trade 1 (Tuesday, October 6) — Balls wins it (+6150 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Balls | J.K. Dobbins (RB - DEN), Zach Charbonnet (RB - SEA) | 10986 | +6150 |
-| BlowPaterno | Germie Bernard (WR - PIT) | 4836 | -6150 |
-
-**Trade 2 (Wednesday, September 30) — KC wins it (+2260 est. value)**
+**Trade 1 (Tuesday, October 13) — 12 DAY WAR VET wins it (+4673 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| KC | Ollie Gordon (RB - MIA) | 3210 | +2260 |
-| The Aubrey Express  | 2027 Round 3 pick, 2027 Round 3 pick, $10 FAAB | 950 | -2260 |
+| 12 DAY WAR VET | Mike Washington (RB - LV), Mike Evans (WR - SF), DK Metcalf (WR - PIT), J.K. Dobbins (RB - DEN), 2027 Round 2 pick, 2028 Round 1 pick, 2028 Round 3 pick, 2027 Round 3 pick, 2029 Round 3 pick, $65 FAAB | 13673 | +4673 |
+| Balls | Justin Jefferson (WR - MIN) | 9001 | -4673 |
 
-**Trade 3 (Tuesday, October 6) — Roger Goodell wins it (+168 est. value)**
-
-| Manager | Received | Value | Net Swing |
-|---|---|---|---|
-| Roger Goodell | De'Von Achane (RB - MIA) | 5952 | +168 |
-| 12 DAY WAR VET | Cam Skattebo (RB - NYG) | 5784 | -168 |
-
-**Trade 4 (Friday, October 9) — looks even**
+**Trade 2 (Tuesday, October 13) — Balls wins it (+4189 est. value)**
 
 | Manager | Received | Value | Net Swing |
 |---|---|---|---|
-| Boynton Beach Blue Balls | $1 FAAB | 10 | +0 |
-| CeDeez big ones | $1 FAAB | 10 | +0 |
+| Balls | Tee Higgins (WR - CIN), Bijan Robinson (RB - ATL), 2027 Round 2 pick, 2028 Round 1 pick | 17431 | +4189 |
+| Tpotts42 | Tetairoa McMillan (WR - CAR), Kenneth Walker (RB - KC) | 13242 | -4189 |
+
+**Trade 3 (Tuesday, October 6) — Balls wins it (+6072 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Balls | J.K. Dobbins (RB - DEN), Zach Charbonnet (RB - SEA) | 7383 | +6072 |
+| BlowPaterno | Germie Bernard (WR - PIT) | 1311 | -6072 |
+
+**Trade 4 (Tuesday, October 6) — Roger Goodell wins it (+2371 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| Roger Goodell | De'Von Achane (RB - MIA) | 9290 | +2371 |
+| 12 DAY WAR VET | Cam Skattebo (RB - NYG) | 6918 | -2371 |
+
+**Trade 5 (Tuesday, October 13) — CeDeez big ones wins it (+1727 est. value)**
+
+| Manager | Received | Value | Net Swing |
+|---|---|---|---|
+| 12 DAY WAR VET | Bucky Irving (RB - TB), 2028 Round 3 pick, 2029 Round 3 pick, $9 FAAB | 7973 | -1727 |
+| CeDeez big ones | Cam Skattebo (RB - NYG), 2028 Round 1 pick | 9700 | +1727 |
+
+## Best GM
+
+_Ranks managers by total estimated trade value won across every trade since the start of the offseason — same value model as the Trades section above, just tallied cumulatively instead of trade-by-trade. Recalculated fresh each week as new trades happen._
+
+1. **Balls** — +21654 net trade value (7 trades)
+2. **Roger Goodell** — +11031 net trade value (9 trades)
+3. **A FOOTBALL TEAM** — +5401 net trade value (4 trades)
+4. **KC** — +4259 net trade value (5 trades)
+5. **CeDeez big ones** — +4204 net trade value (5 trades)
 
 ## Waiver Wire / Free Agency This Week
 
-**Tuesday, October 6:**
-- **12 DAY WAR VET** (Free Agent Move): added —; dropped Kalif Raymond (WR - CHI)
-- **Balls** (Free Agent Move): added —; dropped George Holani (RB - SEA)
-- **Balls** (Free Agent Move): added —; dropped Jalen Royals (WR - KC)
+**Tuesday, October 13:**
+- **A FOOTBALL TEAM** (Free Agent Move): added —; dropped Dawson Knox (TE - BUF)
+- **12 DAY WAR VET** (Free Agent Move): added —; dropped Will Shipley (RB - PHI)
+- **12 DAY WAR VET** (Free Agent Move): added —; dropped Bryce Lance (WR - NO)
+- **12 DAY WAR VET** (Free Agent Move): added —; dropped Cincinnati Bengals (DEF - CIN)
 
-**Wednesday, October 7:**
-- **12 DAY WAR VET** (Waiver Claim): added Will Reichard (K - MIN); dropped Cam Little (K - JAX)
-- **12 DAY WAR VET** (Waiver Claim ($97 FAAB)): added Will Shipley (RB - PHI); dropped Cade Otton (TE - TB)
-- **Roger Goodell** (Waiver Claim ($2 FAAB)): added Najee Harris (RB - NYG); dropped Devin Singletary (RB - NYG)
-- **CeDeez big ones** (Waiver Claim): added Camden Brown (WR - DAL); dropped Chimere Dike (WR - TEN)
-- **CeDeez big ones** (Waiver Claim): added Anthony Gould (WR - IND); dropped John Metchie (WR - CAR)
-- **CeDeez big ones** (Waiver Claim): added Jonathan Mingo (WR - DAL); dropped Braxton Berrios (WR - NYG)
-- **CeDeez big ones** (Waiver Claim): added DJ Herman (RB - MIA); dropped Kyle Juszczyk (FB - SF)
-- **BlowPaterno** (Waiver Claim ($1 FAAB)): added Tyson Bagent (QB - CHI); dropped —
-- **12 DAY WAR VET** (Waiver Claim): added Cincinnati Bengals (DEF - CIN); dropped New Orleans Saints (DEF - NO)
-- **Tpotts42** (Free Agent Move): added Darius Cooper (WR - PHI); dropped —
-- **Tpotts42** (Free Agent Move): added Kalif Raymond (WR - CHI); dropped Malik Willis (QB - MIA)
-- **KC** (Free Agent Move): added Dohnte Meyers (WR - CIN); dropped Elijah Arroyo (TE - SEA)
-- **Boynton Beach Blue Balls** (Free Agent Move): added Mike Gesicki (TE - CIN); dropped Tyler Goodson (RB - DAL)
+**Wednesday, October 14:**
+- **Balls** (Waiver Claim ($3 FAAB)): added Tyler Loop (K - BAL); dropped —
+- **The Aubrey Express ** (Waiver Claim): added Reggie Virgil (WR - ARI); dropped Kaden Wetjen (WR - PIT)
+- **The Aubrey Express ** (Waiver Claim): added Ryan Flournoy (WR - DAL); dropped Chris Manhertz (TE - NYG)
+- **Balls** (Waiver Claim ($10 FAAB)): added Pat Freiermuth (TE - PIT); dropped —
+- **Roger Goodell** (Waiver Claim ($2 FAAB)): added Cam Little (K - JAX); dropped Harrison Mevis (K - FA)
+- **Tpotts42** (Waiver Claim): added DeMario Douglas (WR - NE); dropped —
+- **The Aubrey Express ** (Waiver Claim ($2 FAAB)): added J.J. McCarthy (QB - NYG); dropped Tahj Brooks (RB - CIN)
+- **Roger Goodell** (Waiver Claim ($12 FAAB)): added Dameon Pierce (RB - PHI); dropped Daniel Jones (QB - IND)
+- **CeDeez big ones** (Free Agent Move): added KaVontae Turpin (WR - DAL); dropped Camden Brown (WR - DAL)
+- **CeDeez big ones** (Free Agent Move): added Ameer Abdullah (RB - JAX); dropped DJ Herman (RB - MIA)
+- **Balls** (Free Agent Move): added George Holani (RB - SEA); dropped —
+- **Balls** (Free Agent Move): added —; dropped Evan McPherson (K - CIN)
+- **BlowPaterno** (Free Agent Move): added Audric Estime (RB - CLE); dropped Tyson Bagent (QB - CHI)
+- **The Aubrey Express ** (Free Agent Move): added Trey Smack (K - GB); dropped Wil Lutz (K - DEN)
+- **Boynton Beach Blue Balls** (Free Agent Move): added Washington Commanders (DEF - WAS); dropped Connor Heyward (RB - LV)
+- **The Aubrey Express ** (Waiver Claim ($3 FAAB)): added Cincinnati Bengals (DEF - CIN); dropped Max Bredeson (RB - MIN)
+- **12 DAY WAR VET** (Free Agent Move): added New Orleans Saints (DEF - NO); dropped —
+- **12 DAY WAR VET** (Free Agent Move): added —; dropped New Orleans Saints (DEF - NO)
 
-**Thursday, October 8:**
-- **The Aubrey Express ** (Waiver Claim ($11 FAAB)): added Cam Little (K - JAX); dropped Jason Sanders (K - NYJ)
-- **The Aubrey Express ** (Waiver Claim): added Malik Willis (QB - MIA); dropped Kirk Cousins (QB - LV)
-- **CeDeez big ones** (Free Agent Move): added Devin Duvernay (WR - ARI); dropped Jonathan Mingo (WR - DAL)
-- **Talking Tua Teenager** (Free Agent Move): added Chase McLaughlin (K - TB); dropped —
+**Thursday, October 15:**
+- **A FOOTBALL TEAM** (Free Agent Move): added Matt Gay (K - LV); dropped —
+- **Boynton Beach Blue Balls** (Free Agent Move): added Tanner McKee (QB - PHI); dropped Arizona Cardinals (DEF - ARI)
+- **The Aubrey Express ** (Free Agent Move): added Jaleel McLaughlin (RB - CLE); dropped —
+- **andrewburkhardt1** (Free Agent Move): added —; dropped Riley Patterson (K - MIA)
+- **andrewburkhardt1** (Free Agent Move): added Chad Ryland (K - ARI); dropped —
 
-**Friday, October 9:**
-- **Chud Team** (Free Agent Move): added Roschon Johnson (RB - CHI); dropped —
-- **CeDeez big ones** (Free Agent Move): added Jalen Tolbert (WR - MIA); dropped Luke McCaffrey (WR - WAS)
-- **CeDeez big ones** (Free Agent Move): added Chimere Dike (WR - TEN); dropped Anthony Gould (WR - IND)
+**Friday, October 16:**
+- **12 DAY WAR VET** (Free Agent Move): added New Orleans Saints (DEF - NO); dropped Kayshon Boutte (WR - HOU)
 
-**Sunday, October 11:**
-- **The Aubrey Express ** (Free Agent Move): added Wil Lutz (K - DEN); dropped Cam Little (K - JAX)
-- **Boynton Beach Blue Balls** (Free Agent Move): added Connor Heyward (RB - LV); dropped Mike Gesicki (TE - CIN)
-- **The Aubrey Express ** (Free Agent Move): added Kaden Wetjen (WR - PIT); dropped J.J. McCarthy (QB - NYG)
-- **The Aubrey Express ** (Free Agent Move): added Chris Manhertz (TE - NYG); dropped Miami Dolphins (DEF - MIA)
-- **andrewburkhardt1** (Free Agent Move): added Olamide Zaccheaus (WR - ATL); dropped Tyler Loop (K - BAL)
+**Saturday, October 17:**
+- **The Aubrey Express ** (Free Agent Move): added Jalen Royals (WR - KC); dropped Deion Burks (WR - IND)
+- **12 DAY WAR VET** (Free Agent Move): added Andre Szmyt (K - CLE); dropped —
 
+**Sunday, October 18:**
+- **andrewburkhardt1** (Free Agent Move): added Darnell Washington (TE - PIT); dropped Erick All (TE - CIN)
+- **Boynton Beach Blue Balls** (Free Agent Move): added Connor Heyward (RB - LV); dropped Jalon Daniels (QB - TB)
 
-## Top 5 Highest-Value Waiver Pickups
-
-_Ranked by current player value (Sleeper's own rankings), not FAAB spent -- tracked cumulatively across the whole season so far._
-
-1. Kyle Pitts (TE - ATL) — added by Roger Goodell — ~5592 value
-2. Tyrone Tracy (RB - NYG) — added by Boynton Beach Blue Balls — ~5340 value
-3. Malik Willis (QB - MIA) — added by The Aubrey Express  — ~5268 value
-4. Cam Little (K - JAX) — added by The Aubrey Express  — ~5208 value
-5. Evan McPherson (K - CIN) — added by Balls — ~5082 value
-
-## Rookie Draft Value Tracker
-
-_Recalculated fresh from Sleeper's own player rankings each run, so this shifts week to week as rookies rise and fall._
-
-**Top 10 Highest Current Value**
-
-1. Jeremiyah Love (RB - ARI) — Balls (Round 1, Pick 1) — ~5910 value
-2. Jadarian Price (RB - SEA) — KC (Round 1, Pick 4) — ~5688 value
-3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — ~5634 value
-4. Jordyn Tyson (WR - NO) — KC (Round 1, Pick 3) — ~5628 value
-5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — ~5454 value
-6. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — ~5346 value
-7. Fernando Mendoza (QB - LV) — A FOOTBALL TEAM (Round 1, Pick 9) — ~5340 value
-8. KC Concepcion (WR - CLE) — Chud Team (Round 1, Pick 6) — ~5334 value
-9. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — ~5334 value
-10. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — ~5322 value
-
-**Top 10 Best Value Picks** _(current value vs. where they were drafted)_
-
-1. Jeremiyah Love (RB - ARI) — Balls (Round 1, Pick 1) — -84 value vs. draft slot
-2. Jadarian Price (RB - SEA) — KC (Round 1, Pick 4) — -288 value vs. draft slot
-3. Carnell Tate (WR - TEN) — andrewburkhardt1 (Round 1, Pick 2) — -354 value vs. draft slot
-4. Jordyn Tyson (WR - NO) — KC (Round 1, Pick 3) — -354 value vs. draft slot
-5. Makai Lemon (WR - PHI) — The Aubrey Express  (Round 1, Pick 5) — -516 value vs. draft slot
-6. De'Zhaun Stribling (WR - SF) — Boynton Beach Blue Balls (Round 2, Pick 24) — -522 value vs. draft slot
-7. Emmett Johnson (RB - KC) — Balls (Round 2, Pick 19) — -564 value vs. draft slot
-8. Mike Washington (RB - LV) — Balls (Round 2, Pick 27) — -576 value vs. draft slot
-9. Kenyon Sadiq (TE - NYJ) — Boynton Beach Blue Balls (Round 1, Pick 10) — -594 value vs. draft slot
-10. Jonah Coleman (RB - DEN) — Boynton Beach Blue Balls (Round 2, Pick 18) — -600 value vs. draft slot
 
 Go Giants
