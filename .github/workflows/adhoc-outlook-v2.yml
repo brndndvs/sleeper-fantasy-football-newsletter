@@ -1,0 +1,19 @@
+name: Adhoc Outlook V2
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Preview Dynasty Outlook v2
+        run: python _adhoc_outlook_v2.py
