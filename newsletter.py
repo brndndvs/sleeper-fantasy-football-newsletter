@@ -2217,21 +2217,6 @@ def render_markdown(data: NewsletterData) -> str:
         if hidden:
             lines.append(f"_Not shown: {hidden} team{'s' if hidden != 1 else ''} under 1% to make the playoffs._\n")
 
-    if data.dynasty_outlook:
-        header, caption = dynasty_outlook_view(data.dynasty_outlook)
-        lines.append("## 🔮 Dynasty Outlook\n")
-        lines.append(f"_{caption}_\n")
-        lines.append("| " + " | ".join(header) + " |")
-        lines.append("|" + "---|" * len(header))
-        for i, r in enumerate(data.dynasty_outlook["teams"], start=1):
-            age = f"{r['avg_age']:.1f}" if r["avg_age"] is not None else "—"
-            lines.append(
-                f"| {i} | **{r['team']}** | {r['outlook']} | "
-                + " | ".join(str(v) for v in r["year_scores"])
-                + f" | {age} | {r['firsts']} | {r['window']} |"
-            )
-        lines.append("")
-
     lines.append("## Luck Index\n")
     if data.luck_index:
         lines.append(
@@ -2346,6 +2331,21 @@ def render_markdown(data: NewsletterData) -> str:
                     )
         else:
             lines.append(f"_No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet._")
+        lines.append("")
+
+    if data.dynasty_outlook:
+        header, caption = dynasty_outlook_view(data.dynasty_outlook)
+        lines.append("## 🔮 Dynasty Outlook\n")
+        lines.append(f"_{caption}_\n")
+        lines.append("| " + " | ".join(header) + " |")
+        lines.append("|" + "---|" * len(header))
+        for i, r in enumerate(data.dynasty_outlook["teams"], start=1):
+            age = f"{r['avg_age']:.1f}" if r["avg_age"] is not None else "—"
+            lines.append(
+                f"| {i} | **{r['team']}** | {r['outlook']} | "
+                + " | ".join(str(v) for v in r["year_scores"])
+                + f" | {age} | {r['firsts']} | {r['window']} |"
+            )
         lines.append("")
 
     lines.append("Go Giants")
@@ -2622,19 +2622,6 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         if hidden:
             parts.append(f"<p><em>Not shown: {hidden} team{'s' if hidden != 1 else ''} under 1% to make the playoffs.</em></p>")
 
-    if data.dynasty_outlook:
-        header, caption = dynasty_outlook_view(data.dynasty_outlook)
-        parts.append("<h2>🔮 Dynasty Outlook</h2>")
-        parts.append(f"<p><em>{e(caption)}</em></p>")
-        parts.append("<table><tr>" + "".join(f"<th>{e(h)}</th>" for h in header) + "</tr>")
-        for i, r in enumerate(data.dynasty_outlook["teams"], start=1):
-            age = f"{r['avg_age']:.1f}" if r["avg_age"] is not None else "—"
-            bar = _bar_html(r["outlook"] / 100, "#2c5f2d", width_px=80)
-            cells = [str(i), f"{_team_logo_html(r.get('avatar_url'))}{e(r['team'])}", f"{bar} {r['outlook']}"]
-            cells += [str(v) for v in r["year_scores"]] + [age, str(r["firsts"]), e(r["window"])]
-            parts.append("<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
-        parts.append("</table>")
-
     parts.append("<h2>Luck Index</h2>")
     if data.luck_index:
         parts.append(
@@ -2797,6 +2784,19 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
                 parts.append("</table>")
         else:
             parts.append(f"<p><em>No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet.</em></p>")
+
+    if data.dynasty_outlook:
+        header, caption = dynasty_outlook_view(data.dynasty_outlook)
+        parts.append("<h2>🔮 Dynasty Outlook</h2>")
+        parts.append(f"<p><em>{e(caption)}</em></p>")
+        parts.append("<table><tr>" + "".join(f"<th>{e(h)}</th>" for h in header) + "</tr>")
+        for i, r in enumerate(data.dynasty_outlook["teams"], start=1):
+            age = f"{r['avg_age']:.1f}" if r["avg_age"] is not None else "—"
+            bar = _bar_html(r["outlook"] / 100, "#2c5f2d", width_px=80)
+            cells = [str(i), f"{_team_logo_html(r.get('avatar_url'))}{e(r['team'])}", f"{bar} {r['outlook']}"]
+            cells += [str(v) for v in r["year_scores"]] + [age, str(r["firsts"]), e(r["window"])]
+            parts.append("<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
+        parts.append("</table>")
 
     parts.append("<p>Go Giants</p>")
 
