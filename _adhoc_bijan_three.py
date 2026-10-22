@@ -21,6 +21,9 @@ def norm(s):
 def find(name):
     hits = [p for p, d in players.items() if norm(d.get("full_name")) == norm(name)]
     if not hits:
+        hits = [p for p, d in players.items() if norm(d.get("full_name")).startswith(norm(name))
+                and d.get("position") in ("QB", "RB", "WR", "TE")]
+    if not hits:
         raise SystemExit(f"no player matches {name!r}")
     return min(hits, key=lambda p: players[p].get("search_rank") or 99999)
 
