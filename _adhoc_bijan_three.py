@@ -15,8 +15,13 @@ for w in range(1, week + 1):
                 tot, g = pts.get(pid, (0.0, 0))
                 pts[pid] = (tot + (p or 0), g + 1)
 
+def norm(s):
+    return "".join(ch for ch in (s or "").lower() if ch.isalpha())
+
 def find(name):
-    hits = [p for p, d in players.items() if (d.get("full_name") or "").lower() == name.lower()]
+    hits = [p for p, d in players.items() if norm(d.get("full_name")) == norm(name)]
+    if not hits:
+        raise SystemExit(f"no player matches {name!r}")
     return min(hits, key=lambda p: players[p].get("search_rank") or 99999)
 
 ids = {n: find(n) for n in ["Bijan Robinson", "De'Von Achane", "James Cook", "Ashton Jeanty"]}
