@@ -1761,13 +1761,13 @@ def build_win_odds_section(
         return None
     games.sort(key=lambda g: g[2])
     rows = [
-        [teams[f].team_name, f"{p:.0f}%", teams[d].team_name, f"{100 - p:.0f}%", f"{mean[f]:.0f}–{mean[d]:.0f}"]
+        [teams[f].team_name, _pct_label(p), teams[d].team_name, _pct_label(100 - p), f"{mean[f]:.0f}–{mean[d]:.0f}"]
         for f, d, p in games
     ]
     lock, upset = games[-1], games[0]
     notes = [
-        f"🔒 Lock of the week: {teams[lock[0]].team_name} ({lock[2]:.0f}%).",
-        f"🚨 Upset alert: {teams[upset[1]].team_name} has a {100 - upset[2]:.0f}% shot against {teams[upset[0]].team_name}.",
+        f"🔒 Lock of the week: {teams[lock[0]].team_name} ({_pct_label(lock[2])}).",
+        f"🚨 Upset alert: {teams[upset[1]].team_name} has a {_pct_label(100 - upset[2])} shot against {teams[upset[0]].team_name}.",
     ]
     return _section(
         f"🎲 Week {preview_week} Win Odds",
