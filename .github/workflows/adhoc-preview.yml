@@ -1,0 +1,39 @@
+name: Adhoc Newsletter Preview
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/sleeper-league-newsletter-925vh7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Render week 6 preview (no email/SMS secrets, nothing is sent)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python newsletter.py --week 6 --output-dir preview-out --latest-dir preview-latest \
+            --league-logo-url "https://github.com/user-attachments/assets/d9830c50-3fc5-4241-9d2d-5e0029eb343d" \
+            --weekly-awards \
+            --awards-exclude-teams "BlowPaterno,Boynton Beach Blue Balls,Larkinsjacob,andrewburkhardt1,The Aubrey Express,CeDeez big ones,Chud Team" \
+            --best-gm-leaderboard \
+            --dynasty-outlook \
+            --extra-sections all
+      - name: Push preview to a scratch branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd preview-out
+          git init -q -b adhoc-preview-output
+          git add .
+          git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" commit -qm "Newsletter preview"
+          git push -qf "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" adhoc-preview-output
