@@ -1423,38 +1423,25 @@ def _bracket_order(size: int) -> list[int]:
     return order
 
 
-def build_championship_odds(
-    league_id: str,
-    league: dict,
-    teams: dict[int, Team],
-    weekly_scores: list[dict[int, float]],
-    *,
-    preview_week: int,
-    previous_title_pct: Optional[dict[str, float]] = None,
-    sims: int = CHAMPIONSHIP_SIMULATIONS,
-) -> Optional[dict]:
-    """Monte Carlo playoff/title odds: simulates the rest of the regular season from
-    Sleeper's real remaining schedule, seeds the league's own playoff field (record,
-    then points for), and plays out the bracket, `sims` times. Each team's weekly
-    score is drawn from a normal distribution: the mean blends its recency-weighted
-    scoring (shrunk toward the league average) with Sleeper's projection for its
-    current starters, so trades and injuries register immediately; the spread is its
-    own week-to-week variance, shrunk toward the league's. Returns None once the
-    regular season is over or there's nothing to simulate yet."""
-    settings = league.get("settings") or {}
-    playoff_teams = int(settings.get("playoff_teams") or 0)
-    playoff_start = int(settings.get("playoff_week_start") or 0)
-    if not weekly_scores or playoff_teams < 2 or len(teams) < playoff_teams or preview_week >= playoff_start:
-        return None
-
+def remaining_schedule(league_id: str, teams: dict[int, Team], first_week: int, playoff_start: int) -> list[list[tuple]]:
+    """Head-to-head pairs for each regular-season week from first_week up to (not
+    including) playoff_start, straight from Sleeper's own schedule."""
     schedule = []
-    for w in range(preview_week, playoff_start):
+    for w in range(first_week, playoff_start):
         by_matchup: dict[Any, list[int]] = {}
         for m in get_matchups(league_id, w):
             if m.get("matchup_id") is not None and m.get("roster_id") in teams:
                 by_matchup.setdefault(m["matchup_id"], []).append(m["roster_id"])
         schedule.append([tuple(pair) for pair in by_matchup.values() if len(pair) == 2])
+    return schedule
 
+
+def team_score_model(
+    league_id: str, league: dict, teams: dict[int, Team], weekly_scores: list[dict[int, float]], *, preview_week: int
+) -> tuple[dict[int, float], dict[int, float]]:
+    """Each team's expected weekly score and spread, as used by Championship Odds
+    and Next Week's Win Odds: recency-weighted scoring shrunk toward the league
+    average, blended with Sleeper's projection for its current starters."""
     projected: dict[int, float] = {}
     projections = get_week_projections(
         str(league.get("season", "")), preview_week, league.get("season_type") or "regular"
@@ -1487,6 +1474,59 @@ def build_championship_odds(
         mean[rid] = hist_mean
         own_var = sum((s - sum(scores) / n) ** 2 for s in scores) / n if n else pooled_var
         sd[rid] = math.sqrt((own_var * n + pooled_var * CHAMPIONSHIP_SHRINK_WEEKS * 2) / (n + CHAMPIONSHIP_SHRINK_WEEKS * 2))
+    return mean, sd
+
+
+def win_bounds(teams: dict[int, Team], schedule: list[list[tuple]]) -> tuple[dict[int, float], dict[int, float]]:
+    """Each team's current wins and the most it could finish with if it won out."""
+    now_wins = {rid: t.wins + 0.5 * t.ties for rid, t in teams.items()}
+    max_wins = dict(now_wins)
+    for games in schedule:
+        for a, b in games:
+            max_wins[a] += 1
+            max_wins[b] += 1
+    return now_wins, max_wins
+
+
+# Mathematical clinch/elimination, independent of any simulation: a team has
+# clinched N spots if fewer than N rivals could even reach its current win total
+# (it loses out, they win out); it's eliminated if at least playoff_teams rivals
+# already have more wins than it could finish with. Win ties count against
+# clinching, since points-for could break them either way.
+def has_clinched(rid: int, spots: int, now_wins: dict[int, float], max_wins: dict[int, float]) -> bool:
+    return spots > 0 and sum(1 for o in now_wins if o != rid and max_wins[o] >= now_wins[rid]) < spots
+
+
+def is_eliminated(rid: int, playoff_teams: int, now_wins: dict[int, float], max_wins: dict[int, float]) -> bool:
+    return sum(1 for o in now_wins if o != rid and now_wins[o] > max_wins[rid]) >= playoff_teams
+
+
+def build_championship_odds(
+    league_id: str,
+    league: dict,
+    teams: dict[int, Team],
+    weekly_scores: list[dict[int, float]],
+    *,
+    preview_week: int,
+    previous_title_pct: Optional[dict[str, float]] = None,
+    sims: int = CHAMPIONSHIP_SIMULATIONS,
+) -> Optional[dict]:
+    """Monte Carlo playoff/title odds: simulates the rest of the regular season from
+    Sleeper's real remaining schedule, seeds the league's own playoff field (record,
+    then points for), and plays out the bracket, `sims` times. Each team's weekly
+    score is drawn from a normal distribution: the mean blends its recency-weighted
+    scoring (shrunk toward the league average) with Sleeper's projection for its
+    current starters, so trades and injuries register immediately; the spread is its
+    own week-to-week variance, shrunk toward the league's. Returns None once the
+    regular season is over or there's nothing to simulate yet."""
+    settings = league.get("settings") or {}
+    playoff_teams = int(settings.get("playoff_teams") or 0)
+    playoff_start = int(settings.get("playoff_week_start") or 0)
+    if not weekly_scores or playoff_teams < 2 or len(teams) < playoff_teams or preview_week >= playoff_start:
+        return None
+
+    schedule = remaining_schedule(league_id, teams, preview_week, playoff_start)
+    mean, sd = team_score_model(league_id, league, teams, weekly_scores, preview_week=preview_week)
 
     size = 1 << (playoff_teams - 1).bit_length()
     order = _bracket_order(size)
@@ -1494,23 +1534,13 @@ def build_championship_odds(
     rng = random.Random(f"{league_id}-{league.get('season')}-{preview_week}")
     made, bye, title = ({rid: 0 for rid in teams} for _ in range(3))
 
-    # Mathematical clinch/elimination, independent of the simulation: a team has
-    # clinched N spots if fewer than N rivals could even reach its current win
-    # total (it loses out, they win out); it's eliminated if at least
-    # playoff_teams rivals already have more wins than it could finish with.
-    # Win ties count against clinching, since points-for could break them either way.
-    now_wins = {rid: t.wins + 0.5 * t.ties for rid, t in teams.items()}
-    max_wins = dict(now_wins)
-    for games in schedule:
-        for a, b in games:
-            max_wins[a] += 1
-            max_wins[b] += 1
+    now_wins, max_wins = win_bounds(teams, schedule)
 
     def clinched(rid: int, spots: int) -> bool:
-        return spots > 0 and sum(1 for o in teams if o != rid and max_wins[o] >= now_wins[rid]) < spots
+        return has_clinched(rid, spots, now_wins, max_wins)
 
     def eliminated(rid: int) -> bool:
-        return sum(1 for o in teams if o != rid and now_wins[o] > max_wins[rid]) >= playoff_teams
+        return is_eliminated(rid, playoff_teams, now_wins, max_wins)
 
     for _ in range(sims):
         wins = {rid: t.wins + 0.5 * t.ties for rid, t in teams.items()}
@@ -1691,6 +1721,603 @@ def build_dynasty_outlook(
     return {"years": years, "teams": rows}
 
 
+# Optional extra sections (--extra-sections). Each builder returns one generic
+# table section -- {"title", "caption", "header", "rows", plus optional "notes",
+# "empty", and per-row "logos"/"headshots" for one column in HTML} -- rendered
+# the same way by both renderers, or None when there's nothing to show yet.
+def _section(title: str, caption: str, header: list[str], rows: list[list[str]], **extra: Any) -> dict:
+    return {"title": title, "caption": caption, "header": header, "rows": rows, **extra}
+
+
+def _ordinal(n: int) -> str:
+    suffix = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suffix}"
+
+
+def _short_player(player_id: str, players: dict) -> str:
+    p = players.get(player_id) or {}
+    name = p.get("full_name") or f"{p.get('first_name', '')} {p.get('last_name', '')}".strip() or player_id
+    return f"{name} ({p.get('position') or '?'})"
+
+
+def build_win_odds_section(
+    league_id: str, league: dict, teams: dict[int, Team], weekly_scores: list[dict[int, float]], *, preview_week: int
+) -> Optional[dict]:
+    """Head-to-head win probability for every upcoming game, from the same score
+    model as Championship Odds: P(A beats B) for two normal scores."""
+    if not weekly_scores:
+        return None
+    mean, sd = team_score_model(league_id, league, teams, weekly_scores, preview_week=preview_week)
+    by_matchup: dict[Any, list[int]] = {}
+    for m in get_matchups(league_id, preview_week):
+        if m.get("matchup_id") is not None and m.get("roster_id") in mean:
+            by_matchup.setdefault(m["matchup_id"], []).append(m["roster_id"])
+    games = []
+    for a, b in (pair for pair in by_matchup.values() if len(pair) == 2):
+        p_a = 0.5 * (1 + math.erf((mean[a] - mean[b]) / math.sqrt(2 * (sd[a] ** 2 + sd[b] ** 2))))
+        fav, dog, p = (a, b, p_a) if p_a >= 0.5 else (b, a, 1 - p_a)
+        games.append((fav, dog, 100 * p))
+    if not games:
+        return None
+    games.sort(key=lambda g: g[2])
+    rows = [
+        [teams[f].team_name, f"{p:.0f}%", teams[d].team_name, f"{100 - p:.0f}%", f"{mean[f]:.0f}–{mean[d]:.0f}"]
+        for f, d, p in games
+    ]
+    lock, upset = games[-1], games[0]
+    notes = [
+        f"🔒 Lock of the week: {teams[lock[0]].team_name} ({lock[2]:.0f}%).",
+        f"🚨 Upset alert: {teams[upset[1]].team_name} has a {100 - upset[2]:.0f}% shot against {teams[upset[0]].team_name}.",
+    ]
+    return _section(
+        f"🎲 Week {preview_week} Win Odds",
+        "Each team's chance to win its upcoming game, from the same model as Championship Odds "
+        "(scoring so far with recent weeks counting more, plus Sleeper's projections for its current "
+        "starters). Closest games first.",
+        ["Favorite", "Win %", "Underdog", "Win %", "Expected score"],
+        rows,
+        notes=notes,
+    )
+
+
+INJURY_STATUS_ORDER = ("Out", "IR", "Sus", "PUP", "Doubtful", "Questionable")
+
+
+def build_injury_report_section(
+    league_id: str, teams: dict[int, Team], players: dict, *, preview_week: int
+) -> Optional[dict]:
+    """Every starter currently set in an upcoming lineup who carries an injury
+    designation on Sleeper -- the lineup each manager has set right now."""
+    rows, logos, headshots = [], [], []
+    entries = []
+    for m in get_matchups(league_id, preview_week):
+        rid = m.get("roster_id")
+        if rid not in teams:
+            continue
+        for pid in m.get("starters") or []:
+            status = (players.get(pid) or {}).get("injury_status")
+            if status in INJURY_STATUS_ORDER:
+                entries.append((teams[rid], pid, status))
+    if not entries:
+        return _section(
+            f"🚑 Injury Report (Week {preview_week})", "", [], [],
+            empty="No starters with an injury designation in anyone's lineup right now.",
+        )
+    entries.sort(key=lambda e: (e[0].team_name.lower(), INJURY_STATUS_ORDER.index(e[2])))
+    for team, pid, status in entries:
+        rows.append([team.team_name, _short_player(pid, players), status])
+        logos.append(team.avatar_url)
+        headshots.append(pid)
+    return _section(
+        f"🚑 Injury Report (Week {preview_week})",
+        "Starters in each manager's current lineup with an injury designation on Sleeper. Check these "
+        "before kickoff.",
+        ["Team", "Starter", "Status"],
+        rows,
+        logos=logos,
+        logo_col=0,
+        headshots=headshots,
+        headshot_col=1,
+    )
+
+
+def build_projection_busters_section(
+    league: dict, matchups: list[MatchupResult], players: dict, *, week: int, limit: int = 5
+) -> Optional[dict]:
+    """This week's starters who beat or missed their Sleeper projection by the most."""
+    projections = get_week_projections(str(league.get("season", "")), week, league.get("season_type") or "regular")
+    if not projections:
+        return None
+    scoring_key = scoring_key_for_league(league)
+    entries, team_diffs = [], []
+    for m in matchups:
+        for t in m.teams:
+            team_proj = 0.0
+            for pid in t["starters"]:
+                proj = projected_points_for_player(pid, projections, scoring_key)
+                team_proj += proj
+                if proj <= 0:
+                    continue
+                actual = float(t["players_points"].get(pid) or 0)
+                entries.append((pid, t["team"], proj, actual))
+            if team_proj > 0:
+                team_diffs.append((t["team"], t["points"] - team_proj))
+    if not entries:
+        return None
+    entries.sort(key=lambda e: e[3] - e[2], reverse=True)
+    chosen = [("📈 Boom", e) for e in entries[:limit]] + [("📉 Bust", e) for e in reversed(entries[-limit:])]
+    rows = [
+        [label, _short_player(pid, players), team, f"{proj:.1f}", f"{actual:.1f}", f"{actual - proj:+.1f}"]
+        for label, (pid, team, proj, actual) in chosen
+    ]
+    notes = []
+    if team_diffs:
+        best = max(team_diffs, key=lambda d: d[1])
+        worst = min(team_diffs, key=lambda d: d[1])
+        notes.append(
+            f"Beat its projection by the most: {best[0]} ({best[1]:+.1f}). "
+            f"Missed by the most: {worst[0]} ({worst[1]:+.1f})."
+        )
+    return _section(
+        "🎯 Projection Busters",
+        f"Week {week} starters vs. Sleeper's own projection for them.",
+        ["", "Player", "Manager", "Projected", "Scored", "+/-"],
+        rows,
+        notes=notes,
+        headshots=[pid for _label, (pid, *_rest) in chosen],
+        headshot_col=1,
+    )
+
+
+def build_hot_cold_section(
+    teams: dict[int, Team], weekly_scores: list[dict[int, float]], *, recent_weeks: int = 3
+) -> Optional[dict]:
+    """Last-few-weeks scoring average vs. season average, biggest risers first."""
+    if len(weekly_scores) <= recent_weeks:
+        return None
+    entries = []
+    for rid, team in teams.items():
+        season = [wk[rid] for wk in weekly_scores if rid in wk]
+        recent = [wk[rid] for wk in weekly_scores[-recent_weeks:] if rid in wk]
+        if not season or not recent:
+            continue
+        season_avg, recent_avg = sum(season) / len(season), sum(recent) / len(recent)
+        entries.append((team, season_avg, recent_avg, recent_avg - season_avg))
+    entries.sort(key=lambda e: e[3], reverse=True)
+    rows, logos = [], []
+    for i, (team, season_avg, recent_avg, delta) in enumerate(entries):
+        tag = "🔥" if i < 3 and delta > 0 else "🧊" if i >= len(entries) - 3 and delta < 0 else ""
+        rows.append([f"{tag} {team.team_name}".strip(), f"{recent_avg:.1f}", f"{season_avg:.1f}", f"{delta:+.1f}"])
+        logos.append(team.avatar_url)
+    return _section(
+        "🌡️ Hot & Cold",
+        f"Each team's average over the last {recent_weeks} weeks vs. its season average.",
+        ["Team", f"Last {recent_weeks} avg", "Season avg", "Change"],
+        rows,
+        logos=logos,
+        logo_col=0,
+    )
+
+
+def build_playoff_picture_section(
+    league_id: str,
+    league: dict,
+    teams: dict[int, Team],
+    *,
+    preview_week: int,
+    championship_odds: Optional[dict] = None,
+) -> Optional[dict]:
+    """Seeds as of today, distance from the playoff cutline, and any team that can
+    clinch (or be eliminated) with this week's result."""
+    settings = league.get("settings") or {}
+    playoff_teams = int(settings.get("playoff_teams") or 0)
+    playoff_start = int(settings.get("playoff_week_start") or 0)
+    if playoff_teams < 2 or len(teams) <= playoff_teams or preview_week >= playoff_start:
+        return None
+    schedule = remaining_schedule(league_id, teams, preview_week, playoff_start)
+    now_wins, max_wins = win_bounds(teams, schedule)
+    seeds = sorted(teams, key=lambda rid: (-now_wins[rid], -teams[rid].fpts))
+    last_in, first_out = now_wins[seeds[playoff_teams - 1]], now_wins[seeds[playoff_teams]]
+    odds_by_team = {r["team"]: r for r in (championship_odds or {}).get("teams", [])}
+
+    rows, logos = [], []
+    for i, rid in enumerate(seeds, start=1):
+        team = teams[rid]
+        if has_clinched(rid, playoff_teams, now_wins, max_wins):
+            status = "✅ Clinched"
+        elif is_eliminated(rid, playoff_teams, now_wins, max_wins):
+            status = "❌ Eliminated"
+        else:
+            status = "In" if i <= playoff_teams else "Out"
+        gap = now_wins[rid] - first_out if i <= playoff_teams else now_wins[rid] - last_in
+        cutline = "—" if gap == 0 else f"{abs(gap):g} {'ahead' if gap > 0 else 'back'}"
+        odds = odds_by_team.get(team.team_name)
+        odds_cell = (
+            _pct_label(odds["playoff_pct"], clinched=odds["clinched"], eliminated=odds["eliminated"]) if odds else "—"
+        )
+        rows.append([str(i), team.team_name, team.record, f"{team.fpts:.1f}", cutline, odds_cell, status])
+        logos.append(team.avatar_url)
+        if i == playoff_teams:
+            rows.append(["", "— playoff line —", "", "", "", "", ""])
+            logos.append(None)
+
+    notes = []
+    for a, b in schedule[0] if schedule else []:
+        for winner, loser in ((a, b), (b, a)):
+            if has_clinched(winner, playoff_teams, now_wins, max_wins):
+                continue
+            won = {**now_wins, winner: now_wins[winner] + 1}
+            capped = {**max_wins, loser: max_wins[loser] - 1}
+            if has_clinched(winner, playoff_teams, won, capped):
+                notes.append(f"{teams[winner].team_name} clinches a playoff spot with a win in Week {preview_week}.")
+            if not is_eliminated(loser, playoff_teams, now_wins, max_wins):
+                lost = {**now_wins, winner: now_wins[winner] + 1}
+                if is_eliminated(loser, playoff_teams, lost, capped):
+                    notes.append(f"{teams[loser].team_name} is eliminated with a loss in Week {preview_week}.")
+    if not notes:
+        notes.append(f"Nobody can clinch or be eliminated in Week {preview_week} yet.")
+    return _section(
+        "🧮 Playoff Picture",
+        f"Top {playoff_teams} make it, seeded by record and then points for. Cutline is games ahead of the "
+        f"first team out (or behind the last team in). {len(schedule)} regular-season weeks left.",
+        ["Seed", "Team", "Record", "PF", "Cutline", "Playoff odds", "Status"],
+        rows,
+        notes=notes,
+        logos=logos,
+        logo_col=1,
+    )
+
+
+def build_strength_of_schedule_section(
+    league_id: str,
+    league: dict,
+    teams: dict[int, Team],
+    weekly_scores: list[dict[int, float]],
+    season_matchups: dict[int, list[dict]],
+    *,
+    preview_week: int,
+) -> Optional[dict]:
+    """How good each team's opponents have been (by their season scoring average),
+    for games already played and for the rest of the regular season."""
+    if not weekly_scores:
+        return None
+    ppg = {}
+    for rid in teams:
+        scores = [wk[rid] for wk in weekly_scores if rid in wk]
+        ppg[rid] = sum(scores) / len(scores) if scores else 0.0
+
+    def opponents(raw: list[dict]) -> list[tuple[int, int]]:
+        by_matchup: dict[Any, list[int]] = {}
+        for m in raw:
+            if m.get("matchup_id") is not None and m.get("roster_id") in teams:
+                by_matchup.setdefault(m["matchup_id"], []).append(m["roster_id"])
+        return [tuple(p) for p in by_matchup.values() if len(p) == 2]
+
+    past: dict[int, list[float]] = {rid: [] for rid in teams}
+    for raw in season_matchups.values():
+        if not any(float(m.get("points") or 0) > 0 for m in raw):
+            continue
+        for a, b in opponents(raw):
+            past[a].append(ppg[b])
+            past[b].append(ppg[a])
+    playoff_start = int((league.get("settings") or {}).get("playoff_week_start") or 0)
+    future: dict[int, list[float]] = {rid: [] for rid in teams}
+    for games in remaining_schedule(league_id, teams, preview_week, playoff_start) if playoff_start else []:
+        for a, b in games:
+            future[a].append(ppg[b])
+            future[b].append(ppg[a])
+
+    def avg(vals: list[float]) -> Optional[float]:
+        return sum(vals) / len(vals) if vals else None
+
+    past_avg = {rid: avg(v) for rid, v in past.items()}
+    future_avg = {rid: avg(v) for rid, v in future.items()}
+
+    def ranks(values: dict[int, Optional[float]]) -> dict[int, int]:
+        ordered = sorted((rid for rid in values if values[rid] is not None), key=lambda r: values[r], reverse=True)
+        return {rid: i for i, rid in enumerate(ordered, start=1)}
+
+    past_rank, future_rank = ranks(past_avg), ranks(future_avg)
+    has_future = bool(future_rank)
+    order = sorted(teams, key=lambda r: future_rank.get(r, 99) if has_future else past_rank.get(r, 99))
+    rows, logos = [], []
+    for rid in order:
+        cells = [teams[rid].team_name]
+        cells.append(f"{past_avg[rid]:.1f} ({_ordinal(past_rank[rid])})" if past_avg[rid] is not None else "—")
+        if has_future:
+            cells.append(f"{future_avg[rid]:.1f} ({_ordinal(future_rank[rid])})" if future_avg[rid] is not None else "—")
+        rows.append(cells)
+        logos.append(teams[rid].avatar_url)
+    header = ["Team", "Opponents so far"] + (["Opponents left"] if has_future else [])
+    return _section(
+        "📅 Strength of Schedule",
+        "Average season scoring of each team's opponents, for games played and for the rest of the regular "
+        "season. 1st = toughest. Sorted by toughest remaining schedule.",
+        header,
+        rows,
+        logos=logos,
+        logo_col=0,
+    )
+
+
+FLEX_SLOT_POSITIONS = {
+    "FLEX": {"RB", "WR", "TE"},
+    "SUPER_FLEX": {"QB", "RB", "WR", "TE"},
+    "WRRB_FLEX": {"WR", "RB"},
+    "REC_FLEX": {"WR", "TE"},
+}
+
+
+def optimal_lineup_points(player_ids: list[str], points: dict, slots: list[str], players: dict) -> float:
+    """Best possible score from a roster's players that week: fill the most
+    restrictive slots first, each with its highest-scoring eligible player."""
+    def positions(pid: str) -> set[str]:
+        p = players.get(pid) or {}
+        return set(p.get("fantasy_positions") or [p.get("position")])
+
+    pool = sorted(player_ids, key=lambda pid: float(points.get(pid) or 0), reverse=True)
+    used: set[str] = set()
+    total = 0.0
+    for slot in sorted(slots, key=lambda s: len(FLEX_SLOT_POSITIONS.get(s, {s}))):
+        allowed = FLEX_SLOT_POSITIONS.get(slot, {slot})
+        pick = next((pid for pid in pool if pid not in used and positions(pid) & allowed), None)
+        if pick:
+            used.add(pick)
+            total += float(points.get(pick) or 0)
+    return total
+
+
+def build_coach_of_season_section(
+    league: dict, teams: dict[int, Team], players: dict, season_matchups: dict[int, list[dict]]
+) -> Optional[dict]:
+    """Season-long lineup efficiency: points actually scored vs. the best lineup
+    each manager could have started from their own roster every week."""
+    slots = [s for s in league.get("roster_positions") or [] if s not in ("BN", "IR", "TAXI")]
+    if not slots:
+        return None
+    actual = {rid: 0.0 for rid in teams}
+    best = {rid: 0.0 for rid in teams}
+    perfect = {rid: 0 for rid in teams}
+    weeks = 0
+    for raw in season_matchups.values():
+        if not any(float(m.get("points") or 0) > 0 for m in raw):
+            continue
+        weeks += 1
+        for m in raw:
+            rid = m.get("roster_id")
+            if rid not in teams:
+                continue
+            scored = float(m.get("points") or 0)
+            optimal = max(scored, optimal_lineup_points(m.get("players") or [], m.get("players_points") or {}, slots, players))
+            actual[rid] += scored
+            best[rid] += optimal
+            perfect[rid] += int(optimal - scored < 0.5)
+    if not weeks:
+        return None
+    order = sorted(teams, key=lambda rid: actual[rid] / best[rid] if best[rid] else 0, reverse=True)
+    rows, logos = [], []
+    for i, rid in enumerate(order, start=1):
+        eff = 100 * actual[rid] / best[rid] if best[rid] else 0
+        rows.append([str(i), teams[rid].team_name, f"{eff:.1f}%", f"{best[rid] - actual[rid]:.1f}", str(perfect[rid])])
+        logos.append(teams[rid].avatar_url)
+    return _section(
+        "🧑‍🏫 Coach of the Season",
+        f"Lineup efficiency over {weeks} weeks: points scored as a share of the best lineup each manager "
+        "could have started from their own roster. Bench points are what that best lineup would have added.",
+        ["Rank", "Team", "Efficiency", "Bench points left", "Perfect weeks"],
+        rows,
+        logos=logos,
+        logo_col=1,
+    )
+
+
+MATCHMAKER_DEPTH = {"QB": 1, "RB": 3, "WR": 3, "TE": 1}
+
+
+def build_trade_matchmaker_section(rosters: list[dict], teams: dict[int, Team], players: dict) -> Optional[dict]:
+    """Ranks every roster at each position by its top starters' trade value, then
+    pairs each team with the partner that's deep where it's thin and vice versa."""
+    strength: dict[int, dict[str, float]] = {}
+    for roster in rosters:
+        rid = roster.get("roster_id")
+        if rid not in teams:
+            continue
+        by_pos: dict[str, list[float]] = {pos: [] for pos in MATCHMAKER_DEPTH}
+        for pid in roster.get("players") or []:
+            pos = (players.get(pid) or {}).get("position")
+            if pos in by_pos:
+                by_pos[pos].append(trade_player_value(pid, players))
+        strength[rid] = {
+            pos: sum(sorted(vals, reverse=True)[: MATCHMAKER_DEPTH[pos]]) for pos, vals in by_pos.items()
+        }
+    if len(strength) < 2:
+        return None
+    rank = {rid: {} for rid in strength}
+    for pos in MATCHMAKER_DEPTH:
+        for i, rid in enumerate(sorted(strength, key=lambda r: strength[r][pos], reverse=True), start=1):
+            rank[rid][pos] = i
+
+    rows, logos = [], []
+    for rid in sorted(strength, key=lambda r: teams[r].team_name.lower()):
+        deep = min(MATCHMAKER_DEPTH, key=lambda pos: (rank[rid][pos], -strength[rid][pos]))
+        thin = max(MATCHMAKER_DEPTH, key=lambda pos: (rank[rid][pos], -strength[rid][pos]))
+        best, best_score = None, 0
+        for other in strength:
+            if other == rid or rank[other][thin] >= rank[rid][thin] or rank[other][deep] <= rank[rid][deep]:
+                continue
+            score = (rank[rid][thin] - rank[other][thin]) + (rank[other][deep] - rank[rid][deep])
+            if score > best_score:
+                best, best_score = other, score
+        partner = (
+            f"{teams[best].team_name}: {_ordinal(rank[best][thin])} at {thin}, {_ordinal(rank[best][deep])} at {deep}"
+            if best
+            else "—"
+        )
+        rows.append([
+            teams[rid].team_name,
+            f"{deep} ({_ordinal(rank[rid][deep])})",
+            f"{thin} ({_ordinal(rank[rid][thin])})",
+            partner,
+        ])
+        logos.append(teams[rid].avatar_url)
+    return _section(
+        "🤝 Trade Matchmaker",
+        "Each roster ranked at every position by the trade value of its top starters (QB1, top 3 RBs, "
+        "top 3 WRs, TE1). Best match is the team that's strong where you're thin and thin where you're strong.",
+        ["Team", "Deepest", "Thinnest", "Best match"],
+        rows,
+        logos=logos,
+        logo_col=0,
+    )
+
+
+def build_faab_efficiency_section(
+    league: dict,
+    teams: dict[int, Team],
+    season_transactions: list[dict],
+    season_matchups: dict[int, list[dict]],
+) -> Optional[dict]:
+    """Points each manager has actually started from waiver/free-agent pickups,
+    against the FAAB spent on them."""
+    uses_faab = int((league.get("settings") or {}).get("waiver_budget") or 0) > 0
+    first_week: dict[tuple[int, str], int] = {}
+    spent = {rid: 0 for rid in teams}
+    for tx in season_transactions:
+        if tx.get("status") != "complete" or tx.get("type") not in ("waiver", "free_agent"):
+            continue
+        spent_rid = (tx.get("roster_ids") or [None])[0]
+        if spent_rid in spent:
+            spent[spent_rid] += int((tx.get("settings") or {}).get("waiver_bid") or 0)
+        for pid, rid in (tx.get("adds") or {}).items():
+            if rid in teams:
+                key = (rid, pid)
+                week = int(tx.get("leg") or 1)
+                first_week[key] = min(first_week.get(key, week), week)
+    if not first_week:
+        return None
+    pickups = {rid: 0 for rid in teams}
+    points = {rid: 0.0 for rid in teams}
+    for (rid, pid), week in first_week.items():
+        pickups[rid] += 1
+        for w, raw in season_matchups.items():
+            if w < week:
+                continue
+            for m in raw:
+                if m.get("roster_id") == rid and pid in (m.get("starters") or []):
+                    points[rid] += float((m.get("players_points") or {}).get(pid) or 0)
+    order = sorted(teams, key=lambda rid: points[rid], reverse=True)
+    rows, logos = [], []
+    for rid in order:
+        cells = [teams[rid].team_name, str(pickups[rid]), f"{points[rid]:.1f}"]
+        if uses_faab:
+            cells += [f"${spent[rid]}", f"{points[rid] / spent[rid]:.1f}" if spent[rid] else "—"]
+        rows.append(cells)
+        logos.append(teams[rid].avatar_url)
+    header = ["Team", "Pickups", "Points started"] + (["FAAB spent", "Points per $"] if uses_faab else [])
+    return _section(
+        "💰 Waiver Wire ROI",
+        "Season to date: points each manager has actually started from players they picked up off waivers or "
+        "free agency"
+        + (", against the FAAB they spent." if uses_faab else "."),
+        header,
+        rows,
+        logos=logos,
+        logo_col=0,
+    )
+
+
+BREAKOUT_MAX_AGE = 24
+BREAKOUT_RECENT_WEEKS = 3
+BREAKOUT_STARTER_RANK = {"QB": 16, "RB": 30, "WR": 40, "TE": 14}
+BREAKOUT_MIN_GAP = 5
+
+
+def build_breakout_watch_section(
+    rosters: list[dict], teams: dict[int, Team], players: dict, season_matchups: dict[int, list[dict]], *, limit: int = 8
+) -> Optional[dict]:
+    """Young rostered players producing like starters over the last few weeks
+    while Sleeper's rankings (and so their trade value) still have them far lower."""
+    owner = {pid: r.get("roster_id") for r in rosters for pid in (r.get("players") or [])}
+    played = [w for w in sorted(season_matchups) if any(float(m.get("points") or 0) > 0 for m in season_matchups[w])]
+    recent_weeks = played[-BREAKOUT_RECENT_WEEKS:]
+    if len(recent_weeks) < 2:
+        return None
+    weekly: dict[str, dict[int, float]] = {}
+    for w in recent_weeks:
+        for m in season_matchups[w]:
+            for pid, pts in (m.get("players_points") or {}).items():
+                weekly.setdefault(pid, {})[w] = float(pts or 0)
+    recent_avg = {pid: sum(by_w.values()) / len(by_w) for pid, by_w in weekly.items() if len(by_w) >= 2}
+
+    by_pos: dict[str, list[str]] = {pos: [] for pos in BREAKOUT_STARTER_RANK}
+    for pid in owner:
+        pos = (players.get(pid) or {}).get("position")
+        if pos in by_pos:
+            by_pos[pos].append(pid)
+    candidates = []
+    for pos, pids in by_pos.items():
+        value_rank = {pid: i for i, pid in enumerate(sorted(pids, key=lambda p: trade_player_value(p, players), reverse=True), start=1)}
+        scoring = sorted((p for p in pids if p in recent_avg), key=lambda p: recent_avg[p], reverse=True)
+        for i, pid in enumerate(scoring, start=1):
+            age = player_age(pid, players)
+            gap = value_rank[pid] - i
+            if age is not None and age <= BREAKOUT_MAX_AGE and i <= BREAKOUT_STARTER_RANK[pos] and gap >= BREAKOUT_MIN_GAP:
+                candidates.append((gap, pid, pos, i, value_rank[pid], age))
+    if not candidates:
+        return _section(
+            "🚀 Breakout Watch", "", [], [],
+            empty="No young players are outproducing their rankings by enough to flag this week.",
+        )
+    candidates.sort(reverse=True)
+    rows, headshots = [], []
+    for gap, pid, pos, score_rank, value_rank, age in candidates[:limit]:
+        rid = owner.get(pid)
+        rows.append([
+            _short_player(pid, players),
+            teams[rid].team_name if rid in teams else "—",
+            str(age),
+            f"{recent_avg[pid]:.1f}",
+            f"{pos}{score_rank}",
+            f"{pos}{value_rank}",
+        ])
+        headshots.append(pid)
+    return _section(
+        "🚀 Breakout Watch",
+        f"Rostered players {BREAKOUT_MAX_AGE} or younger scoring like starters over the last "
+        f"{len(recent_weeks)} weeks while Sleeper's rankings (and so trade value) still have them much lower. "
+        "Buy before the price catches up.",
+        ["Player", "Manager", "Age", f"Last {len(recent_weeks)} avg", "Scoring like", "Valued like"],
+        rows,
+        headshots=headshots,
+        headshot_col=0,
+    )
+
+
+EXTRA_SECTIONS = (
+    "win_odds",
+    "injury_report",
+    "projection_busters",
+    "hot_cold",
+    "playoff_picture",
+    "strength_of_schedule",
+    "coach_of_season",
+    "trade_matchmaker",
+    "faab_efficiency",
+    "breakout_watch",
+)
+# Which existing section each extra section renders right after.
+EXTRA_SECTION_ANCHORS = {
+    "big_game": ("win_odds", "injury_report"),
+    "top_scorers": ("projection_busters",),
+    "power_rankings": ("hot_cold",),
+    "championship_odds": ("playoff_picture", "strength_of_schedule"),
+    "luck_index": ("coach_of_season",),
+    "best_gm": ("trade_matchmaker",),
+    "waivers": ("faab_efficiency",),
+    "draft_tracker": ("breakout_watch",),
+}
+
+
 @dataclass
 class NewsletterData:
     league_name: str
@@ -1723,6 +2350,7 @@ class NewsletterData:
     show_draft_value_tracker: bool = True
     championship_odds: Optional[dict] = None
     dynasty_outlook: Optional[dict] = None
+    extra_sections: dict = field(default_factory=dict)
 
     @property
     def title(self) -> str:
@@ -1777,6 +2405,7 @@ def build_newsletter_data(
     show_gm_leaderboard: bool = False,
     championship_history: Optional[dict] = None,
     show_dynasty_outlook: bool = False,
+    extra_sections: Optional[list[str]] = None,
 ) -> NewsletterData:
     league = league if league is not None else get_league(league_id)
     rosters = rosters if rosters is not None else get_rosters(league_id)
@@ -1869,6 +2498,39 @@ def build_newsletter_data(
         else None
     )
 
+    extras: dict[str, dict] = {}
+    wanted = [key for key in EXTRA_SECTIONS if key in (extra_sections or [])]
+    if wanted:
+        season_matchups = {w: (raw_matchups if w == week else get_matchups(league_id, w)) for w in range(1, week + 1)}
+        builders = {
+            "win_odds": lambda: build_win_odds_section(
+                league_id, league, teams, weekly_scores, preview_week=preview_week
+            ),
+            "injury_report": lambda: build_injury_report_section(league_id, teams, players, preview_week=preview_week),
+            "projection_busters": lambda: build_projection_busters_section(league, matchups, players, week=week),
+            "hot_cold": lambda: build_hot_cold_section(teams, weekly_scores),
+            "playoff_picture": lambda: build_playoff_picture_section(
+                league_id, league, teams, preview_week=preview_week, championship_odds=championship_odds
+            ),
+            "strength_of_schedule": lambda: build_strength_of_schedule_section(
+                league_id, league, teams, weekly_scores, season_matchups, preview_week=preview_week
+            ),
+            "coach_of_season": lambda: build_coach_of_season_section(league, teams, players, season_matchups),
+            "trade_matchmaker": lambda: build_trade_matchmaker_section(rosters, teams, players),
+            "faab_efficiency": lambda: build_faab_efficiency_section(
+                league, teams, season_transactions, season_matchups
+            ),
+            "breakout_watch": lambda: build_breakout_watch_section(rosters, teams, players, season_matchups),
+        }
+        for key in wanted:
+            try:
+                section = builders[key]()
+            except SleeperAPIError as exc:
+                print(f"Skipping {key} section: {exc}", file=sys.stderr)
+                continue
+            if section:
+                extras[key] = section
+
     now = datetime.now(timezone.utc)
     commissioner_notes = (
         get_commissioner_notes(commissioner_notes_csv_url, most_recent_newsletter_anchor(now))
@@ -1949,6 +2611,7 @@ def build_newsletter_data(
         show_draft_value_tracker=show_draft_value_tracker,
         championship_odds=championship_odds,
         dynasty_outlook=dynasty_outlook,
+        extra_sections=extras,
     )
 
 
@@ -2062,6 +2725,28 @@ def dynasty_outlook_view(outlook: dict) -> tuple[list[str], str]:
     return header, caption
 
 
+def _extra_sections_markdown(data: NewsletterData, anchor: str) -> list[str]:
+    lines = []
+    for key in EXTRA_SECTION_ANCHORS.get(anchor, ()):
+        section = data.extra_sections.get(key)
+        if not section:
+            continue
+        lines.append(f"## {section['title']}\n")
+        if section.get("caption"):
+            lines.append(f"_{section['caption']}_\n")
+        if section["rows"]:
+            lines.append("| " + " | ".join(section["header"]) + " |")
+            lines.append("|" + "---|" * len(section["header"]))
+            for row in section["rows"]:
+                lines.append("| " + " | ".join(row) + " |")
+            lines.append("")
+        else:
+            lines.append(f"_{section.get('empty', 'Nothing to show yet.')}_\n")
+        for note in section.get("notes") or []:
+            lines.append(f"**{note}**\n")
+    return lines
+
+
 def render_markdown(data: NewsletterData) -> str:
     lines = []
     if data.league_logo_url:
@@ -2138,6 +2823,7 @@ def render_markdown(data: NewsletterData) -> str:
                 "until closer to the regular season)._"
             )
         lines.append("")
+        lines += _extra_sections_markdown(data, "big_game")
 
         lines.append("## Closest Games\n")
         if data.closest_games:
@@ -2158,6 +2844,7 @@ def render_markdown(data: NewsletterData) -> str:
         else:
             lines.append("_No player data available._")
         lines.append("")
+        lines += _extra_sections_markdown(data, "top_scorers")
 
     lines.append("## Standings\n")
     if data.divisional_standings:
@@ -2189,6 +2876,7 @@ def render_markdown(data: NewsletterData) -> str:
     else:
         lines.append("_Not enough games played yet to compute power rankings._")
     lines.append("")
+    lines += _extra_sections_markdown(data, "power_rankings")
 
     if data.championship_odds:
         odds = data.championship_odds
@@ -2212,6 +2900,7 @@ def render_markdown(data: NewsletterData) -> str:
         if mover_line:
             lines.append(f"**{mover_line}**\n")
 
+    lines += _extra_sections_markdown(data, "championship_odds")
     lines.append("## Luck Index\n")
     if data.luck_index:
         lines.append(
@@ -2227,6 +2916,7 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append("_Not enough games played yet to compute a luck index._")
     lines.append("")
 
+    lines += _extra_sections_markdown(data, "luck_index")
     lines.append(f"## Trades — {data.trades_period_label} (top {TRADE_DISPLAY_LIMIT})\n")
     if data.trades:
         lines.append(
@@ -2273,6 +2963,7 @@ def render_markdown(data: NewsletterData) -> str:
             lines.append("_No manager has come out ahead on a trade since the start of the offseason yet._")
         lines.append("")
 
+    lines += _extra_sections_markdown(data, "best_gm")
     lines.append("## Waiver Wire / Free Agency This Week\n")
     if data.waivers:
         for day_label, moves in group_waivers_by_day(data.waivers):
@@ -2286,6 +2977,7 @@ def render_markdown(data: NewsletterData) -> str:
     else:
         lines.append("_No waiver or free agent moves this week._")
     lines.append("")
+    lines += _extra_sections_markdown(data, "waivers")
 
     if data.show_waiver_pickups:
         lines.append("## Top 5 Highest-Value Waiver Pickups\n")
@@ -2327,6 +3019,8 @@ def render_markdown(data: NewsletterData) -> str:
         else:
             lines.append(f"_No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet._")
         lines.append("")
+
+    lines += _extra_sections_markdown(data, "draft_tracker")
 
     if data.dynasty_outlook:
         header, caption = dynasty_outlook_view(data.dynasty_outlook)
@@ -2409,6 +3103,34 @@ def _bar_html(fraction: float, color: str, *, width_px: int = 160, height_px: in
         f'<div style="background:{color};width:{pct:.0f}%;height:{height_px}px;"></div>'
         f"</div>"
     )
+
+
+def _extra_sections_html(data: NewsletterData, anchor: str) -> list[str]:
+    e = _html_escape
+    parts = []
+    for key in EXTRA_SECTION_ANCHORS.get(anchor, ()):
+        section = data.extra_sections.get(key)
+        if not section:
+            continue
+        parts.append(f"<h2>{e(section['title'])}</h2>")
+        if section.get("caption"):
+            parts.append(f"<p><em>{e(section['caption'])}</em></p>")
+        if section["rows"]:
+            parts.append("<table><tr>" + "".join(f"<th>{e(h)}</th>" for h in section["header"]) + "</tr>")
+            for i, row in enumerate(section["rows"]):
+                cells = [e(c) for c in row]
+                if section.get("logo_col") is not None:
+                    cells[section["logo_col"]] = _team_logo_html(section["logos"][i]) + cells[section["logo_col"]]
+                if section.get("headshot_col") is not None:
+                    col = section["headshot_col"]
+                    cells[col] = _player_headshot_html(section["headshots"][i]) + cells[col]
+                parts.append("<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
+            parts.append("</table>")
+        else:
+            parts.append(f"<p><em>{e(section.get('empty', 'Nothing to show yet.'))}</em></p>")
+        for note in section.get("notes") or []:
+            parts.append(f"<p><strong>{e(note)}</strong></p>")
+    return parts
 
 
 def render_html(data: NewsletterData) -> str:
@@ -2528,6 +3250,8 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
                 "until closer to the regular season).</em></p>"
             )
 
+        parts += _extra_sections_html(data, "big_game")
+
         parts.append("<h2>Closest Games</h2>")
         if data.closest_games:
             parts.append("<ol>")
@@ -2553,6 +3277,7 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
             parts.append("</ol>")
         else:
             parts.append("<p><em>No player data available.</em></p>")
+        parts += _extra_sections_html(data, "top_scorers")
 
     parts.append("<h2>Standings</h2>")
     if data.divisional_standings:
@@ -2592,6 +3317,7 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         parts.append("</table>")
     else:
         parts.append("<p><em>Not enough games played yet to compute power rankings.</em></p>")
+    parts += _extra_sections_html(data, "power_rankings")
 
     if data.championship_odds:
         odds = data.championship_odds
@@ -2615,6 +3341,8 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         if mover_line:
             parts.append(f"<p><strong>{e(mover_line)}</strong></p>")
 
+    parts += _extra_sections_html(data, "championship_odds")
+
     parts.append("<h2>Luck Index</h2>")
     if data.luck_index:
         parts.append(
@@ -2636,6 +3364,8 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         parts.append("</table>")
     else:
         parts.append("<p><em>Not enough games played yet to compute a luck index.</em></p>")
+
+    parts += _extra_sections_html(data, "luck_index")
 
     parts.append(f"<h2>Trades — {e(data.trades_period_label)} (top {TRADE_DISPLAY_LIMIT})</h2>")
     if data.trades:
@@ -2695,6 +3425,8 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         else:
             parts.append("<p><em>No manager has come out ahead on a trade since the start of the offseason yet.</em></p>")
 
+    parts += _extra_sections_html(data, "best_gm")
+
     parts.append("<h2>Waiver Wire / Free Agency This Week</h2>")
     if data.waivers:
         for day_label, moves in group_waivers_by_day(data.waivers):
@@ -2710,6 +3442,7 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
             parts.append("</ul>")
     else:
         parts.append("<p><em>No waiver or free agent moves this week.</em></p>")
+    parts += _extra_sections_html(data, "waivers")
 
     if data.show_waiver_pickups:
         parts.append("<h2>Top 5 Highest-Value Waiver Pickups</h2>")
@@ -2777,6 +3510,8 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
                 parts.append("</table>")
         else:
             parts.append(f"<p><em>No draft data available for this season's {'rookie ' if is_dynasty else ''}draft yet.</em></p>")
+
+    parts += _extra_sections_html(data, "draft_tracker")
 
     if data.dynasty_outlook:
         header, caption = dynasty_outlook_view(data.dynasty_outlook)
@@ -3031,6 +3766,13 @@ def main(argv: Optional[list[str]] = None) -> int:
         help="Add the Dynasty Outlook section: rosters aged forward 1-3 seasons plus future picks.",
     )
     parser.add_argument(
+        "--extra-sections",
+        default=None,
+        help=(
+            "Comma-separated optional sections to add, or 'all': " + ", ".join(EXTRA_SECTIONS) + "."
+        ),
+    )
+    parser.add_argument(
         "--season-type",
         choices=["off", "pre", "regular", "post"],
         default=None,
@@ -3166,6 +3908,11 @@ def main(argv: Optional[list[str]] = None) -> int:
             show_gm_leaderboard=args.best_gm_leaderboard,
             championship_history=load_championship_history(Path(args.latest_dir)),
             show_dynasty_outlook=args.dynasty_outlook,
+            extra_sections=(
+                list(EXTRA_SECTIONS)
+                if (args.extra_sections or "").strip().lower() == "all"
+                else [k.strip() for k in (args.extra_sections or "").split(",") if k.strip()]
+            ),
         )
     except SleeperAPIError as exc:
         print(f"Error fetching data from Sleeper: {exc}", file=sys.stderr)
