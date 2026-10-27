@@ -9,41 +9,45 @@ Daron Bland SUCKS dick
 
 ## 🏆 Week 7 Awards
 
-🥇 THE "KC WAS RIGHT THERE" AWARD
+🥇 THE "KICKING A CORPSE" AWARD
 Winner: KC
-Score: 119.12-49.82. You beat your opponent by 69.3 points, which isn't a fantasy matchup, that's a restraining order violation. Somewhere a guy named Andre Szmyt is crying and he's not even on your team. 4-3 with that kind of firepower means your season is just you flexing on a corpse once a week.
+Final score: 119.12-49.82. A 69.30 point margin. KC didn't win a fantasy matchup, they performed a public execution and then spiked the body. 49.82 points is a bye week score, except it wasn't a bye week, it was a whole human being's lineup getting mathematically dunked on.
 
-🍆 THE "BIGGEST DRAFT BONER (BENCH EDITION)" AWARD
-Winner: Roger Goodell
-You won by 38 points and STILL left 85.5 points on your bench. That's not a bench, that's a second starting lineup that's better than most of this league. Joe Burrow dropped 28.88 and your bench still looked at the scoreboard and said "we could've done more."
-
-🗑️ THE "BIGGEST TRASH BAG" AWARD
-Winner: Talking Tua Teenager
-You got 31.3 points from Jaxon Smith-Njigba, rostered the single best scorer in the ENTIRE LEAGUE this week, and still lost by 2.96 points while leaving 79.88 on your bench. You dropped David Njoku for the Colts defense like a coward and the football gods clocked it immediately.
-
-🩸 THE "DEATH BY A THOUSAND PAPER CUTS" AWARD
+🍑 THE "EDGE OF YOUR SEAT, CHEEKS CLENCHED" AWARD
 Winner: 12 DAY WAR VET
-141.58 to 138.62. You won by less than a field goal's worth of a field goal. You also added two running backs this week like a man bailing water out of a sinking canoe with a thimble. Congrats on the W, your heart rate probably hasn't recovered.
+141.58 to 138.62. 2.96 points. That's not a win, that's a coin flip that happened to land on your face for once. Talking Tua Teenager, you lost this one in your sleep and you're still not sure what killed you.
 
-💀 THE "I SURVIVED, BARELY" AWARD
-Winner: Balls
-8.64 point win, your second nail-biter listed this week, and yet you're sitting at 6-1 with the most points in the entire league. Tee Higgins put up 26.8 and you only needed every single one of them. Start sweating, legend, these close ones catch up to you.
-
-🔮 THE "NOSTRADAMUS COULDN'T PREDICT THIS" AWARD
-Winner: A FOOTBALL TEAM
-+16.5 luck index, the luckiest team in the league, riding Drake Maye's 28.44 points to a 28.72-point blowout. You're 6-1 and your all-play record says you should probably still be 6-1, so actually never mind, you're just good. Everyone else can stay mad about it.
-
-☠️ THE "CURSED BY THE FOOTBALL GODS" AWARD
+🛋️ THE "YOUR BENCH OUTSCORED YOUR BRAIN" AWARD
 Winner: Roger Goodell
-Worst luck index in the league at -15.4 despite being 5-2 with 1045 points, the second-most in the league. You are statistically supposed to be undefeated and instead you're out here leaving 85 points on your bench while the universe personally blocks your kicks. Burrow's doing his job, your waiver wire apparently isn't.
+85.50 points sat on your bench this week while Joe Burrow went off for 28.88 in your starting lineup. You still won by 38, which somehow makes this worse — imagine what you left on the table against someone who actually tries.
 
-🏆 THE "TOP OF THE CLASS, STILL SOMEHOW NOT THE SMARTEST" AWARD
+🪦 THE "DEAD MAN WINNING" AWARD
+Winner: Roger Goodell
+5-2 record, but a luck index of -15.4, the worst in the entire league. Your all-play record is 79-12, which means you've been the best team in football almost every single week and the schedule still finds new ways to disrespect you. Enjoy your two losses, they were basically rigged.
+
+🎰 THE "HOUSE ALWAYS WINS" AWARD
+Winner: A FOOTBALL TEAM
++16.5 luck index, best in the league, on top of a 6-1 record. Drake Maye dropped 28.44 on your way to it. You're not just winning, the simulation is handing you the controller and walking away.
+
+🧟 THE "UNDEAD AND UNDERRATED" AWARD
+Winner: Balls
+6-1, 1061.26 points for, best in the league, and you still only won by 8.64 this week in the second-closest game of the slate. Tee Higgins put up 26.80 for you and it still took until the final whistle to put away a double-digit underdog. Y'all make greatness look exhausting.
+
+💀 THE "STATISTICALLY SNAKEBIT" AWARD
+Winner: 12 DAY WAR VET
+-14.3 luck index despite the win this week. Your all-play record says you should be feasting, your actual record says 4-3. The football gods owe you money.
+
+🔮 THE "BOARD IS GOOD, SHAME ABOUT THE SCOREBOARD" AWARD
 Winner: Simply Touchdowns
-50.9 point blowout win, 125.08 points, only 16.3 left on the bench, basically played a perfect week. And your reward? A -8.8 luck score, because apparently the schedule gods hate efficiency. You picked up a kicker this week like that's going to fix the universe's vendetta against you.
+50.90 point margin of victory, one of the biggest blowouts of the week, 125.08 points dropped like it was nothing — and your luck index still sits at -8.8. You're out here winning by 50 and the universe still thinks you're getting away with something.
 
-🥊 THE "GOT HANDS, GOT HANDED A LOSS" AWARD
-Winner: Tpotts42
-Trey McBride goes off for 27.1 points and you still take a 28.72-point beatdown while leaving 53.88 on your bench. That's twice the production you needed, parked on the pine, while your starters quietly ate shit on primetime.
+📺 THE "TRADE YOUR TE, LOSE YOUR MIND" AWARD
+Winner: Talking Tua Teenager
+You dropped David Njoku for the Indianapolis Colts defense this week. Meanwhile Trey McBride, a tight end, dropped 27.10 points for someone else's team. Also you left 79.88 points on your bench and still lost by 2.96. This was not your week to make decisions.
+
+🏆 THE "CLOSEST TO THE SUN" AWARD
+Winner: Talking Tua Teenager
+Jaxon Smith-Njigba went off for a league-high 31.30 points in your lineup and you still lost. That's the fantasy equivalent of acing the final and failing the class on attendance.
 
 ## Matchup Recap
 
@@ -70,8 +74,8 @@ _No rival matchup scheduled for the upcoming week._
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Simply Touchdowns** (proj 109.4) vs **Balls** (proj 143.4) — combined 252.8, projected margin 34.0
-- **A FOOTBALL TEAM** (proj 111.7) vs **12 DAY WAR VET** (proj 151.9) — combined 263.7, projected margin 40.2
+- **Simply Touchdowns** (proj 109.5) vs **Balls** (proj 143.3) — combined 252.8, projected margin 33.8
+- **A FOOTBALL TEAM** (proj 112.0) vs **12 DAY WAR VET** (proj 152.8) — combined 264.7, projected margin 40.8
 
 ## Closest Games
 
@@ -138,14 +142,14 @@ _10,000 simulations of the last 7 regular-season weeks and the 8-team playoff, b
 
 | Team | Record | Playoffs | Title |
 |---|---|---|---|
-| **Balls** | 6-1 | >99% | 27% |
-| **12 DAY WAR VET** | 4-3 | >99% | 25% |
-| **Talking Tua Teenager** | 5-2 | >99% | 18% |
+| **Balls** | 6-1 | >99% | 26% |
+| **12 DAY WAR VET** | 4-3 | >99% | 26% |
+| **Talking Tua Teenager** | 5-2 | >99% | 17% |
 | **Tpotts42** | 5-2 | >99% | 11% |
 | **Roger Goodell** | 5-2 | >99% | 8% |
 | **A FOOTBALL TEAM** | 6-1 | >99% | 6% |
 | **Simply Touchdowns** | 4-3 | >99% | 4% |
-| **KC** | 4-3 | >99% | <1% |
+| **KC** | 4-3 | >99% | 2% |
 
 _Not shown: 6 teams under 1% to make the playoffs._
 
