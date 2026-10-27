@@ -9,49 +9,49 @@ _2026 Season_
 
 ## 🏆 Week 7 Awards
 
-🏈 THE "UNDEFEATED AND UNBOTHERED" AWARD
+🏆 THE "UNDEFEATED AND UNBOTHERED" AWARD
 Winner: Jahmyr-oquai
-7-0. A league-best 1048.32 points for. A luck index of plus-39, which is less "fantasy manager" and more "won the genetic lottery twice." You also made six separate waiver moves this week like you were bored at your own coronation. At this point just skip the playoffs and go straight to the parade.
+You're 7-0 with 1048 points for, and your luck index is a cartoonish +39.0. At this point you're not playing fantasy football, you're committing a hate crime against the other 11 teams. Even your waiver moves look like a man rearranging deck chairs on a yacht he already owns outright.
 
-💀 THE "61 POINTS OF OVERKILL" AWARD
+💩 THE "61 POINTS OF OVERKILL" AWARD
 Winner: Throwsa parks
-You beat Balls 171.32 to 109.48, a 61.84-point massacre that nobody needed to see. Tony Pollard went off for 41 points on his own, which means your opponent lost by more than some entire teams scored this week. Congrats on the win, I guess, though at this point it's less a victory and more a mercy rule violation.
+You beat Balls 171.32 to 109.48, a 61.84-point massacre that nobody asked for. Tony Pollard dropped 41 points on their ass like he had a personal vendetta. This wasn't a fantasy matchup, it was a public execution with a box score.
 
-🪑 THE "BENCH IS WHERE DREAMS GO TO DIE" AWARD
-Winner: MarlBurrow Man
-77.68 points sat on your bench this week while you lost by 11.14. Do the math — you benched enough points to beat Just take the $50 and still have leftovers. You didn't lose to DomOfTheMFYear, you lost to your own lineup card.
-
-🎯 THE "PARDON ME, YOUR MARGIN IS SHOWING" AWARD
-Winner: Tee Time
-123.82 to 122.14, a win so thin it needs a wide receiver to catch it. You're 2-5 on the season but somehow boast a plus-7.8 luck index, which means the fantasy gods are the only thing standing between you and total irrelevance. Enjoy the W, it's rarer than your points total this year.
-
-😭 THE "ACTUALLY KIND OF UNLUCKY" AWARD
-Winner: za island animals
-Drake Maye dropped 33.44 points on your roster and you still lost by 1.68. Your luck index sits at a brutal -24.7, worst in the league, which means the universe has personally blacklisted you. You're 2-5 despite an all-play record of 41-36. This is less "bad team" and more "cursed team."
-
-🔥 THE "FINALLY, A PULSE" AWARD
-Winner: DomOfTheMFYear
-You beat MarlBurrow Man 132.20 to 121.06 to climb to 4-3, and you did it while leaving 49.22 points on your bench, which is just showing off at this point. Your luck index is basically neutral at -1.3, meaning you're exactly as good as your record says. Refreshingly boring, truly.
-
-🩸 THE "DEATH BY A THOUSAND BOGUS LOSSES" AWARD
+🪦 THE "LAST PLACE, LOUD ROSTER" AWARD
 Winner: Puka and rally
-1-6, dead last, and a luck index of -20.8 to match. You put up 826.46 points for the season, more than four other teams with better records, and it's bought you exactly one win. Even your waiver moves (hi, Jacoby Brissett) look like cries for help at this point.
+1-6, dead last, and a luck index of -20.8 just to twist the knife. You're averaging a near bottom-of-the-league scoring pace while getting run over by everybody with a pulse. Adding Jacoby Brissett back after dropping him for a defense is the kind of decision that explains the record.
 
-🧮 THE "SOMEHOW STILL ALIVE" AWARD
+😭 THE "LOSE AND STILL LEAD THE LEAGUE IN SUFFERING" AWARD
+Winner: za island animals
+You scored 122.14, got 32.80 from Drake Maye-adjacent magic... wait, no, Drake Maye went off for 33.44 against you and you still lost by 1.68. Your luck index is -24.7, the worst in the league, so congratulations, the math itself hates you personally.
+
+🔥 THE "NAIL-BITER NOBODY NEEDED" AWARD
+Winner: Tee Time
+123.82 to 122.14 over za island animals, margin of 1.68, tightest game of the week. You're 2-5 but somehow sport a +7.8 luck score, meaning the fantasy gods are feeding you wins with a spoon while your actual roster quality says otherwise.
+
+🛋️ THE "BENCH HEAVIER THAN YOUR STARTING LINEUP" AWARD
+Winner: MarlBurrow Man
+You left 77.68 points on your bench, the most in the entire league, while losing by 11.14. Do the math — that's a blowout win sitting on your pine doing absolutely nothing for you. Championship rosters don't bench their season.
+
+🧮 THE "TECHNICALLY COMPETENT, EMOTIONALLY BANKRUPT" AWARD
+Winner: DomOfTheMFYear
+You won by 11.14 and still left 49.22 points on your bench, the second-most in the league. Then you dropped Samaje Perine the same week you added him, like a guy who buys a treadmill and returns it in the same Amazon box. Commit to something.
+
+🎯 THE "EFFICIENCY KING" AWARD
+Winner: Puka and rally
+Only 6.70 points left on the bench this week, tightest roster management in the league. Shame you still lost by 17.92 to Ne-Tuten-yahu. Turns out optimizing a bad lineup still just gives you a well-organized loss.
+
+🍀 THE "KARMA'S GOING TO FIND YOU" AWARD
 Winner: Just take the $50 💸
-You beat Purdy Good at Getting Off 124.92 to 116.42 behind Zay Flowers' 29.70 points, and you're 5-2 with a juicy +22.1 luck index. You also left 41.20 points on your bench, because apparently winning while actively trying to lose is your signature move.
++22.1 luck index, second-highest in the league, riding a 5-2 record that your actual point differential doesn't fully back up. You beat Purdy Good at Getting Off by 8.50 thanks to Zay Flowers' 29.70, then immediately burned two waiver moves on Jaylin Noel and Zonovan Knight like you're nervous the house of cards is about to fall.
 
-🧟 THE "MATT GAY ISN'T GOING TO SAVE YOU" AWARD
+📉 THE "ALL-PLAY SAYS YOU'RE A FRAUD" AWARD
 Winner: Picken my ass
-You lost by 6.46 to a team that scored barely over 112, you're carrying a -10.4 luck index, and your big offseason-adjacent move this week was churning kickers like Tyler Bass highlights. Dropping Darius Cooper, grabbing Gesicki, flipping kickers twice — none of it moved the needle. 4-3 and fading fast.
+4-3 record looks respectable until you see the -10.4 luck index and 52-25 all-play mark that says you should be way better than you are. You lost to Jahmyr-oquai by 6.46 this week and then went full chaos on waivers, cycling through Gesicki, two kickers, and two different WRs like a man throwing darts blindfolded.
 
-🏚️ THE "WORST RECORD, BEST ROSTER" IRONY AWARD
+🤡 THE "QUIETLY MEDIOCRE" AWARD
 Winner: Purdy Good at Getting Off
-You lost 116.42 to 124.92 despite making five separate roster moves this week trying to fix a sinking ship — new QB, new D, new RB, new WR, new K. It's giving "rearranging deck chairs on the Titanic." 3-4 and a -2.6 luck index says the universe isn't buying the effort either.
-
-🪦 THE "JAXON WENT OFF AND IT DIDN'T MATTER" AWARD
-Winner: Balls
-Jaxon Smith-Njigba torched the league for 32.80 points in your lineup and you still got run over 171.32 to 109.48. You also left a measly 2.70 points on your bench, meaning you started your best lineup possible and it still wasn't close. Sometimes the problem isn't decision-making, it's just everyone else being better.
+Lost by 8.50, left 22.10 on the bench, and your name promised so much more action than your 3-4 record delivers. Four separate waiver moves this week and somehow none of them involved benching the guys who actually lost you the game.
 
 ## Matchup Recap
 
@@ -66,8 +66,8 @@ Jaxon Smith-Njigba torched the league for 32.80 points in your lineup and you st
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Balls** (proj 92.6) vs **Just take the $50 💸** (proj 77.3) — combined 169.9, projected margin 15.3
-- **Throwsa parks** (proj 122.0) vs **DomOfTheMFYear** (proj 64.7) — combined 186.6, projected margin 57.3
+- **Balls** (proj 92.5) vs **Just take the $50 💸** (proj 77.3) — combined 169.9, projected margin 15.2
+- **Throwsa parks** (proj 122.2) vs **DomOfTheMFYear** (proj 64.8) — combined 186.9, projected margin 57.4
 
 ## Closest Games
 
@@ -123,15 +123,15 @@ _10,000 simulations of the last 7 regular-season weeks and the 6-team playoff, b
 
 | Team | Record | Playoffs | Bye | Title |
 |---|---|---|---|---|
-| **Jahmyr-oquai** | 7-0 | >99% | 97% | 38% |
-| **Throwsa parks** | 5-2 | >99% | 72% | 32% |
-| **Picken my ass** | 4-3 | 96% | 23% | 16% |
+| **Jahmyr-oquai** | 7-0 | >99% | 96% | 37% |
+| **Throwsa parks** | 5-2 | >99% | 69% | 30% |
+| **Picken my ass** | 4-3 | 97% | 27% | 19% |
 | **MarlBurrow Man** | 3-4 | 44% | <1% | 3% |
-| **Balls** | 3-4 | 48% | <1% | 3% |
-| **Ne-Tuten-yahu** | 3-4 | 46% | <1% | 3% |
-| **za island animals** | 2-5 | 28% | <1% | 2% |
+| **Ne-Tuten-yahu** | 3-4 | 45% | <1% | 2% |
+| **za island animals** | 2-5 | 27% | <1% | 2% |
+| **Balls** | 3-4 | 48% | <1% | 2% |
 | **Just take the $50 💸** | 5-2 | 73% | 5% | 2% |
-| **DomOfTheMFYear** | 4-3 | 35% | <1% | <1% |
+| **DomOfTheMFYear** | 4-3 | 34% | <1% | <1% |
 | **Purdy Good at Getting Off** | 3-4 | 25% | <1% | <1% |
 | **Puka and rally** | 1-6 | 6% | <1% | <1% |
 
@@ -232,6 +232,9 @@ _Ranks managers by total estimated trade value won across every trade since the 
 
 **Sunday, October 25:**
 - **Purdy Good at Getting Off** (Free Agent Move): added Emanuel Wilson (RB - SEA); dropped Brenton Strange (TE - JAX)
+
+**Tuesday, October 27:**
+- **DomOfTheMFYear** (Free Agent Move): added —; dropped Samaje Perine (RB - CIN)
 
 
 ## Top 5 Highest-Value Waiver Pickups
