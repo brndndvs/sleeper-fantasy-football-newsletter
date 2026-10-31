@@ -107,7 +107,6 @@ CHAMPIONSHIP_RECENCY_DECAY = 0.85
 CHAMPIONSHIP_SHRINK_WEEKS = 2
 CHAMPIONSHIP_PROJECTION_WEIGHT = 0.4
 CHAMPIONSHIP_DEFAULT_SD = 25.0
-CHAMPIONSHIP_MIN_PLAYOFF_PCT_SHOWN = 1.0
 CHAMPIONSHIP_HISTORY_FILE = "championship_odds.json"
 
 # Dynasty Outlook: each roster aged forward 1-3 seasons. AGE_CURVES give the share
@@ -2032,11 +2031,9 @@ def _delta_label(delta: Optional[float]) -> str:
     return f"{'▲' if delta > 0 else '▼'} {abs(delta):.0f}%"
 
 
-def championship_odds_view(odds: dict) -> tuple[list[dict], int, str, Optional[str]]:
-    """Rows to show (anyone with a real playoff shot), how many were hidden, the
-    caption, and an optional biggest-mover line -- shared by both renderers."""
-    shown = [r for r in odds["teams"] if r["playoff_pct"] >= CHAMPIONSHIP_MIN_PLAYOFF_PCT_SHOWN]
-    hidden = len(odds["teams"]) - len(shown)
+def championship_odds_view(odds: dict) -> tuple[list[dict], str, Optional[str]]:
+    """Every team's row, the caption, and an optional biggest-mover line -- shared
+    by both renderers."""
     caption = (
         f"{odds['sims']:,} simulations of the last {odds['remaining_weeks']} regular-season weeks and the "
         f"{odds['playoff_teams']}-team playoff, based on each team's scoring so far (recent weeks count more) "
@@ -2048,7 +2045,7 @@ def championship_odds_view(odds: dict) -> tuple[list[dict], int, str, Optional[s
     if mover:
         direction = "up" if mover["delta"] > 0 else "down"
         mover_line = f"Biggest mover: {mover['team']}, title odds {direction} {abs(mover['delta']):.0f}% since last week."
-    return shown, hidden, caption, mover_line
+    return odds["teams"], caption, mover_line
 
 
 def dynasty_outlook_view(outlook: dict) -> tuple[list[str], str]:
@@ -2195,7 +2192,7 @@ def render_markdown(data: NewsletterData) -> str:
 
     if data.championship_odds:
         odds = data.championship_odds
-        shown, hidden, caption, mover_line = championship_odds_view(odds)
+        shown, caption, mover_line = championship_odds_view(odds)
         lines.append("## Championship Odds\n")
         lines.append(f"_{caption}_\n")
         header = ["Team", "Record", "Playoffs"] + (["Bye"] if odds["has_byes"] else []) + ["Title"]
@@ -2214,8 +2211,6 @@ def render_markdown(data: NewsletterData) -> str:
         lines.append("")
         if mover_line:
             lines.append(f"**{mover_line}**\n")
-        if hidden:
-            lines.append(f"_Not shown: {hidden} team{'s' if hidden != 1 else ''} under 1% to make the playoffs._\n")
 
     lines.append("## Luck Index\n")
     if data.luck_index:
@@ -2600,7 +2595,7 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
 
     if data.championship_odds:
         odds = data.championship_odds
-        shown, hidden, caption, mover_line = championship_odds_view(odds)
+        shown, caption, mover_line = championship_odds_view(odds)
         parts.append("<h2>Championship Odds</h2>")
         parts.append(f"<p><em>{e(caption)}</em></p>")
         header = ["Team", "Record", "Playoffs"] + (["Bye"] if odds["has_byes"] else []) + ["Title"]
@@ -2619,8 +2614,6 @@ table.trades td { word-wrap: break-word; overflow-wrap: break-word; }
         parts.append("</table>")
         if mover_line:
             parts.append(f"<p><strong>{e(mover_line)}</strong></p>")
-        if hidden:
-            parts.append(f"<p><em>Not shown: {hidden} team{'s' if hidden != 1 else ''} under 1% to make the playoffs.</em></p>")
 
     parts.append("<h2>Luck Index</h2>")
     if data.luck_index:
