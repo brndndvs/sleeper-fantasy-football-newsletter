@@ -1555,7 +1555,7 @@ def build_championship_odds(
                 "eliminated": eliminated(rid),
             }
         )
-    rows.sort(key=lambda r: (-r["title_pct"], -r["playoff_pct"]))
+    rows.sort(key=lambda r: (-r["playoff_pct"], -r["title_pct"]))
     movers = [r for r in rows if r["delta"] is not None and abs(r["delta"]) >= 1]
     return {
         "teams": rows,
