@@ -9,45 +9,49 @@ _2026 Season_
 
 ## 🏆 Week 8 Awards
 
-🥇 THE "22.70 IS A TYPO, RIGHT?" AWARD
+🏆 THE "EXECUTIONER" AWARD
 Winner: Roger Goodell
-You dropped 189.08 points this week, powered by Joe Burrow throwing for a cool 42.48, and your opponent showed up with 22.70. That's not a loss, that's a fucking hate crime. Somewhere a kicker outscored an entire bench, and you still found a way to leave 67.08 points on yours.
+189.08 points. 166.38-point margin. Your opponent put up 22.70, which is a score you'd expect from someone who forgot to set their lineup, got hit by a bus, and then had the bus also forget to set its lineup. Joe Burrow dropped 42.48 on the dude like he owed him money, and honestly at this point the league should start calling you Commissioner again.
 
-🍆 THE "BIGGEST DRAFT BONER" AWARD
-Winner: A FOOTBALL TEAM
-7-1, first place, and a luck index of +17.3 that should come with a paternity test. Your all-play record is 73-31, which means roughly a third of the league could beat you and never actually gets the chance. Keep adding Mike Gesicki and pretending this is skill, champ.
-
-🗑️ THE "BIGGEST TRASH BAG" AWARD
-Winner: 12 DAY WAR VET
-Luck index of -19.2, worst in the league, and you still found time to churn four separate waiver moves trying to fix it. You lost by 14.46 after leaving 70.18 on the bench, which means your actual starting lineup is the problem, not Samaje Perine. Tanner McKee is not walking through that door.
-
-💺 THE "YOUR BENCH OUTPLAYED YOUR TEAM" AWARD
-Winner: Tpotts42
-94.74 points rotting on your bench this week, the most in the league, while you won by 74.92 anyway. Imagine beating someone by 75 points and still coaching like you hate yourself. Evan McPherson was added to help, and somehow he's still not your biggest mistake this week.
-
-🎯 THE "CLOSER THAN IT HAD ANY RIGHT TO BE" AWARD
-Winner: A FOOTBALL TEAM
-14.46 points, the tightest margin of the week, against a 12 DAY WAR VET team that dropped 120.50 and still lost. You're 7-1 and still can't put anyone away comfortably. Enjoy the heart palpitations, Tom Brady energy is earned, not guaranteed.
-
-🧠 THE "STAT PADDING FOR FUN AND PROFIT" AWARD
-Winner: Simply Touchdowns
-Tyler Allgeier went off for 36.10 and Ja'Marr Chase added 31.10, and somehow you only won by 27.88. That's two top-four individual performances in one lineup and you still almost choked it against Balls. Tighten up or those studs start demanding trades.
-
-😤 THE "UNLUCKIEST MOTHERFUCKER ALIVE" AWARD
-Winner: Roger Goodell
-6-2 with 1234.56 points for, more than anyone in the league, and still sitting at -13.5 luck with a 92-12 all-play record. You are somehow both historically dominant and getting robbed simultaneously. The math doesn't care about your feelings, Roger.
-
-📉 THE "LOST BY 27 BUT MADE IT LOOK LIKE MORE" AWARD
-Winner: Balls
-Tee Higgins put up 37.50 points for you, the second-best individual performance of the entire week, and you still dropped the game by 27.88. That's some real "great player, bad roster construction" energy. 110.20 points should win most weeks and instead it just embarrassed you slightly less.
-
-🤡 THE "SOMEHOW STILL BREATHING" AWARD
+🥊 THE "THIS WAS NEVER A FAIR FIGHT" AWARD
 Winner: KC
-5-3, bottom half of the standings, but you beat your opponent by 64.18 this week and only left 36.90 on the bench, the tightest ship in the league. You added Jaydon Blue and dropped your own defense, which is either genius or a cry for help. Hard to tell with you people.
+64.18-point margin isn't a win, it's a hate crime. 139.46 to 75.28 means your opponent's whole roster combined couldn't out-score your flex. Go hug your bench, you earned it.
 
-🏆 THE "WE GET IT, YOU'RE GOOD" AWARD
-Winner: Talking Tua Teenager
-6-2, won by 86.80 this week, and sitting at -1.9 luck despite an 80-24 all-play record that most of this league will never sniff. You're not lucky, you're just better than everybody, which is somehow more annoying. Keep it up and nobody will want to play you in the Super Bowl.
+😮‍💨 THE "BARELY SURVIVED" AWARD
+Winner: A FOOTBALL TEAM
+134.96 to 120.50 over 12 DAY WAR VET, a 14.46-point squeaker that was the closest game of the week. You're 7-1 and apparently allergic to comfortable wins, but a dub's a dub and you're still the best record in the building.
+
+🫠 THE "SO CLOSE, SO WHAT" AWARD
+Winner: Balls
+You lost by 27.88 despite Tee Higgins going absolutely nuclear for 37.50 points, which is the fantasy equivalent of your getaway driver nailing every red light. 6-2 on the season and you still found a way to leave this one feeling like a L in every sense.
+
+🔮 THE "THE UNIVERSE OWES YOU MONEY" AWARD
+Winner: 12 DAY WAR VET
+Your luck index is a cartoonishly bad -19.2, the worst in the entire league, and your all-play record of 72-32 says you should be feasting, not scraping along at 4-4. You've been sacrificing goats to the fantasy gods all season and they keep sending the bill to someone else.
+
+🎰 THE "RUNNING ON HOUSE MONEY" AWARD
+Winner: A FOOTBALL TEAM
++17.3 luck index, best in the league, paired with a 7-1 record that your 73-31 all-play mark barely even supports. You're basically playing with the opponent's chips at this point and nobody's stopped you yet.
+
+🤏 THE "TOO GOOD FOR YOUR OWN RECORD" AWARD
+Winner: Balls
+Luck index of -1.9 but an all-play record of 80-24, the gaudiest number in the league not attached to a 7-1 team. You're 6-2 and somehow still the most slept-on juggernaut in this league, mostly because people can't get over your name in the group chat.
+
+📉 THE "PUNISHED FOR BEING GOOD" AWARD
+Winner: Roger Goodell
+92-12 all-play record, the single most dominant number on this entire sheet, and your luck index still reads -13.5 because the schedule maker hates you personally. You're 6-2 with 1234.56 points for, which is the most in the league, and you're still somehow the unluckiest contender in the room.
+
+🪪 THE "IDENTITY THEFT ISN'T A JOKE, TANNER" AWARD
+Winner: 12 DAY WAR VET
+You added Kirk Cousins, then days later dropped Kirk Cousins for Tanner McKee, all while also churning DJ Giddens, Tyler Goodson, and Corey Kiner in and out like a Waiver Wire fantasy football roulette wheel. Four transactions in one week and you're still 4-4, which tells you everything about whether any of it mattered.
+
+🦵 THE "SPECIALIST SZN" AWARD
+Winner: Roger Goodell
+While Joe Burrow was out there torching defenses for 42.48, you still found time to go pick up Chris Boswell off waivers. Nothing says "I'm 6-2 and feeling myself" like swapping kickers for fun at 1234.56 points for.
+
+👑 THE "RENTAL PROPERTY" AWARD
+Winner: Simply Touchdowns
+Tyler Allgeier (36.10) and Ja'Marr Chase (31.10) combined for almost 70 points and you still only won by 27.88 over Balls. 964.26 points for on the season says you've been quietly renting out other people's studs every week and somehow still sit at 5-3.
 
 ## Matchup Recap
 
@@ -74,8 +78,8 @@ _No rival matchup scheduled for the upcoming week._
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **A FOOTBALL TEAM** (proj 122.1) vs **Talking Tua Teenager** (proj 121.9) — combined 244.1, projected margin 0.2
-- **Balls** (proj 155.2) vs **Tpotts42** (proj 131.0) — combined 286.2, projected margin 24.2
+- **A FOOTBALL TEAM** (proj 122.0) vs **Talking Tua Teenager** (proj 120.2) — combined 242.2, projected margin 1.8
+- **Balls** (proj 154.7) vs **Tpotts42** (proj 129.6) — combined 284.2, projected margin 25.1
 
 ## Closest Games
 
@@ -142,14 +146,14 @@ _10,000 simulations of the last 6 regular-season weeks and the 8-team playoff, b
 
 | Team | Record | Playoffs | Title | vs. Last Week |
 |---|---|---|---|---|
-| **Roger Goodell** | 6-2 | >99% | 32% | ▲ 24% |
-| **Balls** | 6-2 | >99% | 22% | ▼ 4% |
-| **12 DAY WAR VET** | 4-4 | >99% | 12% | ▼ 14% |
-| **Talking Tua Teenager** | 6-2 | >99% | 11% | ▼ 7% |
-| **Tpotts42** | 6-2 | >99% | 9% | ▼ 2% |
-| **Simply Touchdowns** | 5-3 | >99% | 7% | ▲ 3% |
-| **A FOOTBALL TEAM** | 7-1 | >99% | 7% | — |
-| **KC** | 5-3 | >99% | 1% | ▼ 1% |
+| **Roger Goodell** | 6-2 | >99% | 36% | ▲ 28% |
+| **Balls** | 6-2 | >99% | 20% | ▼ 6% |
+| **12 DAY WAR VET** | 4-4 | >99% | 17% | ▼ 9% |
+| **Talking Tua Teenager** | 6-2 | >99% | 8% | ▼ 9% |
+| **Tpotts42** | 6-2 | >99% | 7% | ▼ 4% |
+| **Simply Touchdowns** | 5-3 | >99% | 6% | ▲ 2% |
+| **A FOOTBALL TEAM** | 7-1 | >99% | 6% | — |
+| **KC** | 5-3 | >99% | <1% | ▼ 2% |
 | **Chud Team** | 2-6 | <1% | <1% | — |
 | **Boynton Beach Blue Balls** | 1-7 | <1% | <1% | — |
 | **The Aubrey Express ** | 2-6 | <1% | <1% | — |
@@ -157,7 +161,7 @@ _10,000 simulations of the last 6 regular-season weeks and the 8-team playoff, b
 | **CeDeez big ones** | 3-5 | <1% | <1% | — |
 | **andrewburkhardt1** | 1-7 | <1% | <1% | — |
 
-**Biggest mover: Roger Goodell, title odds up 24% since last week.**
+**Biggest mover: Roger Goodell, title odds up 28% since last week.**
 
 ## Luck Index
 
