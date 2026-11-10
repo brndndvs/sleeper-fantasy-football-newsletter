@@ -9,49 +9,53 @@ _2026 Season_
 
 ## 🏆 Week 9 Awards
 
-🥇 THE "UNDEFEATED AND UNBOTHERED" AWARD
+🏆 THE "UNDEFEATED AND UNBOTHERED" AWARD
 Winner: Jahmyr-oquai
-9-0. 1347.24 points for. A luck index of +34.3, the highest in the league by a mile. You beat Balls by nearly 30 and you're still out here dropping T.J. Hockenson and playing kicker musical chairs with Chris Boswell like the standings owe you nothing. They don't. Nobody else in this league has beaten you yet and at this rate nobody will.
+9-0. One hundred and twenty-two point six six without a single star player in your top 3. Brock Bowers led your team with 24.80 and your kicker Spencer Shrader nearly outscored your running back. You're winning with a roster held together by duct tape and luck index +34.3, and there's not a damn thing anyone can do about it.
 
-💸 THE "IRONIC TEAM NAME" AWARD
-Winner: Just take the $50 💸
-You won 130.16 to 116.12 and you're 7-2 with a +22.2 luck index, the second luckiest team alive. At this point just take the $50 isn't a bluff, it's financial advice you should be giving yourself about this whole season.
-
-🧨 THE "MERCY RULE REQUEST FORM" AWARD
-Winner: Picken my ass
-134.88 points, a 62-point beatdown of Ne-Tuten-yahu, the single biggest margin of the week. Matthew Golden dropped 33.4 on his own. Somewhere Ne-Tuten-yahu is reviewing game footage and finding nothing but war crimes.
-
-💀 THE "72.88 IS A CRY FOR HELP" AWARD
+🍑 THE "GOT ABSOLUTELY SMOKED" AWARD
 Winner: Ne-Tuten-yahu
-You scored 72.88 points and lost by 62. Your luck index says +3.0, which means the fantasy gods are telling you this is actually close to what you deserve. That's the scary part.
+72.88 points. Patrick Mahomes posted 16.48 for you, which is the kind of stat line that gets a man benched in real life. Your second and third best starters combined for 19.10. Losing by 62 isn't a loss, it's a crime scene.
 
-🎯 THE "KENNETH WALKER ATE YOUR ENTIRE ROSTER" AWARD
-Winner: Balls
-Kenneth Walker III dropped 40.30 points on you, as your OWN guy, and you still lost 92.82 to 122.66. You also have a -11.1 luck index, so even the math hates how this is going. Then you went and added David Montgomery and Malik Willis like a man rearranging deck chairs on a sinking yacht.
+💸 THE "NAME CHECKS OUT" AWARD
+Winner: Just take the $50 💸
+You won by 14.04 on the strength of Ja'Marr Chase dropping 32.50 and you're still sitting 7-2 with a lucky-ass +22.2 luck index. Take the money and run, because this all-play record of 55-44 says you're due for a reckoning.
 
-🪦 THE "NEGATIVE 27.3 IS NOT A TYPO" AWARD
-Winner: za island animals
-Worst luck index in the entire league at -27.3, which means your all-play record says you should be competitive and the actual scoreboard says 2-7. You lost 98.06 to 108.88 this week by less than 11 points, close enough to taste it, not close enough to have it.
-
-🧟 THE "SOMEHOW STILL ALIVE" AWARD
-Winner: Throwsa parks
-7-2, a +15.2 luck index, and you squeaked past za island animals by 10.82 points in the week's single closest game. You also added the Chicago Bears defense AND Adonai Mitchell like you're hedging every bet on the board. Keep rolling these 7s, Vegas would hate you.
-
-🍿 THE "SO CLOSE YET SO BROKE" AWARD
-Winner: Puka and rally
-Lost to Purdy Good at Getting Off by 12.38 despite Christian Watson going off for 32.60. You're 2-7 with a -15.2 luck index, so the universe isn't just beating you, it's double-teaming you. At least you dropped Kendrick Bourne before he could disappoint you further.
-
-🎲 THE "DEAD EVEN, DEAD INSIDE" AWARD
+🔥 THE "167 AND STILL SOMEHOW ONLY 5-4" AWARD
 Winner: MarlBurrow Man
-167.44 points, the highest score of the entire week, powered by CeeDee Lamb's 34.50 and Puka Nacua's 34.00 going off on the same roster. And yet your luck index sits at a perfectly symmetrical 0.0, because you're 5-4 and the fantasy gods refuse to take sides on whether you're good or just lucky.
+You dropped CeeDee Lamb's 34.50 and Puka Nacua's 34.00 on the same roster in the same week for a combined 68.5 points and only won by 52.54. Your luck index is a flat 0.0, which feels insulting given you just fielded the single most stacked box score of the entire week.
 
-🧮 THE "ALL-PLAY SAYS YOU'RE FINE, ACTUALLY" AWARD
+🧻 THE "POINTS FOR DAYS, WINS FOR NOBODY" AWARD
+Winner: za island animals
+98.06 points and a loss, 2-7 on the season, and a luck index of -27.3, the worst in the entire league. You're not bad, you're just cursed, and honestly that's worse.
+
+🎯 THE "KENNETH WALKER CARRIED YOUR ENTIRE SOUL" AWARD
+Winner: Balls
+Kenneth Walker III dropped a league-best 40.30 points and you still lost by nearly 30. Your next two starters combined for 29.20, less than Walker by himself. This is what happens when one man shows up to a group project and everyone else fakes the flu.
+
+🪦 THE "CLOSEST THING TO A PULSE" AWARD
+Winner: Throwsa parks
+10.82 points was the margin, the tightest game of the week, and you escaped with it thanks to Bijan Robinson's 29.70. You're 7-2 now, quietly stacking wins while everyone argues about the Picken my ass blowout.
+
+🧨 THE "62-POINT MASSACRE" AWARD
+Winner: Picken my ass
+You put up 134.88 and beat your opponent by 62 points. Matthew Golden went off for 33.40 and Javonte Williams added 26.40, and the final score looked less like fantasy football and more like a restraining order violation.
+
+🎲 THE "BARELY SURVIVED, STILL COUNTS" AWARD
+Winner: Puka and rally
+Christian Watson's 32.60 and Bucky Irving's 26.50 got you across the finish line by 12.38. Problem is you're 2-7 with a -15.2 luck score, so this win just delayed the inevitable group chat pile-on by one more week.
+
+🚽 THE "ONE DVOE FOOT IN, ONE OUT" AWARD
 Winner: DomOfTheMFYear
-You lost 116.12 to 130.16 and sit 4-5 with a -8.1 luck index despite a 52-47 all-play record that says you're basically a .500 team getting screwed on scheduling. You also cycled through three different defenses this week like you're building a fantasy football bomb squad. Pick a defense and commit, coward.
+116.12 points, a 14.04 point loss, and a luck index of -8.1 says the universe just doesn't like you right now. Christian McCaffrey's 21.70 wasn't nearly enough, and you also burned two separate waiver claims on Kansas City's defense in the same two weeks like you forgot you already had them.
 
-🏳️ THE "TEE TIME IS NOT A VACATION" AWARD
+🏚️ THE "SOMEONE CALL ADULT PROTECTIVE SERVICES" AWARD
 Winner: Tee Time
-2-7, 918.82 points for, the lowest scoring total in the league, and you got run over 167.44 to 114.90 this week. A -8.1 luck index on top of that just means even when the universe tries to throw you a bone it's a stale one. Adding Kenny Gainwell this week is giving "rearranging the deck chairs," but on a dinghy, not a yacht.
+114.90 points, Tyler Shough's 19.70 leading the way, and you still lost by 52.54. You're 2-7 with a league-worst -8.1 luck mark among the bottom tier and an all-play record of 30-69. At this point the bye week would be a mercy.
+
+🩹 THE "BROCK PURDY'S GOOD BUT NOT THAT GOOD" AWARD
+Winner: Purdy Good at Getting Off
+Brock Purdy threw for 25.28 and your kicker Trey Smack somehow nearly matched your wide receiver, but you lost by 12.38 anyway. 3-6, -6.1 luck, and you also added and dropped a QB, TE, and WR all in the same week like you're trying to solve a puzzle with no solution.
 
 ## Matchup Recap
 
@@ -66,8 +70,8 @@ Winner: Tee Time
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **MarlBurrow Man** (proj 101.9) vs **Throwsa parks** (proj 108.3) — combined 210.2, projected margin 6.5
-- **Jahmyr-oquai** (proj 133.7) vs **DomOfTheMFYear** (proj 103.5) — combined 237.2, projected margin 30.1
+- **MarlBurrow Man** (proj 109.9) vs **Throwsa parks** (proj 116.2) — combined 226.1, projected margin 6.3
+- **Jahmyr-oquai** (proj 131.8) vs **DomOfTheMFYear** (proj 101.1) — combined 232.9, projected margin 30.8
 
 ## Closest Games
 
@@ -123,20 +127,20 @@ _10,000 simulations of the last 5 regular-season weeks and the 6-team playoff, b
 
 | Team | Record | Playoffs | Bye | Title | vs. Last Week |
 |---|---|---|---|---|---|
-| **Jahmyr-oquai** | 9-0 | >99% | 99% | 41% | — |
-| **Throwsa parks** | 7-2 | >99% | 50% | 17% | ▼ 7% |
-| **Picken my ass** | 6-3 | 99% | 30% | 19% | ▲ 4% |
-| **Just take the $50 💸** | 7-2 | 99% | 18% | 9% | ▲ 2% |
-| **MarlBurrow Man** | 5-4 | 90% | 3% | 8% | ▲ 4% |
-| **DomOfTheMFYear** | 4-5 | 45% | <1% | 2% | ▲ 1% |
-| **Balls** | 3-6 | 27% | <1% | 2% | — |
+| **Jahmyr-oquai** | 9-0 | >99% | 98% | 38% | ▼ 3% |
+| **Throwsa parks** | 7-2 | >99% | 49% | 18% | ▼ 6% |
+| **Just take the $50 💸** | 7-2 | >99% | 22% | 13% | ▲ 6% |
+| **Picken my ass** | 6-3 | 99% | 27% | 18% | ▲ 2% |
+| **MarlBurrow Man** | 5-4 | 92% | 3% | 9% | ▲ 4% |
+| **DomOfTheMFYear** | 4-5 | 43% | <1% | 2% | — |
+| **Balls** | 3-6 | 27% | <1% | 1% | — |
 | **Ne-Tuten-yahu** | 4-5 | 20% | <1% | <1% | ▼ 3% |
-| **Purdy Good at Getting Off** | 3-6 | 13% | <1% | <1% | ▼ 1% |
-| **za island animals** | 2-7 | 7% | <1% | <1% | — |
+| **Purdy Good at Getting Off** | 3-6 | 14% | <1% | <1% | ▼ 1% |
+| **za island animals** | 2-7 | 5% | <1% | <1% | — |
 | **Tee Time** | 2-7 | <1% | <1% | <1% | — |
 | **Puka and rally** | 2-7 | <1% | <1% | <1% | — |
 
-**Biggest mover: Throwsa parks, title odds down 7% since last week.**
+**Biggest mover: Throwsa parks, title odds down 6% since last week.**
 
 ## Luck Index
 
