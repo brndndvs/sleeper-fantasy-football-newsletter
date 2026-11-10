@@ -13,45 +13,45 @@ Have a great Tuesday
 
 ## 🏆 Week 9 Awards
 
-🥇 THE "WHY DID WE EVEN SCHEDULE THIS" AWARD
-Winner: Roger Goodell
-Roger Goodell dropped 180.24 points this week, which is not a fantasy score, that's a cry for a new opponent. You beat your matchup by 140.40 points. Somewhere a man named Roger Goodell is laughing about a $39.84 fine he just issued.
-
-🍆 THE "BIGGEST DRAFT BONER CARRYOVER" AWARD
-Winner: KC
-KC rolled up 130.70 and smashed their opponent by 82.40, led by Kenneth Walker III going nuclear for 36.30 points — except Walker's actually rostered on Tpotts42, so congrats KC, your 82-point blowout happened almost entirely on the back of Matthew Golden's 32.40. Efficient murder.
-
-🗑️ THE "THANKS FOR THE DONATION" AWARD
-Winner: Tpotts42
-Kenneth Walker III just went off for 36.30 points, the single best individual performance in the entire league this week, and you still lost by 36.88. That's not bad luck, that's actively setting your own lineup on fire while holding the best gasoline in the building.
-
-🩸 THE "DEATH BY A THOUSAND PAPER CUTS" AWARD
-Winner: Talking Tua Teenager
-106.22 points. A respectable, borderline great week. Lost anyway, by 2.44, to A FOOTBALL TEAM. You scored more than four other winning teams this week and still went home with an L. Fantasy football doesn't care about your feelings.
-
-🎯 THE "FINE, I GUESS THAT COUNTS AS DRAMA" AWARD
+🥊 THE "NAIL-BITER NOBODY NEEDED" AWARD
 Winner: A FOOTBALL TEAM
-108.66 to 106.22. That's it. That's the margin. You're sitting at 8-1 looking like the best team in the league and you're winning by field-goal margins against teams scoring 106. Your luck index is a cartoonish +20.5, the highest in the league by a mile, so maybe stop thanking your "elite roster construction" and start thanking the schedule gods.
+You beat Talking Tua Teenager by 2.44 points, which is basically a coin flip with extra steps. Drake Maye put up 21.26 and somehow that was enough to keep your undefeated-ish ass at 8-1. Sleep tight, that margin was closer than your fantasy knowledge deserves.
 
-🔮 THE "THE UNIVERSE OWES YOU MONEY" AWARD
-Winner: 12 DAY WAR VET
-A -15.4 luck index is the worst in the league, and somehow you still won by 114.60 this week behind Puka Nacua's 35-point explosion. You're 5-4 with an 83-34 all-play record that says you should be fighting for a bye, not fighting to stay above .500. The fantasy gods owe you a refund.
+💀 THE "SO CLOSE, SO FUCKING POINTLESS" AWARD
+Winner: Talking Tua Teenager
+You scored 106.22, which is a perfectly respectable number that means absolutely nothing because you lost by 2.44. Christian McCaffrey gave you 22.70 and Bryce Young chipped in 21.34 and it still wasn't enough. Welcome to 6-3, population: you, still bitter.
 
-💀 THE "STOMP THE CORPSE" AWARD
+🔨 THE "ABSOLUTE SQUASH JOB" AWARD
 Winner: Balls
-162.58 points, a 36.88-point beatdown of Tpotts42, and Jordan Love throwing for 36.18 of your points while you're already 7-2 and second in the league. You didn't need to win by this much. You wanted to.
+You beat Tpotts42 by 36.88 points like it owed you money. Jordan Love dropped 36.18 points on his own, which is more than some entire teams managed this week. This is what a mercy rule would exist for if this league had a soul.
 
-📉 THE "ALL GAS, SOME BRAKES" AWARD
-Winner: Simply Touchdowns
-Ja'Marr Chase goes for 31.50 and you still only win by 17.68. You're 6-3, sitting with a slightly negative luck index at -0.9, which means you've basically earned every win and every ounce of stress that came with it. Stop making these close.
-
-🧻 THE "THIRSTY WAIVER WIRE WEDNESDAY" AWARD
+🎯 THE "I DIDN'T EVEN NEED MY OWN TEAM" AWARD
 Winner: Tpotts42
-Two separate moves this week — dumping your kicker for a Niners cast-off receiver and swapping in Elijah Mitchell — and you still lost by almost 37 points with the week's best player sitting in your lineup. The problem was never your waiver wire activity, Tpotts. It's everything else.
+Kenneth Walker III went off for 36.30 points, the single best individual performance in the entire league this week, and you still lost by almost 37 points. That's not bad luck, that's just getting outscored by an avalanche. 125.70 total points and somehow still the loser of the week.
 
-♻️ THE "QUARTERBACK MUSICAL CHAIRS" AWARD
+🏆 THE "BIG NUMBER, SMALL SURPRISE" AWARD
+Winner: Roger Goodell
+180.24 points this week between Christian Watson, Joe Burrow, and Brock Bowers alone basically guaranteeing you didn't need to sweat. Too bad your luck index sits at -12.0, meaning the fantasy gods think you're stealing wins you don't deserve. Keep printing points, commissioner.
+
+🍀 THE "DON'T LOOK AT THE FINE PRINT" AWARD
+Winner: A FOOTBALL TEAM
+8-1 record, +20.5 luck index, the single luckiest team in the entire league. Your all-play record is 80-37, meaning you're basically backing into the playoffs on a parade float made of other people's bad matchups. Enjoy it while the universe is still asleep at the wheel.
+
+😭 THE "CURSED BY THE FOOTBALL GODS" AWARD
 Winner: 12 DAY WAR VET
-Dropped Tanner McKee for Kirk Cousins like that's an upgrade anybody asked for. Meanwhile KC dropped Jaydon Blue for Joe Milton, which is somehow an even sadder transaction, but at least KC won by 82. Y'all are out here playing quarterback roulette with house money nobody's winning.
+5-4 record despite an 83-34 all-play mark and a brutal -15.4 luck index, the worst in the league. Puka Nacua balled out for 35.00 points, the second-best individual score of the week, and you're still looking up at .500. Somebody owes you a refund.
+
+🧻 THE "PAPER TOWELS AT A FLOOD" AWARD
+Winner: KC
+You dropped Jaydon Blue for Joe Milton, then followed it up by cutting a guy named Dohnte Meyers for literally nobody. Matthew Golden went for 32.40 points and your reward is a 6-3 record and a roster that looks like you're speedrunning quarterback waiver wire chaos.
+
+🗑️ THE "WHY BOTHER" WAIVER MOVE AWARD
+Winner: Tpotts42
+Dropped Ka'imi Fairbairn, a kicker, to add a running back, then dropped your entire defense to grab Brandon Aiyuk. Bold moves for a team that just got run over by 36.88 points. At least Kenneth Walker is still showing up even if your transaction log looks like a cry for help.
+
+🎖️ THE "SOLID BUT FORGOTTEN" AWARD
+Winner: Simply Touchdowns
+Ja'Marr Chase went off for 31.50 points, third-best in the league this week, and all anyone's going to remember is that you're sitting at 6-3 with a -0.9 luck index, quietly unremarkable in every direction. Amon-Ra chipped in 16.60 like a polite footnote nobody asked for.
 
 ## Matchup Recap
 
@@ -78,7 +78,7 @@ _No rival matchup scheduled for the upcoming week._
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Roger Goodell** (proj 137.5) vs **KC** (proj 105.8) — combined 243.3, projected margin 31.8
+- **Roger Goodell** (proj 134.0) vs **KC** (proj 97.7) — combined 231.7, projected margin 36.4
 
 ## Closest Games
 
@@ -145,14 +145,14 @@ _10,000 simulations of the last 5 regular-season weeks and the 8-team playoff, b
 
 | Team | Record | Playoffs | Title | vs. Last Week |
 |---|---|---|---|---|
-| **Roger Goodell** | 7-2 | >99% | 39% | ▲ 3% |
-| **Balls** | 7-2 | >99% | 22% | ▲ 2% |
+| **Roger Goodell** | 7-2 | >99% | 35% | — |
+| **Balls** | 7-2 | >99% | 21% | — |
+| **12 DAY WAR VET** | 5-4 | >99% | 14% | ▼ 3% |
 | **Talking Tua Teenager** | 6-3 | >99% | 13% | ▲ 4% |
 | **Tpotts42** | 6-3 | >99% | 10% | ▲ 3% |
-| **12 DAY WAR VET** | 5-4 | >99% | 6% | ▼ 11% |
-| **A FOOTBALL TEAM** | 8-1 | >99% | 5% | — |
+| **A FOOTBALL TEAM** | 8-1 | >99% | 3% | ▼ 3% |
 | **Simply Touchdowns** | 6-3 | >99% | 3% | ▼ 3% |
-| **KC** | 6-3 | >99% | 3% | ▲ 2% |
+| **KC** | 6-3 | >99% | 2% | ▲ 1% |
 | **Boynton Beach Blue Balls** | 1-8 | <1% | <1% | — |
 | **The Aubrey Express ** | 2-7 | <1% | <1% | — |
 | **BlowPaterno** | 2-7 | <1% | <1% | — |
@@ -160,7 +160,7 @@ _10,000 simulations of the last 5 regular-season weeks and the 8-team playoff, b
 | **CeDeez big ones** | 3-6 | <1% | <1% | — |
 | **andrewburkhardt1** | 1-8 | <1% | <1% | — |
 
-**Biggest mover: 12 DAY WAR VET, title odds down 11% since last week.**
+**Biggest mover: Talking Tua Teenager, title odds up 4% since last week.**
 
 ## Luck Index
 
