@@ -19,6 +19,7 @@ import json
 import math
 import os
 import random
+import re
 import smtplib
 import sys
 import time
@@ -169,6 +170,10 @@ DEFAULT_AWARDS_MODEL = "claude-sonnet-5"
 # writing task with no need for multi-step reasoning, so thinking is disabled
 # outright below rather than just raising the ceiling.
 AWARDS_MAX_TOKENS = 4000
+# A competing team's win over an excluded (tanking) team only makes the awards
+# material if it was close -- a blowout of a tanking roster isn't an achievement.
+# A loss to one is always kept.
+AWARDS_TANKER_CLOSE_MARGIN = 10.0
 AWARDS_STYLE_SAMPLE = """\
 🥇 THE "DID YOU EVEN FUCKING TRY?" AWARD
 Winner: In Fins I Trust
@@ -897,16 +902,22 @@ def build_weekly_stats_packet(
     waivers: list[dict],
     *,
     hidden_teams: Optional[set[str]] = None,
+    players: Optional[dict] = None,
 ) -> str:
     """Formats this week's real results into a plain-text block fed to the weekly
     awards prompt -- every number here comes straight from Sleeper, so the model
     has real material to roast instead of inventing stats. Teams in hidden_teams
     (lowercased names) never appear by name; a game against one is shown from
-    the other team's side only, with the opponent unnamed."""
+    the other team's side only, with the opponent unnamed, and a win over one
+    only when it was within AWARDS_TANKER_CLOSE_MARGIN. Player labels drop the
+    NFL team, since a fantasy team can share its abbreviation (e.g. "KC")."""
     hidden = hidden_teams or set()
 
     def _hidden(team_name: str) -> bool:
         return team_name.strip().lower() in hidden
+
+    def _player(label: str) -> str:
+        return re.sub(r" \((\w+) - \w+\)$", r" (\1)", label)
 
     def _game_line(m: MatchupResult) -> Optional[str]:
         winner, loser = m.winner, m.loser
@@ -914,6 +925,8 @@ def build_weekly_stats_packet(
         if _hidden(winner["team"]) and _hidden(loser["team"]):
             return None
         if _hidden(loser["team"]):
+            if m.margin > AWARDS_TANKER_CLOSE_MARGIN:
+                return None
             return f"- {winner['team']} beat their opponent by {m.margin:.2f} ({score})"
         if _hidden(winner["team"]):
             return f"- {loser['team']} lost to their opponent by {m.margin:.2f} ({score})"
@@ -945,9 +958,28 @@ def build_weekly_stats_packet(
                 lines.append(line)
 
     if top_scorers:
-        lines.append("\nTop individual scorers this week:")
+        lines.append("\nTop individual scorers this week (player: points, fantasy team that started them):")
         for s in top_scorers:
-            lines.append(f"- {s['player']}: {s['points']:.2f} pts ({s['team']})")
+            lines.append(f"- {_player(s['player'])}: {s['points']:.2f} pts, started by {s['team']}")
+
+    if players:
+        lines.append("\nEach fantasy team's top 3 starters this week (only these teams started these players):")
+        for m in matchups:
+            if not m.has_scores and not m.is_bye:
+                continue
+            for t in m.teams:
+                if _hidden(t["team"]):
+                    continue
+                best = sorted(
+                    (pid for pid in t["starters"] if pid not in (None, "0")),
+                    key=lambda pid: t["players_points"].get(pid) or 0,
+                    reverse=True,
+                )[:3]
+                starters = ", ".join(
+                    f"{_player(player_display_name(pid, players))} {float(t['players_points'].get(pid) or 0):.2f}"
+                    for pid in best
+                )
+                lines.append(f"- {t['team']} ({t['points']:.2f} total): {starters}")
 
     lines.append("\nCurrent standings (record, points for, points against):")
     for t in standings:
@@ -966,8 +998,8 @@ def build_weekly_stats_packet(
     if waivers:
         lines.append("\nWaiver/free-agent moves this week:")
         for w in waivers:
-            added = ", ".join(w["added"]) or "—"
-            dropped = ", ".join(w["dropped"]) or "—"
+            added = ", ".join(_player(a) for a in w["added"]) or "—"
+            dropped = ", ".join(_player(d) for d in w["dropped"]) or "—"
             lines.append(f"- {w['team']} added {added}, dropped {dropped}")
 
     return "\n".join(lines)
@@ -997,11 +1029,20 @@ def generate_weekly_awards(
         "stats. Some results say a team beat or lost to \"their opponent\" "
         "without naming them -- roast the named team's own score and margin, "
         "but never speculate about who the opponent was, call them tanking or "
-        "inactive, or remark that the opponent is unnamed. Never say a team's "
+        "inactive, or remark that the opponent is unnamed. If a team's game isn't in "
+        "the matchup results, don't talk about whether it won or lost or by how "
+        "much -- roast its score or other stats instead. Never say a team's "
         "data, matchup, or stats are missing, limited, or unavailable -- if "
         "something isn't in the stats, just don't bring it up. Never mention bench "
         "points or points left on the bench -- a bench player only replaces a "
-        "starter who also scores, so a bench total isn't points lost. Cover every "
+        "starter who also scores, so a bench total isn't points lost. Every name "
+        "in the stats is a fantasy team in this league, even one that looks like "
+        "an NFL team abbreviation (e.g. \"KC\"). A player belongs ONLY to the "
+        "fantasy team the stats list them under -- never credit a player to any "
+        "other team. Use numbers exactly as given; never derive new ones (like an "
+        "opponent's score) and pass them off as something else. Never write "
+        "corrections, retractions or \"actually\" asides -- if you're not sure a "
+        "fact is in the stats, leave it out. Cover every "
         "named team (each should get at least one "
         "mention across all the awards). Pick 8-12 award categories that fit what "
         "actually happened this week (blowout, nail-biter, luckiest win, unluckiest loss, best waiver pickup, etc. -- "
@@ -1891,6 +1932,7 @@ def build_newsletter_data(
             awards_luck_index,
             awards_waivers,
             hidden_teams=exclude_lower,
+            players=players,
         )
         weekly_awards = generate_weekly_awards(
             stats_packet,
