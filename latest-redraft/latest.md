@@ -11,47 +11,51 @@ _2026 Season_
 
 🥇 THE "UNDEFEATED AND UNBOTHERED" AWARD
 Winner: Jahmyr-oquai
-10-0. Let that sink in. You're sitting at +32.7 luck, you've outscored the field by 443 points differential, and you still felt the need to churn through the waiver wire like a man speedrunning a tinder date. Jahmyr Gibbs dropped 46.70 on his own and you added, dropped, and re-added Kaleb Johnson and Reggie Virgil like three separate times because apparently perfection is boring.
+10-0. Let that sink in. You're sitting on a +32.7 luck index, which means even the math is embarrassed for the rest of this league. Jahmyr Gibbs dropped 46.70 on his own and you still found time to churn your waiver wire like a man doing cardio for no reason — four different RBs added and dropped this week alone. Just beat DomOfTheMFYear by 34 and kept moving like it was a bye week.
 
-🍆 THE "FIFTY BURGER" AWARD
+🍗 THE "FEAST THEN FAMINE" AWARD
 Winner: DomOfTheMFYear
-Christian McCaffrey went off for 54.30 points, the single best individual performance in the entire league this week, and you still lost by 34.20. Incredible. You found a way to have the best player on the field and still go home with an L. That's not bad luck, that's a skill issue.
+Christian McCaffrey went off for 54.30 points, the single best individual performance of the entire week, and you still lost by 34.20. That's not bad luck, that's one guy doing the Macarena while the rest of your roster filed for unemployment. Chase Brown chipped in 24.30 and it still wasn't enough to cover for everybody else no-showing.
 
-🗑️ THE "PICKEN YOUR POCKET" AWARD
+💀 THE "MASSACRE OF THE WEEK" AWARD
 Winner: Picken my ass
-186.22 points. George Pickens went nuclear for 44, Dak Prescott chipped in 40.42, and you beat Tee Time by 104.64 points. That's not a fantasy matchup, that's a hostage situation. Tee Time should get a participation medal just for finishing the game.
-
-🧻 THE "ROUND NUMBERS OF SHAME" AWARD
-Winner: Tee Time
-81.58 points, 2-8 on the season, and a -9.1 luck score that confirms what we all suspected: it's not variance, you're just bad. Nico Collins led your team with a whopping 19.90 points. Your kicker almost outscored your quarterback. Sit with that.
-
-💔 THE "SO CLOSE, SO WHAT" AWARD
-Winner: Ne-Tuten-yahu
-You won by 1.76 points thanks to Patrick Mahomes torching the league for 41.42, the second-highest individual score of the week. Congrats on the win, truly, but you're still 5-5 and your season reads like a coin flip that's lost its mind. Also you benched Bo Nix for Corey Kiner this week — bold choice for a team that needed every half-point it could get.
+186.22 points, a 104.64-point margin over Tee Time, and two guys — George Pickens (44.00) and Dak Prescott (40.42) — combining for more points than your opponent's whole roster. This wasn't a fantasy matchup, it was a crime scene. Tee Time should lawyer up.
 
 🩸 THE "DEATH BY A THOUSAND PAPER CUTS" AWARD
+Winner: Tee Time
+81.58 points and a 104.64-point beatdown is rough enough, but digging through your box score and finding Brandon Aubrey as your SECOND-best scorer at 11.40 points tells the real story. 2-8 on the season, -9.1 luck, and now this. Somebody check on this team.
+
+🧮 THE "MATH IS UNDEFEATED" AWARD
+Winner: Ne-Tuten-yahu
+Patrick Mahomes threw up 41.42 points and your team needed every last tenth of it, squeaking past Purdy Good at Getting Off by a microscopic 1.76 points. You're 5-5 but sitting on a +9.1 luck score, so congrats on being exactly as good as the universe is willing to let you be.
+
+😩 THE "SO CLOSE, SO USELESS" AWARD
 Winner: Purdy Good at Getting Off
-119.26 points, Brock Purdy throws for 37.66, Amon-Ra goes for 25.80, and you still lose by 1.76. Then the stat sheet twists the knife further: -8.2 luck index, 3-7 record. You're basically the human embodiment of "it's not you, it's everyone else being slightly better."
+119.26 points is a perfectly respectable number that got you absolutely nothing, losing by 1.76 to Ne-Tuten-yahu. Brock Purdy went for 37.66 and Amon-Ra St. Brown added 25.80 and none of it mattered. -8.2 luck index says the universe has been doing this to you all year.
 
-🎯 THE "FIELD GOAL KICKER ENERGY" AWARD
-Winner: Balls
-76.92 points and a win, somehow. Isaiah Likely led your squad with 31.20 points while Aaron Rodgers — whom you added, dropped, and re-added this week like a toxic ex — mustered 15.62. Your leading rusher scored 5.70 points. You're 4-6, basically treading water, but hey, a win's a win.
-
-🚮 THE "KYLE McCORD STARTER PACK" AWARD
-Winner: Puka and rally
-61.86 points, led by Kyle McCord at 12.76. You're 2-8 with a brutal -13.6 luck score, and this week you dropped Darnell Washington for Justice Hill one day after adding him. The waiver wire isn't your friend, it's just watching you panic in real time.
-
-🏈 THE "NARROW ESCAPE" AWARD
+🎯 THE "STILL BREATHING, BARELY" AWARD
 Winner: MarlBurrow Man
-175.66 to 170.28 over Throwsa parks — a 5.38-point sweat. Joe Burrow went for 39.16 and Parker Washington popped off for 30.70, which is the only reason you're not writing a different kind of award speech right now. You're 6-4, but your points against (1355.92) say your defense is basically a suggestion.
+175.66 points and a win over Throwsa parks by 5.38 — a genuine nail-biter where Joe Burrow's 39.16 and Parker Washington's 30.70 did just enough. Meanwhile you spent your week cutting Tyler Higbee AND Marvin Harrison Jr. for nothing in return, which is either galaxy-brained roster management or a cry for help disguised as a transaction log.
 
-📉 THE "UNLUCKIEST TEAM IN THE BUILDING" AWARD
+🪦 THE "CLOSE BUT NO CIGAR" AWARD
+Winner: Throwsa parks
+170.28 points is a number that wins most weeks in this league. This week it got you a 5.38-point loss. Trevor Lawrence (32.78) and Blake Corum (25.40) showed up to work and you still went home with an L and a dropped Chicago Bears defense for your trouble.
+
+🏚️ THE "BARE MINIMUM SURVIVAL" AWARD
+Winner: Balls
+76.92 points, a win, and Isaiah Likely leading your team with 31.20 as a TE because apparently your QB situation is a revolving door — Aaron Rodgers in, Fernando Mendoza in, Fernando Mendoza out, all in the same week. You beat Puka and rally by 15.06 points while actively not knowing who your quarterback is. Incredible.
+
+🧊 THE "ICE COLD ALL SEASON" AWARD
+Winner: Puka and rally
+61.86 points, a loss, and a quarterback named Kyle McCord leading your scoring with 12.76 points. 2-8 record, -13.6 luck index, and you dropped a tight end for a kicker this week like you're trying to lose on purpose. Just take the Ls at this point, you've earned the muscle memory.
+
+🌴 THE "ISLAND OF MISFIT LUCK" AWARD
 Winner: za island animals
--20.9 luck index, worst in the league, despite winning this week 141.22 to 123.24. Emmett Johnson and Jaxon Smith-Njigba combined for over 73 points and you're still sitting at 3-7. The fantasy gods clearly have a personal vendetta against this roster.
+141.22 points and a win over Just take the $50 💸, but your -20.9 luck index is the worst in the entire league by a mile. Emmett Johnson (38.10) and Jaxon Smith-Njigba (35.10) balled out and you STILL somehow own the unluckiest resume around. The fantasy gods have a restraining order against you.
 
-💸 THE "YOU HAD ONE JOB" AWARD
+💸 THE "FOLD 'EM" AWARD
 Winner: Just take the $50 💸
-123.24 points, Ja'Marr Chase putting up 34.60, and you still dropped the game by 17.98. You're 7-3 with a shiny +15.5 luck score though, so the universe is still cutting you checks even when your Sunday goes sideways. Maybe actually take the $50 next time.
+123.24 points, a loss, Ja'Marr Chase going for 34.60 and James Cook III chipping in 29.70 — and it still wasn't close enough. You're 7-3 and still good on the season, but this week your own team name gave the better advice than your lineup did.
 
 ## Matchup Recap
 
@@ -66,7 +70,7 @@ Winner: Just take the $50 💸
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **MarlBurrow Man** (proj 99.2) vs **Just take the $50 💸** (proj 109.3) — combined 208.6, projected margin 10.1
+- **MarlBurrow Man** (proj 99.3) vs **Just take the $50 💸** (proj 109.4) — combined 208.8, projected margin 10.1
 
 ## Closest Games
 
@@ -122,18 +126,18 @@ _10,000 simulations of the last 4 regular-season weeks and the 6-team playoff, b
 
 | Team | Record | Playoffs | Bye | Title | vs. Last Week |
 |---|---|---|---|---|---|
-| **Jahmyr-oquai** | 10-0 | 100% | >99% | 42% | ▲ 4% |
-| **Picken my ass** | 7-3 | >99% | 77% | 32% | ▲ 14% |
-| **Throwsa parks** | 7-3 | >99% | 12% | 7% | ▼ 11% |
-| **Just take the $50 💸** | 7-3 | >99% | 8% | 8% | ▼ 5% |
-| **MarlBurrow Man** | 6-4 | 98% | 3% | 8% | — |
-| **Ne-Tuten-yahu** | 5-5 | 53% | <1% | 1% | — |
-| **DomOfTheMFYear** | 4-6 | 37% | <1% | 2% | — |
-| **Balls** | 4-6 | 7% | <1% | <1% | ▼ 1% |
-| **Purdy Good at Getting Off** | 3-7 | 5% | <1% | <1% | — |
-| **za island animals** | 3-7 | 2% | <1% | <1% | — |
-| **Tee Time** | 2-8 | <1% | <1% | <1% | — |
+| **Jahmyr-oquai** | 10-0 | 100% | >99% | 41% | ▲ 3% |
+| **Picken my ass** | 7-3 | >99% | 77% | 31% | ▲ 14% |
+| **Throwsa parks** | 7-3 | >99% | 12% | 7% | ▼ 12% |
+| **Just take the $50 💸** | 7-3 | 99% | 8% | 7% | ▼ 5% |
+| **MarlBurrow Man** | 6-4 | 97% | 3% | 8% | — |
+| **Ne-Tuten-yahu** | 5-5 | 69% | <1% | 4% | ▲ 4% |
+| **DomOfTheMFYear** | 4-6 | 26% | <1% | 1% | — |
+| **Balls** | 4-6 | 4% | <1% | <1% | ▼ 1% |
+| **Purdy Good at Getting Off** | 3-7 | 4% | <1% | <1% | — |
+| **za island animals** | 3-7 | <1% | <1% | <1% | — |
 | **Puka and rally** | 2-8 | <1% | <1% | <1% | — |
+| **Tee Time** | 2-8 | <1% | <1% | <1% | — |
 
 **Biggest mover: Picken my ass, title odds up 14% since last week.**
 
