@@ -9,53 +9,45 @@ _2026 Season_
 
 ## 🏆 Week 10 Awards
 
-🥇 THE "KICKING A CORPSE" AWARD
+🥇 THE "I HAVE BOTH HANDS AROUND YOUR THROAT" AWARD
 Winner: Roger Goodell
-Roger Goodell didn't just beat KC, he opened up a 48.68-point canyon and invited everyone to watch KC drown in it. Joe Burrow dropped 33.16 on his own, which is more than KC's entire top three combined. 167.46 points against a team led in scoring by a tight end at 16.10 is less a football game and more a public execution.
+167.46 points, 48.68-point margin over KC, and the "closest game of the week" by default because it was the only other game on the board. Joe Burrow dropped 33.16 on his own, which is more than KC's entire TE/WR/RB top three combined. This wasn't a matchup, it was a commissioner flexing his name and his roster in the same week.
 
-🍑 THE "BEND OVER AND TAKE IT" AWARD
-Winner: 12 DAY WAR VET
-Dak Prescott threw for 35.42 points, the single best quarterback performance in the whole league this week, and 12 DAY WAR VET still got run over 63.18-0... I mean 185.10 to 121.92. That's not losing, that's getting your best player's career day stuffed in a locker.
-
-💪 THE "SHOW-OFF" AWARD
-Winner: Balls
-185.10 points, the week's top score, built on Jahmyr Gibbs going nuclear for 44.20 and Emmett Johnson tagging along for 35.10. Two running backs combined for 79.30 points, which is more than half the league scored in total this week. Show some mercy next time, Christ.
-
-😤 THE "CURSED WITH GREATNESS" AWARD
-Winner: Talking Tua Teenager
-Christian McCaffrey put up 46.30 points, the single highest individual score in the league this week, and Talking Tua Teenager still only good for 148.20 total. Imagine having the best player on the board and your own luck index sitting at -4.6 anyway. The football gods hate you specifically.
-
-📉 THE "ALL GAS, NO BRAKES, STILL CRASHED" AWARD
-Winner: A FOOTBALL TEAM
-9-1, best record in the league, and somehow A FOOTBALL TEAM's top scorer this week was Deebo Samuel Sr. at a pedestrian 25.90 on the way to a measly 94.12 total. That +23.8 luck index says the fantasy gods are personally carrying you to the title while you contribute 94 points like it's a bye week.
-
-🔮 THE "THE MATH DOESN'T CARE ABOUT YOUR RECORD" AWARD
-Winner: 12 DAY WAR VET
-5-5 actual record but a 92-38 all-play mark and a brutal -20.8 luck score, the worst in the league. You're getting out-schemed by the schedule itself, not the other teams. Dak's 35.42 points this week deserved better than another body in the loss column.
-
-🎯 THE "SNIPER ON WAIVERS" AWARD
-Winner: Talking Tua Teenager
-Dropped a kicker to pick up Cooper Kupp, then dropped a washed Joe Flacco for a different kicker. That's two separate roster moves just to upgrade your field goal situation while quietly adding a WR1. Efficient. Weird priorities, but efficient.
-
-🗑️ THE "SPENDING FAKE MONEY ON SPARE PARTS" AWARD
-Winner: 12 DAY WAR VET
-Added Zonovan Knight, then one move later dropped Zonovan Knight. Also added Deion Burks for Tyler Goodson in between. Three transactions this week and the net result is a wash and a guy who got cut immediately. This is what tilt looks like in waiver-wire form.
-
-🧢 THE "LEAGUE'S BASEMENT, BUT MAKE IT ADEQUATE" AWARD
+💀 THE "PLEASE JUST RELEASE THE BODY" AWARD
 Winner: KC
-118.78 points and a 48.68-point loss to Roger Goodell, led by a wide receiver scoring 19.00. Still sitting at 6-4 somehow, so congrats on being mediocre enough to stay afloat while your roster quietly fields tight ends as the second-best scorer.
+118.78 points and a 48.68-point beatdown, led by a horrifying stat line where your best player, Jordyn Tyson, managed 19 points and your TE matched your RB at 16.10 apiece. That's not a top three, that's three guys shrugging in unison. 6-4 is starting to feel like a mirage.
 
-🤷 THE "QUIETLY FINE, QUIETLY FORGOTTEN" AWARD
-Winner: Simply Touchdowns
-140.96 points with Ja'Marr Chase going off for 34.10, and absolutely nobody is talking about you. 7-3, positive luck at +1.5, just existing in the tier of teams nobody fears and nobody mocks. The most "meh, fine" week on the board.
+🎰 THE "RAN IT UP JUST TO WATCH YOU SUFFER" AWARD
+Winner: Balls
+185.10 points, a 63.18-point massacre of 12 DAY WAR VET, and Jahmyr Gibbs and Emmett Johnson combining for 79.3 points out of your own backfield. You didn't need Isaiah Likely's 27.70 but he showed up anyway like an uninvited stripper at a bachelor party that was already over.
 
-🐢 THE "SLOW AND STEADY LOSES ANYWAY" AWARD
-Winner: Tpotts42
-Chuba Hubbard put up 34.20, a top-5 individual score league-wide, yet Tpotts42 only scraped together 117.32 total. 7-3 on the season and still can't crack 120 in a week your own running back carried like a mule. Jared Goff adding 22.42 should embarrass everyone involved.
+🩸 THE "STILL BLEEDING FROM LAST WEEK" AWARD
+Winner: 12 DAY WAR VET
+Dak Prescott went off for 35.42 points and it didn't matter because you still lost by 63.18. Your luck index sits at -20.8, the worst in the entire league, which means the math itself is embarrassed for you. 5-5 isn't bad luck anymore, it's a pattern.
 
-💀 THE "GET OFF THE FIELD" AWARD
+🏆 THE "RICH GETTING RICHER WHILE CRYING ABOUT IT" AWARD
 Winner: A FOOTBALL TEAM
-94.12 points this week, the lowest score among anyone with a matchup listed, somehow still attached to a 9-1 record. Deebo and DJ Moore combined for 45.30 and George Kittle chipped in 13.40, and that's still your ceiling this week. Win the record, lose the box score, every time.
+9-1, but your luck index is a cartoonish +23.8, the highest in the league by a mile. Your top scorer this week, Deebo Samuel Sr., put up 25.90 and your team total was still a pedestrian 94.12. You're winning games you have no business winning and the simulation knows it.
+
+🔮 THE "THE GHOST IS STILL AT THE WHEEL" AWARD
+Winner: Talking Tua Teenager
+Christian McCaffrey dropped an absurd 46.30 points, the single highest individual score in the league this week, and your team still finished with a middling 148.20 total that didn't even crack triple digits in margin. Also, you dropped Joe Flacco to pick up a kicker. Priorities.
+
+📉 THE "GREAT PLAYER, SHAME ABOUT THE SUPPORTING CAST" AWARD
+Winner: Tpotts42
+Chuba Hubbard went off for 34.20 points, a top-five individual performance leaguewide, and your team still only mustered 117.32 total. Jared Goff chipped in 22.42 like he was embarrassed to be associated with the rest of this stat line.
+
+🧩 THE "QUIETLY FINE, SUSPICIOUSLY FINE" AWARD
+Winner: Simply Touchdowns
+140.96 points, Ja'Marr Chase going for 34.10, Amon-Ra at 25.80, and Jayden Daniels chipping in 22.76 — a perfectly balanced, perfectly boring top three. No drama, no implosion, 7-3 on the season. This is the fantasy equivalent of a beige Honda Civic that never breaks down.
+
+🧻 THE "AT LEAST YOU TRIED SOMETHING" AWARD
+Winner: 12 DAY WAR VET
+Added Zonovan Knight, then immediately dropped Zonovan Knight. Added Deion Burks by cutting Tyler Goodson. Churned three separate moves this week and still got run over by 63 points. The waiver wire is not where your season gets saved, chief.
+
+🦴 THE "DESPERATE TIMES, DESPERATE KICKERS" AWARD
+Winner: Talking Tua Teenager
+Dropped Chase McLaughlin to add Cooper Kupp, then separately dropped Joe Flacco to add kicker Eddy Pineiro. You benched a 46-point McCaffrey week with roster moves that read like a man rearranging deck chairs on a boat that's already in first place.
 
 ## Matchup Recap
 
@@ -82,7 +74,7 @@ _No rival matchup scheduled for the upcoming week._
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **Balls** (proj 117.2) vs **Talking Tua Teenager** (proj 89.8) — combined 207.0, projected margin 27.4
+- **Balls** (proj 125.2) vs **Talking Tua Teenager** (proj 89.7) — combined 214.9, projected margin 35.5
 
 ## Closest Games
 
@@ -149,14 +141,14 @@ _10,000 simulations of the last 4 regular-season weeks and the 8-team playoff, b
 
 | Team | Record | Playoffs | Title | vs. Last Week |
 |---|---|---|---|---|
-| **Roger Goodell** | 8-2 | 100% | 44% | ▲ 9% |
-| **Balls** | 8-2 | 100% | 20% | ▼ 1% |
-| **12 DAY WAR VET** | 5-5 | >99% | 15% | — |
-| **Tpotts42** | 7-3 | >99% | 13% | ▲ 3% |
-| **Talking Tua Teenager** | 7-3 | >99% | 5% | ▼ 7% |
-| **Simply Touchdowns** | 7-3 | >99% | 3% | — |
-| **A FOOTBALL TEAM** | 9-1 | 100% | <1% | ▼ 2% |
-| **KC** | 6-4 | >99% | <1% | ▼ 2% |
+| **Roger Goodell** | 8-2 | 100% | 38% | ▲ 3% |
+| **Balls** | 8-2 | 100% | 22% | ▲ 1% |
+| **12 DAY WAR VET** | 5-5 | >99% | 19% | ▲ 5% |
+| **Tpotts42** | 7-3 | >99% | 12% | ▲ 2% |
+| **Talking Tua Teenager** | 7-3 | >99% | 5% | ▼ 8% |
+| **Simply Touchdowns** | 7-3 | >99% | 2% | — |
+| **KC** | 6-4 | >99% | 2% | — |
+| **A FOOTBALL TEAM** | 9-1 | 100% | <1% | ▼ 3% |
 | **Boynton Beach Blue Balls** | 2-8 | <1% | <1% | — |
 | **The Aubrey Express ** | 2-8 | <1% | <1% | — |
 | **BlowPaterno** | 2-8 | <1% | <1% | — |
@@ -164,7 +156,7 @@ _10,000 simulations of the last 4 regular-season weeks and the 8-team playoff, b
 | **CeDeez big ones** | 3-7 | <1% | <1% | — |
 | **andrewburkhardt1** | 1-9 | <1% | <1% | — |
 
-**Biggest mover: Roger Goodell, title odds up 9% since last week.**
+**Biggest mover: Talking Tua Teenager, title odds down 8% since last week.**
 
 ## Luck Index
 
