@@ -9,50 +9,45 @@ Rivalry week is here… talk ur shit… make bets do something to make it compet
 
 ## 🏆 Week 11 Awards
 
-🏆 THE "WRONG SPORT, SAME LOSS" AWARD
-Winner: 12 DAY WAR VET
-
-You scored 149.00 points, the single highest output of any team shown this week, behind a monster 35.90 from Dak Prescott. You're also 6-5 with a luck index of -18.2, the worst in the entire league. Somewhere out there you put up a number that would smoke half this league and it still wasn't in this week's winning column. That's not bad luck, that's a hate crime from the schedule gods.
-
-💀 THE "MATHEMATICALLY UNNECESSARY BEATDOWN" AWARD
+🥇 THE "WE ONLY HAD ONE GAME AND SOMEHOW IT WASN'T EVEN CLOSE" AWARD
 Winner: Balls
+Balls put up 144.24 and stomped Talking Tua Teenager by 36.38 points, which was also technically the "closest game of the week" because it was the only one. Jahmyr Gibbs and Emmett Johnson combined to drop over 52 points on the floor like they owed somebody money. Tua Teenager never had a pulse in this one.
 
-144.24 to 107.86, a 36.38 point massacre, and you did it on the back of Jahmyr Gibbs (27.80) and Emmett Johnson (24.30) carrying your roster like it owed them money. You're 9-2 now, and even your luck index of +0.7 says the universe thinks you basically earned this one. Boring. Keep winning.
-
-😭 THE "FACE PLANTED ON NATIONAL TV" AWARD
+💀 THE "107 POINTS AND STILL GOT CLOWNED" AWARD
 Winner: Talking Tua Teenager
+107.86 points is a respectable number literally anywhere else in this league this week, and you still lost by 36. Jameson Williams and Derrick Henry each went off and it didn't matter one bit. That's the fantasy equivalent of acing the test and still failing the class.
 
-107.86 points and a 36-point loss will do that to a team. Bryce Young gave you 16.96, Derrick Henry gave you 19.10, and none of it mattered because you still got run out of the building. Your luck index is -9.8, so apparently the simulation hates you almost as much as your QB situation does.
-
-🎯 THE "ONE MAN ARMY, ZERO SUPPORT" AWARD
-Winner: KC
-
-47.28 total points from your top three starters is the kind of number you see from a bye-week fill-in roster, not a 7-4 playoff team. Tyler Shough led you with 15.28. You're still somehow 7-4 with a +4.2 luck score, meaning the scheduling gods are doing CPR on a corpse. You also dropped Tory Horton for the Buccaneers D, truly a move that screams "I have given up emotionally."
-
-📈 THE "PRINTING MONEY" AWARD
-Winner: A FOOTBALL TEAM
-
-10-1. A whole +24.5 luck index, the highest in the league by a mile. 1342.58 points for against only 979.66 against. DJ Moore dropped 23.10 and C.J. Stroud added 21.46 like it was just another Tuesday. You're not playing fantasy football, you're laundering wins through the algorithm.
-
-🩸 THE "DEATH BY A THOUSAND PAPER CUTS" AWARD
-Winner: Roger Goodell
-
-9-2 record, but a -7.0 luck index says you're winning in spite of the math, not because of it. Joe Burrow's 19.90 and your two stud WRs Olave and Nabers (19.20 and 18.50) carried the week to 127.70. Keep stealing these wins before the refs — sorry, the algorithm — figures out you're overachieving.
-
-🏅 THE "QUIETLY TERRIFYING" AWARD
-Winner: Tpotts42
-
-167.76 points, the highest team total posted anywhere in this week's stats, powered by Chuba Hubbard's 26.00 and Travis Kelce's 25.40. You're 8-3 and barely sweating. Nobody's talking about you right now and that should scare the hell out of the other seven teams.
-
-🧊 THE "ICE COLD DRAFT LANDSPOT" AWARD
-Winner: Simply Touchdowns
-
-96.06 points off a top three of Jayden Daniels, your own DEF, and Amon-Ra St. Brown is... fine. You're 8-3 and sitting pretty with a +5.6 luck score, which means you're winning games your actual production doesn't deserve. You also added Mike Gesicki off waivers like that's going to fix anything.
-
-🤡 THE "WORST BANNER SEASON EVER" AWARD
+🏆 THE "I DIDN'T EVEN NEED MY OWN GAME" AWARD
 Winner: 12 DAY WAR VET
+Dak Prescott dropped 35.90 points on his own, the single highest individual output of anyone in the league this week, and your trio put up 149.00 combined. Too bad you're still 6-5 and own the worst luck index in the entire league at -18.2. The football gods clearly hate you more than your actual opponents do.
 
-Second appearance, because a team that drops 149.00 points and still has a losing luck index deserves to be roasted twice. At 6-5 with the league's worst luck number, you're basically the kid who studies the hardest and still fails the test because the teacher hates you.
+📉 THE "ALL GAS NO BRAKES, EXCEPT THE BRAKES ARE THE STANDINGS" AWARD
+Winner: Roger Goodell
+127.70 points, a 9-2 record, and a luck score of -7.0 — this man is winning in spite of the universe, not because of it. Joe Burrow and two Giants wideouts combined for almost 58 points and it's STILL not enough to make the luck index like you. Keep grinding, commissioner's namesake.
+
+🎯 THE "MATH CLASS ISN'T FOR EVERYONE" AWARD
+Winner: KC
+47.28 total points from your top 3 is the kind of number you show a therapist, not a league. Tyler Shough led your team with 15.28 points, and that sentence alone should disqualify you from talking trash for the rest of the season. Somehow still 7-4. Witchcraft.
+
+🧙 THE "LUCKIEST SOB IN THE BUILDING" AWARD
+Winner: A FOOTBALL TEAM
+10-1 with a +24.5 luck index isn't a hot streak, it's a crime scene. Your all-play record is 95-48, so you're basically beating the spread on reality itself. DJ Moore and C.J. Stroud carried 44 points between them and you're still out here winning games you have no business winning.
+
+🤡 THE "GREAT STATS, SHAME ABOUT THE SCOREBOARD" AWARD
+Winner: Tpotts42
+Chuba Hubbard (26.00) and Travis Kelce (25.40) combined for over 51 points, your team dropped a league-best 167.76 total, and yet your luck index sits at a measly +2.1. The football gods saw greatness and shrugged. 8-3 feels like a crime against your own stat line.
+
+🥈 THE "MR. CONSISTENT, EMPHASIS ON MID" AWARD
+Winner: Simply Touchdowns
+96.06 points from your top trio, an 8-3 record, and a luck index of +5.6 — you're the human embodiment of "it's fine." Jayden Daniels led the way with 17.06, which is a number so average it should apply for a desk job. Mike Gesicki is now your newest attempt at excitement. Good luck with that.
+
+🩹 THE "AT LEAST YOU DID SOMETHING" AWARD
+Winner: Balls
+While everyone else sat on their hands, Balls actually worked the wire, dropping the Atlanta Falcons defense for Jacoby Brissett like a man covering his bases. Combine that with the 36-point beatdown you just handed out and you're starting to look dangerously competent. Don't let it go to your head.
+
+🪦 THE "SILENT BUT DEADLY" AWARD
+Winner: KC
+Dropping Tory Horton for the Buccaneers defense is the most action-movie-adjacent thing that happened in a week where your team only scored 47.28 points combined from its top performers. Bold strategy swapping furniture around on a sinking ship, but hey, 7-4's still 7-4.
 
 ## Matchup Recap
 
@@ -85,7 +80,7 @@ Second appearance, because a team that drops 149.00 points and still has a losin
 
 _Both teams top 7 in the league; picked for being the closest projected matchups, highest combined projection as the tiebreaker._
 
-- **A FOOTBALL TEAM** (proj 120.7) vs **Tpotts42** (proj 124.2) — combined 244.8, projected margin 3.5
+- **A FOOTBALL TEAM** (proj 120.3) vs **Tpotts42** (proj 123.3) — combined 243.7, projected margin 3.0
 
 ## Closest Games
 
@@ -157,7 +152,7 @@ _10,000 simulations of the last 3 regular-season weeks and the 8-team playoff, b
 | **12 DAY WAR VET** | 6-5 | >99% | 14% | ▼ 5% |
 | **Tpotts42** | 8-3 | 100% | 7% | ▼ 5% |
 | **Talking Tua Teenager** | 7-4 | 100% | 6% | — |
-| **Simply Touchdowns** | 8-3 | 100% | 3% | — |
+| **Simply Touchdowns** | 8-3 | 100% | 3% | ▲ 1% |
 | **A FOOTBALL TEAM** | 10-1 | 100% | 3% | ▲ 2% |
 | **KC** | 7-4 | 100% | <1% | — |
 | **Boynton Beach Blue Balls** | 2-9 | 0% | 0% | — |
